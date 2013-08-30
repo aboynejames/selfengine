@@ -32,7 +32,13 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('attention framing context');
-	casper.test.assertExists('#attentionflow', 'the element exists');
+	casper.test.assertExists('#attention', 'the element exists');
+	
+});
+
+casper.then(function() {
+	this.test.comment('attention framing context');
+	casper.test.assertExists('#contextflow', 'the element exists');
 	
 });
 
@@ -47,6 +53,19 @@ casper.then(function() {
 	casper.test.assertExists('#toolsflow', 'the element exists');
 	
 });
+
+casper.then(function() {
+	this.test.comment('attention framiming context');
+	casper.test.assertExists('#pastflow', 'the element exists');
+	
+});
+
+casper.then(function() {
+	this.test.comment('attention framiming context');
+	casper.test.assertExists('#futureflow', 'the element exists');
+	
+});
+
 
 casper.run(function() {
 // need for exporting xml xunit/junit style
