@@ -12,23 +12,42 @@ casper.start(baseUrl, function() {
 });
 
 casper.then(function() {
-	this.test.comment('');
+	this.test.comment('identity navigation');
 	casper.test.assertExists('#identity', 'the element exists');
 	
 });
 
 casper.then(function() {
-	this.test.comment('');
+	this.test.comment('view life, social, other network visualisations');
 	casper.test.assertExists('#network', 'the element exists');
 	
 });
 
 casper.then(function() {
-	this.test.comment('');
+	this.test.comment('access range of tools internal or exteral to selfengine');
 	casper.test.assertExists('#tools', 'the element exists');
 	
 });
 
+
+casper.then(function() {
+	this.test.comment('attention framing context');
+	casper.test.assertExists('#attentionflow', 'the element exists');
+	
+});
+
+casper.then(function() {
+	this.test.comment('nextwork flow area');
+	casper.test.assertExists('#networkflow', 'the element exists');
+	
+});
+
+
+casper.then(function() {
+	this.test.comment('attention framiming context');
+	casper.test.assertExists('#toolsflow', 'the element exists');
+	
+});
 
 casper.run(function() {
 // need for exporting xml xunit/junit style
