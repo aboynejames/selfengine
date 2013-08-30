@@ -42,7 +42,6 @@ casper.then(function() {
 	
 });
 
-
 casper.then(function() {
 	this.test.comment('attention framiming context');
 	casper.test.assertExists('#toolsflow', 'the element exists');
