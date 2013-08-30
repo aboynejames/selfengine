@@ -107,6 +107,96 @@ aside, nav, article, figure {
     text-shadow:1px 1px 0px #ffffff;
 }
 
+/**
+*
+* Flow areas
+*
+*/
+ #attention {
+	display:block;
+	border:1px solid #eee;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	height: 80px;
+	
+}
+
+
+ #attention {
+	display:block;
+	border:1px solid #eee;
+	background: pink;
+	margin: 8px;
+	text-align:center;
+	height:auto;
+	
+}
+
+ #contextflow {
+	display:block;
+	border:1px solid #eee;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	height: 80px;
+	
+}
+
+ #networkflow {
+	display:block;
+	border:1px solid #eee;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	height: 80px;
+	
+}
+
+ #toolsflow {
+	display:block;
+	border:1px solid #eee;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	height: 80px;
+	
+}
+
+/**
+*
+* Flow areas
+*
+*/
+ #livedata {
+	display:block;
+	border:1px solid #eee;
+	background: blue;
+	margin: 8px;
+	text-align:center;
+	height:auto;
+	
+}
+
+ #pastflow {
+	display:block;
+	border:1px solid #eee;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	height: 80px;
+	
+}
+
+ #futureflow {
+	display:block;
+	border:1px solid #eee;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	height: 80px;
+	
+}
 
 
 

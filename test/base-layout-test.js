@@ -49,19 +49,25 @@ casper.then(function() {
 });
 
 casper.then(function() {
-	this.test.comment('attention framiming context');
+	this.test.comment('select tools area');
 	casper.test.assertExists('#toolsflow', 'the element exists');
 	
 });
 
 casper.then(function() {
-	this.test.comment('attention framiming context');
+	this.test.comment('live active data flow');
+	casper.test.assertExists('#livedata', 'the element exists');
+	
+});
+
+casper.then(function() {
+	this.test.comment('live data from past visualisation area');
 	casper.test.assertExists('#pastflow', 'the element exists');
 	
 });
 
 casper.then(function() {
-	this.test.comment('attention framiming context');
+	this.test.comment('suggestion, future make/prediction/simullation area');
 	casper.test.assertExists('#futureflow', 'the element exists');
 	
 });
