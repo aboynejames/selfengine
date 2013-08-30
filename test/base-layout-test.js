@@ -72,7 +72,6 @@ casper.then(function() {
 	
 });
 
-
 casper.run(function() {
 // need for exporting xml xunit/junit style
   //this.test.renderResults(true, 0, 'reports/test-casper.xml');
