@@ -1,5 +1,5 @@
 /*
-* check the frame section are in order
+* check the default selfengine sections are in order
 */
 var baseUrl = casper.cli.get('baseUrl');
 
