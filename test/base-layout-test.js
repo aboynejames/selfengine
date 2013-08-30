@@ -7,7 +7,7 @@ casper.test.comment("Scenario: The framework section layout");
 
 casper.start(baseUrl, function() {
 	this.test.comment('holder for framework three sections');
-	casper.test.assertExists('#framework', 'the element exists');
+	casper.test.assertExists('#selfengine', 'the element exists');
 
 });
 
