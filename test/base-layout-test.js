@@ -11,6 +11,25 @@ casper.start(baseUrl, function() {
 
 });
 
+casper.then(function() {
+	this.test.comment('');
+	casper.test.assertExists('#identity', 'the element exists');
+	
+});
+
+casper.then(function() {
+	this.test.comment('');
+	casper.test.assertExists('#network', 'the element exists');
+	
+});
+
+casper.then(function() {
+	this.test.comment('');
+	casper.test.assertExists('#tools', 'the element exists');
+	
+});
+
+
 casper.run(function() {
 // need for exporting xml xunit/junit style
   //this.test.renderResults(true, 0, 'reports/test-casper.xml');
