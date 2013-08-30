@@ -135,6 +135,7 @@ aside, nav, article, figure {
 
  #contextflow {
 	display:block;
+	display:none;
 	border:1px solid #eee;
 	background: #eee;
 	margin: 8px;
@@ -145,6 +146,7 @@ aside, nav, article, figure {
 
  #networkflow {
 	display:block;
+	display:none;
 	border:1px solid #eee;
 	background: #eee;
 	margin: 8px;
@@ -155,6 +157,7 @@ aside, nav, article, figure {
 
  #toolsflow {
 	display:block;
+	display:none;
 	border:1px solid #eee;
 	background: #eee;
 	margin: 8px;
@@ -227,7 +230,6 @@ aside, nav, article, figure {
     text-decoration:none;
     text-shadow:1px 1px 0px #ffffff;
 }
-
 
 #network {
 	display:inline;
