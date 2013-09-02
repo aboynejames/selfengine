@@ -26,8 +26,21 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 	case "identity": 
 	// make live section
-	$("#contextflow").show();
-	$("#identity").css('background', '#009900');
+	var idstatus = $("#identity").data("mestatus");
+//console.log(datesetstatus + 'status');	
+		if(idstatus == "on")
+		{
+			$("#contextflow").show();
+			$("#identity").css('background', '#009900');
+			$("#identity").data("mestatus", "off");
+		}
+		else
+		{
+			$("#contextflow").hide();
+			$("#identity").css('background', '#ffffff');
+			$("#identity").data("mestatus", "on");
+		}	
+	
 	break;
 
 	}
