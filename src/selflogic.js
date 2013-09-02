@@ -43,7 +43,6 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 	
 	break;
 
-		
 	case "network": 
 	// make live section
 	var networkstatus = $("#network").data("networkstatus");
@@ -62,6 +61,26 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		}	
 	
 	break;
+		
+	case "tools": 
+	// make live section
+	var toolsstatus = $("#tools").data("toolsstatus");
+//console.log(datesetstatus + 'status');	
+		if(toolsstatus == "on")
+		{
+			$("#toolsflow").show();
+			$("#tools").css('background', '#009900');
+			$("#tools").data("toolsstatus", "off");
+		}
+		else
+		{
+			$("#toolsflow").hide();
+			$("#tools").css('background', '#ffffff');
+			$("#tools").data("toolsstatus", "on");
+		}	
+	
+	break;
+		
 	}
 
 		
