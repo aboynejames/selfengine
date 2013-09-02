@@ -51,6 +51,19 @@ casper.then(function() {
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
 
+casper.then(function() {
+	this.test.comment('click on network link');
+	this.mouseEvent('click', '#network');
+	
+});
+
+casper.then(function() {
+	this.test.comment('the neworkflow section is visable');
+	casper.test.assertNotVisible('#contextflow', 'the section is not visable');
+	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
+	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
+});
+
 casper.run(function() {
 // need for exporting xml xunit/junit style
   //this.test.renderResults(true, 0, 'reports/test-casper.xml');
