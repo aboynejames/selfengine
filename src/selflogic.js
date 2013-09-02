@@ -43,6 +43,25 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 	
 	break;
 
+		
+	case "network": 
+	// make live section
+	var networkstatus = $("#network").data("networkstatus");
+//console.log(datesetstatus + 'status');	
+		if(networkstatus == "on")
+		{
+			$("#networkflow").show();
+			$("#network").css('background', '#009900');
+			$("#network").data("networkstatus", "off");
+		}
+		else
+		{
+			$("#networkflow").hide();
+			$("#network").css('background', '#ffffff');
+			$("#network").data("networkstatus", "on");
+		}	
+	
+	break;
 	}
 
 		
