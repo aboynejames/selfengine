@@ -188,7 +188,8 @@ aside, nav, article, figure {
 	background: #eee;
 	margin: 8px;
 	text-align:center;
-	height: 80px;
+	height: auto;
+	width:40%;
 	
 }
 
@@ -198,10 +199,29 @@ aside, nav, article, figure {
 	background: #eee;
 	margin: 8px;
 	text-align:center;
-	height: 80px;
+	height: auto;
+	width:40%;
 	
 }
 
+
+/**
+*
+* Chart areas
+*
+*/
+ #pastchart {
+	display:block;
+	height: 300px;
+	width:300px;
+	
+}
+
+ #futurechart {
+	height: 300px;
+	width:300px;
+	
+}
 
 
 @media screen and (max-width: 320px) {
