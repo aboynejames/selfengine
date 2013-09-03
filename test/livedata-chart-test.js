@@ -17,8 +17,6 @@ casper.then(function() {
 	casper.test.assertExists('.flotr-canvas', 'the element exists');
 	
 	this.noofchartslive = this.getElementsAttribute('.flotr-canvas').length;
-this.echo(this.noofchartslive);
-console.log(this.noofchartslive + 'number');
 	casper.test.assertEquals(this.noofchartslive, 2, "the number of charts is correct");
 	
 });
