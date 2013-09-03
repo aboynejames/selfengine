@@ -19,12 +19,13 @@ casper.then(function() {
 	this.noofchartslive = this.getElementsAttribute('.flotr-canvas').length;
 this.echo(this.noofchartslive);
 console.log(this.noofchartslive + 'number');
-	casper.test.assertEquals(this.noofchartslive, "2", "the number of charts is correct");
+	casper.test.assertEquals(this.noofchartslive, 2, "the number of charts is correct");
 	
 });
 
 
 casper.run(function() {
+this.echo(this.getHTML());
     this.test.done(); // I must be called once all the async stuff has been executed
 
 });
