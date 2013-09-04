@@ -157,6 +157,7 @@ aside, nav, article, figure {
 
  #toolsflow {
 	display:block;
+	display:none;
 	border:1px solid blue;
 	background: #eee;
 	margin: 8px;
