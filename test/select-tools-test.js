@@ -39,14 +39,14 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('check recordtime status back to active');
-			this.toolsstatus = this.getElementAttribute('.commlistitem', 'data-recordtimestatus');
+			this.toolsstatus = this.getElementAttribute('#recordtime', 'data-recordtimestatus');
 //console.log(this.commid);
 	casper.test.assertEquals(this.toolsstatus, "active", "tools status is correct");
 	
 });
 
 casper.run(function() {
-this.echo(this.getHTML());
+//this.echo(this.getHTML());
     this.test.done(); // I must be called once all the async stuff has been executed
 
 });
