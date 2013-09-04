@@ -157,8 +157,25 @@ aside, nav, article, figure {
 
  #toolsflow {
 	display:block;
-	display:none;
-	border:1px solid #eee;
+	border:1px solid blue;
+	background: #eee;
+	margin: 8px;
+	text-align:center;
+	
+}
+
+#toolsicons  {
+	display:block;
+	border:1px solid green;
+	background: #eee;
+	margin: 8px;
+	text-align:center;	
+}
+
+
+#toolsactive  {
+	display:block;
+	border:1px solid purple;
 	background: #eee;
 	margin: 8px;
 	text-align:center;

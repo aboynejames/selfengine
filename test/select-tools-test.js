@@ -12,6 +12,13 @@ casper.start(baseUrl, function() {
 });
 
 casper.then(function() {
+	this.test.comment('both tools icons and active sections');
+	casper.test.assertExists('#toolsicons', 'the element exists');
+	casper.test.assertExists('#toolsactive', 'the element exists');
+	
+});
+
+casper.then(function() {
 	this.test.comment('click on the swim record link');
 	casper.test.assertExists('#recordtime');
 		
