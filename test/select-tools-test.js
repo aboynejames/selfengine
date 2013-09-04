@@ -26,7 +26,7 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('click on the swim record link');
-	casper.test.assertExists('#recordtime', 'the element exists');
+	casper.test.assertExists('#makerecordtime', 'the element exists');
 	
 });
 
