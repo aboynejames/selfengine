@@ -47,8 +47,8 @@ casper.then(function() {
 	this.test.comment('fill in network identiry name, idlink and save');
 		
     this.fill('form#newnetworkadd', {
-			'networkidenity' : "Michael Phelps",
-			'identitylink' : 'http://en.wikipedia.org/wiki/Michael_Phelps'
+			'networkidentity': "Michael Phelps",
+			'identitylink': 'http://en.wikipedia.org/wiki/Michael_Phelps'
 			}, false);
 		//this.echo(this.getFormValues('form#newnetworkadd').networkidentity); // 'Michael Phelps'
 		this.test.assert("Michael Phelps" === this.getFormValues('form#newnetworkadd').networkidentity), 'the value as expected');
