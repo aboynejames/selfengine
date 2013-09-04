@@ -89,7 +89,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		{
 			// get recordtime HTML app code
 			
-			$("#toolsactive").append('<section id="makerecordtime" >Name, stroke, distance, time, pool</section>');
+			$("#toolsactive").append('<section id="makerecordtime" >redord type, Name, stroke, distance, time, pool</section>');
 			$("#recordtime").data("recordtimestatus", "inactive");
 
 		}
