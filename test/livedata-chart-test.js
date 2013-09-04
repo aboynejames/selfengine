@@ -23,7 +23,7 @@ casper.then(function() {
 
 
 casper.run(function() {
-this.echo(this.getHTML());
+//this.echo(this.getHTML());
     this.test.done(); // I must be called once all the async stuff has been executed
 
 });

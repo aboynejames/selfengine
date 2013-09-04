@@ -21,6 +21,7 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('click on the swim record link');
 	casper.test.assertExists('#recordtime');
+		this.mouseEvent('click', '#recordtime');
 		
 });
 
