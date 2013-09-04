@@ -19,7 +19,7 @@ casper.then(function() {
 });
 
 casper.then(function() {
-	this.test.comment('click on the swim record link');
+	this.test.comment('click on the recordtime tool link');
 	casper.test.assertExists('#recordtime');
 		this.mouseEvent('click', '#recordtime');
 		
@@ -31,6 +31,19 @@ casper.then(function() {
 	
 });
 
+casper.then(function() {
+	this.test.comment('click on the recordtime tool again to switch off');
+		this.mouseEvent('click', '#recordtime');
+		
+});
+
+casper.then(function() {
+	this.test.comment('check recordtime status back to active');
+			this.toolsstatus = this.getElementAttribute('.commlistitem', 'data-recordtimestatus');
+//console.log(this.commid);
+	casper.test.assertEquals(this.toolsstatus, "active", "tools status is correct");
+	
+});
 
 casper.run(function() {
 this.echo(this.getHTML());
