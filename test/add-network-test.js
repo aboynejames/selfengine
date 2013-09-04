@@ -37,7 +37,7 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('elements of adding an identity are present');
-	casper.test.assertExists('#identity', 'the element exists');
+	casper.test.assertExists('#networkidentity', 'the element exists');
 	casper.test.assertExists('#identitylink', 'the element exists');
 	
 });
