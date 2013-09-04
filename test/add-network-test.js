@@ -42,6 +42,20 @@ casper.then(function() {
 	
 });
 
+casper.then(function() {
+	this.test.comment('click on the add network link to turn off');
+		this.mouseEvent('click', '#addnetwork');
+		
+});
+
+casper.then(function() {
+	this.test.comment('ensure the add network can be turned off');
+			this.addnetworktoolsstatus = this.getElementAttribute('#addnetwork', 'data-addnetworkstatus');
+//console.log(this.commid);
+	casper.test.assertEquals(this.addnetworktoolsstatus, "active", "tools status is correct");
+	
+});
+
 casper.run(function() {
 //this.echo(this.getHTML());
     this.test.done(); // I must be called once all the async stuff has been executed
