@@ -45,20 +45,22 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('fill in network identiry name, idlink and save');
-		
+
     this.fill('form#newnetworkadd', {
-			'networkidentity': "Michael Phelps",
+			'networkidentity': 'Michael Phelps',
 			'identitylink': 'http://en.wikipedia.org/wiki/Michael_Phelps'
 			}, false);
-		//this.echo(this.getFormValues('form#newnetworkadd').networkidentity); // 'Michael Phelps'
-		this.test.assert("Michael Phelps" === this.getFormValues('form#newnetworkadd').networkidentity), 'the value as expected');
-		this.test.assert("http://en.wikipedia.org/wiki/Michael_Phelps" === this.getFormValues('form#newnetworkadd').identitylink), 'the value as expected');	
-	
-	this.mouseEvent('click', '#networkidentitysave');
-		
+//this.echo(this.getFormValues('form#newnetworkadd').networkidentity); // 'Michael Phelps'
+		casper.test.assert('Michael Phelps' === this.getFormValues('form#newnetworkadd').networkidentity, 'the value as expected');
+		casper.test.assert("http://en.wikipedia.org/wiki/Michael_Phelps" === this.getFormValues('form#newnetworkadd').identitylink, 'the value as expected');	
+
 });
 
-
+casper.then(function() {
+	this.test.comment('now save the identity');
+	this.mouseEvent('click', '#networkidentitysave');
+	
+});
 
 casper.then(function() {
 	this.test.comment('click on the add network link to turn off');

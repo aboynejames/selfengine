@@ -111,9 +111,9 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			// get  HTML tool code
 		temporynetworkcode = '';	
 		temporynetworkcode = '<form id="newnetworkadd" action="#" method="post">';
-		temporynetworkcode += '<div><label for="identity">Name</label><input type="text" size="16" class="text ui-widget-content ui-corner-all" id="networkidentity"></div>';
-		temporynetworkcode += '<div><label for="identitylink">IDlink</label><input type="text" size="30"  value="" class="text ui-widget-content ui-corner-all" id="identitylink"></div>';
-		temporynetworkcode += '</form>';
+		temporynetworkcode += '<div><label for="identity">Name</label><input type="text" size="16" class="text ui-widget-content ui-corner-all" id="networkidentity" name="networkidentity"></div>';
+		temporynetworkcode += '<div><label for="identitylink">IDlink</label><input type="text" size="30"  value="" class="text ui-widget-content ui-corner-all" id="identitylink" name="identitylink" ></div>';
+		temporynetworkcode += '<a href="" id="networkidentitysave" >Save</a></form>';
 			
 			$("#makenetwork").append('<section id="addmakenetwork" >' +  temporynetworkcode + '</section>');
 			$("#addnetwork").data("addnetworkstatus", "inactive");
