@@ -10,7 +10,19 @@ $(document).ready(function(){
 			e.preventDefault(e);
 			liveLogic.frameworklogic(this);
 			
-			
+		});
+		
+		$("#networkflow").click(function(e) {
+			e.preventDefault(e);
+			var networkflowin = $(e.target);	
+console.log(networkflowin.attr("id"));
+			// present to UI and save to Pouchdb, sync to cloud
+			if(networkflowin.attr("id") == 'networkidentitysave')
+			{
+				$('#activenetwork').html('<a href="" id="identitylive" >micheal Phelps</a>');
+				
+			}
+
 		});
 		
 	var container = "pastchart";	

@@ -19,7 +19,7 @@ var selfLogic = function() {
 *
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
-//console.log(intentionin);
+console.log(intentionin);
 	idclick = $(intentionin).attr("id");
 	
 	switch(idclick){
@@ -126,8 +126,10 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 		}	
 	
-	break;			
-	}
+	break;
+
+	}		
+
 
 		
 };
