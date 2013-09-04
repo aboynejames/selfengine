@@ -17,7 +17,17 @@ casper.then(function() {
 	
 });
 
+casper.then(function() {
+	this.test.comment('add network active area');
+	casper.test.assertExists('#makenetwork', 'the element exists');
+	
+});
 
+casper.then(function() {
+	this.test.comment('visualisation of network');
+	casper.test.assertExists('#activenetwork', 'the element exists');
+	
+});
 
 casper.run(function() {
 //this.echo(this.getHTML());
