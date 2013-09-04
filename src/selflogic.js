@@ -81,6 +81,26 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 	
 	break;
 		
+	case "recordtime": 
+	// the recordtime tools has been select
+	var recordtimestatus = $("#recordtime").data("recordtimestatus");
+//console.log(datesetstatus + 'status');	
+		if(recordtimestatus == "active")
+		{
+			// get recordtime HTML app code
+			
+			$("#toolsactive").append('<section id="makerecordtime" >Name, stroke, distance, time, pool</section>');
+			$("#recordtime").data("recordtimestatus", "inactive");
+
+		}
+		else
+		{
+			$("#makerecordtime").remove();
+			$("#recordtime").data("recordtimestatus", "active");
+
+		}	
+	
+	break;		
 	}
 
 		
