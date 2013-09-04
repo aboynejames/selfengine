@@ -105,7 +105,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 	case "addnetwork": 
 	// add an identity to a social nework
 	var addnetworkstatus = $("#addnetwork").data("addnetworkstatus");
-//console.log(datesetstatus + 'status');	
+//console.log(addnetworkstatus + 'status');	
 		if(addnetworkstatus == "active")
 		{
 			// get  HTML tool code
@@ -121,7 +121,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		}
 		else
 		{
-			$("#makenetwork").remove();
+			$("#makenetwork").empty();
 			$("#addnetwork").data("addnetworkstatus", "active");
 
 		}	
