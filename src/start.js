@@ -31,7 +31,7 @@ $(document).ready(function(){
 								yaxis: {
 									min: 0
 								},
-								title: 'Current Times'
+								title: 'Recorded Times'
 						});
 						
 //console.log(graph);		
@@ -40,29 +40,33 @@ $(document).ready(function(){
 
 		var fcontainer = "futurechart";	
 	var f1 = [[0, 3],[4, 8],[8, 5],[9, 13] ];
-	(function basic(container, d1) {
 
-//console.log(container);
-						// Draw Graph
-						graph = Flotr.draw(container, [f1], {
-								xaxis: {
-										//majorTickFreq: 1
-									mode: 'time',
-									labelsAngle: 45
-								},
-								grid: {
-										//minorVerticalLines: true
-								},
-								yaxis: {
-									min: 0
-								},
-								title: 'Current Times'
-						});
-						
-//console.log(graph);		
-		
-	})(document.getElementById(fcontainer), f1);
-	
+(function basic_candle(container) {
 
+    var
+    d1 = [],
+        price = 3.206,
+        graph, i, a, b, c;
+
+    for (i = 0; i < 50; i++) {
+        a = Math.random();
+        b = Math.random();
+        c = (Math.random() * (a + b)) - b;
+        d1.push([i, price, price + a, price - b, price + c]);
+        price = price + c;
+    }
+
+    // Graph
+    graph = Flotr.draw(container, [d1], {
+        candles: {
+            show: true,
+            candleWidth: 0.6
+        },
+        xaxis: {
+            noTicks: 10
+        },
+				title: 'Predicted Times'
+			});
+		})(document.getElementById(fcontainer));
 		
 });

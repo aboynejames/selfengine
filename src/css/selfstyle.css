@@ -174,7 +174,7 @@ aside, nav, article, figure {
  #livedata {
 	display:block;
 	border:1px solid #eee;
-	background: blue;
+	background:  #eee;
 	margin: 8px;
 	text-align:center;
 	width:auto ;
@@ -184,23 +184,23 @@ aside, nav, article, figure {
 
  #pastflow {
 	float:left;
-	border:1px solid #eee;
+	border:1px solid #5f5f5f;
 	background: #eee;
 	margin: 8px;
 	text-align:center;
 	height: auto;
-	width:40%;
+	width:45%;
 	
 }
 
  #futureflow {
 	float:left;
-	border:1px solid #eee;
+	border:1px solid #b29f7c;
 	background: #eee;
 	margin: 8px;
 	text-align:center;
 	height: auto;
-	width:40%;
+	width:45%;
 	
 }
 
@@ -212,14 +212,16 @@ aside, nav, article, figure {
 */
  #pastchart {
 	display:block;
+	background: light grey;
 	height: 300px;
-	width:300px;
+	width: 90%;
 	
 }
 
  #futurechart {
+	background: #ffe4b2;
 	height: 300px;
-	width:300px;
+	width:90%;
 	
 }
 
