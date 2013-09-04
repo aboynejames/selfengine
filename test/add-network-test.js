@@ -63,6 +63,12 @@ casper.then(function() {
 });
 
 casper.then(function() {
+	this.test.comment('activenetwork should be populated with one name');
+	casper.test.assertExists('#identitylive', 'the element exists');
+	
+});
+
+casper.then(function() {
 	this.test.comment('click on the add network link to turn off');
 		this.mouseEvent('click', '#addnetwork');
 		
