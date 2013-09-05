@@ -19,7 +19,7 @@ var selfLogic = function() {
 *
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
-console.log(intentionin);
+
 	idclick = $(intentionin).attr("id");
 	
 	switch(idclick){
@@ -113,7 +113,7 @@ console.log(intentionin);
 		temporynetworkcode = '<form id="newnetworkadd" action="#" method="post">';
 		temporynetworkcode += '<div><label for="identity">Name</label><input type="text" size="16" class="text ui-widget-content ui-corner-all" id="networkidentity" name="networkidentity"></div>';
 		temporynetworkcode += '<div><label for="identitylink">IDlink</label><input type="text" size="30"  value="" class="text ui-widget-content ui-corner-all" id="identitylink" name="identitylink" ></div>';
-		temporynetworkcode += '<a href="" id="networkidentitysave" >Save</a></form>';
+		temporynetworkcode += '<button type="submit" class="submit" id="networkidentitysave">Save</button></form>';
 			
 			$("#makenetwork").append('<section id="addmakenetwork" >' +  temporynetworkcode + '</section>');
 			$("#addnetwork").data("addnetworkstatus", "inactive");
