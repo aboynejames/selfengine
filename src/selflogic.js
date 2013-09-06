@@ -53,13 +53,34 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#network").css('background', '#009900');
 			$("#network").data("networkstatus", "off");
 			// make active network dragable- query pouch display
+			function localDatacall(callback) {  
+				livepouch.mapQueryname(callback);
+			}  
+      
+			localDatacall(function(rtmap) {  
+
+				dragHTMLnetworkid = '';
+				dragHTMLnetworkid += '<ul id="dragnetworkidentity" class="connectedSortable">';
+console.log(rtmap["rows"]);			
+				rtmap["rows"].forEach(function(rowsnetwid){
+					//pass the lane data to get html ready
+					dragHTMLnetworkid += '<li class="ui-state-default" id="' + rowsnetwid.value + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
+					
+				});
+				
+				dragHTMLnetworkid += '</ul>';
+				$("#activenetwork").html(dragHTMLnetworkid);
+							$( "#dragnetworkidentity" ).sortable({
+					connectWith: ".connectedSortable"
+					}).disableSelection();
+			});
+
 			
+			
+	/*		
 			$("#activenetwork").append('<ul id="dragnetworkidentity" class="connectedSortable"><li class="ui-state-default">Item 1</li><li class="ui-state-default">Item 2</li><li class="ui-state-default">Item 3</li><li class="ui-state-default">Item 4</li><li class="ui-state-default">Item 5</li></ul>');
-			
-			$( "#dragnetworkidentity" ).sortable({
-				connectWith: ".connectedSortable"
-			}).disableSelection();
-			//$("#dragnetworkidentity").sortable( "enable" );
+			*/
+
 			
 		}
 		else

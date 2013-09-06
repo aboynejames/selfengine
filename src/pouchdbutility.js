@@ -136,16 +136,13 @@ pouchdbSettings.prototype.deleteDoc = function(docid) {
 pouchdbSettings.prototype.mapQueryname = function(callbackin) {
 		
 			function map(selfengine) {
-				if(selfengine.name) {
-				emit(selfengine.name, selfengine.mid);
+				if(selfengine.networkidentity) {
+				emit(selfengine.networkidentity, selfengine.networkidentitylink);
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-
 //console.log(response);
-				this.pouchresp = response;
 				callbackin(response);
-				return response;
 		});
 
 };

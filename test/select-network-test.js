@@ -19,6 +19,15 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('check the dragable placer exists');
+	// produce after a pouchdb call
+		var jss = this.evaluate(function() {
+
+		expecteddrophtml = '<ul id="dragnetworkidentity" class="connectedSortable ui-sortable"><li id="http://en.wikipedia.org/wiki/Alain_Bernard" class="ui-state-default">		<li id="http://en.wikipedia.org/wiki/Alain_Gottvall%C3%A8s" class="ui-state-default"></ul>';
+			$("#activenetwork").html(expecteddrophtml);
+		
+			return document;
+		});
+				
 	casper.test.assertExists('#dragnetworkidentity', 'the element exists');
 	
 });
