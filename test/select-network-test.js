@@ -26,8 +26,7 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('check their is at least one dragable identity listed');
 	this.noofidentities = this.getElementsAttribute('#dragnetworkidentity .ui-state-default').length;
-	casper.test.assert(this.noofidentities > 1), 'the value as expected');
-	
+	casper.test.assert((this.noofidentities > 1), 'the value as expected');
 	
 });
 
