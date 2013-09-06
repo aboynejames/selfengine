@@ -14,9 +14,8 @@ $(document).ready(function(){
 		$("a").click(function(e) {
 			e.preventDefault(e);
 			liveLogic.frameworklogic(this);
-			
 		});
-		//html body section#attention section#networkflow a#addnetwork
+
 		$("#networkflow").click(function(e) {
 			e.preventDefault(e);
 			var networkflowin = $(e.target);	
@@ -30,10 +29,9 @@ $(document).ready(function(){
 				savenetworkid = {};
 				savenetworkid.networkidentity = getnetworkidentity;
 				savenetworkid.networkidentitylink = getidentitylink;
-				networkidjson =  JSON.stringify(savenetworkid);
 console.log(networkidjson);					
 				livepouch.singleSave(savenetworkid);
-				livepouch.allDocs();
+//livepouch.allDocs();
 				// empty the form fields	
 				$("#networkidentity").val("");
 				$("#identitylink").val("");
@@ -43,7 +41,28 @@ console.log(networkidjson);
 
 		});
 		
+		$("#toolsflow").click(function(e) {
+			e.preventDefault(e);
+			var toolsflowin = $(e.target);	
+			// present to UI and save to Pouchdb, sync to cloud
+			if(toolsflowin.attr("id") == 'knowledgesave')
+			{
+				var getknowledgeword = $("#knowledgeword").val();
+				var getknowledgelink = $("#knowledgelink").val();
 
+				$('#knowledgelive').append('<a href="' + getknowledgelink + '" id="knowledgewordlive" >' + getknowledgeword + '</a>');
+				savewordid = {};
+				savewordid.knowledgeword = getknowledgeword;
+				savewordid.knowledgelink = getknowledgelink;
+				livepouch.singleSave(savewordid);
+livepouch.allDocs();
+				// empty the form fields	
+				$("#knowledgeword").val("");
+				$("#knowledgelink").val("");
+					
+			}
+
+		});
 		
 	var container = "pastchart";	
 	var d1 = [[0, 3],[4, 8],[8, 5],[9, 13] ];

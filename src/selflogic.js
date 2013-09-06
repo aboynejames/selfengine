@@ -21,7 +21,7 @@ var selfLogic = function() {
 selfLogic.prototype.frameworklogic = function(intentionin) {
 
 	idclick = $(intentionin).attr("id");
-	
+
 	switch(idclick){
 
 	case "identity": 
@@ -158,6 +158,32 @@ console.log(rtmap.rows);
 	
 	break;
 
+	case "knowledge": 
+	// startup the knowledge tool
+	$("#toolsactive").html('<section id="makeknowledge"></section>');	
+	var startknowledgestatus = $("#knowledge").data("knowledgestatus");
+//console.log(addnetworkstatus + 'status');	
+		if(startknowledgestatus == "active")
+		{
+			// get  HTML tool code
+		temporynetknowledgecode = '';	
+		temporynetknowledgecode = '<form id="makeknowledgeform" action="#" method="post">';
+		temporynetknowledgecode += '<div><label for="knowledgeword">Word</label><input type="text" size="16" class="text ui-widget-content ui-corner-all" id="knowledgeword" name="knowledgeword"></div>';
+		temporynetknowledgecode += '<div><label for="knowledgelink">Knowledge Link</label><input type="text" size="30"  value="" class="text ui-widget-content ui-corner-all" id="knowledgelink" name="knowledgelink" ></div>';
+		temporynetknowledgecode += '<button type="submit" class="submit" id="knowledgesave" >Save</button></form>';
+		temporynetknowledgecode += '<section id="knowledgelive"></section>';
+			
+			$("#makeknowledge").html(temporynetknowledgecode);
+			$("#knowledge").data("knowledgestatus", "inactive");
+
+		}
+		else
+		{
+			$("#makeknowledge").empty();
+			$("#knowledge").data("knowledgestatus", "active");
+
+		}	
+		
 	}		
 
 
