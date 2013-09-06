@@ -200,6 +200,17 @@ aside, nav, article, figure {
 	
 }
 
+ #activeself {
+	display:block;
+	border:1px solid #5f5f5f;
+	background: #eee;
+	margin: 4px;
+	text-align:center;
+	height: auto;
+	width:auto;
+	
+}
+
  #pastflow {
 	float:left;
 	border:1px solid #5f5f5f;

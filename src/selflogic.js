@@ -56,6 +56,10 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			
 			$("#activenetwork").append('<ul id="dragnetworkidentity" class="connectedSortable"><li class="ui-state-default">Item 1</li><li class="ui-state-default">Item 2</li><li class="ui-state-default">Item 3</li><li class="ui-state-default">Item 4</li><li class="ui-state-default">Item 5</li></ul>');
 			
+			$( "#dragnetworkidentity" ).sortable({
+				connectWith: ".connectedSortable"
+			}).disableSelection();
+			//$("#dragnetworkidentity").sortable( "enable" );
 			
 		}
 		else
