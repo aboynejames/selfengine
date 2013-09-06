@@ -61,6 +61,12 @@ casper.then(function() {
 });
 
 casper.then(function() {
+	this.test.comment('area which active ie attention fixed context fixed for live data');
+	casper.test.assertExists('#activeself', 'the element exists');
+	
+});
+
+casper.then(function() {
 	this.test.comment('live data from past visualisation area');
 	casper.test.assertExists('#pastflow', 'the element exists');
 	

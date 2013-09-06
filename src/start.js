@@ -38,6 +38,11 @@ console.log(networkidjson);
 
 		});
 		
+		// make dragable UI part sortable
+		 $( "#dragnetworkidentity, #activeself" ).sortable({
+				connectWith: ".connectedSortable"
+			}).disableSelection();
+		
 	var container = "pastchart";	
 	var d1 = [[0, 3],[4, 8],[8, 5],[9, 13] ];
 	(function basic(container, d1) {

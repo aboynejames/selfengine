@@ -18,8 +18,8 @@ casper.then(function() {
 });
 
 casper.then(function() {
-	this.test.comment('check the activenetwork placer exists');
-	casper.test.assertExists('#activenetwork', 'the element exists');
+	this.test.comment('check the dragable placer exists');
+	casper.test.assertExists('#dragnetworkidentity', 'the element exists');
 	
 });
 
