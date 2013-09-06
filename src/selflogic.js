@@ -61,8 +61,8 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 				dragHTMLnetworkid = '';
 				dragHTMLnetworkid += '<ul id="dragnetworkidentity" class="connectedSortable">';
-console.log(rtmap["rows"]);			
-				rtmap["rows"].forEach(function(rowsnetwid){
+console.log(rtmap.rows);			
+				rtmap.rows.forEach(function(rowsnetwid){
 					//pass the lane data to get html ready
 					dragHTMLnetworkid += '<li class="ui-state-default" id="' + rowsnetwid.value + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
 					
