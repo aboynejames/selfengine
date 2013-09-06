@@ -52,6 +52,9 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#networkflow").show();
 			$("#network").css('background', '#009900');
 			$("#network").data("networkstatus", "off");
+			// make active network dragable- query pouch display
+			
+			
 		}
 		else
 		{
@@ -111,9 +114,9 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			// get  HTML tool code
 		temporynetworkcode = '';	
 		temporynetworkcode = '<form id="newnetworkadd" action="#" method="post">';
-		temporynetworkcode += '<div><label for="identity">Name</label><input type="text" size="16" class="text ui-widget-content ui-corner-all" id="networkidentity" name="networkidentity"></div>';
+		temporynetworkcode += '<div><label for="networkidentity">Name</label><input type="text" size="16" class="text ui-widget-content ui-corner-all" id="networkidentity" name="networkidentity"></div>';
 		temporynetworkcode += '<div><label for="identitylink">IDlink</label><input type="text" size="30"  value="" class="text ui-widget-content ui-corner-all" id="identitylink" name="identitylink" ></div>';
-		temporynetworkcode += '<button type="submit" class="submit" id="networkidentitysave">Save</button></form>';
+		temporynetworkcode += '<button type="submit" class="submit" id="networkidentitysave" >Save</button></form>';
 			
 			$("#makenetwork").append('<section id="addmakenetwork" >' +  temporynetworkcode + '</section>');
 			$("#addnetwork").data("addnetworkstatus", "inactive");

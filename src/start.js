@@ -3,20 +3,15 @@
 * 
 */	
 $(document).ready(function(){
-	PouchDB.enableAllDbs = true;
-	PouchDB.allDbs(function(err, response) {
-console.log(response);
-		});
-	
-	livepouch = new pouchdbSettings();
-	liveLogic = new selfLogic();
 
+	liveLogic = new selfLogic();
+	
 		$("a").click(function(e) {
 			e.preventDefault(e);
 			liveLogic.frameworklogic(this);
 			
 		});
-		
+		//html body section#attention section#networkflow a#addnetwork
 		$("#networkflow").click(function(e) {
 			e.preventDefault(e);
 			var networkflowin = $(e.target);	
@@ -98,5 +93,7 @@ console.log(networkidjson);
 				title: 'Predicted Times'
 			});
 		})(document.getElementById(fcontainer));
+		
+			livepouch = new pouchdbSettings();
 		
 });

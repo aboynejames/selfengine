@@ -111,7 +111,7 @@ pouchdbSettings.prototype.putDoc = function(designdoc) {
 	this.livepouch.put(designdoc, function(err, response) {
 
 console.log(response);
-		})
+		});
 	
 };
 
@@ -187,7 +187,7 @@ pouchdbSettings.prototype.replicate = function() {
 PouchDB.replicate(this.account.pouchdbname, 'selfbackup', {
   onChange: onChange,
   complete: onComplete
-});;
+});
 	
 
 };

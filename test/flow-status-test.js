@@ -15,12 +15,12 @@ casper.start(baseUrl, function() {
 casper.then(function() {
 	this.test.comment('click on me identity link');
 	this.mouseEvent('click', '#identity');
-	
+
 });
 
 casper.then(function() {
 	this.test.comment('the contextflow section is visable');
-	casper.test.assertVisible('#contextflow', 'the section is not visable');
+	casper.test.assertVisible('#contextflow', 'the section is visable');
 	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
@@ -47,7 +47,7 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('the neworkflow section is visable');
 	casper.test.assertNotVisible('#contextflow', 'the section is not visable');
-	casper.test.assertVisible('#networkflow', 'the section is not visable');
+	casper.test.assertVisible('#networkflow', 'the section is visable');
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
 
@@ -74,7 +74,7 @@ casper.then(function() {
 	this.test.comment('the toolsflow section is visable');
 	casper.test.assertNotVisible('#contextflow', 'the section is not visable');
 	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
-	casper.test.assertVisible('#toolsflow', 'the section is not visable');	
+	casper.test.assertVisible('#toolsflow', 'the section is visable');	
 });
 
 casper.then(function() {
