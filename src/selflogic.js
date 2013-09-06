@@ -61,7 +61,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 				dragHTMLnetworkid = '';
 				dragHTMLnetworkid += '<ul id="dragnetworkidentity" class="connectedSortable">';
-console.log(rtmap.rows);			
+		
 				rtmap.rows.forEach(function(rowsnetwid){
 					//pass the lane data to get html ready
 					dragHTMLnetworkid += '<li class="ui-state-default" id="' + rowsnetwid.value + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
@@ -70,7 +70,7 @@ console.log(rtmap.rows);
 				
 				dragHTMLnetworkid += '</ul>';
 				$("#activenetwork").html(dragHTMLnetworkid);
-							$( "#dragnetworkidentity" ).sortable({
+					$( "#dragnetworkidentity" ).sortable({
 					connectWith: ".connectedSortable"
 					}).disableSelection();
 			});
@@ -176,6 +176,33 @@ console.log(rtmap.rows);
 			$("#makeknowledge").html(temporynetknowledgecode);
 			$("#knowledge").data("knowledgestatus", "inactive");
 
+			
+			// make active existing knowledge dragable- query pouch display
+			function localDatacall(callback) {  
+				livepouch.mapQueryknowledge(callback);
+			}  
+      
+			localDatacall(function(rtmap) {  
+
+				dragHTMLknowledgeid = '';
+				dragHTMLknowledgeid += '<ul id="dragknowledgeword" class="connectedSortable">';
+		
+				rtmap.rows.forEach(function(rowkwid){
+					//pass the lane data to get html ready
+					dragHTMLknowledgeid += '<li class="ui-state-default" id="' + rowkwid.value + '" ><a href="' + rowkwid.value + '" >' + rowkwid.key + '</a></li>';
+					
+				});
+				
+				dragHTMLknowledgeid += '</ul>';
+				$("#knowledgelive").html(dragHTMLknowledgeid);
+					$( "#dragknowledgeword" ).sortable({
+					connectWith: ".connectedSortable"
+					}).disableSelection();
+			});			
+			
+			
+			
+			
 		}
 		else
 		{

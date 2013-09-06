@@ -148,6 +148,26 @@ pouchdbSettings.prototype.mapQueryname = function(callbackin) {
 };
 
 /**
+* a mapquery on pouchdb documents by KNOWLEDGE word
+* @method mapQueryknowledge		
+*
+*/	
+pouchdbSettings.prototype.mapQueryknowledge = function(callbackin) {
+		
+			function map(selfengine) {
+				if(selfengine.knowledgeword) {
+				emit(selfengine.knowledgeword, selfengine.knowledgelink);
+				}
+			}
+			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
+//console.log(response);
+				callbackin(response);
+		});
+
+};
+
+
+/**
 * list changes on pouchdb log
 * @method changeLog		
 *

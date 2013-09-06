@@ -23,7 +23,7 @@ casper.then(function() {
 	// produce after a pouchdb call
 		var jss = this.evaluate(function() {
 
-		expectkeddrophtml = '<ul id="dragknowledgeword" class="connectedSortable ui-sortable"></ul>';
+		expectkeddrophtml = '<ul id="dragknowledgeword" class="connectedSortable ui-sortable"><li id="http://en.wikipedia.org/wiki/100_%28number%29" class="ui-state-default" style=""><li id="http://en.wikipedia.org/wiki/Backstroke" class="ui-state-default"></ul>';
 			$("#knowledgelive").html(expectkeddrophtml);
 		
 			return document;
