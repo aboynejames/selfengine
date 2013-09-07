@@ -3,7 +3,7 @@
 */
 var baseUrl = casper.cli.get('baseUrl');
 
-casper.test.comment("Scenario: ");
+casper.test.comment("Scenario: add a knowledge word linked to url, e.g. wikipedia page");
 
 casper.start(baseUrl, function() {
 	this.test.comment('click on the network link');
@@ -30,7 +30,7 @@ casper.then(function() {
 });
 
 casper.then(function() {
-	this.test.comment('');
+	this.test.comment('check all the div placer are in place for the knowlege tool');
 	casper.test.assertExists('#makeknowledge', 'the element exists');
 	casper.test.assertExists('#makeknowledgeform', 'the element exists');
 	casper.test.assertExists('#knowledgeword', 'the element exists');
