@@ -184,6 +184,28 @@ aside, nav, article, figure {
 	
 }
 
+#dragselfnow li {
+	display:inline;
+	text-align:center;
+	height: auto;
+	
+}
+
+
+/**
+*
+* RecordTime tool (should be in own mini setup plug)
+*
+*/
+#buildrecordtimetemplate li {
+	display:inline;
+	margin: 6px;
+	text-align:center;
+	height: auto;
+	
+}
+
+
 /**
 *
 * Flow areas

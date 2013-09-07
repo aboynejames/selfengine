@@ -32,8 +32,28 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('ensure all the div placer for the record time tool are in place');
 	casper.test.assertExists('#makerecordtime', 'the element exists');
-	casper.test.assertExists('#buildrecordtimetemplate', 'the element exists');	
-	
+	casper.test.assertExists('#buildrecordtimetemplate', 'the element exists');
+	casper.test.assertExists('#newrecordtime', 'the element exists');
+	casper.test.assertExists('#datepicker', 'the element exists');
+	casper.test.assertExists('#time', 'the element exists');	
+});
+
+casper.then(function() {
+	this.test.comment('fillin a record, drag in knowlege and select date and input time (in milliseconds)');
+		var jss = this.evaluate(function() {
+			//$("#").val();
+			//$("#").val();
+			//$("#").val();
+			//$("#").val();
+			//$("#").val();		
+
+			this.testdate = "10/10/2013"
+			$( "input#datepicker.hasDatepicker" ).datepicker( "setDate", this.testdate);
+			
+			$("#time").val(12000);		
+			return document;
+		});
+		
 });
 
 

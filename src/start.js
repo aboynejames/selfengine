@@ -6,11 +6,11 @@ $(document).ready(function(){
 
 	liveLogic = new selfLogic();
 	
-			// make dragable UI part sortable
-		$( "#dragselfnow" ).sortable({
-			connectWith: ".connectedSortable"
-		}).disableSelection();
-	
+	// make dragable UI part sortable
+	$( "#dragselfnow" ).sortable({
+	connectWith: ".connectedSortable"
+	}).disableSelection();
+
 		$("a").click(function(e) {
 			e.preventDefault(e);
 			liveLogic.frameworklogic(this);

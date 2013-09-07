@@ -117,9 +117,34 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 //console.log(datesetstatus + 'status');	
 		if(recordtimestatus == "active")
 		{
-			// get recordtime HTML app code
+			// get recordtime HTML tool code
+			recordtimetemplate = '';
+			recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
 			
-			$("#toolsactive").append('<section id="makerecordtime" >redord type, Name, stroke, distance, time, pool</section>');
+			recordtimetemplate += '<ul id="buildrecordtimetemplate" class="connectedSortable">';
+			recordtimetemplate += '<li class="ui-state-highlight">recordtype 1</li>';
+			recordtimetemplate += '<li class="ui-state-highlight">person 2</li>';
+			recordtimetemplate += '<li class="ui-state-highlight">stroke 3</li>';
+			recordtimetemplate += '<li class="ui-state-highlight">distance 4</li>';
+			recordtimetemplate += '<li class="ui-state-highlight">pooltype 5</li>';
+			recordtimetemplate += '</ul>';
+	
+		recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';
+		recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" ></div>';
+		recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
+			
+			
+			$("#toolsactive").append('<section id="makerecordtime" >' + recordtimetemplate + '</section>');
+			$( "#buildrecordtimetemplate" ).sortable({
+				connectWith: ".connectedSortable"
+			}).disableSelection();
+			
+			// datepicker 
+			$( "#datepicker" ).datepicker({
+			changeMonth: true,
+			changeYear: true
+			});
+
 			$("#recordtime").data("recordtimestatus", "inactive");
 
 		}
@@ -189,7 +214,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		
 				rtmap.rows.forEach(function(rowkwid){
 					//pass the lane data to get html ready
-					dragHTMLknowledgeid += '<li class="ui-state-default" id="' + rowkwid.value + '" ><a href="' + rowkwid.value + '" >' + rowkwid.key + '</a></li>';
+					dragHTMLknowledgeid += '<li class="ui-state-default" data-knowledgeword="knowledgeword" id="' + rowkwid.key + '" ><a href="' + rowkwid.value + '" >' + rowkwid.key + '</a></li>';
 					
 				});
 				
