@@ -13,7 +13,7 @@ casper.start(baseUrl, function() {
 
 casper.then(function() {
 	this.test.comment('always shuld be on active element in the active self drop zone');
-	this.activeattention = this.getElementsAttribute('.flotr-canvas').length;
+	this.activeattention = this.getElementsAttribute('#dragselfnow').length;
 	casper.test.assert(activeattention > 1, "at least one active attention context set");
 	
 });
