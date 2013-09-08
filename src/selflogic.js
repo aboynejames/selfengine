@@ -64,7 +64,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		
 				rtmap.rows.forEach(function(rowsnetwid){
 					//pass the lane data to get html ready
-					dragHTMLnetworkid += '<li class="ui-state-default" id="' + rowsnetwid.value + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
+					dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + rowsnetwid.key + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
 					
 				});
 				
@@ -122,11 +122,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
 			
 			recordtimetemplate += '<ul id="buildrecordtimetemplate" class="connectedSortable">';
-			recordtimetemplate += '<li class="ui-state-highlight">recordtype 1</li>';
-			recordtimetemplate += '<li class="ui-state-highlight">person 2</li>';
-			recordtimetemplate += '<li class="ui-state-highlight">stroke 3</li>';
-			recordtimetemplate += '<li class="ui-state-highlight">distance 4</li>';
-			recordtimetemplate += '<li class="ui-state-highlight">pooltype 5</li>';
+			recordtimetemplate += '<li class="ui-state-highlight" id="recordtime" data-tool="recordtime" >recordtime</li>';
 			recordtimetemplate += '</ul>';
 	
 		recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';

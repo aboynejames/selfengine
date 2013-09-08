@@ -61,6 +61,36 @@ livepouch.allDocs();
 				$("#knowledgelink").val("");
 					
 			}
+			
+			else if (toolsflowin.attr("id") == 'recordtimesave')
+			{
+console.log('save recordtime called');
+console.log($("#buildrecordtimetemplate.connectedSortable ").children());
+console.log($( "#datepicker" ).datepicker( "getDate" ));				
+console.log($("form#newrecordtime input#time"));
+				// prepare object ready for pouchdb saving
+				var recordtimein = {};
+				recordtimein.knowledgewords = {};	
+				var recordtimeget = $("#buildrecordtimetemplate.connectedSortable ").children();	
+				var recordtimelength = recordtimeget.length;
+				for (var i=2;i<recordtimelength;i++)
+				{
+console.log(recordtimeget[i].id);
+					recordtimein.knowledgewords[i] = recordtimeget[i].id;
+				}
+									
+					
+				//recordtimein.knowledgewords = ;
+				recordtimein.networkidentity = recordtimeget[1].id;
+				recordtimein.date = $( "#datepicker" ).datepicker( "getDate" );
+				recordtimein.time = $("form#newrecordtime input#time").val();
+				// save to the pouchdb
+				var recordtimesave = {};
+				recordtimesave.recordtime = recordtimein;
+console.log(recordtimesave);				
+				
+
+			}
 
 		});
 		
