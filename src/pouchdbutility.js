@@ -168,6 +168,27 @@ pouchdbSettings.prototype.mapQueryknowledge = function(callbackin) {
 
 
 /**
+* a mapquery on pouchdb documents by LIVE attention context
+* @method mapQueryLIVE		
+*
+*/	
+pouchdbSettings.prototype.mapQueryLIVE = function(callbackin) {
+		
+			function map(selfengine) {
+				if(selfengine.knowledgewords ) {
+				emit(selfengine.date, selfengine.time);
+				}
+			}
+			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
+console.log('live query callback response');
+console.log(response);
+				callbackin(response);
+		});
+
+};
+
+
+/**
 * list changes on pouchdb log
 * @method changeLog		
 *
