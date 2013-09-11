@@ -24,18 +24,33 @@ casper.then(function() {
 });
 
 casper.then(function() {
-	this.test.comment('ensure the tools active area is present');
+	this.test.comment('ensure the tools active, and templates are are present');
+	casper.test.assertExists('#makerecordtime', 'the element exists');
 	casper.test.assertExists('#toolsactive', 'the element exists');
+	casper.test.assertExists('#recordtimeworld', 'the element exists');
+	casper.test.assertExists('#recordtimeclub', 'the element exists');
+	casper.test.assertExists('#recordtimeme', 'the element exists');
 	
 });
 
 casper.then(function() {
-	this.test.comment('ensure all the div placer for the record time tool are in place');
-	casper.test.assertExists('#makerecordtime', 'the element exists');
+	this.test.comment('click on record world record template');
+	this.mouseEvent('click', '#recordtimeworld');
+	
+});
+
+casper.then(function() {
+	this.test.comment('ensure all the div placer for the World record time templatel are in place');
 	casper.test.assertExists('#buildrecordtimetemplate', 'the element exists');
+	
+	casper.test.assertExists('#Word record', 'the element exists');	
+	casper.test.assertExists('#sex', 'the element exists');	
+	casper.test.assertExists('#distance', 'the element exists');	
+	casper.test.assertExists('#metre', 'the element exists');
+	casper.test.assertExists('#Swimming_stroke', 'the element exists');	
 	casper.test.assertExists('#newrecordtime', 'the element exists');
 	casper.test.assertExists('#datepicker', 'the element exists');
-	casper.test.assertExists('#time', 'the element exists');	
+	casper.test.assertExists('#Swimming pool', 'the element exists');	
 });
 
 casper.then(function() {
