@@ -174,7 +174,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 	case "knowledge": 
 	// startup the knowledge tool
-	$("#toolsactive").html('<section id="makeknowledge"></section>');	
+	$("#toolsactive").append('<section id="makeknowledge"></section>');	
 	var startknowledgestatus = $("#knowledge").data("knowledgestatus");
 //console.log(addnetworkstatus + 'status');	
 		if(startknowledgestatus == "active")
@@ -213,9 +213,6 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 					}).disableSelection();
 			});			
 			
-			
-			
-			
 		}
 		else
 		{
@@ -227,7 +224,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		
 		case "templateknowledge": 
 	// links relationships between knowledge words
-		$("#toolsactive").html('<section id="maketemplateknowledge"></section>');
+		$("#toolsactive").append('<section id="maketemplateknowledge"></section>');
 		var starttemplatestatus = $("#templateknowledge").data("templateknowledgestatus");
 		//console.log(addnetworkstatus + 'status');	
 		if(starttemplatestatus == "active")
