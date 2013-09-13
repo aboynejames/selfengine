@@ -165,7 +165,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		}
 		else
 		{
-			$("#makenetwork").empty();
+			$("#makenetwork").remove();
 			$("#addnetwork").data("addnetworkstatus", "active");
 
 		}	
@@ -174,11 +174,12 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 	case "knowledge": 
 	// startup the knowledge tool
-	$("#toolsactive").append('<section id="makeknowledge"></section>');	
+	//$("#toolsactive").append('<section id="makeknowledge"></section>');	
 	var startknowledgestatus = $("#knowledge").data("knowledgestatus");
 //console.log(addnetworkstatus + 'status');	
 		if(startknowledgestatus == "active")
 		{
+			$("#makeknowledge").show();
 			// get  HTML tool code
 		temporynetknowledgecode = '';	
 		temporynetknowledgecode = '<form id="makeknowledgeform" action="#" method="post">';
@@ -216,7 +217,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		}
 		else
 		{
-			$("#makeknowledge").empty();
+			$("#makeknowledge").hide();
 			$("#knowledge").data("knowledgestatus", "active");
 
 		}	
@@ -224,11 +225,12 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		
 		case "templateknowledge": 
 	// links relationships between knowledge words
-		$("#toolsactive").append('<section id="maketemplateknowledge"></section>');
+		//$("#toolsactive").html('<section id="maketemplateknowledge"></section>');
 		var starttemplatestatus = $("#templateknowledge").data("templateknowledgestatus");
 		//console.log(addnetworkstatus + 'status');	
 		if(starttemplatestatus == "active")
 		{
+			$("#maketemplateknowledge").show();
 			// get  HTML tool code
 		temporytemplatecode = '';	
 		temporytemplatecode = '<form id="templateknowledgeform" action="#" method="post">';
@@ -247,7 +249,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		}
 		else
 		{
-			$("#maketemplateknowledge").empty();
+			$("#maketemplateknowledge").hide();
 			$("#templateknowledge").data("templateknowledgestatus", "active");
 						
 		}
