@@ -74,13 +74,6 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 					connectWith: ".connectedSortable"
 					}).disableSelection();
 			});
-
-			
-			
-	/*		
-			$("#activenetwork").append('<ul id="dragnetworkidentity" class="connectedSortable"><li class="ui-state-default">Item 1</li><li class="ui-state-default">Item 2</li><li class="ui-state-default">Item 3</li><li class="ui-state-default">Item 4</li><li class="ui-state-default">Item 5</li></ul>');
-			*/
-
 			
 		}
 		else
@@ -196,7 +189,6 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			
 			$("#makeknowledge").html(temporynetknowledgecode);
 			$("#knowledge").data("knowledgestatus", "inactive");
-
 			
 			// make active existing knowledge dragable- query pouch display
 			function localDatacall(callback) {  
@@ -231,6 +223,39 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#knowledge").data("knowledgestatus", "active");
 
 		}	
+		break;
+		
+		case "templateknowledge": 
+	// links relationships between knowledge words
+		$("#toolsactive").html('<section id="maketemplateknowledge"></section>');
+		var starttemplatestatus = $("#templateknowledge").data("templateknowledgestatus");
+		//console.log(addnetworkstatus + 'status');	
+		if(starttemplatestatus == "active")
+		{
+			// get  HTML tool code
+		temporytemplatecode = '';	
+		temporytemplatecode = '<form id="templateknowledgeform" action="#" method="post">';
+		temporytemplatecode += '<ul id="dragmaketemplateknowledge" class="connectedSortable"><li>KnowledgeWord</li></ul>';//<li id="knowledge" class="ui-state-default" data-knowledgeword="knowledge" style="">Knowledge</li></ul>';
+		temporytemplatecode += '<ul id="templateknowledgelist" class="connectedSortable"><ul id="dragmaketemplateknowledge" class="connectedSortable"><li>List</li></ul>';
+		temporytemplatecode += '<button type="submit" class="submit" id="templateknowledgesave" >Save</button></form>';
+		temporytemplatecode += '<section id="livetemplateknowledge"></section>';
+			
+			$("#maketemplateknowledge").html(temporytemplatecode);
+			$( "#dragmaketemplateknowledge, #templateknowledgelist" ).sortable({
+				connectWith: ".connectedSortable"
+			}).disableSelection();
+			
+			$("#templateknowledge").data("templateknowledgestatus", "inactive");
+			
+		}
+		else
+		{
+			$("#maketemplateknowledge").empty();
+			$("#templateknowledge").data("templateknowledgestatus", "active");
+						
+		}
+			
+	
 		
 	}		
 
