@@ -127,6 +127,28 @@ console.log(d1);
 		
 	})(document.getElementById(container), d1);
 			}
+			
+			else if (toolsflowin.attr("id") == 'relationshipknowledgesave')
+			{
+				var relationshiplist = []
+				var relationshipfirst = $("#dragmakerelationshipknowledge.connectedSortable li").attr("id");
+				var relationshiplistget = $("#listrelationshipknowledge.connectedSortable ").children();
+console.log(relationshiplistget);					
+				var relationshiplistlength = relationshiplistget.length;
+				for (var i=0;i<relationshiplistlength;i++)
+				{
+					relationshiplist[i] = relationshiplistget[i].id;
+				}
+			// save to Pouchdb - knowledge - bond - socialnetwork - 
+				relationshipin = {}
+				relationshipin.bond = 1;
+				relationshipin.knowledgeword = relationshipfirst;
+				relationshipin.knowledgelist = relationshiplist;	
+				livepouch.singleSave(relationshipin);
+console.log(relationshipin);				
+				
+			}
+
 
 		});
 		

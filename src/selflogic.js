@@ -112,18 +112,56 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		{
 			// get recordtime HTML tool code
 			recordtimetemplate = '';
-			recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
+			recordtimetemplatecontext = '';
+			knowledgeoptions = '';
+			// have three default input tabs me club world
+			recordtimetemplatecontext += '<a href="" id="recordtimeme" >me</a> <a href="" id="recordtimeclub" >club</a> <a href="" id="recordtimeworld" >world</a>';
 			
+			$("#toolsactive").append('<section id="makerecordtime" >' + recordtimetemplatecontext + '</section>');
+
+			// given recordtime context produce a necessary forms (ready for use)
+			//me code
+			recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
+			// look up knowledge relationshiop words for :
 			recordtimetemplate += '<ul id="buildrecordtimetemplate" class="connectedSortable">';
-			recordtimetemplate += '<li class="ui-state-highlight" id="recordtime" data-tool="recordtime" >recordtime</li>';
-			recordtimetemplate += '</ul>';
+			//LOOP through lists query Pouchdb
+			function localDatacall(callback) {  
+				livepouch.mapQueryknowledgelist(callback);
+			}  
+
+			localDatacall(function(rtmap) { 
+console.log(rtmap.rows[0].key);				
+				rtmap.rows.forEach(function(rowkwid){
+	console.log(rowkwid);
+				recordtimetemplate += '<label><li class="ui-state-default" id="' + rowkwid.key + '" data-knowledgeword="' + rowkwid.key +'" ><a href="">' + rowkwid.key + '</a></li></label>';
+				knowledgecontext = rowkwid.key;	
+					// form drop down options foreach 
+console.log(rowkwid.value)
+					
+													
+						recordtimetemplate +=  '<select id="' + rowkwid.key + '" class="rightselect" >';
+
+						rowkwid.value.knowledgelist.forEach(function(klist){
+console.log(klist);							
+								recordtimetemplate +=  '<option value="' + klist + '">' + klist + '</option>';
+							
+						});
+						
+						recordtimetemplate += '</select>';
+
+			});	
+
+		recordtimetemplate += '</ul>';
 	
 		recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';
 		recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" ></div>';
 		recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
+		
+		$("#makerecordtime").append(recordtimetemplate);			
+		});
 			
+
 			
-			$("#toolsactive").append('<section id="makerecordtime" >' + recordtimetemplate + '</section>');
 			$( "#buildrecordtimetemplate" ).sortable({
 				connectWith: ".connectedSortable"
 			}).disableSelection();
@@ -223,34 +261,34 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		}	
 		break;
 		
-		case "templateknowledge": 
+		case "relationshipknowledge": 
 	// links relationships between knowledge words
-		//$("#toolsactive").html('<section id="maketemplateknowledge"></section>');
-		var starttemplatestatus = $("#templateknowledge").data("templateknowledgestatus");
-		//console.log(addnetworkstatus + 'status');	
-		if(starttemplatestatus == "active")
+		//$("#toolsactive").html('<section id="makerelationshipknowledge"></section>');
+		var startrelationshipstatus = $("#relationshipknowledge").data("relationshipknowledgestatus");
+		//console.log(startrelationshipstatus + 'status');	
+		if(startrelationshipstatus == "active")
 		{
-			$("#maketemplateknowledge").show();
+			$("#makerelationshipknowledge").show();
 			// get  HTML tool code
-		temporytemplatecode = '';	
-		temporytemplatecode = '<form id="templateknowledgeform" action="#" method="post">';
-		temporytemplatecode += '<ul id="dragmaketemplateknowledge" class="connectedSortable"><li>KnowledgeWord</li></ul>';//<li id="knowledge" class="ui-state-default" data-knowledgeword="knowledge" style="">Knowledge</li></ul>';
-		temporytemplatecode += '<ul id="templateknowledgelist" class="connectedSortable"><ul id="dragmaketemplateknowledge" class="connectedSortable"><li>List</li></ul>';
-		temporytemplatecode += '<button type="submit" class="submit" id="templateknowledgesave" >Save</button></form>';
-		temporytemplatecode += '<section id="livetemplateknowledge"></section>';
+			temporyrelationshipcode = '';	
+			temporyrelationshipcode = '<form id="templateknowledgeform" action="#" method="post">';
+			temporyrelationshipcode += '<ul id="dragmakerelationshipknowledge" class="connectedSortable"></ul>';
+			temporyrelationshipcode += '<ul id="listrelationshipknowledge" class="connectedSortable"></ul>';
+			temporyrelationshipcode += '<button type="submit" class="submit" id="relationshipknowledgesave" >Save</button></form>';
+			temporyrelationshipcode += '<section id="liverelationshipknowledge"></section>';
 			
-			$("#maketemplateknowledge").html(temporytemplatecode);
-			$( "#dragmaketemplateknowledge, #templateknowledgelist" ).sortable({
+			$("#makerelationshipknowledge").html(temporyrelationshipcode);
+			$( "#dragmakerelationshipknowledge, #listrelationshipknowledge" ).sortable({
 				connectWith: ".connectedSortable"
 			}).disableSelection();
 			
-			$("#templateknowledge").data("templateknowledgestatus", "inactive");
+			$("#relationshipknowledge").data("relationshipknowledgestatus", "inactive");
 			
 		}
 		else
 		{
-			$("#maketemplateknowledge").hide();
-			$("#templateknowledge").data("templateknowledgestatus", "active");
+			$("#makerelationshipknowledge").hide();
+			$("#relationshipknowledge").data("relationshipknowledgestatus", "active");
 						
 		}
 			

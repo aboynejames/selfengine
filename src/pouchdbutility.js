@@ -166,6 +166,26 @@ pouchdbSettings.prototype.mapQueryknowledge = function(callbackin) {
 
 };
 
+/**
+* a mapquery on pouchdb documents by KNOWLEDGE LIST words
+* @method mapQueryknowledgelist		
+*
+*/	
+pouchdbSettings.prototype.mapQueryknowledgelist = function(callbackin) {
+		
+			function map(selfengine) {
+				if(selfengine.knowledgelist) {
+				emit(selfengine.knowledgeword, selfengine);
+				}
+			}
+			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
+console.log(response);
+				callbackin(response);
+		});
+
+};
+
+
 
 /**
 * a mapquery on pouchdb documents by LIVE attention context

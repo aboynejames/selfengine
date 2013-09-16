@@ -209,6 +209,27 @@ aside, nav, article, figure {
 	
 }
 
+#dragmakerelationshipknowledge,#buildrecordtimetemplate {
+	display:block;
+	border:1px solid purple;
+	background: pink;
+	margin: 8px;
+	text-align:center;
+	min-height:30px;
+	
+}
+
+#listrelationshipknowledge {
+	display:block;
+	border:1px solid green;
+	background: orange;
+	margin: 8px;
+	text-align:center;
+	min-height:30px;
+	
+}
+
+
 #dragselfnow li {
 	display:inline;
 	text-align:center;
