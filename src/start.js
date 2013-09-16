@@ -69,33 +69,34 @@ livepouch.allDocs();
 			{
 				// prepare object ready for pouchdb saving
 				var recordtimein = {};
-				recordtimein.knowledgewords = {};	
+				recordtimein.knowledgewords = {};
+				knowlegeelementsin = [];	
 
-				var gettherecordcontext = 	$("#buildrecordtimetemplate.connectedSortable select#World record");
-console.log(gettherecordcontext);					
+				var gettherecordcontext = 	$("#buildrecordtimetemplate.connectedSortable select#Worldrecord option");
+
+				var knowledgeelements  = Object.keys(gettherecordcontext);
+				knowledgelength = gettherecordcontext.length;
 					
-				inputcontext = 'buildrecordtimetemplate.connectedSortable select' +  + '#Distance'.val();	
-					
-					
-				var recordtimeget = $("#buildrecordtimetemplate.connectedSortable select").children();	
-				var recordtimelength = recordtimeget.length;
-				for (var i=2;i<recordtimelength;i++)
+					for (var i=0;i<knowledgelength;i++)
 				{
-					recordtimein.knowledgewords[i] = recordtimeget[i].id;
-				}
-									
-					
-				//recordtimein.knowledgewords = ;
-				recordtimein.networkidentity = recordtimeget[1].id;
-				recordtimein.date = Date.parse($( "#datepicker" ).datepicker( "getDate" ));
+
+					knowlegeelementsin[i] = $(gettherecordcontext[i]).val();	
+				};	
+
+				// now get values for each list box
+				knowlegeelementsin.forEach(function(listdropname){
+					recordtimein.knowledgewords[listdropname] = $("#buildrecordtimetemplate.connectedSortable select#" + listdropname).val()
+				});
+			
+				recordtimein.networkidentity = $("#buildrecordtimeidentity.connectedSortable li").attr("id");
+				recordtimein.date = Date.parse($( "#newrecordtime input#datepicker" ).datepicker( "getDate" ));
 				recordtimein.time = parseInt($("form#newrecordtime input#time").val());
 				// save to the pouchdb
 					// push to d1 data object and save to Pouchdb
 					d1.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
 				d1.sort(function(a,b){return a+b});
-				//livepouch.singleSave(recordtimein);
-console.log(recordtimein);				
+				//livepouch.singleSave(recordtimein);			
 				
 						(function basic(container, d1) {
 console.log('past chard draw called');

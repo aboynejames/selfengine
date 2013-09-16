@@ -64,8 +64,8 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		
 				rtmap.rows.forEach(function(rowsnetwid){
 					//pass the lane data to get html ready
-					idstrnospace = rowsnetwid.replace(/\s+/g, '');
-					dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + dstrnospace + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
+					idstrnospace = rowsnetwid.key.replace(/\s+/g, '');
+					dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + idstrnospace  + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
 					
 				});
 				
@@ -123,8 +123,12 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			// given recordtime context produce a necessary forms (ready for use)
 			//me code
 			recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
-			// look up knowledge relationshiop words for :
+			
+			// place for identity drop
+			recordtimetemplate += '<ul id="buildrecordtimeidentity" class="connectedSortable ui-sortable"></ul>';
+			
 			recordtimetemplate += '<ul id="buildrecordtimetemplate" class="connectedSortable">';
+			
 			//LOOP through lists query Pouchdb
 			function localDatacall(callback) {  
 				livepouch.mapQueryknowledgelist(callback);
@@ -141,8 +145,8 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 						recordtimetemplate +=  '<select id="' + strnospace + '" class="rightselect" >';
 
 						rowkwid.value.knowledgelist.forEach(function(klist){
-						
-								recordtimetemplate +=  '<option value="' + klist + '">' + klist + '</option>';
+							strnospace = klist.replace(/\s+/g, '');
+								recordtimetemplate +=  '<option value="' + strnospace + '">' + klist + '</option>';
 							
 						});
 						
@@ -156,20 +160,18 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" ></div>';
 		recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
 		
-		$("#makerecordtime").append(recordtimetemplate);			
-		});
-			
-
-			
-			$( "#buildrecordtimetemplate" ).sortable({
-				connectWith: ".connectedSortable"
-			}).disableSelection();
-			
+		$("#makerecordtime").append(recordtimetemplate);		
 			// datepicker 
 			$( "#datepicker" ).datepicker({
 			changeMonth: true,
 			changeYear: true
-			});
+			});			
+			
+			$( "#buildrecordtimeidentity" ).sortable({
+				connectWith: ".connectedSortable"
+			}).disableSelection();
+			
+		});
 
 			$("#recordtime").data("recordtimestatus", "inactive");
 

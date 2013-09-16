@@ -219,6 +219,16 @@ aside, nav, article, figure {
 	
 }
 
+#buildrecordtimeidentity {
+	display:block;
+	border:1px solid blue;
+	background: cyan;
+	margin: 8px;
+	text-align:center;
+	min-height:30px;
+	
+}
+
 #listrelationshipknowledge {
 	display:block;
 	border:1px solid green;
