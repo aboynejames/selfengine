@@ -64,7 +64,8 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		
 				rtmap.rows.forEach(function(rowsnetwid){
 					//pass the lane data to get html ready
-					dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + rowsnetwid.key + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
+					idstrnospace = rowsnetwid.replace(/\s+/g, '');
+					dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + dstrnospace + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
 					
 				});
 				
@@ -130,19 +131,17 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			}  
 
 			localDatacall(function(rtmap) { 
-console.log(rtmap.rows[0].key);				
+	
 				rtmap.rows.forEach(function(rowkwid){
-	console.log(rowkwid);
-				recordtimetemplate += '<label><li class="ui-state-default" id="' + rowkwid.key + '" data-knowledgeword="' + rowkwid.key +'" ><a href="">' + rowkwid.key + '</a></li></label>';
+				iddstrnospace = rowkwid.key.replace(/\s+/g, '');
+				recordtimetemplate += '<label><li class="ui-state-default" id="' + iddstrnospace + '" data-knowledgeword="' + rowkwid.key +'" ><a href="">' + rowkwid.key + '</a></li></label>';
 				knowledgecontext = rowkwid.key;	
 					// form drop down options foreach 
-console.log(rowkwid.value)
-					
-													
-						recordtimetemplate +=  '<select id="' + rowkwid.key + '" class="rightselect" >';
+					strnospace = rowkwid.key.replace(/\s+/g, '');
+						recordtimetemplate +=  '<select id="' + strnospace + '" class="rightselect" >';
 
 						rowkwid.value.knowledgelist.forEach(function(klist){
-console.log(klist);							
+						
 								recordtimetemplate +=  '<option value="' + klist + '">' + klist + '</option>';
 							
 						});
@@ -241,7 +240,8 @@ console.log(klist);
 		
 				rtmap.rows.forEach(function(rowkwid){
 					//pass the lane data to get html ready
-					dragHTMLknowledgeid += '<li class="ui-state-default" data-knowledgeword="knowledgeword" id="' + rowkwid.key + '" ><a href="' + rowkwid.value + '" >' + rowkwid.key + '</a></li>';
+					iddstrnospace = rowkwid.key.replace(/\s+/g, '');
+					dragHTMLknowledgeid += '<li class="ui-state-default" data-knowledgeword="knowledgeword" id="' + iddstrnospace + '" ><a href="' + rowkwid.value + '" >' + rowkwid.key + '</a></li>';
 					
 				});
 				

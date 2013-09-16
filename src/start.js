@@ -70,7 +70,14 @@ livepouch.allDocs();
 				// prepare object ready for pouchdb saving
 				var recordtimein = {};
 				recordtimein.knowledgewords = {};	
-				var recordtimeget = $("#buildrecordtimetemplate.connectedSortable ").children();	
+
+				var gettherecordcontext = 	$("#buildrecordtimetemplate.connectedSortable select#World record");
+console.log(gettherecordcontext);					
+					
+				inputcontext = 'buildrecordtimetemplate.connectedSortable select' +  + '#Distance'.val();	
+					
+					
+				var recordtimeget = $("#buildrecordtimetemplate.connectedSortable select").children();	
 				var recordtimelength = recordtimeget.length;
 				for (var i=2;i<recordtimelength;i++)
 				{
@@ -87,7 +94,7 @@ livepouch.allDocs();
 					d1.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
 				d1.sort(function(a,b){return a+b});
-				livepouch.singleSave(recordtimein);
+				//livepouch.singleSave(recordtimein);
 console.log(recordtimein);				
 				
 						(function basic(container, d1) {
@@ -130,7 +137,7 @@ console.log(d1);
 			
 			else if (toolsflowin.attr("id") == 'relationshipknowledgesave')
 			{
-				var relationshiplist = []
+				var relationshiplist = [];
 				var relationshipfirst = $("#dragmakerelationshipknowledge.connectedSortable li").attr("id");
 				var relationshiplistget = $("#listrelationshipknowledge.connectedSortable ").children();
 console.log(relationshiplistget);					
@@ -140,7 +147,7 @@ console.log(relationshiplistget);
 					relationshiplist[i] = relationshiplistget[i].id;
 				}
 			// save to Pouchdb - knowledge - bond - socialnetwork - 
-				relationshipin = {}
+				relationshipin = {};
 				relationshipin.bond = 1;
 				relationshipin.knowledgeword = relationshipfirst;
 				relationshipin.knowledgelist = relationshiplist;	
