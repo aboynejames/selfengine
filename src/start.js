@@ -3,7 +3,7 @@
 * 
 */	
 $(document).ready(function(){
-
+//PouchDB.destroy('selfengine', function(err, info) { });
 	liveLogic = new selfLogic();
 	// live attention data (Chart)
 	var container = "pastchart";	
@@ -32,14 +32,14 @@ $(document).ready(function(){
 				savenetworkid = {};
 				savenetworkid.networkidentity = getnetworkidentity;
 				savenetworkid.networkidentitylink = getidentitylink;
-console.log(networkidjson);					
-				livepouch.singleSave(savenetworkid);
+console.log(savenetworkid);					
+
 //livepouch.allDocs();
 				// empty the form fields	
 				$("#networkidentity").val("");
 				$("#identitylink").val("");
 					
-
+				livepouch.singleSave(savenetworkid);
 			}
 
 		});
@@ -57,8 +57,9 @@ console.log(networkidjson);
 				savewordid = {};
 				savewordid.knowledgeword = getknowledgeword;
 				savewordid.knowledgelink = getknowledgelink;
+//console.log(savewordid);					
 				livepouch.singleSave(savewordid);
-livepouch.allDocs();
+//livepouch.allDocs();
 				// empty the form fields	
 				$("#knowledgeword").val("");
 				$("#knowledgelink").val("");
@@ -71,36 +72,33 @@ livepouch.allDocs();
 				var recordtimein = {};
 				recordtimein.knowledgewords = {};
 				knowlegeelementsin = [];	
-
-				var gettherecordcontext = 	$("#buildrecordtimetemplate.connectedSortable select#Worldrecord option");
-
-				var knowledgeelements  = Object.keys(gettherecordcontext);
-				knowledgelength = gettherecordcontext.length;
-					
-					for (var i=0;i<knowledgelength;i++)
-				{
-
-					knowlegeelementsin[i] = $(gettherecordcontext[i]).val();	
-				};	
+				// get data elements from primary relationship TODO AUTO MATE CAPUTURE
+				var gettherecordcontext = 	["Sex","Sport","Swimming_stroke","Distance","Measurement","Swimmingpool"];
 
 				// now get values for each list box
-				knowlegeelementsin.forEach(function(listdropname){
-					recordtimein.knowledgewords[listdropname] = $("#buildrecordtimetemplate.connectedSortable select#" + listdropname).val()
+				gettherecordcontext.forEach(function(listdropname){
+
+					recordtimein.knowledgewords[listdropname] = $("#buildrecordtimetemplate.connectedSortable select#" + listdropname).val();
 				});
 			
 				recordtimein.networkidentity = $("#buildrecordtimeidentity.connectedSortable li").attr("id");
 				recordtimein.date = Date.parse($( "#newrecordtime input#datepicker" ).datepicker( "getDate" ));
 				recordtimein.time = parseInt($("form#newrecordtime input#time").val());
+				// save in context of tool knowledge template name
+				var savedatatool = {};
+				savedatatool.tooltemplate = 'Worldrecord-template';
+				savedatatool.lifedata = recordtimein;
+//console.log(savedatatool);				
 				// save to the pouchdb
 					// push to d1 data object and save to Pouchdb
 					d1.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
 				d1.sort(function(a,b){return a+b});
-				//livepouch.singleSave(recordtimein);			
+				livepouch.singleSave(savedatatool);			
 				
 						(function basic(container, d1) {
-console.log('past chard draw called');
-console.log(d1);
+//console.log('past chard draw called');
+//console.log(d1);
 						// Draw Graph
 							graph = Flotr.draw(container, [
 		
@@ -150,10 +148,10 @@ console.log(relationshiplistget);
 			// save to Pouchdb - knowledge - bond - socialnetwork - 
 				relationshipin = {};
 				relationshipin.bond = 1;
-				relationshipin.knowledgeword = relationshipfirst;
+				relationshipin.knowledgestart = relationshipfirst;
 				relationshipin.knowledgelist = relationshiplist;	
 				livepouch.singleSave(relationshipin);
-console.log(relationshipin);				
+//console.log(relationshipin);				
 				
 			}
 
@@ -180,7 +178,6 @@ console.log(relationshipin);
 	// Y axis time recorded for world record
 	// context  each point is a persons name  implied social network is context
 	//example data structure
-livepouch.allDocs();
 	
 	// setup map to pouchdb
 function localDatacall(callback) {  
@@ -271,5 +268,5 @@ function localDatacall(callback) {
 		})(document.getElementById(fcontainer));
 		
 
-		
+
 });

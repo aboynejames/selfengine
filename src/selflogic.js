@@ -116,7 +116,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			recordtimetemplatecontext = '';
 			knowledgeoptions = '';
 			// have three default input tabs me club world
-			recordtimetemplatecontext += '<a href="" id="recordtimeme" >me</a> <a href="" id="recordtimeclub" >club</a> <a href="" id="recordtimeworld" >world</a>';
+			recordtimetemplatecontext += '<a href="" id="recordtimeme" >me</a> <a href="" id="recordtimeclub" >club</a> <a href="" id="Worldrecord" >world</a>';
 			
 			$("#toolsactive").append('<section id="makerecordtime" >' + recordtimetemplatecontext + '</section>');
 
@@ -135,21 +135,25 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			}  
 
 			localDatacall(function(rtmap) { 
-	
+	console.log(rtmap);
 				rtmap.rows.forEach(function(rowkwid){
+			
 				iddstrnospace = rowkwid.key.replace(/\s+/g, '');
+				
 				recordtimetemplate += '<label><li class="ui-state-default" id="' + iddstrnospace + '" data-knowledgeword="' + rowkwid.key +'" ><a href="">' + rowkwid.key + '</a></li></label>';
 				knowledgecontext = rowkwid.key;	
 					// form drop down options foreach 
 					strnospace = rowkwid.key.replace(/\s+/g, '');
+				
 						recordtimetemplate +=  '<select id="' + strnospace + '" class="rightselect" >';
 
-						rowkwid.value.knowledgelist.forEach(function(klist){
+						rowkwid.value.forEach(function(klist){
+
 							strnospace = klist.replace(/\s+/g, '');
 								recordtimetemplate +=  '<option value="' + strnospace + '">' + klist + '</option>';
 							
 						});
-						
+			
 						recordtimetemplate += '</select>';
 
 			});	
@@ -159,7 +163,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 		recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';
 		recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" ></div>';
 		recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
-		
+	
 		$("#makerecordtime").append(recordtimetemplate);		
 			// datepicker 
 			$( "#datepicker" ).datepicker({
@@ -249,6 +253,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 				
 				dragHTMLknowledgeid += '</ul>';
 				$("#knowledgelive").html(dragHTMLknowledgeid);
+				
 					$( "#dragknowledgeword" ).sortable({
 					connectWith: ".connectedSortable"
 					}).disableSelection();

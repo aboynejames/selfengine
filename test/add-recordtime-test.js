@@ -27,7 +27,7 @@ casper.then(function() {
 	this.test.comment('ensure the tools active, and templates are are present');
 	casper.test.assertExists('#makerecordtime', 'the element exists');
 	casper.test.assertExists('#toolsactive', 'the element exists');
-	casper.test.assertExists('#recordtimeworld', 'the element exists');
+	casper.test.assertExists('#Worldrecord', 'the element exists');
 	casper.test.assertExists('#recordtimeclub', 'the element exists');
 	casper.test.assertExists('#recordtimeme', 'the element exists');
 	
@@ -35,7 +35,7 @@ casper.then(function() {
 
 casper.then(function() {
 	this.test.comment('click on record world record template');
-	this.mouseEvent('click', '#recordtimeworld');
+	this.mouseEvent('click', '#Worldrecord');
 	
 });
 

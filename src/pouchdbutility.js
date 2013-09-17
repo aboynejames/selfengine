@@ -89,7 +89,7 @@ console.log(response);
 pouchdbSettings.prototype.getDoc = function(docid) {
 
 		this.livepouch.get(docid, function(err, response) {
-console.log(response);
+//console.log(response);
 
 			});
 
@@ -110,7 +110,7 @@ pouchdbSettings.prototype.putDoc = function(designdoc) {
 
 	this.livepouch.put(designdoc, function(err, response) {
 
-console.log(response);
+//console.log(response);
 		});
 	
 };
@@ -175,11 +175,11 @@ pouchdbSettings.prototype.mapQueryknowledgelist = function(callbackin) {
 		
 			function map(selfengine) {
 				if(selfengine.knowledgelist) {
-				emit(selfengine.knowledgeword, selfengine);
+				emit(selfengine.knowledgestart, selfengine.knowledgelist);
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-console.log(response);
+//console.log(response);
 				callbackin(response);
 		});
 
@@ -195,13 +195,13 @@ console.log(response);
 pouchdbSettings.prototype.mapQueryLIVE = function(callbackin) {
 		
 			function map(selfengine) {
-				if(selfengine.knowledgewords ) {
-				emit(selfengine.date, selfengine.time);
+				if(selfengine.tooltemplate ) {
+				emit(selfengine.lifedata.date, selfengine.lifedata.time);
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-console.log('live query callback response');
-console.log(response);
+//console.log('live query callback response');
+//console.log(response);
 				callbackin(response);
 		});
 
