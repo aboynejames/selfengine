@@ -4,7 +4,7 @@
 */	
 $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
-		livepouch = new pouchdbSettings();
+
 	liveLogic = new selfLogic();
 	// live attention data (Chart)
 	var container = "pastchart";	
@@ -171,7 +171,7 @@ console.log(relationshiplistget);
 		liveattentiondata.knowledgewords[i] = liveattentionget[i].id;
 	}
 //console.log(liveattentiondata);
-	
+			livepouch = new pouchdbSettings();
 
 
 	// goal  X and Y axis
