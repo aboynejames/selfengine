@@ -4,6 +4,7 @@
 */	
 $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
+		livepouch = new pouchdbSettings();
 	liveLogic = new selfLogic();
 	// live attention data (Chart)
 	var container = "pastchart";	
@@ -32,7 +33,7 @@ $(document).ready(function(){
 				savenetworkid = {};
 				savenetworkid.networkidentity = getnetworkidentity;
 				savenetworkid.networkidentitylink = getidentitylink;
-console.log(savenetworkid);					
+//console.log(savenetworkid);					
 
 //livepouch.allDocs();
 				// empty the form fields	
@@ -171,8 +172,8 @@ console.log(relationshiplistget);
 	}
 //console.log(liveattentiondata);
 	
-	
-	livepouch = new pouchdbSettings();
+
+
 	// goal  X and Y axis
 	// X axis this case world records, data world record set
 	// Y axis time recorded for world record

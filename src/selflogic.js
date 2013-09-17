@@ -130,11 +130,11 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			recordtimetemplate += '<ul id="buildrecordtimetemplate" class="connectedSortable">';
 			
 			//LOOP through lists query Pouchdb
-			function localDatacall(callback) {  
+			function localDatacallB(callback) {  
 				livepouch.mapQueryknowledgelist(callback);
 			}  
 
-			localDatacall(function(rtmap) { 
+			localDatacallB(function(rtmap) { 
 	console.log(rtmap);
 				rtmap.rows.forEach(function(rowkwid){
 			
@@ -235,11 +235,11 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#knowledge").data("knowledgestatus", "inactive");
 			
 			// make active existing knowledge dragable- query pouch display
-			function localDatacall(callback) {  
+			function localDatacallC(callback) {  
 				livepouch.mapQueryknowledge(callback);
 			}  
       
-			localDatacall(function(rtmap) {  
+			localDatacallC(function(rtmap) {  
 
 				dragHTMLknowledgeid = '';
 				dragHTMLknowledgeid += '<ul id="dragknowledgeword" class="connectedSortable">';
