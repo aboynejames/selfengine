@@ -242,7 +242,7 @@ pouchdbSettings.prototype.filterchangeLog = function(callbackin) {
 */	
 pouchdbSettings.prototype.replicate = function() {
 
-PouchDB.replicate(this.account.pouchdbname, 'selfbackup', {
+PouchDB.replicate(this.account.pouchdbname, 'selfenginecloud', {
   onChange: onChange,
   complete: onComplete
 });

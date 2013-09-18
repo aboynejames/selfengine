@@ -298,7 +298,15 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#relationshipknowledge").data("relationshipknowledgestatus", "active");
 						
 		}
-			
+		break;
+
+		case "sync":
+		
+			PouchDB.replicate('selfengine', 'http://www.mepath.co.uk:5984/selfengine/', {
+
+			});
+		
+		break;
 	
 		
 	}		
