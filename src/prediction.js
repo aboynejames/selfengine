@@ -19,43 +19,43 @@ var selfprediction = function() {
 *
 */	
 selfprediction.prototype.predictionout = function(livecontextdata) {
-console.log(livecontextdata);
+//console.log(livecontextdata);
 //var datain = {1:1,2:2,3:1.3,4:3.75,5:2.25};
 var datainx = [];
 var datainy = [];
 
 	// for now form x array and y array to feed sums below
 livecontextdata.forEach(function(xypairs) {
-console.log(xypairs[0]);	
+//console.log(xypairs[0]);	
 		datainx.push(xypairs[0]);
 		datainy.push(xypairs[1]);
 });
 	
 	
-console.log(datainx);
-console.log(datainy);
+//console.log(datainx);
+//console.log(datainy);
 
 // sum x and average
 var totalsumx = datainx.reduce(function(previousValue, currentValue, index, array){
   return previousValue + currentValue;
 });
-console.log(totalsumx);
+//console.log(totalsumx);
 var xlength = datainx.length;
 
 //sum y and average
 var totalsumy = datainy.reduce(function(previousValue, currentValue, index, array){
   return previousValue + currentValue;
 });
-console.log(totalsumy);
+//console.log(totalsumy);
 var ylength = datainy.length;
 
 
 // calcualate the means
 var meanx = totalsumx/xlength;
-console.log(meanx);
+//console.log(meanx);
 
 var meany = totalsumy/ylength;
-console.log(meany);
+//console.log(meany);
 
 
 // calculate variance for x
@@ -73,20 +73,20 @@ datainx.forEach(function(xnum) {
 //console.log(sdeviationsquared);
 	});
 
-console.log('deviation from mean for x');	
-console.log(sdeviationx);
-console.log('deviation squared from mean for x');		
-console.log(sdeviationsquaredarr);
+/console.log('deviation from mean for x');	
+//console.log(sdeviationx);
+//console.log('deviation squared from mean for x');		
+//console.log(sdeviationsquaredarr);
 	var totalsumxdev = sdeviationsquaredarr.reduce(function(previousValue, currentValue, index, array){
   return previousValue + currentValue;
 });
 
 variancex = totalsumxdev/(xlength-1);
-console.log(variancex);
+//console.log(variancex);
 // standard devication is square root of variance
 var sdx = Math.sqrt(variancex);
-console.log('sd for x');
-console.log(sdx);
+//console.log('sd for x');
+//console.log(sdx);
 
 // calculate variance for y
 var variancey = '';
@@ -101,16 +101,16 @@ datainy.forEach(function(ynum) {
 //console.log(sdeviationsquaredy);
 	});
 
-console.log('deviation from mean for y');	
-console.log(sdeviationy);
-console.log('deviation squared from mean for y');			
-console.log(sdeviationsquaredarry);
+//console.log('deviation from mean for y');	
+//console.log(sdeviationy);
+//console.log('deviation squared from mean for y');			
+//console.log(sdeviationsquaredarry);
 	var totalsumydev = sdeviationsquaredarry.reduce(function(previousValue, currentValue, index, array){
   return previousValue + currentValue;
 });
 
 variancey = totalsumydev/(ylength-1);
-console.log(variancey);
+//console.log(variancey);
 // standard devication is square root of variance
 var sdy = Math.sqrt(variancey);
 console.log('sd for y');
@@ -130,18 +130,18 @@ var result = 0;
 for (var i=0; i < sdeviationx.length; i++) {
   result += (sdeviationx[i] * sdeviationy[i]);
 }
-console.log('sum of deviation of x times y deviations');
-console.log(result);
+//console.log('sum of deviation of x times y deviations');
+//console.log(result);
 
 var sumdiffsquarex =  Math.sqrt(totalsumxdev);
 var sumdiffsquarey = Math.sqrt(totalsumydev);
-console.log('squre root products');
-console.log(sumdiffsquarex*sumdiffsquarey);
+//console.log('squre root products');
+//console.log(sumdiffsquarex*sumdiffsquarey);
 
 personsr = result/(sumdiffsquarex*sumdiffsquarey);
 
-console.log(' persons r is')
-console.log(personsr);
+//console.log(' persons r is')
+//console.log(personsr);
 
 
 // build forulate for straight line linear regress chart
@@ -150,16 +150,16 @@ console.log(personsr);
 var beta = '';
 
 beta = (personsr * sdy)/sdx;
-console.log('beta co efficient');
-console.log(beta);
+//console.log('beta co efficient');
+//console.log(beta);
 
 // where does it cross the y axis ie x = 0;
 
 var crossy = '';
 
 crossy = meany - (beta * meanx);
-console.log('crosses y axis at when x is zero');
-console.log(crossy);
+//console.log('crosses y axis at when x is zero');
+//console.log(crossy);
 
 // produce the regression line x y pairs
 
@@ -167,7 +167,7 @@ var dregdata = [];
 
 // take todays date and add 10 years
 var startdateprediction = new Date().valueOf();
-console.log(startdateprediction);
+//console.log(startdateprediction);
 var tenyeartimeframe = [1,2,3,4,5,6,7,8,9,10];
 var yearinmilliseconds = 31536000000;
 
@@ -178,7 +178,7 @@ tenyeartimeframe.forEach(function(yearno) {
 	regx.push(startdateprediction + (yearno * yearinmilliseconds));
 	
 });
-console.log(regx);
+//console.log(regx);
 //var regx = [1,2,3,4,5,6,7,8,9,10]
 var regy = '';
 var regxy = [];
@@ -191,8 +191,8 @@ regx.forEach(function(rx) {
 });
 
 // regression line co ordinates
-console.log('the regression line');
-console.log(regxy);
+//console.log('the regression line');
+//console.log(regxy);
 	var fcontainer = "futurechart";	
 	(function basic(fcontainer, d2) {
 //console.log('past chard draw called');
