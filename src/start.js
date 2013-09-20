@@ -6,6 +6,7 @@ $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
 
 	liveLogic = new selfLogic();
+	liveprediction = new selfprediction(); 
 	// live attention data (Chart)
 	var container = "pastchart";	
 	var d1 = [];
@@ -224,19 +225,28 @@ function localDatacall(callback) {
 										//minorVerticalLines: true
 								},
 								yaxis: {
-									min: 0
+									mode: 'time',
+									timeUnit:'millisecond',
+									timeformat: "%S",
+									min: 40000,
+									max: 70000
+
 								},
 								title: 'Recorded Times'
 						});
 						
 //console.log(graph);		
 		
-	})(document.getElementById(container), d1);
+						})(document.getElementById(container), d1);
+	
+						// now show the future chart
+						liveprediction.predictionout(d1);
+	
 				
 			});	
 	
 
-
+/*
 		var fcontainer = "futurechart";	
 	var f1 = [[0, 3],[4, 8],[8, 5],[9, 13] ];
 
@@ -267,7 +277,7 @@ function localDatacall(callback) {
 				title: 'Predicted Times'
 			});
 		})(document.getElementById(fcontainer));
-		
+		*/
 
 
 });
