@@ -73,7 +73,7 @@ datainx.forEach(function(xnum) {
 //console.log(sdeviationsquared);
 	});
 
-/console.log('deviation from mean for x');	
+//console.log('deviation from mean for x');	
 //console.log(sdeviationx);
 //console.log('deviation squared from mean for x');		
 //console.log(sdeviationsquaredarr);
