@@ -113,8 +113,8 @@ variancey = totalsumydev/(ylength-1);
 //console.log(variancey);
 // standard devication is square root of variance
 var sdy = Math.sqrt(variancey);
-console.log('sd for y');
-console.log(sdy);
+//console.log('sd for y');
+//console.log(sdy);
 
 
 // calculate persons R

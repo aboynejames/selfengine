@@ -302,7 +302,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 
 		case "sync":
 		
-			PouchDB.replicate('selfengine', 'http://www.mepath.co.uk:5984/', {
+			PouchDB.replicate('http://www.mepath.co.uk:5984/selfenginecloud/', 'selfengine', {
 
 			});
 		

@@ -61,7 +61,7 @@ $(document).ready(function(){
 				savewordid.knowledgelink = getknowledgelink;
 //console.log(savewordid);					
 				livepouch.singleSave(savewordid);
-//livepouch.allDocs();
+
 				// empty the form fields	
 				$("#knowledgeword").val("");
 				$("#knowledgelink").val("");
@@ -133,7 +133,10 @@ $(document).ready(function(){
 						
 //console.log(graph);		
 		
-	})(document.getElementById(container), d1);
+					})(document.getElementById(container), d1);
+					
+				$( "#newrecordtime input#datepicker" ).val('');
+				$("form#newrecordtime input#time").val('');
 			}
 			
 			else if (toolsflowin.attr("id") == 'relationshipknowledgesave')
@@ -240,44 +243,11 @@ function localDatacall(callback) {
 						})(document.getElementById(container), d1);
 	
 						// now show the future chart
+						if(d1.length > 2)
+						{
 						liveprediction.predictionout(d1);
-	
+						}
 				
 			});	
-	
-
-/*
-		var fcontainer = "futurechart";	
-	var f1 = [[0, 3],[4, 8],[8, 5],[9, 13] ];
-
-(function basic_candle(container) {
-
-    var
-    d1 = [],
-        price = 3.206,
-        graph, i, a, b, c;
-
-    for (i = 0; i < 50; i++) {
-        a = Math.random();
-        b = Math.random();
-        c = (Math.random() * (a + b)) - b;
-        d1.push([i, price, price + a, price - b, price + c]);
-        price = price + c;
-    }
-
-    // Graph
-    graph = Flotr.draw(container, [d1], {
-        candles: {
-            show: true,
-            candleWidth: 0.6
-        },
-        xaxis: {
-            noTicks: 10
-        },
-				title: 'Predicted Times'
-			});
-		})(document.getElementById(fcontainer));
-		*/
-
-
+livepouch.allDocs();
 });
