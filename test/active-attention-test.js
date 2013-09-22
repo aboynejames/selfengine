@@ -12,24 +12,34 @@ casper.start(baseUrl, function() {
 });
 
 casper.then(function() {
-	this.test.comment('always shuld be on active element in the active self drop zone');
+	this.test.comment('always should be on active element in the active self drop zone');
 	this.activeattention = this.getElementsAttribute('#dragselfnow li').length;
 	casper.test.assert((this.activeattention > 1), "at least one active attention context set");
 	
 });
 
 casper.then(function() {
+	this.test.comment('a past and future chart should be displayed from the start');
+	casper.test.assertExists('#pastchart', 'the element exists');
+	casper.test.assertExists('#futurechart', 'the element exists');
+	
+});
+
+
+casper.then(function() {
 	this.test.comment('allow for selection of male or female');
 	
 	this.evaluate(function() {
-
-		var $select = $('#activeself ul#dragselfnow.connectedSortable select#Sex.rightselect option');
+		var $select = $('#activeself select#Sex option');
     var _option = "Female";
     $select.val(_option);
    
 	});
-	
-	this.activeattentionsex = this.getElementsAttribute('#activeself ul#dragselfnow.connectedSortable select#Sex.rightselect option').;
+});
+
+casper.then(function() {
+	this.test.comment('check female was select');	
+	this.activeattentionsex = this.getElementAttribute('#activeself select#Sex option', 'value');
 	casper.test.assertEquals(this.activeattentionsex, 'Female', 'the selection is correct');
 
 });
@@ -39,6 +49,7 @@ casper.then(function() {
 	this.activechartpast = this.getElementsAttribute('#pastchart .flotr-legend table tbody tr td.flotr-legend-label');
 this.echo(this.activechartpast);	
 	casper.test.assertSelectorHasText('#pastchart .flotr-legend table tbody tr td.flotr-legend-label', 'World Records 100m Freestyle Female');
+	
 });
 
 casper.run(function() {

@@ -42,7 +42,7 @@ pouchdbSettings.prototype.createPouchdb = function() {
 pouchdbSettings.prototype.bulkSave = function(datain) {
 	
 	this.livepouch.bulkDocs({docs: datain}, function(err, response) {
-console.log(response);
+//console.log(response);
 	});
 
 };
@@ -141,7 +141,7 @@ pouchdbSettings.prototype.mapQueryname = function(callbackin) {
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-console.log(response);
+//console.log(response);
 				callbackin(response);
 		});
 
@@ -160,7 +160,7 @@ pouchdbSettings.prototype.mapQueryknowledge = function(callbackin) {
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-console.log(response);
+//console.log(response);
 				callbackin(response);
 		});
 
@@ -179,7 +179,7 @@ pouchdbSettings.prototype.mapQueryknowledgelist = function(callbackin) {
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-console.log(response);
+//console.log(response);
 				callbackin(response);
 		});
 

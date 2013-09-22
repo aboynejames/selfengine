@@ -6,11 +6,7 @@ $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
 
 	liveLogic = new selfLogic();
-	liveprediction = new selfprediction(); 
-	// live attention data (Chart)
-	var container = "pastchart";	
-	var d1 = [];
-	
+
 	// make dragable UI part sortable
 	$( "#dragselfnow" ).sortable({
 	connectWith: ".connectedSortable"
@@ -96,45 +92,11 @@ $(document).ready(function(){
 					d1.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
 				d1.sort(function(a,b){return a+b});
-				livepouch.singleSave(savedatatool);			
-				
-						(function basic(container, d1) {
-//console.log('past chard draw called');
-//console.log(d1);
-						// Draw Graph
-							graph = Flotr.draw(container, [
-		
-					{
-						data: d1,
-						label: 'World Records 100m Freestyle men',
-						lines: {
-            show: true
-						},
-						points: {
-							show: true
-						}
-					}],
-					{
-								xaxis: {
-										//majorTickFreq: 1
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%m/%d/%y",
-									labelsAngle: 45
-								},
-								grid: {
-										//minorVerticalLines: true
-								},
-								yaxis: {
-									min: 0
-								},
-								title: 'Recorded Times'
-						});
-						
-//console.log(graph);		
-		
-					})(document.getElementById(container), d1);
-					
+				livepouch.singleSave(savedatatool);		
+				var container = "pastchart";
+				liveattentiondata = '';
+				liveData.chartproduction(d1, liveattentiondata, container);				
+	
 				$( "#newrecordtime input#datepicker" ).val('');
 				$("form#newrecordtime input#time").val('');
 			}
@@ -164,90 +126,16 @@ console.log(relationshiplistget);
 		});
 		
 
-	// need to build live data based on active attention
-	// first capture active attention
-	var liveattentiondata = {};
-	liveattentiondata.knowledgewords = {};	
-	var liveattentionget = $("#activeself ul#dragselfnow.connectedSortable").children();	
-	var liveattentionlength = liveattentionget.length;
-	for (var i=0;i<liveattentionlength;i++)
-	{
-		liveattentiondata.knowledgewords[i] = liveattentionget[i].id;
-	}
-//console.log(liveattentiondata);
-			livepouch = new pouchdbSettings();
-
-
-	// goal  X and Y axis
-	// X axis this case world records, data world record set
-	// Y axis time recorded for world record
-	// context  each point is a persons name  implied social network is context
-	//example data structure
+			
+	$("#activeself select#Sex").change(function () {
+console.log('a sex selection has changed');
+	// start of a new live data and chart production
 	
-	// setup map to pouchdb
-function localDatacall(callback) {  
-				livepouch.mapQueryLIVE(callback);
-			}  
-      
-			localDatacall(function(rtmap) {  
-//console.log(rtmap);						
-				rtmap.rows.forEach(function(rowliveat){
-//console.log(rowliveat.key)
-					d1.push([rowliveat.key, rowliveat.value]);
-					
-				});
-//console.log('data before chart');				
-//console.log(d1);				
-					//var d1 = [[0, 3],[4, 8],[8, 5],[9, 13] ];
-			//d1 =[[-1391040000000, 11232], [ -979977200000, 9000], [179977200000, 8022]];
-						(function basic(container, d1) {
-//console.log('past chard draw called');
-//console.log(d1);
-						// Draw Graph
-							graph = Flotr.draw(container, [
-		
-					{
-						data: d1,
-						label: 'World Records 100m Freestyle men',
-						lines: {
-            show: true
-						},
-						points: {
-							show: true
-						}
-					}],
-					{
-								xaxis: {
-										//majorTickFreq: 1
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%m/%d/%y",
-									labelsAngle: 45
-								},
-								grid: {
-										//minorVerticalLines: true
-								},
-								yaxis: {
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%S",
-									min: 40000,
-									max: 70000
 
-								},
-								title: 'Recorded Times'
-						});
-						
-//console.log(graph);		
-		
-						})(document.getElementById(container), d1);
-	
-						// now show the future chart
-						if(d1.length > 2)
-						{
-						liveprediction.predictionout(d1);
-						}
+	}).change();	
 				
-			});	
-livepouch.allDocs();
+	livepouch = new pouchdbSettings();
+	liveprediction = new selfprediction();	
+	liveData = new livedata(livepouch, liveprediction);
+	
 });

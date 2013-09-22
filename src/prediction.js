@@ -4,7 +4,7 @@
 * prediction analystics
 * @class selfprediction
 *
-* @package    LifestyleLinking part of open sport project
+* @package    selfengine  open source project
 * @copyright  Copyright (c) 2012 James Littlejohn
 * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 * @version    $Id$
@@ -19,7 +19,8 @@ var selfprediction = function() {
 *
 */	
 selfprediction.prototype.predictionout = function(livecontextdata) {
-//console.log(livecontextdata);
+console.log('first prediction staged called');	
+console.log(livecontextdata);
 //var datain = {1:1,2:2,3:1.3,4:3.75,5:2.25};
 var datainx = [];
 var datainy = [];
