@@ -33,7 +33,6 @@ pouchdbSettings.prototype.createPouchdb = function() {
 
 };
 
-
 /**
 * save more than one documents to pouchdb
 * @method bulkSave		
@@ -64,7 +63,6 @@ pouchdbSettings.prototype.updateSingle = function(datain) {
 		
 
 };
-
 
 /**
 * get list of all pouchdb documents
@@ -196,7 +194,7 @@ pouchdbSettings.prototype.mapQueryLIVE = function(callbackin) {
 		
 			function map(selfengine) {
 				if(selfengine.tooltemplate ) {
-				emit(selfengine.lifedata.date, selfengine.lifedata.time);
+				emit(selfengine.lifedata, selfengine.lifedata.networkidentity);
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {

@@ -6,6 +6,19 @@ $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
 
 	liveLogic = new selfLogic();
+	
+	// need to build live data based on active attention
+	// first capture active attention
+	var liveattentiondata = {};
+	liveattentiondata.knowledgewords = {};	
+	var liveattentionget = $("#activeself ul#dragselfnow.connectedSortable").children();	
+	var liveattentionlength = liveattentionget.length;
+	for (var i=0;i<liveattentionlength;i++)
+	{
+		liveattentiondata.knowledgewords[i] = liveattentionget[i].id;
+	}
+	liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
+console.log(liveattentiondata);
 
 	// make dragable UI part sortable
 	$( "#dragselfnow" ).sortable({
@@ -124,18 +137,17 @@ console.log(relationshiplistget);
 
 
 		});
-		
-
-			
-	$("#activeself select#Sex").change(function () {
-console.log('a sex selection has changed');
-	// start of a new live data and chart production
-	
-
-	}).change();	
 				
 	livepouch = new pouchdbSettings();
 	liveprediction = new selfprediction();	
-	liveData = new livedata(livepouch, liveprediction);
+	liveData = new livedata(livepouch, liveprediction, liveattentiondata);
+	
+		$("#activeself select#Sex").change(function () {
+console.log('a sex selection has changed');
+	// start of a new live data and chart production
+		liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
+		liveData.livedatain(liveattentiondata);
+
+	});
 	
 });

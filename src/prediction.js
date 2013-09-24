@@ -20,7 +20,7 @@ var selfprediction = function() {
 */	
 selfprediction.prototype.predictionout = function(livecontextdata) {
 console.log('first prediction staged called');	
-console.log(livecontextdata);
+//console.log(livecontextdata);
 //var datain = {1:1,2:2,3:1.3,4:3.75,5:2.25};
 var datainx = [];
 var datainy = [];
@@ -194,46 +194,9 @@ regx.forEach(function(rx) {
 // regression line co ordinates
 //console.log('the regression line');
 //console.log(regxy);
-	var fcontainer = "futurechart";	
-	(function basic(fcontainer, d2) {
-//console.log('past chard draw called');
-//console.log(d1);
-						// Draw Graph
-							graph = Flotr.draw(fcontainer, [
-		
-					{
-						data: d2,
-						label: 'Predicted World Records 100m Freestyle men',
-						lines: {
-            show: true
-						},
-						points: {
-							show: true
-						}
-					}],
-					{
-								xaxis: {
-										//majorTickFreq: 1
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%m/%d/%y",
-									labelsAngle: 45
-								},
-								grid: {
-										//minorVerticalLines: true
-								},
-								yaxis: {
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%S",
-									min: 40000,
-									max: 70000
-								},
-								title: 'Predicted Times'
-						});
-						
-//console.log(graph);		
-		
-						})(document.getElementById(fcontainer), regxy);
+	var fcontainer = "futurechart";
+	liveattentiondata = {};
+	liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
+	liveData.chartproduction(regxy, liveattentiondata, fcontainer);			
 
 };
