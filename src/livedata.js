@@ -151,7 +151,7 @@ console.log(contexttitle);
 									//timeUnit:'millisecond',
 									//timeformat: "%S",
 									min: 40000,
-									max: 120000
+									max: 90000
 								},
 								//title: 'Times'
 						});
