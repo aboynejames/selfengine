@@ -199,7 +199,7 @@ livedata.prototype.livefilterknowlegeword = function(datauniverse, setlivecontex
 //console.log(dataobj[0].knowledgewords.Sex);
 		if(dataobj[0].knowledgewords.Sex == setlivecontext.knowledgewords)
 		{
-		contextlivedata.push([parseInt(dataobj[0].date), parseInt(dataobj[0].time)]);
+		contextlivedata.push([parseInt(dataobj[0].date, 10), parseInt(dataobj[0].time, 10)]);
 		}
 	});
 
@@ -236,7 +236,7 @@ console.log('livefilter');
 //console.log(dataobj);
 				if(dataobj[0].knowledgewords.Sex == focusname)
 				{
-					contextlivedata.push([parseInt(dataobj[0].date), parseInt(dataobj[0].time)]);
+					contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
 				}
 			});
 //console.log(contextlivedata);
@@ -262,7 +262,7 @@ livedata.prototype.relationshipfilter = function(reldatain, relationshipin) {
 console.log('relationship filter');
 //console.log(reldatain);
 //console.log(relationshipin.relationshipliststart);
-var livestartlistword = 	relationshipin.relationshipliststart;
+	var livestartlistword = relationshipin.relationshipliststart;
 //console.log(livestartlistword);
 	var rellistout = [];
 	rellistout = reldatain[livestartlistword];
@@ -450,7 +450,7 @@ console.log('build active attention code');
 		
 		});
 
-	HTMLattentionfix += '</ul>';		;		
+	HTMLattentionfix += '</ul>';	
 	HTMLattentionfix += '</li>';		
 	});
 

@@ -78,7 +78,7 @@ console.log(attentionfocusin);
 				recordtimein.knowledgewords = {};
 				knowlegeelementsin = [];	
 				// get data elements from primary relationship TODO AUTO MATE CAPUTURE
-				var gettherecordcontext = 	["Sex","Sport","Swimming_stroke","Distance","Measurement","Swimmingpool"];
+				var gettherecordcontext = ["Sex","Sport","Swimming_stroke","Distance","Measurement","Swimmingpool"];
 
 				// now get values for each list box
 				gettherecordcontext.forEach(function(listdropname){
@@ -88,7 +88,7 @@ console.log(attentionfocusin);
 			
 				recordtimein.networkidentity = $("#buildrecordtimeidentity.connectedSortable li").attr("id");
 				recordtimein.date = Date.parse($( "#newrecordtime input#datepicker" ).datepicker( "getDate" ));
-				recordtimein.time = parseInt($("form#newrecordtime input#time").val());
+				recordtimein.time = parseInt($("form#newrecordtime input#time").val(),10);
 				// save in context of tool knowledge template name
 				var savedatatool = {};
 				savedatatool.tooltemplate = 'Worldrecord-template';
@@ -98,7 +98,7 @@ console.log(attentionfocusin);
 					// push to d1 data object and save to Pouchdb
 					d1record.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
-				d1record.sort(function(a,b){return a+b});
+				d1record.sort(function(a,b){return a+b;});
 				livepouch.singleSave(savedatatool);		
 				var container = "pastchart";
 				liveattentiondata = '';
