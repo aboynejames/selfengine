@@ -6,19 +6,6 @@ $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
 
 	liveLogic = new selfLogic();
-	
-	// need to build live data based on active attention
-	// first capture active attention
-	var liveattentiondata = {};
-	liveattentiondata.knowledgewords = {};	
-	var liveattentionget = $("#activeself ul#dragselfnow.connectedSortable").children();	
-	var liveattentionlength = liveattentionget.length;
-	for (var i=0;i<liveattentionlength;i++)
-	{
-		liveattentiondata.knowledgewords[i] = liveattentionget[i].id;
-	}
-	liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
-console.log(liveattentiondata);
 
 	// make dragable UI part sortable
 	$( "#dragselfnow" ).sortable({
@@ -26,10 +13,17 @@ console.log(liveattentiondata);
 	}).disableSelection();
 
 		$("a").click(function(e) {
-			e.preventDefault(e);
+			e.preventDefault(e);			
 			liveLogic.frameworklogic(this);
 		});
 
+	$("#livedata").click(function(e) {
+			e.preventDefault(e);
+console.log('attention focus clicked');		
+			var attentionfocusin = $(e.target);
+console.log(attentionfocusin);		
+	});	
+		
 		$("#networkflow").click(function(e) {
 			e.preventDefault(e);
 			var networkflowin = $(e.target);	
@@ -102,13 +96,13 @@ console.log(liveattentiondata);
 //console.log(savedatatool);				
 				// save to the pouchdb
 					// push to d1 data object and save to Pouchdb
-					d1.push([recordtimein.date, recordtimein.time]);
+					d1record.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
-				d1.sort(function(a,b){return a+b});
+				d1record.sort(function(a,b){return a+b});
 				livepouch.singleSave(savedatatool);		
 				var container = "pastchart";
 				liveattentiondata = '';
-				liveData.chartproduction(d1, liveattentiondata, container);				
+				liveData.chartproduction(d1record, liveattentiondata, container);				
 	
 				$( "#newrecordtime input#datepicker" ).val('');
 				$("form#newrecordtime input#time").val('');
@@ -139,15 +133,7 @@ console.log(relationshiplistget);
 		});
 				
 	livepouch = new pouchdbSettings();
-	liveprediction = new selfprediction();	
-	liveData = new livedata(livepouch, liveprediction, liveattentiondata);
-	
-		$("#activeself select#Sex").change(function () {
-console.log('a sex selection has changed');
-	// start of a new live data and chart production
-		liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
-		liveData.livedatain(liveattentiondata);
-
-	});
-	
+	liveprediction = new selfprediction();
+	liveData = new livedata(livepouch, liveprediction);
+//console.log(liveData);	
 });

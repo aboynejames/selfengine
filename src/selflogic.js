@@ -19,9 +19,17 @@ var selfLogic = function() {
 *
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
-
+console.log($(intentionin).data("attentionfocus"));
 	idclick = $(intentionin).attr("id");
-
+console.log(idclick);
+	attentionchange = $(intentionin).data("attentionfocus");
+	if(attentionchange == "focuschange")
+	{
+console.log('change of focus clicked');		
+		// show title and other options to select
+$("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedoff");
+	}
+	
 	switch(idclick){
 
 	case "identity": 

@@ -282,14 +282,10 @@ aside, nav, article, figure {
  #activeself {
 	display:block;
 	border:1px solid #5f5f5f;
-	background: #eee;
+	background: pink;
 	margin: 4px;
-	text-align:center;
-	height: auto;
-	width:auto;
-	
 }
-
+/*
 .attentionfocus {
 	display:inline;
 	border:1px solid #5f5f5f;
@@ -300,7 +296,82 @@ aside, nav, article, figure {
 	width:30px;
 	
 }
+*/
+#attentionfix li.fixgroup, #knowledgelistgroup {
+	display:inline-block;
+	margin:4px;
+	background:green;
+	
+}
 
+.fixgrouptitle {
+		display:none;
+		list-style-type:none;
+	
+}
+
+.active-sub {
+		list-style-type:none;
+	
+}
+
+.active-sub li a.selectedoff {
+	display:none;
+
+	
+	
+}
+
+/*
+#activeself #attentionfix li.fixgroup {
+	display:inline;
+	border:1px solid #5f5f5f;
+	background: green;
+	margin: 6px;
+}
+
+#activeself ul#attentionfix li.fixgroup ul.active-sub {
+
+	border:1px solid white;
+	background: blue;
+	
+}
+
+#activeself ul#attentionfix li.fixgroup ul.active-sub li {
+	
+	border:1px solid white;
+	background: red;
+	
+}
+
+
+
+#attentionfix li.fixgroup ul.active-sub {
+
+	border:1px solid white;
+	background: blue;
+	
+}
+
+.fixgrouptitle {
+	display:inline;
+	border:1px solid white;
+	background: red;
+	
+}
+
+.active-sub li a.selected {
+	display:block;
+	
+	
+}
+
+.active-sub li a.selectedoff {
+	display:none;
+	
+	
+}
+*/
 #attentionhistory {
 	display:block;
 	border:1px solid #5f5f5f;
@@ -312,6 +383,11 @@ aside, nav, article, figure {
 	
 }
 
+#attentionhistory ul li {
+	display:inline;
+	margin:4px;
+	
+}
 
  #pastflow {
 	float:left;

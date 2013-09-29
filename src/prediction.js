@@ -10,7 +10,27 @@
 * @version    $Id$
 */
 var selfprediction = function() {
+		this.predictiondataout = {};
 	
+};
+
+/**
+* Figureout the number of incoming data element to process
+* @method predictionlogic		
+*
+*/	
+selfprediction.prototype.predictionlogic = function(livecontextdata, numberdatain) {
+console.log('data logic preparation ready for processing');	
+	// how many data sources to calcuate check and then perform statistics
+	datasetlength = Object.keys(livecontextdata).length;
+console.log(livecontextdata);
+	for (var i=1; i <= datasetlength; i++) {
+	// based on number of array, perform independent predictions
+console.log('number of predictions going on' + i);
+//console.log(livecontextdata[i]);		
+			this.predictionout(livecontextdata[i], i, datasetlength );
+	}
+		
 };
 
 /**
@@ -18,24 +38,21 @@ var selfprediction = function() {
 * @method predictionout		
 *
 */	
-selfprediction.prototype.predictionout = function(livecontextdata) {
+selfprediction.prototype.predictionout = function(livepredictiondata, elementpart, totalelements) {
 console.log('first prediction staged called');	
-//console.log(livecontextdata);
+	
 //var datain = {1:1,2:2,3:1.3,4:3.75,5:2.25};
 var datainx = [];
 var datainy = [];
 
 	// for now form x array and y array to feed sums below
-livecontextdata.forEach(function(xypairs) {
+livepredictiondata.forEach(function(xypairs) {
 //console.log(xypairs[0]);	
 		datainx.push(xypairs[0]);
 		datainy.push(xypairs[1]);
 });
-	
-	
 //console.log(datainx);
 //console.log(datainy);
-
 // sum x and average
 var totalsumx = datainx.reduce(function(previousValue, currentValue, index, array){
   return previousValue + currentValue;
@@ -194,9 +211,31 @@ regx.forEach(function(rx) {
 // regression line co ordinates
 //console.log('the regression line');
 //console.log(regxy);
+	this.predictionchartdata(regxy, elementpart, totalelements);
+};
+
+/**
+* Holds prediction data ready for charting
+* @method predictionchartdata		
+*
+*/	
+selfprediction.prototype.predictionchartdata = function(readypredictiondata, epart, totalelements) {
+console.log('holding data ready for execution to charting' + epart);
+
 	var fcontainer = "futurechart";
 	liveattentiondata = {};
+		// always deliver data to chart as an array
+	//predictiondataout = {};
+	this.predictiondataout[epart] = readypredictiondata;
 	liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
-	liveData.chartproduction(regxy, liveattentiondata, fcontainer);			
+	
+	completeset = Object.keys(this.predictiondataout).length;
+console.log(completeset + 'and another number' + totalelements);		
+	if(completeset == totalelements)	
+	{		
+console.log(this.predictiondataout);		
+		liveData.chartproduction(this.predictiondataout, liveattentiondata, fcontainer,  totalelements);
+	}
 
-};
+
+};	

@@ -177,7 +177,7 @@ pouchdbSettings.prototype.mapQueryknowledgelist = function(callbackin) {
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
-//console.log(response);
+console.log(response);
 				callbackin(response);
 		});
 
@@ -199,7 +199,7 @@ pouchdbSettings.prototype.mapQueryLIVE = function(callbackin) {
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {
 //console.log('live query callback response');
-console.log(response);
+//console.log(response);
 				callbackin(response);
 		});
 
