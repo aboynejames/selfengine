@@ -19,9 +19,9 @@ var selfLogic = function() {
 *
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
-console.log($(intentionin).data("attentionfocus"));
+//console.log($(intentionin).data("attentionfocus"));
 	idclick = $(intentionin).attr("id");
-console.log(idclick);
+//console.log(idclick);
 	attentionchange = $(intentionin).data("attentionfocus");
 	if(attentionchange == "focuschange")
 	{
@@ -60,29 +60,8 @@ $("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedof
 			$("#networkflow").show();
 			$("#network").css('background', '#009900');
 			$("#network").data("networkstatus", "off");
-			// make active network dragable- query pouch display
-			function localDatacall(callback) {  
-				livepouch.mapQueryname(callback);
-			}  
+			//reveal the network based the active attention fix
       
-			localDatacall(function(rtmap) {  
-
-				dragHTMLnetworkid = '';
-				dragHTMLnetworkid += '<ul id="dragnetworkidentity" class="connectedSortable">';
-		
-				rtmap.rows.forEach(function(rowsnetwid){
-					//pass the lane data to get html ready
-					idstrnospace = rowsnetwid.key.replace(/\s+/g, '');
-					dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + idstrnospace  + '" ><a href="' + rowsnetwid.value + '" >' + rowsnetwid.key + '</a></li>';
-					
-				});
-				
-				dragHTMLnetworkid += '</ul>';
-				$("#activenetwork").html(dragHTMLnetworkid);
-					$( "#dragnetworkidentity" ).sortable({
-					connectWith: ".connectedSortable"
-					}).disableSelection();
-			});
 			
 		}
 		else
@@ -310,7 +289,7 @@ $("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedof
 
 		case "sync":
 		
-			PouchDB.replicate('http://www.mepath.co.uk:5984/selfenginecloud/', 'selfengine', {
+			PouchDB.replicate('http://www.mepath.co.uk:5984/testselfbackup/', 'selfengine', {
 
 			});
 		

@@ -10,7 +10,7 @@
 * @version    $Id$
 */
 var livedata = function(pouchdblive, liveprediction) {
-	console.log('livedata started');	
+	//console.log('livedata started');	
 	this.livepouch = pouchdblive;
 	this.liveprediction = liveprediction;
 	this.d1 = [];
@@ -21,8 +21,16 @@ var livedata = function(pouchdblive, liveprediction) {
 //livepouch.allDocs(this.liveprediction);
 
 	this.livecontext = {};
-	this.livecontext.knowledgewords = 'Male'; 
-	this.livecontext.relationshipliststart = 'Worldrecord';
+	this.livecontext['live'] = {};
+	this.livecontext['previous'] = {};
+		// need to gathe last loaded active attention fix and say last 4 history(make history scrollable)
+	this.livecontext['live'].knowledgewords = ['Female']; 
+	this.livecontext['live'].relationshipliststart = 'Worldrecord';
+	this.livecontext['previous'].statusactive = "off";
+
+	this.previousattention = {};
+	this.previousattention = this.livecontext;
+		
 	// need to build live data based on active attention
 	// first capture active attention
 	// need to display first sub item from each active focus attention,(should keep track of history of attention fixes)
@@ -30,24 +38,56 @@ var livedata = function(pouchdblive, liveprediction) {
 	this.liveknowledgein(this.k1, this.livecontext);
 	this.liverelationshipsin(this.r1, this.livecontext);
 	this.livennetworkidenityin(this.ni1, this.livecontext);	
-	/*
-	var liveattentiondata = {};
-//console.log($(".fixgroup"));
-		liveattentiontitles = {};
-		liveattentiontitles = $(".fixgroup");
-//console.log($(liveattentiontitles[1]).children());		
-		var liveattentionlength = liveattentiontitles.length;
-	for (var i=0;i<liveattentionlength;i++)
+		
+};
+
+/**
+* Sets the attention fix and co ordinates the filtering  and HTML display code paths
+* @method setContext		
+*
+*/	
+livedata.prototype.setContext =	function(attentionin) {  
+//console.log('set context');
+//console.log(attentionin);
+	// first check if data is from a compairson switchon or change of main active attention fix
+	if(attentionin.status == "compare")
 	{
-//console.log($(liveattentiontitles[i]).children().children().first());
-		$(liveattentiontitles[i]).children().children().first().show();		
-		liveattentiondata[i] = $(liveattentiontitles[i]).children().attr("id");
+		if(attentionin.statusactive == "on")
+		{
+//console.log('compare clicked on');		
+		this.livecontext['previous'] = attentionin;
+		this.livefilter(this.livecontext); 
+		this.filternetwork(this.livecontext['live']);
+		}
+		else
+		{
+//console.log('compare clicked off');		
+		this.livecontext['previous'] =  attentionin;
+		this.livefilter(this.livecontext); 
+		this.filternetwork(this.livecontext['live']);
+			
+		}
+			
+	}
+	
+	else if (attentionin.status == "fix") 
+	{
+//console.log('new fix set');		
+		//first transper current settings to previous
+		this.previousattention = this.livecontext;
+		// append attention history  need to keep track of previous in class object
+		this.attentionhistoryHTML(this.previousattention['live']);	
+		
+		this.livecontext['live'] = attentionin;
+				// now pass on context to filter data, filter socialnetwork
+//console.log(this.livecontext);
+	this.livefilter(this.livecontext); 
+	this.filternetwork(this.livecontext['live']);
+			
 	}
 
-$("#attentionfix li.fixgroup ul.active-sub li a#Longcourse").removeClass("selectedoff");
-$("#attentionfix li.fixgroup ul.active-sub li a#Male").removeClass("selectedoff");
-*/		
-		
+
+	
 };
 
 /**
@@ -100,7 +140,7 @@ livedata.prototype.relationshipDatacall =	function(callback) {
 *
 */	
 livedata.prototype.sortlowtohigh =	function(datatsort) {  
-console.log('low to high sort');
+//console.log('low to high sort');
 		this.datasort = [];
 		this.datasort = datatsort;
 		this.datasort.sort(function(a,b) {return a[0] > b[0]?1:-1;});
@@ -121,8 +161,12 @@ livedata.prototype.livedatain = function(d1in, setlivecontext) {
 					d1in.push([rowliveat.key, rowliveat.value]);
 					
 				});
-				
-			liveData.livefilterknowlegeword(d1in, setlivecontext);
+//console.log(d1in);				
+			if(d1in.length > 2)
+			{
+				liveData.livefilterknowlegeword(d1in, setlivecontext['live']);						
+			}
+
 			});
 	return d1in;
 };
@@ -179,7 +223,12 @@ livedata.prototype.liverelationshipsin = function(r1in, livecontextin) {
 			r1in[rowliveatr.key] = rowliveatr.value;
 			
 		});
-		liveData.relationshipfilter(r1in, livecontextin);
+//console.log(r1in);
+		if(r1in)
+		{
+		liveData.relationshipfilter(r1in, livecontextin['live']);
+		}
+	
 		return r1in;
 	});
 
@@ -194,9 +243,10 @@ livedata.prototype.liverelationshipsin = function(r1in, livecontextin) {
 livedata.prototype.livefilterknowlegeword = function(datauniverse, setlivecontext) {
 	var dataliveholder = {};
 	var contextlivedata = [];
+//console.log(datauniverse);	
 // start now need to be extracted to context
 	datauniverse.forEach(function(dataobj) {
-//console.log(dataobj[0].knowledgewords.Sex);
+//console.log(dataobj);
 		if(dataobj[0].knowledgewords.Sex == setlivecontext.knowledgewords)
 		{
 		contextlivedata.push([parseInt(dataobj[0].date, 10), parseInt(dataobj[0].time, 10)]);
@@ -217,37 +267,84 @@ livedata.prototype.livefilterknowlegeword = function(datauniverse, setlivecontex
 *
 */	
 livedata.prototype.livefilter = function(setlivecontext) {
-console.log('livefilter');
-//console.log(d1);	
+//console.log('livefilter');
+//console.log(setlivecontext);	
+	// build decision modle  one active attention or more, ie one data source on chart of more?
+	
 	var dataholder = {};
-	// first extract live context then see if a secondary (or more attentionfocus are live?)
-	focus = 2;//$(".attentionfocus").length;
-//console.log(focus);
-	if(focus >0)
+		
+		//check if second attention fix is on or off
+		if(setlivecontext['previous'].statusactive == "on")
+		{
+		// how many attention context to filter data on? 
+			Object.size = function(obj) {
+				var size = 0, key;
+				for (key in obj) {
+					if (obj.hasOwnProperty(key)) size++;
+				}
+				return size;
+			};
+			// Get the size of an object
+			var focuscount = Object.size(setlivecontext);
+			
+		}
+		else
+		{
+			var focuscount= 1;
+		}
+
+
+	
+//console.log(focuscount);
+	if(focuscount >1)
 	{
 		// collect the data foreach active focus
 //console.log('two sets of data filter processing going on');		
-		focusfilter = ["Male", "Female"];
+		datainkeys = Object.keys(setlivecontext);
+//console.log(datainkeys);		
 		iin = 1;
-		focusfilter.forEach(function(focusname) {
-//console.log(focusname);			
-			var contextlivedata = [];
-			d1.forEach(function(dataobj) {
+		datainkeys.forEach(function(attobjecttype) {
+//console.log(attobjecttype);			
+					var contextlivedata = [];
+			
+					liveData.d1.forEach(function(dataobj) {
 //console.log(dataobj);
-				if(dataobj[0].knowledgewords.Sex == focusname)
-				{
-					contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
-				}
+						if(dataobj[0].knowledgewords.Sex == setlivecontext[attobjecttype].knowledgewords[0])
+						{
+							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
+						}
+					});
+		//console.log(contextlivedata);
+					sorteddata = liveData.sortlowtohigh(contextlivedata);
+					dataholder[iin] = sorteddata;
+					iin++;
+		//		});
+				
 			});
-//console.log(contextlivedata);
-			sorteddata = liveData.sortlowtohigh(contextlivedata);
-			dataholder[iin] = sorteddata;
-			iin++;
-		});
+		
 	}
+	else
+	{
+		var contextlivedata = [];
+		var iin = 1;
+			
+					liveData.d1.forEach(function(dataobj) {
+//console.log(dataobj);
+						if(dataobj[0].knowledgewords.Sex == setlivecontext['live'].knowledgewords[0])
+						{
+							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
+						}
+					});
+		//console.log(contextlivedata);
+					sorteddata = liveData.sortlowtohigh(contextlivedata);
+					dataholder[iin] = sorteddata;
+					iin++;
+		
+	}
+	
 //console.log(dataholder);
 		// bundle data in arrays and send to chart		
-	liveData.realtimechart(dataholder);
+	liveData.realtimechart(dataholder, setlivecontext, focuscount);
 
 
 	
@@ -259,7 +356,7 @@ console.log('livefilter');
 *
 */	
 livedata.prototype.relationshipfilter = function(reldatain, relationshipin) {
-console.log('relationship filter');
+//console.log('relationship filter');
 //console.log(reldatain);
 //console.log(relationshipin.relationshipliststart);
 	var livestartlistword = relationshipin.relationshipliststart;
@@ -282,6 +379,60 @@ console.log('relationship filter');
 	this.activeattentionHTML(relmatrix);
 };
 
+
+
+/**
+*  build social network context data
+* @method filternetwork		
+*
+*/	
+livedata.prototype.filternetwork = function(networkcontext) {
+//console.log('network filter');
+//console.log(networkcontext);
+	var networklivedata = [];
+//console.log(liveData.ni1);	
+//console.log(liveData.d1);	
+	
+	liveData.d1.forEach(function(dataobj) {
+	
+		if(dataobj[0].networkidentity)
+				{
+//console.log('pass first filter');					
+					if(dataobj[0].knowledgewords.Sex ==  networkcontext.knowledgewords[0] )
+					{		
+//console.log('second filter');						
+						networklivedata.push(dataobj[0].networkidentity);
+					}
+				}
+//console.log(networklivedata);		
+	});
+	
+	function eliminateDuplicates(arr) {
+  var i,
+      len=arr.length,
+      out=[],
+      obj={};
+
+  for (i=0;i<len;i++) {
+    obj[arr[i]]=0;
+  }
+  for (i in obj) {
+    out.push(i);
+  }
+  return out;
+}
+
+var neworkfiltered = [];
+
+neworkfiltered =eliminateDuplicates(networklivedata);
+
+	// next hook up the names to URLs
+//	console.log(liveData.ni1);	
+	
+	// pass on to create htmlcode
+		this.socialNetworkHTML(neworkfiltered);
+};
+
 /**
 *  produce starting charts past and future
 * @method startchart		
@@ -289,14 +440,14 @@ console.log('relationship filter');
 */	
 livedata.prototype.startchart = function(di1) {
 	// live attention data (Chart)
-console.log('start charts');	
-console.log(di1);
+//console.log('start charts');	
+//console.log(di1);
 	var container = "pastchart";
 	d1chart = di1;	
-	
+//console.log(this.livecontext);	
 	this.chartproduction(d1chart, this.livecontext, container);
 	// now show the future chart only first time
-	liveprediction.predictionlogic(d1chart,1);
+	liveprediction.predictionlogic(d1chart,1, this.livecontext);
 
 };
 
@@ -305,19 +456,19 @@ console.log(di1);
 * @method realtimechart		
 *
 */	
-livedata.prototype.realtimechart = function(di1) {
+livedata.prototype.realtimechart = function(di1, contextin, itemcount) {
 	// live attention data (Chart)
-console.log('start realtime charts');	
+//console.log('start realtime charts');	
 //console.log(di1.length);
 	var container = "pastchart";
 d1chart = di1;
 	// discover how many data arrray elements are in 'live' comparison status?
-	dataelements = 2;
+	dataelements = itemcount;
 	
-	liveData.chartproduction(d1chart, this.livecontext, container, dataelements);
+	liveData.chartproduction(d1chart, contextin, container, dataelements);
 
 	// now show the future chart only first time
-			liveprediction.predictionlogic(d1chart,dataelements);
+			liveprediction.predictionlogic(d1chart,dataelements, contextin);
 
 };
 
@@ -327,24 +478,23 @@ d1chart = di1;
 *
 */	
 livedata.prototype.chartproduction = function(chartdatain, chartcontext, chartlocation, dataelements) {
-	
 // regression line co ordinates
-console.log('start of chart production');
+//console.log('start of chart production');	
 	d2chart = {};
 	d2chart = chartdatain;
-	contexttitle = chartcontext;
-console.log(contexttitle);
-	var chartlabel = 'World Records 100m Freestyle ' + contexttitle.knowledgewords;
-console.log(d2chart);
+	contexttitle = chartcontext['live'];
+//console.log(chartcontext['live']);
+	var chartlabel = 'World Records 100m Freestyle ' + contexttitle.knowledgewords[0];
+//console.log(d2chart);
 	var locationcontainer = chartlocation;	
 	
 	// look at how many data elements and prepare for appropriate charting
 	nochartdatasources = Object.keys(chartdatain).length;
-console.log(nochartdatasources);	
+//console.log(nochartdatasources);	
 	if(nochartdatasources == 1 )
 	{
 		(function basic(locationcontainer, d2chart) {
-//console.log('past chard draw called');
+//console.log('past char draw SINGLE');
 
 						// Draw Graph
 							graph = Flotr.draw(locationcontainer, [
@@ -388,8 +538,8 @@ console.log(nochartdatasources);
 	else if(nochartdatasources == 2)
 	{
 (function basic(locationcontainer, d2chart) {
-//console.log('past chard draw called');
-
+//console.log('past chard draw DOUBLE');
+//console.log(d2chart);
 						// Draw Graph
 							graph = Flotr.draw(locationcontainer, [d2chart[1], d2chart[2] ],
 					{
@@ -427,7 +577,7 @@ console.log(nochartdatasources);
 *
 */	
 livedata.prototype.activeattentionHTML = function(attentionfixlive) {
-console.log('build active attention code');
+//console.log('build active attention code');
 //console.log(attentionfixlive);	
 	HTMLattentionfix = '';
 	//HTMLattentionfix +='<ul id="dragselfnow" class="connectedSortable"></ul>';
@@ -436,18 +586,27 @@ console.log('build active attention code');
 	attentionfixlive.forEach(function(grouptitle){
 		//pass the lane data to get html ready
 //console.log(grouptitle[1]);		
-		HTMLattentionfix += '<li class="fixgroup">';
+		HTMLattentionfix += '<li class="fixgroup" id="' + grouptitle[0] + '" data-attentionfixttitle="inactive" >';
 		
 		HTMLattentionfix += '<a href="" id="' + grouptitle[0] + '"  class="fixgrouptitle" data-knowledgeword="knowledgeword" style=""> ' + grouptitle[0] + '</a>';
 
-		HTMLattentionfix += '<ul class="active-sub" >';
-
+		HTMLattentionfix += '<ul class="active-sub" id="' + grouptitle[0] + '" >';
+		var countelements = 1;
 		grouptitle[1].forEach(function(listelement){
-			
-			HTMLattentionfix += '<li id="' + listelement + '" class="focucelement" style="" data-knowledgeword="knowledgeword">';
-			HTMLattentionfix += '<a href="" id="' + listelement + '" class="selectedoff" >' + listelement + '</a>';
-			HTMLattentionfix += '</li>';		
-		
+			// make first element class selectedof empty
+			if(countelements == 1)
+			{			
+				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selected" >' + listelement + '</a>';
+				HTMLattentionfix += '</li>';		
+				countelements++
+			}
+			else
+			{
+				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selectedoff" >' + listelement + '</a>';
+				HTMLattentionfix += '</li>';		
+			}
 		});
 
 	HTMLattentionfix += '</ul>';	
@@ -455,11 +614,53 @@ console.log('build active attention code');
 	});
 
 	HTMLattentionfix += '</div>';	
-	HTMLattentionfix += '<section id="attentionhistory">Attention History</section>';	
+	HTMLattentionfix += '<section id="attentionhistory">Attention History<ul id="previousattention"></ul></section>';	
 
 	$("#activeself").html(HTMLattentionfix);
-	$("#attentionfix li.fixgroup ul.active-sub li a#Freestyle").removeClass("selectedoff");
-	$("#attentionfix li.fixgroup ul.active-sub li a#Male").removeClass("selectedoff");
 	
 };
 	
+/**
+* attention history HTML UI code
+* @method attentionhistoryHTML
+*
+*/	
+livedata.prototype.attentionhistoryHTML = function(attentionprevious) {
+//console.log('attention history code HTML');
+//console.log(attentionprevious);	
+	var HTMLatthistory = '';
+	
+//	HTMLatthistory += '<ul>';
+	HTMLatthistory += '<li id="' + attentionprevious.knowledgewords[0] + '" class="twoattention"><a href="" id="alsoactive" class="">off</a>' + attentionprevious.knowledgewords[0] + '</li>';
+//	HTMLatthistory += '</ul>';	
+	
+		$("#attentionhistory ul").html(HTMLatthistory);
+	
+};
+
+/**
+* social network HTML UI code
+* @method socialNetworkHTML
+*
+*/	
+livedata.prototype.socialNetworkHTML = function(socialdatain) {
+//console.log('produce the in context social network');
+
+	dragHTMLnetworkid = '';
+	dragHTMLnetworkid += '<ul id="dragnetworkidentity" class="connectedSortable">';
+
+		socialdatain.forEach(function(indivpeeps){
+		//pass the lane data to get html ready
+			idstrnospace = indivpeeps;//.replace(/\s+/g, '');
+			dragHTMLnetworkid += '<li class="ui-state-default" data-networkidentity="networkidentity" id="' + indivpeeps + '" ><a href="' +indivpeeps + '" >' + indivpeeps + '</a></li>';
+
+			});
+
+		dragHTMLnetworkid += '</ul>';
+		
+		$("#activenetwork").html(dragHTMLnetworkid);
+		$( "#dragnetworkidentity" ).sortable({
+		connectWith: ".connectedSortable"
+		}).disableSelection();
+
+};

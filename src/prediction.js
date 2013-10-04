@@ -19,16 +19,17 @@ var selfprediction = function() {
 * @method predictionlogic		
 *
 */	
-selfprediction.prototype.predictionlogic = function(livecontextdata, numberdatain) {
-console.log('data logic preparation ready for processing');	
+selfprediction.prototype.predictionlogic = function(livecontextdata, numberdatain, liveattentionin) {
+//console.log('data logic preparation ready for processing');	
+//console.log(livecontextdata);
 	// how many data sources to calcuate check and then perform statistics
 	datasetlength = Object.keys(livecontextdata).length;
-console.log(livecontextdata);
+//console.log(livecontextdata);
 	for (var i=1; i <= datasetlength; i++) {
 	// based on number of array, perform independent predictions
-console.log('number of predictions going on' + i);
+//console.log('number of predictions going on' + i);
 //console.log(livecontextdata[i]);		
-			this.predictionout(livecontextdata[i], i, datasetlength );
+			this.predictionout(livecontextdata[i], i, datasetlength, liveattentionin);
 	}
 		
 };
@@ -38,8 +39,8 @@ console.log('number of predictions going on' + i);
 * @method predictionout		
 *
 */	
-selfprediction.prototype.predictionout = function(livepredictiondata, elementpart, totalelements) {
-console.log('first prediction staged called');	
+selfprediction.prototype.predictionout = function(livepredictiondata, elementpart, totalelements, attentionfixin) {
+//console.log('first prediction staged called');	
 	
 //var datain = {1:1,2:2,3:1.3,4:3.75,5:2.25};
 var datainx = [];
@@ -211,7 +212,7 @@ regx.forEach(function(rx) {
 // regression line co ordinates
 //console.log('the regression line');
 //console.log(regxy);
-	this.predictionchartdata(regxy, elementpart, totalelements);
+	this.predictionchartdata(regxy, elementpart, totalelements, attentionfixin);
 };
 
 /**
@@ -219,22 +220,22 @@ regx.forEach(function(rx) {
 * @method predictionchartdata		
 *
 */	
-selfprediction.prototype.predictionchartdata = function(readypredictiondata, epart, totalelements) {
-console.log('holding data ready for execution to charting' + epart);
+selfprediction.prototype.predictionchartdata = function(readypredictiondata, epart, totalelements, attentionset) {
+//console.log('holding data ready for execution to charting' + epart);
 
 	var fcontainer = "futurechart";
 	liveattentiondata = {};
 		// always deliver data to chart as an array
-	//predictiondataout = {};
+//console.log(this.predictiondataout);	
 	this.predictiondataout[epart] = readypredictiondata;
-	liveattentiondata.knowledgewords = $("#activeself select#Sex").val();
-	
+//console.log(this.predictiondataout);	
 	completeset = Object.keys(this.predictiondataout).length;
-console.log(completeset + 'and another number' + totalelements);		
+//console.log(completeset + 'and another number' + totalelements);		
 	if(completeset == totalelements)	
 	{		
-console.log(this.predictiondataout);		
-		liveData.chartproduction(this.predictiondataout, liveattentiondata, fcontainer,  totalelements);
+//console.log(this.predictiondataout);		
+		liveData.chartproduction(this.predictiondataout, attentionset, fcontainer,  totalelements);
+		this.predictiondataout = {};
 	}
 
 

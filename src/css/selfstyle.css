@@ -285,19 +285,8 @@ aside, nav, article, figure {
 	background: pink;
 	margin: 4px;
 }
-/*
-.attentionfocus {
-	display:inline;
-	border:1px solid #5f5f5f;
-	background: green;
-	margin: 4px;
-	text-align:center;
-	height: 20px;
-	width:30px;
-	
-}
-*/
-#attentionfix li.fixgroup, #knowledgelistgroup {
+
+#attentionfix li.fixgroup {
 	display:inline-block;
 	margin:4px;
 	background:green;
@@ -315,10 +304,13 @@ aside, nav, article, figure {
 	
 }
 
+.active-sub li a.selected {
+	display:block;
+	
+}
+
 .active-sub li a.selectedoff {
 	display:none;
-
-	
 	
 }
 
