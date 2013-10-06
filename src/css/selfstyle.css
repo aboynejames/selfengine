@@ -231,7 +231,7 @@ aside, nav, article, figure {
 
 #listrelationshipknowledge {
 	display:block;
-	border:1px solid green;
+	border:1px solid white;
 	background: orange;
 	margin: 8px;
 	text-align:center;
@@ -289,85 +289,59 @@ aside, nav, article, figure {
 #attentionfix li.fixgroup {
 	display:inline-block;
 	margin:4px;
-	background:green;
-	
+
 }
 
 .fixgrouptitle {
-		display:none;
-		list-style-type:none;
+	display:none;
+	list-style-type:none;
+	background: green;
+	/*background: none repeat scroll 0 0 #009900;*/
+	border:1px solid #5f5f5f;
+    border-radius: 3px 3px 3px 3px;
+	padding: 0.2em;
+
 	
 }
 
 .active-sub {
 		list-style-type:none;
-	
+
 }
 
-.active-sub li a.selected {
-	display:block;
-	
-}
-
-.active-sub li a.selectedoff {
-	display:none;
-	
-}
-
-/*
-#activeself #attentionfix li.fixgroup {
-	display:inline;
+.focuselement {
+		background: white;
+	/*background: none repeat scroll 0 0 #009900;*/
 	border:1px solid #5f5f5f;
-	background: green;
-	margin: 6px;
-}
-
-#activeself ul#attentionfix li.fixgroup ul.active-sub {
-
-	border:1px solid white;
-	background: blue;
-	
-}
-
-#activeself ul#attentionfix li.fixgroup ul.active-sub li {
-	
-	border:1px solid white;
-	background: red;
-	
-}
-
-
-
-#attentionfix li.fixgroup ul.active-sub {
-
-	border:1px solid white;
-	background: blue;
-	
-}
-
-.fixgrouptitle {
-	display:inline;
-	border:1px solid white;
-	background: red;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    display: block;
+    line-height: auto;
+    outline: medium none;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #000000;
+    width: auto;
+	padding:4px;
+	margin:0.2em;
 	
 }
 
 .active-sub li a.selected {
 	display:block;
-	
+
 	
 }
 
 .active-sub li a.selectedoff {
 	display:none;
 	
-	
 }
-*/
+
 #attentionhistory {
 	display:block;
 	border:1px solid #5f5f5f;
-	background: #eee;
+	background: white;
 	margin: 4px;
 	text-align:center;
 	height: auto;
@@ -384,9 +358,8 @@ aside, nav, article, figure {
  #pastflow {
 	float:left;
 	border:1px solid #5f5f5f;
-	background: #eee;
+	background: white;
 	margin: 8px;
-	text-align:center;
 	height: auto;
 	width:45%;
 	
@@ -411,16 +384,15 @@ aside, nav, article, figure {
 */
  #pastchart {
 	display:block;
-	background: light grey;
 	height: 300px;
-	width: 90%;
+	width: auto;
 	
 }
 
  #futurechart {
-	background: #ffe4b2;
+	background: #FFEEAE;
 	height: 300px;
-	width:90%;
+	width:auto;
 	
 }
 
