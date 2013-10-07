@@ -1,0 +1,24 @@
+CACHE MANIFEST
+# v5 2013-10-06
+# This is another comment
+index.html
+css/
+images/
+start.js
+selflogic.js
+livedata.js
+pouchdbutility.js
+prediction.js
+js/jquery-2.0.3.min.js
+js/jquery-ui-1.10.3.custom.min.js
+js/pouchdb-25-08-2013.min.js
+js/punch.js
+js/IndexedDBShim.min.js
+js/flotr2.min.js
+
+# Use from network if available
+NETWORK:
+*
+
+# Fallback content
+FALLBACK:
