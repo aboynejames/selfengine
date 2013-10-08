@@ -289,7 +289,7 @@ $("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedof
 
 		case "sync":
 				
-			var syncmessage = '<a  href=""><img  id="sync" alt="sync in progress" src="images/sync.png" ></a>';
+			var syncmessage = '<a  href=""><img  id="syncicon" alt="sync in progress" src="images/sync.png" ></a>';
 			$("#synctime").html(syncmessage);
 		
 			PouchDB.replicate('http://www.mepath.co.uk:5984/testselfbackup/', 'selfengine', function(err, response) {

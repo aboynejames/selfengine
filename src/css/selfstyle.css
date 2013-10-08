@@ -403,7 +403,7 @@ aside, nav, article, figure {
 	border: 0;
 }
 
-#sync {
+#syncicon {
 	position: relative;
 	top: -200;
 	right: 100;
@@ -494,7 +494,7 @@ aside, nav, article, figure {
 	border: 0;
 }
 
-#sync {
+#syncicon {
 	position: absolute;
 	top: 20;
 	right: 20;
