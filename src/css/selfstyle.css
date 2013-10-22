@@ -486,6 +486,48 @@ aside, nav, article, figure {
     text-shadow:1px 1px 0px #ffffff;
 }
 
+#attentionfix li.fixgroup {
+	display:block;
+	margin:4px;
+
+}
+
+ #pastflow {
+	display:block;
+	border:1px solid #5f5f5f;
+	background: white;
+	margin: 8px;
+	width: 250px;
+	
+}
+
+ #futureflow {
+	display:block;
+	border:1px solid #b29f7c;
+	background: #eee;
+	margin: 8px;
+	width: 250px;	
+}
+
+
+/**
+*
+* Chart areas
+*
+*/
+ #pastchart {
+	display:block;
+
+	
+}
+
+ #futurechart {
+	background: #FFEEAE;
+
+	
+}
+
+
 #cloneme {
 	display:none;
 	position: absolute;

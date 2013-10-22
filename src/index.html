@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="self.appcache" > <!--manifest="self.appcache"--> 
+<html lang="en" > <!--manifest="self.appcache"--> 
   <head>
 		<meta charset="utf-8">
 		<title>selfengine - making suggestions for tomorrow</title>
@@ -76,6 +76,42 @@
 				</nav>
 			</header>
 		</section>
+		
+		<section id="">
+	<form class="contact_form" action="#" method="post" name="contact_form">
+    <ul>
+        <li>
+             <h2>Contact Us</h2>
+             <span class="required_notification">* Denotes Required Field</span>
+        </li>
+        <li>
+            <label for="name">Name:</label>
+            <input type="text"  placeholder="name" required id="namein"/>
+        </li>
+        <li>
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="mail@gmail.com" required id="emailin" />
+            <span class="form_hint">Proper format "name@something.com"</span>
+        </li>
+        <li>
+            <label for="website">Website:</label>
+            <input type="url" name="website" placeholder="http://www.mepath.com" id="websitein" />
+            <span class="form_hint">Proper format "http://www.someaddress.com"</span>
+        </li>
+        <li>
+            <label for="message">Swim Club/Message:</label>
+            <textarea name="message" cols="40" rows="6" required id="messagein" ></textarea>
+        </li>
+        <li>
+        	<button id="contactin" class="submit" type="submit">Submit Form</button>
+        </li>
+    </ul>
+</form>
+	<div id="formfeedback"></div>
+	<div id="contactspacereply"></div>
+
+	</section>
+
 		
 		<footer>
 			<a  href="">
