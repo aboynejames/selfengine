@@ -21,12 +21,12 @@ var livedata = function(pouchdblive, liveprediction) {
 //livepouch.allDocs(this.liveprediction);
 
 	this.livecontext = {};
-	this.livecontext['live'] = {};
-	this.livecontext['previous'] = {};
+	this.livecontext.live = {};
+	this.livecontext.previous = {};
 		// need to gathe last loaded active attention fix and say last 4 history(make history scrollable)
-	this.livecontext['live'].knowledgewords = ['Female']; 
-	this.livecontext['live'].relationshipliststart = 'Worldrecord';
-	this.livecontext['previous'].statusactive = "off";
+	this.livecontext.live.knowledgewords = ['Female']; 
+	this.livecontext.live.relationshipliststart = 'Worldrecord';
+	this.livecontext.previous.statusactive = "off";
 
 	this.previousattention = {};
 	this.previousattention = this.livecontext;
@@ -55,16 +55,16 @@ livedata.prototype.setContext =	function(attentionin) {
 		if(attentionin.statusactive == "on")
 		{
 //console.log('compare clicked on');		
-		this.livecontext['previous'] = attentionin;
+		this.livecontext.previous = attentionin;
 		this.livefilter(this.livecontext); 
-		this.filternetwork(this.livecontext['live']);
+		this.filternetwork(this.livecontext.live);
 		}
 		else
 		{
 //console.log('compare clicked off');		
-		this.livecontext['previous'] =  attentionin;
+		this.livecontext.previous =  attentionin;
 		this.livefilter(this.livecontext); 
-		this.filternetwork(this.livecontext['live']);
+		this.filternetwork(this.livecontext.live);
 			
 		}
 			
@@ -76,13 +76,13 @@ livedata.prototype.setContext =	function(attentionin) {
 		//first transper current settings to previous
 		this.previousattention = this.livecontext;
 		// append attention history  need to keep track of previous in class object
-		this.attentionhistoryHTML(this.previousattention['live']);	
+		this.attentionhistoryHTML(this.previousattention.live);	
 		
-		this.livecontext['live'] = attentionin;
+		this.livecontext.live = attentionin;
 				// now pass on context to filter data, filter socialnetwork
 //console.log(this.livecontext);
 	this.livefilter(this.livecontext); 
-	this.filternetwork(this.livecontext['live']);
+	this.filternetwork(this.livecontext.live);
 			
 	}
 
@@ -164,7 +164,7 @@ livedata.prototype.livedatain = function(d1in, setlivecontext) {
 //console.log(d1in);				
 			if(d1in.length > 2)
 			{
-				liveData.livefilterknowlegeword(d1in, setlivecontext['live']);						
+				liveData.livefilterknowlegeword(d1in, setlivecontext.live);						
 			}
 
 			});
@@ -226,7 +226,7 @@ livedata.prototype.liverelationshipsin = function(r1in, livecontextin) {
 //console.log(r1in);
 		if(r1in)
 		{
-		liveData.relationshipfilter(r1in, livecontextin['live']);
+		liveData.relationshipfilter(r1in, livecontextin.live);
 		}
 	
 		return r1in;
@@ -274,7 +274,7 @@ livedata.prototype.livefilter = function(setlivecontext) {
 	var dataholder = {};
 		
 		//check if second attention fix is on or off
-		if(setlivecontext['previous'].statusactive == "on")
+		if(setlivecontext.previous.statusactive == "on")
 		{
 		// how many attention context to filter data on? 
 			Object.size = function(obj) {
@@ -290,7 +290,7 @@ livedata.prototype.livefilter = function(setlivecontext) {
 		}
 		else
 		{
-			var focuscount= 1;
+			focuscount= 1;
 		}
 
 
@@ -330,7 +330,7 @@ livedata.prototype.livefilter = function(setlivecontext) {
 			
 					liveData.d1.forEach(function(dataobj) {
 //console.log(dataobj);
-						if(dataobj[0].knowledgewords.Sex == setlivecontext['live'].knowledgewords[0])
+						if(dataobj[0].knowledgewords.Sex == setlivecontext.live.knowledgewords[0])
 						{
 							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
 						}
@@ -482,7 +482,7 @@ livedata.prototype.chartproduction = function(chartdatain, chartcontext, chartlo
 //console.log('start of chart production');	
 	d2chart = {};
 	d2chart = chartdatain;
-	contexttitle = chartcontext['live'];
+	contexttitle = chartcontext.live;
 //console.log(chartcontext['live']);
 	var chartlabel = 'World Records 100m Freestyle ' + contexttitle.knowledgewords[0];
 //console.log(d2chart);
@@ -599,7 +599,7 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
 				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selected" >' + listelement + '</a>';
 				HTMLattentionfix += '</li>';		
-				countelements++
+				countelements++;
 			}
 			else
 			{
