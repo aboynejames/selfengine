@@ -19,7 +19,7 @@ var selfLogic = function() {
 *
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
-//console.log($(intentionin).data("attentionfocus"));
+console.log($(intentionin).data("attentionfocus"));
 	idclick = $(intentionin).attr("id");
 //console.log(idclick);
 	attentionchange = $(intentionin).data("attentionfocus");
@@ -299,6 +299,13 @@ console.log('sync is complete');
 				location.reload(); 				
 			});
 
+		break;
+			
+		case "signin":
+			
+			$("form.signin_form").show();
+			
+			
 		break;
 	
 		

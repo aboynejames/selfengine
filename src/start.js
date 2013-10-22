@@ -6,6 +6,7 @@ $(document).ready(function(){
 //PouchDB.destroy('selfengine', function(err, info) { });
 
 	liveLogic = new selfLogic();
+	$("form.signin_form").hide();
 
 	// make dragable UI part sortable
 	$( "#dragselfnow" ).sortable({
