@@ -19,13 +19,10 @@ var selfLogic = function() {
 *
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
-console.log($(intentionin).data("attentionfocus"));
 	idclick = $(intentionin).attr("id");
-//console.log(idclick);
 	attentionchange = $(intentionin).data("attentionfocus");
 	if(attentionchange == "focuschange")
 	{
-console.log('change of focus clicked');		
 		// show title and other options to select
 $("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedoff");
 	}
@@ -35,7 +32,6 @@ $("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedof
 	case "identity": 
 	// make live section
 	var idstatus = $("#identity").data("mestatus");
-//console.log(datesetstatus + 'status');	
 		if(idstatus == "on")
 		{
 			$("#contextflow").show();
@@ -302,12 +298,15 @@ console.log('sync is complete');
 		break;
 			
 		case "signin":
-			
 			$("form.signin_form").show();
-			
-			
 		break;
-	
+		
+		case "signincloser":
+			$("#signinlink").show();
+			$("#datastatus").hide();
+			$("#datamessage").html("");
+			$("#signincloser").hide();
+		break;
 		
 	}		
 

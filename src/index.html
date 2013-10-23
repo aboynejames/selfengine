@@ -76,10 +76,14 @@
 				</nav>
 			</header>
 		</section>
-		
 		<section id="signinflow">
-			<a id="signin" href="/signin" title="signin" class="control-text">Sign-in to store data</a>
-			<form class="signin_form" action="#" method="post" name="contact_form">
+			<span id="signinlink">
+				<a id="signin" href="/signin" title="signin" class="control-text">Sign-in</a>
+			</span>
+			<span id="ifsignedin">
+				<a class="control-text" text="SignOut" title="signout" href="#"  id="signincloser" >Sign-out</a>
+			</span>
+			<form id="signinform" class="signin_form" action="#" method="post" name="contact_form">
 				<ul>
 						<li>
 								<label for="email">Email:</label>
@@ -88,16 +92,19 @@
 						</li>
 						<li>
 								<label for="password">Password:</label>
-								<input type="password"  placeholder="password" required id="passwordin"/>
+								<input type="password"  name="password" placeholder="password" required id="passwordin"/>
 						</li>
 						<li>
-							<button id="signinbutton" class="submit" type="submit">Submit Form</button>
+							<button id="signinbutton" class="submit" type="submit">Sign-me-in</button>
 						</li>
 				</ul>
 		</form>
 			<div id="formfeedback"></div>
-			</section>
-
+		</section>
+		<section id="datastatus">
+			<div id="datamessage">
+			</div>
+		</section>
 		
 		<footer>
 			<a  href="">
