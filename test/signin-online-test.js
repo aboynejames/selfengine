@@ -59,7 +59,7 @@ casper.then(function() {
     this.fill('form#signinform',
 		{
 			email: "james@aboynejames.co.uk",
-			password: "ivytree22"
+			password: "abc"
 			}, false);
 
 //this.echo(this.getFormValues('form#signinform').email); // 'aboynejames'
