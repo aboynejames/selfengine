@@ -20,6 +20,7 @@ var selfLogic = function() {
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
 	idclick = $(intentionin).attr("id");
+	console.log(idclick);
 	attentionchange = $(intentionin).data("attentionfocus");
 	if(attentionchange == "focuschange")
 	{
@@ -307,7 +308,47 @@ console.log('sync is complete');
 			$("#datamessage").html("");
 			$("#signincloser").hide();
 		break;
-		
+			
+			case "twitterin":
+			window.open("http://localhost:8881/auth/twitter", "_self");
+				
+			break;
+
+			case "facebookin":
+			window.open("http://localhost:8881/auth/facebook", "_self");
+				
+			break;
+
+
+			case "logout":
+
+        var makeLogoutRequest = function(){
+
+            // Make the PUT request.
+            $.ajax({
+                type: "GET",
+                url: "http://www.localhost:8881/logout",
+                contentType: "application/json",
+                dataType: "text",
+						
+						success: function( resultback ){
+
+						},
+						error: function( error ){
+					// Log any error.
+console.log( "ERROR:", error );
+						},
+						complete: function(){
+
+						}
+			});
+
+		};
+
+			makeLogoutRequest();
+			break;
+
+
 	}		
 
 

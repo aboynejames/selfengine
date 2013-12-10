@@ -4,6 +4,19 @@
 */	
 $(document).ready(function(){
 
+//console.log($(location).attr('search'));
+//	var qs = $.param.querystring();
+//console.log(qs);	
+//var url = qs;
+//var paramsStr = "a=5&b=6";
+//var paramsObj = { a:7, b:8 };
+
+//var newurl = $.param.querystring( url, paramsStr );
+//console.log(newurl);	
+
+//location.hash = newurl;
+//	var qs = $.param.querystring();
+
 	liveLogic = new selfLogic();
 	$("form.signin_form").hide();
 	$("#signincloser").hide();
@@ -21,7 +34,6 @@ $(document).ready(function(){
 		$("button").click(function(e) {
 			e.preventDefault(e);			
 			idform = $(this).attr("id");
-console.log(idform);			
 			switch(idform){
 				
 				case"signinbutton":
