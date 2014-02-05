@@ -4,7 +4,7 @@ html {overflow:-moz-scrollbars-vertical !important;}
 	body {
 		background: #F5F4EF; /*url('../images/bg.png')*/
 		color: #000305;
-		font-size: 1em; 
+		font-size: 14px; 
 		font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 		line-height: 1.429;
 		margin: 0;
@@ -22,6 +22,45 @@ aside, nav, article, figure {
 
 /**
 *
+* Clear any float elements
+*
+*/
+.clear {clear: both;}
+
+/**
+*
+* Welcome message
+*
+*/
+ #welcome {
+	margin: auto;
+	width:100%;
+	text-align:center;
+	
+}
+
+ .welcome-message {
+	display:inline-block;
+	width:340px;
+	vertical-align:middle
+ }
+ 
+ .welcome-image {
+	display:inline-block;
+	width:340px;
+	vertical-align:middle
+ }
+ 
+ #welcome-message {
+	background: #eee;
+	width:300px;
+	height:200px;
+	line-height:20px;
+	padding:20px;
+}
+
+/**
+*
 * Framework navigation
 *
 */
@@ -32,6 +71,14 @@ aside, nav, article, figure {
 	margin: 8px;
 	text-align:center;
 	height: 80px;
+	
+}
+
+#bottom {
+	display:block;
+	border:1px solid black;
+	
+	
 	
 }
 
@@ -120,12 +167,12 @@ aside, nav, article, figure {
 	background: #eee;
 	margin: 8px;
 	text-align:center;
-	height: 80px;
+	height: auto;
 	
 }
 
 
- #attention {
+ .attention {
 	display:block;
 	border:1px solid #eee;
 	background: pink;
@@ -275,14 +322,14 @@ aside, nav, article, figure {
 	margin: 8px;
 	text-align:center;
 	width:auto ;
-	height:auto;
+	/*height:auto;*/
 	
 }
 
  #activeself {
 	display:block;
-	border:1px solid #5f5f5f;
-	background: pink;
+	border:1px solid #b2c1af;
+	background: #F5FFFA;
 	margin: 4px;
 }
 
@@ -310,7 +357,7 @@ aside, nav, article, figure {
 }
 
 .focuselement {
-		background: white;
+	background: white;
 	/*background: none repeat scroll 0 0 #009900;*/
 	border:1px solid #5f5f5f;
     border-radius: 3px 3px 3px 3px;
@@ -327,6 +374,25 @@ aside, nav, article, figure {
 	
 }
 
+.focuselement-h {
+	display:inline;
+	margin-right:6px;
+	
+}
+
+.timefocus {
+	display:inline;
+	font-size:1.8em;
+	font-weight: bold;
+	padding-top:20px;
+}
+
+.datefocus {
+	display:block;	
+	font:1.6em;
+	font-weight: bold;
+}
+
 .active-sub li a.selected {
 	display:block;
 
@@ -336,6 +402,20 @@ aside, nav, article, figure {
 .active-sub li a.selectedoff {
 	display:none;
 	
+}
+
+.attentionhistory {
+	display:block;
+	cursor:pointer;
+	border:1px solid #c1afaf;
+	margin:10px;
+	background: white;
+	min-height:70px;
+	
+}
+
+.attentionhistory:hover {
+	background-color:#F6EAEA;
 }
 
 #attentionhistory {
@@ -352,6 +432,193 @@ aside, nav, article, figure {
 #attentionhistory ul li {
 	display:inline;
 	margin:4px;
+	
+}
+
+#attentionhistory ul li ul#visualisation {
+	display:inline-block;
+	margin:4px;
+
+}
+
+.socialdata,.activity,.activitydetail,.timefocus-fix {
+	float:left;
+	border:1px solid #5f5f5f;
+}
+
+.socialdata {
+	width:120px;
+	margin:4px;
+}
+
+.activitydetail {
+	width:300px;
+	background: pink;
+}
+
+#activity {
+	width:auto;
+	min-height:90px;
+
+}
+
+#activity:hover {
+	background-color:#F6EAEA;
+}
+
+
+/*
+* Feedback
+*
+*/
+.feedback-fix {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: green;
+	margin: 8px;
+	height: auto;
+	width:120px;
+	
+}
+
+.action-fix {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: orange;
+	margin: 8px;
+	height: auto;
+	width:120px;
+	
+}
+
+#datetime {
+	border:0px solid #5f5f5f;	
+	background: #bec6e3;
+	text-align:left;
+	padding-left:20px;
+	padding-top:10px;
+	
+}
+
+.focuselement-date {
+	display:block;
+	border:1px solid #5f5f5f;	
+	background: #bec6e3;
+	font-size:0.8em;
+	height:30px;
+	text-align:left;
+	
+}
+/*
+* FutureFeedback
+*
+*/
+.futureflow {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: white;
+	margin: 8px;
+	height: 80px;
+	width:1000px;
+	
+}
+
+
+
+/*
+* Chart and data past and future
+*
+*/
+.visualisation-flow {
+	display:block;
+	border:0px solid #5f5f5f;
+	margin: 8px;
+}
+
+.chart-flow {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: white;
+	margin: 8px;
+	height: 300px;
+	width:400px;
+	
+}
+
+.accum-chart-flow {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: white;
+	margin: 8px;
+	height: 380px;
+	width:700px;
+	
+}
+
+.analysis-statistics-flow {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: white;
+	margin: 8px;
+	height: auto;
+	width:410px;
+	
+}
+
+.statistics-summary {
+	float:left;
+	border:1px solid #5f5f5f;
+	background: white;
+	margin: 2px;
+	height: auto;
+	width:400px;
+	
+}
+
+.actualsp {
+	float:left;
+	border:0px solid #5f5f5f;
+	background: white;
+	margin: 4px;
+	height: auto;
+	width:90px;
+	
+}
+
+.avgstat {
+	float:left;
+	border:0px solid #5f5f5f;
+	background: orange;
+	margin: 4px;
+	height: auto;
+	width:90px;
+	
+}
+
+.acctime {
+	float:left;
+	border:0px solid #5f5f5f;
+	background: #71c9bd;
+	margin: 4px;
+	height: auto;
+	width:90px;
+	
+}
+
+.accavgstat {
+	float:left;
+	border:0px solid #5f5f5f;
+	background: pink;
+	margin: 4px;
+	height: auto;
+	width:90px;
+	
+}
+
+.exit-anaylsis {
+	padding-top:20px;
+	min-height:50px;
+	background: white;
 	
 }
 
@@ -703,4 +970,59 @@ button.submit:active {
 }
 
 
+/*
+* Identity management
+*
+*/
+#signinflow {
+	display:block;
+	text-align:center;
+	border:2px solid blue;
+}
+
+#signinlink {
+	display:inline;
+	
+}
+
+/*
+* connectivity status mobile, local or cloud
+*
+*/
+#connectivity {
+	display:block;
+	
+}
+
+/*
+* modals
+*
+*/
+#chart-modal {
+	display:block;
+	width:900px;
+	height:600px;
+
+}
+
+#accumulative-modal {
+	display:block;
+;
+}
+
+#splitsratio-modal {
+	display:block;
+
+}
+
+#accum-chart-vis-  {
+	height:600px;
+	width:900px;
+
+}
+
+
 @media screen and (min-width: 600px) {
+
+
+}

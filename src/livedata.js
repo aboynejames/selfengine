@@ -46,7 +46,7 @@ var livedata = function(pouchdblive, liveprediction) {
 * @method setContext		
 *
 */	
-livedata.prototype.setContext =	function(attentionin) {  
+livedata.prototype.setContext = function(attentionin) {  
 //console.log('set context');
 //console.log(attentionin);
 	// first check if data is from a compairson switchon or change of main active attention fix
@@ -479,18 +479,18 @@ d1chart = di1;
 */	
 livedata.prototype.chartproduction = function(chartdatain, chartcontext, chartlocation, dataelements) {
 // regression line co ordinates
-//console.log('start of chart production');	
+console.log('start of chart production');	
 	d2chart = {};
 	d2chart = chartdatain;
 	contexttitle = chartcontext.live;
-//console.log(chartcontext['live']);
+console.log(chartcontext['live']);
 	var chartlabel = 'World Records 100m Freestyle ' + contexttitle.knowledgewords[0];
-//console.log(d2chart);
+console.log(d2chart);
 	var locationcontainer = chartlocation;	
 	
 	// look at how many data elements and prepare for appropriate charting
 	nochartdatasources = Object.keys(chartdatain).length;
-//console.log(nochartdatasources);	
+console.log(nochartdatasources);	
 	if(nochartdatasources == 1 )
 	{
 		(function basic(locationcontainer, d2chart) {
@@ -582,6 +582,14 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 	HTMLattentionfix = '';
 	//HTMLattentionfix +='<ul id="dragselfnow" class="connectedSortable"></ul>';
 	HTMLattentionfix += '<div id="attentionfix">';
+	
+	HTMLattentionfix += '<li id="Sport" class="fixgroup" data-attentionfixttitle="inactive">';
+	HTMLattentionfix += '<ul id="socialnetwork" class="active-sub">';
+	HTMLattentionfix += '<li id="WorldRecord" class="focuselement" data-knowledgeword="knowledgeword" style="">';
+	HTMLattentionfix += '<a id="WorldRecord" class="selected" href="">WorldRecord</a>';
+	HTMLattentionfix += '</li>';
+	HTMLattentionfix += '</ul>';
+	HTMLattentionfix += '</li>';
 
 	attentionfixlive.forEach(function(grouptitle){
 		//pass the lane data to get html ready
@@ -610,11 +618,24 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 		});
 
 	HTMLattentionfix += '</ul>';	
-	HTMLattentionfix += '</li>';		
+	HTMLattentionfix += '</li>';	
+
+		
 	});
 
+	
+			HTMLattentionfix += '<li  class="fixgroup">';
+			HTMLattentionfix += '<ul id="visualisation" class="active-sub">';
+			HTMLattentionfix += '<li id="Chart" class="focuselement" data-knowledgeword="knowledgeword" style="">';
+			HTMLattentionfix += '<a id="Chart" class="selected" href="">Chart</a>';
+			HTMLattentionfix += '</li>';
+			HTMLattentionfix += '<li id="Table" class="focuselement" data-knowledgeword="knowledgeword" style="">';
+			HTMLattentionfix += '<li id="Splits Matrix" class="focuselement" data-knowledgeword="knowledgeword" style="">';
+			HTMLattentionfix += '</ul>';
+			HTMLattentionfix += '</ul>';
+			HTMLattentionfix += '</li>';
 	HTMLattentionfix += '</div>';	
-	HTMLattentionfix += '<section id="attentionhistory">Attention History<ul id="previousattention"></ul></section>';	
+	HTMLattentionfix += '<section id="attentionhistory">Attention History</section>';	
 
 	$("#activeself").html(HTMLattentionfix);
 	

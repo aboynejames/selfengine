@@ -11,6 +11,8 @@
 */
 var selfLogic = function() {
 	this.status = 'default';
+	this.tokenid = '';
+	this.idname = '';
 };
 
 /**
@@ -20,12 +22,13 @@ var selfLogic = function() {
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
 	idclick = $(intentionin).attr("id");
-	console.log(idclick);
+console.log(intentionin);
+console.log(idclick);
 	attentionchange = $(intentionin).data("attentionfocus");
 	if(attentionchange == "focuschange")
 	{
 		// show title and other options to select
-$("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedoff");
+		$("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedoff");
 	}
 	
 	switch(idclick){
@@ -327,7 +330,7 @@ console.log('sync is complete');
             // Make the PUT request.
             $.ajax({
                 type: "GET",
-                url: "http://www.localhost:8881/logout",
+                url: "http://localhost:8881/logout",
                 contentType: "application/json",
                 dataType: "text",
 						
@@ -336,7 +339,7 @@ console.log('sync is complete');
 						},
 						error: function( error ){
 					// Log any error.
-console.log( "ERROR:", error );
+//console.log( "ERROR:", error );
 						},
 						complete: function(){
 
@@ -347,7 +350,51 @@ console.log( "ERROR:", error );
 
 			makeLogoutRequest();
 			break;
+/*		
+		case "testswimmers":
+console.log('test train');	
+			// go get training data and add to stream
+					// now ask for list of swimmers and display them
+		var makeSwimDataRequest = function(){
+		var formdataurl = 'http://localhost:8881/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+            // Make the PUT request.
+		$.ajax({
+			type: "GET",
+			url: formdataurl,
+			contentType: "application/json",
+			dataType: "text",
+						
+						success: function( swimmersback ){
+							// pass on markup and add data to live data model
+							 var serverdatain = JSON.parse(swimmersback);							
+							// prepare attention flow header
+							$("#attentionhistory").append(serverdatain['attentionflow']);
+							var swimattentionin = Object.keys(serverdatain);
+							swimattentionin.forEach(function(attel) {
+							
+								$("#previousattention").append(serverdatain[attel]['attentionmarkup']);
+								// add the split data to data class
+								dataModel.setDatain(attel, serverdatain[attel]['splitdata']);
+								
+								
+							});
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( "ERROR:", error );
+						},
+						complete: function(){
 
+						}
+			});
+
+		};
+
+		makeSwimDataRequest();
+			
+		
+		break;
+*/
 
 	}		
 
@@ -355,3 +402,66 @@ console.log( "ERROR:", error );
 		
 };
 
+/**
+* Set token user for REST calls
+* @method setToken		
+*
+*/	
+selfLogic.prototype.setToken = function(setIDname, settokenin) {
+//console.log('set token function' + settokenin);
+	this.idname = setIDname;
+	this.tokenid = settokenin;
+//console.log(this.tokenid + 'from within function');	
+	
+};
+
+
+/**
+* Get first data from the cloud
+* @method firstDatacall		
+*
+*/	
+selfLogic.prototype.firstDatacall = function() {
+			// go get training data and add to stream
+					// now ask for list of swimmers and display them
+		var makeSwimDataRequest = function(){
+		var formdataurl = 'http://localhost:8881/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+            // Make the PUT request.
+		$.ajax({
+			type: "GET",
+			url: formdataurl,
+			contentType: "application/json",
+			dataType: "text",
+						
+						success: function( swimmersback ){
+//console.log('success from data');							
+							// pass on markup and add data to live data model
+							 var serverdatain = JSON.parse(swimmersback);
+//console.log(serverdatain);							
+							// prepare attention flow header
+							$("#activeself").append(serverdatain['attentionflow']);
+							var swimattentionin = Object.keys(serverdatain);
+							swimattentionin.forEach(function(attel) {
+							
+								$("#previousattention").append(serverdatain[attel]['attentionmarkup']);
+								// add the split data to data class
+								dataModel.setDatain(attel, serverdatain[attel]['splitdata']);								
+								dataModel.setKnowledgein(attel, serverdatain[attel]['knowledgechain']);
+								
+								
+							});
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( "ERROR:", error );
+						},
+						complete: function(){
+
+						}
+			});
+
+		};
+
+		makeSwimDataRequest();
+			
+};

@@ -4,20 +4,56 @@
 */	
 $(document).ready(function(){
 
-//console.log($(location).attr('search'));
-//	var qs = $.param.querystring();
-//console.log(qs);	
-//var url = qs;
-//var paramsStr = "a=5&b=6";
-//var paramsObj = { a:7, b:8 };
-
-//var newurl = $.param.querystring( url, paramsStr );
-//console.log(newurl);	
-
-//location.hash = newurl;
-//	var qs = $.param.querystring();
-
 	liveLogic = new selfLogic();
+	
+//console.log($(location).attr('search'));
+	var qs = $.param.querystring();
+	var qsobject = $.deparam(qs, true);
+//console.log(qs);	
+//console.log(qsobject);
+//console.log(qsobject.token);
+	
+	if(qsobject.token)
+	{
+		// return leg of authorisation, keep 
+		liveLogic.setToken(qsobject.swimmer, qsobject.token);
+		
+		// now ask for list of swimmers and display them
+		var makeSwimmerRequest = function(){
+
+            // Make the PUT request.
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8881/swimmers/token/" + liveLogic.tokenid,
+                contentType: "application/json",
+                dataType: "text",
+						
+						success: function( swimmersback ){
+//console.log('success back froms swimmers');
+//console.log(swimmersback);
+							//$("#testswimmers").html(swimmersback);
+							$("#welcome").remove();
+							liveLogic.firstDatacall();
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( "ERROR:", error );
+						},
+						complete: function(){
+
+						}
+			});
+
+		};
+
+		makeSwimmerRequest();
+		
+	}
+	else
+	{
+		// only allow public data.
+	}
+
 	$("form.signin_form").hide();
 	$("#signincloser").hide();
 
@@ -26,7 +62,7 @@ $(document).ready(function(){
 	connectWith: ".connectedSortable"
 	}).disableSelection();
 
-		$("a").click(function(e) {
+		$("a,#testswimmers").click(function(e) {
 			e.preventDefault(e);			
 			liveLogic.frameworklogic(this);
 		});
@@ -235,8 +271,8 @@ $(document).ready(function(){
 				savedatatool.tooltemplate = 'Worldrecord-template';
 				savedatatool.lifedata = recordtimein;		
 				// save to the pouchdb
-					// push to d1 data object and save to Pouchdb
-					d1record.push([recordtimein.date, recordtimein.time]);
+				// push to d1 data object and save to Pouchdb
+				d1record.push([recordtimein.date, recordtimein.time]);
 				//sort so the time ie first element of each array element is in time order
 				d1record.sort(function(a,b){return a+b;});
 				livepouch.singleSave(savedatatool);		
@@ -269,8 +305,242 @@ $(document).ready(function(){
 
 
 		});
+		
+	$("#activeself").click(function(e) {
+		e.preventDefault(e);			
+		var historyin = $(e.target);	
+//console.log(historyin);	
+//console.log(historyin.data('date-id'));
+//console.log(historyin.attr('class'));
+//console.log(historyin.attr('id'));			
+		var attentionidlive = historyin.data('date-id');
+		var classclickedin = historyin.attr('class');
+		var divclickedin = historyin.attr('id');
+		var contextin = {};
+		var d1chart = {};
+		contextin.live = {};	
+		contextin.live.knowledgewords = {};	
+		contextin.live.knowledgewords[0] = 'training tesst title';
+		var dataelements = 1;
+		var accumdataSet = {};
+		var statisticsummarydata = {};
+		
+		// set state in memory and URL string and set	
+			
+		// what filters  (take into account historical state for UI/client)
+		// data source, memory, local or cloud
+		// identity
+		// time
+		// knowledge
+			
+		// what visualisation
+		// pick up context and visualisation option act realtime
+		if(divclickedin == "historyfix" || divclickedin == "activity")
+		{
+			// add placer html markup
+			viewTemplates.analysisPlacer(attentionidlive);
+
+			var container = "chart-vis-" + attentionidlive;
+			d1chart[0] = dataModel.timeDataprep(attentionidlive);
+			d1chart[1] =  dataModel.splitDataprep(attentionidlive);
+			dataModel.onelementchart(d1chart, contextin, container, dataelements);
+
+			// produce summary table starts
+			statisticsummarydata = dataModel.statisticsDataprep(attentionidlive);
+			var statisticsvisualisation = "#analysis-statistics-" + attentionidlive;
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata);		
+		
+		}
+		else if (classclickedin== "exit-anaylsis")
+		{
+//console.log('exit anaysys mode');			
+			$("#anlaysisid-" + attentionidlive).empty();
+		}
+		else if (classclickedin== "cummulative-anaylsis")
+		{
+//console.log('cummulative chart modal');	
+			
+			//produce accumulated chart ( first check if other daily train element exist then prepare data and chart)
+			accumdataSet = dataModel.accumulationDataprep(attentionidlive);
+			//container = "accum-chart-vis-" +attentionidlive;
+			container = "chart-modal";		
+			// add to modol code
+			//$( "#accumulative-modal" ).html('<div id="' + container + '" class="accum-chart-flow" ></div>');
+			dataModel.onelementchart(accumdataSet, contextin, container, dataelements);
+			
+			 $( "#chart-modal" ).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(".ui-dialog").remove();
+					
+					}
+				 
+			});			
+
+		}		
+		else if (classclickedin== "splitsratio-anaylsis")
+		{
+//console.log('splits ration modal');	
+			
+			//produce accumulated chart ( first check if other daily train element exist then prepare data and chart)
+			//accumdataSet = dataModel.accumulationDataprep();
+			container = "splits-ratio-vis-" +attentionidlive;
+			//container = "splitsratio-modal";
+			// add to modol code
+			$( "#splitsratio-modal" ).html('<div id="' + container + '" class="split-ratio-flow" ></div>');
+			
+			 $( "#splitsratio-modal" ).dialog({
+				height: 600,
+				width:800,
+				modal: true
+			});			
+
+		}
+		
+	});	
+		
 				
 	livepouch = new pouchdbSettings();
 	liveprediction = new selfprediction();
-	liveData = new livedata(livepouch, liveprediction);
+	//liveData = new livedata(livepouch, liveprediction);
+	dataModel = new datamodel();
+	viewTemplates = new viewtemplates();
+	
+		// connect to socket.io
+	var socketpi = io.connect('http://192.168.1.44:8881');
+	
+		
+	/*
+	* stopwatchwatch listening socket
+	*/
+	// when you get a serialdata event, do this:
+	socketpi.on('stopwatchEvent', function (data) {
+//console.log(data);	
+		serialin = JSON.parse(data.value);
+		inser = Object.keys(serialin);
+		inser.forEach(function(thein) {
+		textaction = thein;
+		timein = serialin[thein];
+
+	});
+
+		if(data.value == 1)
+		{
+			// call the split function
+		
+
+		}
+		else if(textaction == 'lap')
+		{
+			
+		}
+
+		else if(textaction == "Start")
+		{
+			
+		}
+		else if (textaction == 'Reset')
+		{
+			
+		}
+
+	});
+	
+	socketpi.counterlive = 0;
+	socketpi.previsousessionid = '';
+	/*
+	* listening of context Display Data
+	*/
+	socketpi.on('contextEventdisplay', function (contextdata) {
+//console.log(contextdata);
+
+console.log(socketpi);		
+console.log(socketpi.counterlive);		
+		if(socketpi.counterlive > 0)
+		{
+console.log(socketpi.counterlive);		
+			// display the live feed
+			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, "liveswim", contextdata.session);
+			//$("#activeself").append('<ol id="previousattention" data-start-id="' + '121' + '" data-end-id="' + '122' + '" ></ol>');
+
+			// keep counter
+			
+			// previous attention fix live analysis closed down
+			$("#anlaysisid-" + socketpi.previsousessionid).empty();
+			socketpi.previsousessionid = contextdata.session.sessionid;
+
+			
+			// add the split data to data class
+			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
+			dataModel.setKnowledgein(contextdata.session.sessionid, contextdata.session.swiminfo);
+			
+			
+			$("#liveattention").prepend(livedisplayin);
+				d1chart = {};
+				contextin = {};
+				contextin.live = {};	
+				contextin.live.knowledgewords = {};	
+				contextin.live.knowledgewords[0] = 'training tesst title';	
+				var dataelements = 1;
+					
+				viewTemplates.analysisPlacer(contextdata.session.sessionid);
+
+				var container = "chart-vis-" + contextdata.session.sessionid;
+				d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
+				d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
+				dataModel.onelementchart(d1chart, contextin, container, dataelements);
+
+				// produce summary table starts
+				statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
+				var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
+				viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata);	
+			
+				socketpi.counterlive++;	
+		}
+		else
+		{
+			socketpi.counterlive = 1;
+			socketpi.previsousessionid = contextdata.session.sessionid;
+console.log(socketpi.counterlive + 'startedone');
+			$("#welcome").remove();
+	
+						// display the live feed
+			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, "liveswim", contextdata.session);
+
+			// add the split data to data class
+			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
+			dataModel.setKnowledgein(contextdata.session.sessionid, contextdata.session.swiminfo);
+			
+			
+			$("#liveattention").prepend(livedisplayin);
+				d1chart = {};
+				contextin = {};
+				contextin.live = {};	
+				contextin.live.knowledgewords = {};	
+				contextin.live.knowledgewords[0] = 'training tesst title';	
+				var dataelements = 1;
+					
+				viewTemplates.analysisPlacer(contextdata.session.sessionid);
+
+				var container = "chart-vis-" + contextdata.session.sessionid;
+				d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
+				d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
+				dataModel.onelementchart(d1chart, contextin, container, dataelements);
+
+				// produce summary table starts
+				statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
+				var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
+				viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata);	
+			
+
+			
+			
+		}
+	});
+
+	
+	
 });

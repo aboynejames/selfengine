@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v6 2013-10-08
+# v0.1.7 2014-02-03
 # This is another comment
 index.html
 css/
@@ -7,6 +7,7 @@ images/
 start.js
 selflogic.js
 livedata.js
+datamodel.js
 pouchdbutility.js
 prediction.js
 js/jquery-2.0.3.min.js
@@ -15,6 +16,8 @@ js/pouchdb-25-08-2013.min.js
 js/punch.js
 js/IndexedDBShim.min.js
 js/flotr2.min.js
+socket.io.js
+viewtemplates.js
 
 # Use from network if available
 NETWORK:

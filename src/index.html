@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" > <!--manifest="self.appcache"--> 
+<html lang="en" manifest="self.appcache" > <!--manifest="self.appcache"--> 
   <head>
 		<meta charset="utf-8">
 		<title>selfengine - making suggestions for tomorrow</title>
@@ -19,9 +19,12 @@
 		<script type="text/javascript" src="pouchdbutility.js"></script>
 		<script type="text/javascript" src="js/flotr2.min.js"></script>
 		<script type="text/javascript" src="selflogic.js"></script>
-		<script type="text/javascript" src="livedata.js"></script>	
+		<script type="text/javascript" src="livedata.js"></script>
+		<script type="text/javascript" src="datamodel.js"></script>
+		<script type="text/javascript" src="viewtemplates.js"></script>		
 		<script type="text/javascript" src="prediction.js"></script>	
-		<script type="text/javascript" src="start.js"></script>	
+		<script type="text/javascript" src="start.js"></script>
+		<script src="socket.io.js"></script>		
 	</head>
 	
 	<body>
@@ -32,6 +35,11 @@
 				<a id="tools" href="" data-toolsstatus="on">tools</a>
 			</nav>
 		</header>
+		<section id="welcome">
+			<div class="welcome-message"><div id="welcome-message">Welcome to mepath.com, services based on the Open Sport Project including the <b>sports selfengine:</b> realtime-future time analysis</div></div><div class="welcome-image"><img  src="images/swimtraintimerlogomedium.png" /></div>
+			
+		</section>
+
 		<section id="attention">
 			<section id="contextflow" >context</section>
 			<section id="networkflow" >network <a href="" id="addnetwork" data-addnetworkstatus="active" >add</a>
@@ -51,11 +59,12 @@
 			</section>
 			<section id="livedata">
 				<section id="activeself">active attention
-
+					<section id="liveattention" ></section>
 				
 					
 				</section>
-				<section id="pastflow">
+
+				<!--<section id="pastflow">
 					past
 					<div id="pastchart"></div>
 				</section>
@@ -63,23 +72,24 @@
 				future
 					<div id="futurechart"></div>
 				</section>
-				<div style="clear:both;"></div>
+				<div style="clear:both;"></div>-->
+	
 			</section>
+			
 		</section>
+
+
+		<footer id="bottom">
+			<a  href="">
+			<img  id="cloneme" alt="Clone me" src="images/cloneme.png" >
+			</a>
+			v0.1.7
+			<div id="synctime"></div>
+
 		
-		<section id="connectivity">
-			<header class="onlinemode">
-				<nav>
-					<ul>
-						<li>
-							<a id="sync" class="" title="sync" href="">Sync</a> Click to download Swimming World Record Data: 100m Freestyle
-					</li>
-				</nav>
-			</header>
-		</section>
 		<section id="signinflow">
-			<span id="signinlink">
-				<a id="signin" href="/signin" title="signin" class="control-text">Sign-in</a> <a id="twitterin" href="/twitterin" title="/twitterin" class="control-text">Twitter-In</a> <a id="facebookin" href="/facebookin" title="/facebookin" class="control-text">Facebook-In</a> <a id="logout" href="/logout" title="/logout" class="control-text">Log-out</a>			</span>
+			<div id="signinlink">
+				<a id="signin" href="/signin" title="signin" class="control-text">Sign-in</a> <a id="twitterin" href="/twitterin" title="/twitterin" class="control-text">Twitter-In</a> <a id="facebookin" href="/facebookin" title="/facebookin" class="control-text">Facebook-In</a> <a id="logout" href="/logout" title="/logout" class="control-text">Log-out</a>			</div>
 			<span id="ifsignedin">
 				<a class="control-text" text="SignOut" title="signout" href="#"  id="signincloser" >Sign-out</a>
 			</span>
@@ -100,17 +110,32 @@
 				</ul>
 		</form>
 			<div id="formfeedback"></div>
+			<div id="testswimmers"></div>
+			<div id="testswimdata"></div>
 		</section>
 		<section id="datastatus">
 			<div id="datamessage">
 			</div>
 		</section>
 		
-		<footer>
-			<a  href="">
-			<img  id="cloneme" alt="Clone me" src="images/cloneme.png" >
-			</a>
-			<div id="synctime"></div>
+		<section id="connectivity">
+			<header class="onlinemode">
+				<nav>
+					<ul>
+						<li>
+							<a id="sync" class="" title="sync" href="">Sync</a> Click to download Swimming World Record Data: 100m Freestyle
+					</li>
+					</ul>
+				</nav>
+			</header>
+		</section>		
+		</footer>
+		<div id="chart-modal" title="Chart Modal">
+			<p>Accumulative charts view</p>
+		</div>
+		<div id="splitsratio-modal" title="Stroke - Splits - Ratio Analysis">
+			<p>Splits ratio analysis</p>
+		</div>
 		</footer>
 	</body>
 	
