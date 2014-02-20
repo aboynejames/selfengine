@@ -1,8 +1,9 @@
 CACHE MANIFEST
-# v0.1.7 2014-02-03
+# v0.1.25 2014-02-06
 # This is another comment
 index.html
-css/
+css/selfstyle.css
+css/ui-lightness/jquery-ui-1.10.3.custom.css
 images/
 start.js
 selflogic.js
@@ -16,6 +17,7 @@ js/pouchdb-25-08-2013.min.js
 js/punch.js
 js/IndexedDBShim.min.js
 js/flotr2.min.js
+js/jquery-BBQ-1.2.1.js
 socket.io.js
 viewtemplates.js
 

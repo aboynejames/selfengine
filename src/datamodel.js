@@ -15,6 +15,8 @@ var datamodel = function() {
 	this.finishedTimes = {};
 	this.preparedSplitsData = {};
 	this.knowledgelog = {};
+	this.comeptitiondata = {};
+	this.comeptitionknowledge = {};	
 	this.groupattention = {};
 };
 
@@ -45,6 +47,32 @@ datamodel.prototype.setKnowledgein = function(dataidin, cloudknowledge) {
 };
 
 /**
+* Sets the competition knowledge data
+* @method setCompetitionKnowledge		
+*
+*/	
+datamodel.prototype.setCompetitionKnowledge = function(dataidin, compknowledge) {  
+console.log('comp set');
+	if(dataidin != 'compKnowledge')
+	{
+		this.comeptitionknowledge[dataidin] = compknowledge;
+	}
+};
+
+/**
+* Sets the competition data coming in
+* @method setCompetitiondata		
+*
+*/	
+datamodel.prototype.setCompetitiondata = function(dataidin, compdatain) {  
+console.log('comp data');
+	if(dataidin != 'competitionData')
+	{
+		this.comeptitiondata[dataidin] = compdatain;
+	}
+};
+
+/**
 * Return knowledge chain item
 * @method knowledgechainback
 *
@@ -52,6 +80,7 @@ datamodel.prototype.setKnowledgein = function(dataidin, cloudknowledge) {
 datamodel.prototype.knowledgechainback = function(dataidin) {  
 
 	return this.knowledgelog[dataidin];
+
 };
 
 /**
@@ -79,18 +108,21 @@ datamodel.prototype.knowledgewordsextraction = function(knowledgein) {
 */	
 datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {  
 //console.log('knoweldge model filtering');
-	
+				
 	var knowledgewordsobject = this.knowledgelog;
+	var splitslivein = this.splittimedatalog;
+
 	var matchingknowledge = [];
 	var samematch = [];
 	var knowledgelist = this.knowledgewordsextraction(datamodellive);
-
+//console.log(knowledgelist);
 	// take all knowledge chains and keep those that match
-	var listfixids = Object.keys(this.splittimedatalog);
-	
+	var listfixids = Object.keys(splitslivein);
+//console.log(listfixids);	
 		listfixids.forEach(function(matchid) {		
 			// extract all knowledge info into an array
-			var itemwords =dataModel.knowledgewordsextraction(knowledgewordsobject[matchid]);		
+			var itemwords =dataModel.knowledgewordsextraction(knowledgewordsobject[matchid]);
+//console.log(itemwords);			
 			// now compare the knowledge works
 			knowledgelist.forEach(function(kidw) {
 				itemwords.forEach(function(kidm) {
@@ -120,6 +152,56 @@ datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {
 };
 
 /**
+* Take training knowledge chain and match with race knowledge
+* @method knowledgechainfilteringRace
+*
+*/	
+datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidin) {  
+console.log('knoweldge model filtering RACE');
+				
+	var knowledgewordsobject = this.comeptitionknowledge;
+	var splitslivein = this.comeptitiondata;
+
+	var matchingknowledge = [];
+	var samematch = [];
+	var knowledgelist = this.knowledgewordsextraction(datamodellive);
+console.log(knowledgelist);
+	// take all knowledge chains and keep those that match
+	var listfixids = Object.keys(splitslivein);
+console.log(listfixids);	
+		listfixids.forEach(function(matchid) {		
+			// extract all knowledge info into an array
+			var itemwords =dataModel.knowledgewordsextraction(knowledgewordsobject[matchid]);
+console.log(itemwords);			
+			// now compare the knowledge works
+			knowledgelist.forEach(function(kidw) {
+				itemwords.forEach(function(kidm) {
+					
+					if(kidw == kidm)
+					{
+						matchingknowledge.push(matchid);
+					}
+				});
+			});
+		
+console.log(matchingknowledge);
+			// count the number of matches 
+			var countmatches = matchingknowledge.length;		
+			if(countmatches >= 3 )
+			{
+				samematch.push(matchid);
+			}
+			countmatches = 0;
+			matchingknowledge = [];
+		});
+console.log(samematch);
+		this.groupattention[attidin] = samematch;
+		
+		return  samematch;
+
+};
+
+/**
 * Extract the final time
 * @method timeFinal		
 *
@@ -130,6 +212,21 @@ datamodel.prototype.timeFinish = function(dataidin) {
 	
 	this.finishedTimes[dataidin] = finishtime;
 	return finishtime;
+	
+};
+
+/**
+* Extract the final RACE time
+* @method racetimeFinal		
+*
+*/	
+datamodel.prototype.racetimeFinal = function(racetimein) {  
+console.log(racetimein);	
+	var finishtimeface = '';
+	finishtimeface = racetimein.slice(-1)[0];
+	
+	//this.finishedTimes[dataidin] = finishtime;
+	return finishtimeface;
 	
 };
 
@@ -172,7 +269,6 @@ datamodel.prototype.splitDataprep = function(sdataidin) {
 		sspid++;
 		previoustime = sptime;
 	});
-
 	this.preparedSplitsData[sdataidin] = preparedsplitchartdata;	
 	return preparedsplitchartdata;
 	
@@ -226,18 +322,14 @@ datamodel.prototype.accumulationDataprep = function(attidin) {
 	for (var isp = 1; isp < splitdatalength; isp++) {
 
 		//listofarraysstring += 'accumsplitchartdata["splittime"][' + isp + ']');
-
-
 //console.log(listofarraysstring);	(accumsplitchartdata['splittime']));
 		if(totalaccumuldated.length == 0)
 		{
-			totalaccumuldated = accumsplitchartdata['splittime'][0].concat(accumsplitchartdata['splittime'][1]);
-			
+			totalaccumuldated = accumsplitchartdata['splittime'][0].concat(accumsplitchartdata['splittime'][1]);			
 		}
 		else
 		{
 			totalaccumuldated = totalaccumuldated.concat(accumsplitchartdata['splittime'][isp]);
-		
 		}
 		
 	}
@@ -259,11 +351,24 @@ datamodel.prototype.statisticsDataprep = function(statsisin) {
 	var accandsplits = {};
 	// extract the knowlegechain and find all other data element that meet that criteria
 	var datamodellive = this.knowledgechainback(statsisin);
-//console.log(datamodellive);	
+	//var racedatamodellive = this.knowledgechainback('competition', statsisin);
+console.log(datamodellive);	
 	
 	// filter down data fixes that match the knowledgechian
 	var matchingknowledge = this.knowledgechainfiltering(datamodellive, statsisin);
+//console.log('matching knowedge training');
 //console.log(matchingknowledge);	
+		
+	// filter down to get the fast race time for this knowledge chain
+	var matchingCompetition = this.knowledgechainfilteringRace(datamodellive, statsisin);
+//console.log('matchcomp');		
+//console.log(matchingCompetition);		
+	// find fast time and set as one to compare effort against
+	var fastestraceTime = this.fastestTimes(matchingCompetition);
+console.log('fastest race time end');
+console.log(fastestraceTime);
+	// order the array fastest to slow	
+		
 	var livedatastats = this.splittimedatalog;
 	var livesplitsdatain = this.preparedSplitsData;
 //console.log(livedatastats);	
@@ -279,30 +384,20 @@ datamodel.prototype.statisticsDataprep = function(statsisin) {
 	accfirstelement = {};
 	neworderarray = [];
 	newsplitsarray = [];		
-		
-	//listcurrentSessiondata = Object.keys(livedatastats);
-//console.log(listcurrentSessiondata);		
-	//var sumelength = listcurrentSessiondata.length;
+				
 	var sumelength = matchingknowledge.length;	
-//console.log(sumelength);		
+	
 	var orderarraylength = livedatastats[statsisin].length; 
-//console.log(orderarraylength);		
+		
 	for(var oi=0; oi< orderarraylength; oi++) {
 			
-		//for(var i=0; i< sumelength; i++) {
 		matchingknowledge.forEach(function(matid) {
-			dataModel.splitDataprep(matid);
-//console.log(matid);
-//console.log(oi);
-//console.log(matchingknowledge[i]);
-//console.log(livedatastats[matid]);	
-//console.log(livedatastats[matchingknowledge[matid][oi]);		
+			dataModel.splitDataprep(matid);		
 			neworderarray.push(livedatastats[matid][oi]);
-//console.log(neworderarray);
-			newsplitsarray.push(livesplitsdatain [matid][oi][1]);
+
+			newsplitsarray.push(livesplitsdatain[matid][oi][1]);
 		});
-	
-		//}	
+
 		firstelement[oi] = neworderarray;
 		accfirstelement[oi] = newsplitsarray;
 		neworderarray = [];
@@ -324,19 +419,110 @@ datamodel.prototype.statisticsDataprep = function(statsisin) {
 //console.log(ei);			
 			countall = countall + firstelement[j][ei]; 
 			countsplits = countsplits  + accfirstelement[j][ei];
-
 		}
 		 // for array to keep split averages
 		 accsplitaverage.push((countall/noelements).toFixed(0));
 		 splitaverage.push((countsplits/noelements).toFixed(0));		
 		 
-	}			
+	}	
+	
+	// calculate the effort ratio best race time to 
+	var effortperSplit = this.effortCalculation(livedatastats[statsisin], fastestraceTime);
+	
+
+	accandsplits['effortsplits'] = effortperSplit;
 	accandsplits['individualsplits'] = splitaverage;
 	accandsplits['accumulatedsplits'] = accsplitaverage;
+console.log(accandsplits);
 	return accandsplits;
 	
 };
+
+/**
+* Takes splits and color codes for faster  slower the previous
+* @method splitColorCode		
+*
+*/
+datamodel.prototype.splitColorCode = function(splitarray) {  
+
+	var fasterslowercolor = [];
+	var previoustime = 0;
 	
+	splitarray.forEach(function(sptime) {
+	
+		if(sptime[1] > previoustime)
+		{
+			fasterslowercolor.push('red');
+		}
+		else
+		{
+			fasterslowercolor.push('green');
+		}
+	previoustime  = sptime[1];		
+
+	});
+		
+//console.log(fasterslowercolor);
+	return fasterslowercolor;
+	
+};
+
+/**
+* Find the fastest times history of competitions
+* @method fastestTimes		
+*
+*/	
+datamodel.prototype.fastestTimes = function(complistin) {  
+console.log('fastest times prep');
+console.log(complistin);	
+	var fasttime = '';
+	var collecttimes = {};
+	var finishracetime = [];
+	var liveracestats = this.comeptitiondata;
+
+		
+	// match up to time/split race data
+	complistin.forEach(function (racesid) {
+console.log(dataModel.racetimeFinal(liveracestats[racesid]));		
+		collecttimes[racesid] = liveracestats[racesid];
+		finishracetime.push([dataModel.racetimeFinal(liveracestats[racesid]),racesid]);
+		
+	});
+console.log('working on fastest times');	
+console.log(finishracetime);	
+	// extract the end times and order fastest to slowest
+	var fastarrayordered = finishracetime.sort(function(a,b){return b-a});
+	var fastestraceEver = fastarrayordered.slice(0,1);
+console.log(fastestraceEver);
+	// match up to all the splits data from race
+	fasttime = liveracestats[fastestraceEver[0][1]]; 
+console.log(fasttime)	
+	return fasttime;
+	
+};
+
+/**
+* Calculate the percentage ratio of training time to race time
+* @method effortCalculation		
+*
+*/	
+datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {  
+console.log(trainingsplits);
+console.log(racesplits);	
+	var effeortratios = [];
+	var noelementse = trainingsplits.length;
+//console.log(noelementse);		
+
+	for(var ei=0; ei< noelementse; ei++)
+	{
+		effeortratios.push(((racesplits[ei]/trainingsplits[ei])*100).toFixed(1))
+		
+	}
+console.log(effeortratios);	
+	return effeortratios;
+	
+	
+};
 
 /**
 * chart production single attention element
@@ -379,10 +565,10 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 					{
 								xaxis: {
 									//majorTickFreq: 1
-									//mode: 'time',
-									//timeUnit:'millisecond',
-									//timeformat: "%m/%d/%y",
-									labelsAngle: 90
+									mode: 'time',
+									timeUnit:'millisecond',
+									timeformat: "%m",
+									labelsAngle: 0
 								},
 								grid: {
 										//minorVerticalLines: true
@@ -416,8 +602,8 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 					data: d2chart[1],
 					bars: {
 					    show: true,
-					    barWidth: 0.5,
-					    lineWidth: 8,
+					    barWidth: 10,
+					    lineWidth: 20,
 					    fillColor: {
 						colors: ['#CB4B4B', '#000'],
 						start: 'top',
@@ -448,11 +634,9 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 				],
 				{
 					xaxis: {
-						//majorTickFreq: 1
-						mode: 'time',
-						timeUnit:'millisecond',
-						timeformat: "%m",
-						labelsAngle: 90
+						autoscale:true,
+						//majorTickFreq: 100000000,
+						mode: 'time'
 					},
 					grid: {
 							//minorVerticalLines: true
@@ -528,6 +712,7 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 						timeUnit:'millisecond',
 						timeformat: "%m",
 						labelsAngle: 90
+
 					},
 					grid: {
 							//minorVerticalLines: true

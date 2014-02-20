@@ -382,9 +382,10 @@ aside, nav, article, figure {
 
 .timefocus {
 	display:inline;
-	font-size:1.8em;
+	font-size:2em;
 	font-weight: bold;
 	padding-top:20px;
+	margin-left: 18px;
 }
 
 .datefocus {
@@ -443,7 +444,7 @@ aside, nav, article, figure {
 
 .socialdata,.activity,.activitydetail,.timefocus-fix {
 	float:left;
-	border:1px solid #5f5f5f;
+	border:0px solid #5f5f5f;
 }
 
 .socialdata {
@@ -458,7 +459,7 @@ aside, nav, article, figure {
 
 #activity {
 	width:auto;
-	min-height:90px;
+	min-height:70px;
 
 }
 
@@ -493,7 +494,7 @@ aside, nav, article, figure {
 
 #datetime {
 	border:0px solid #5f5f5f;	
-	background: #bec6e3;
+	background: white;
 	text-align:left;
 	padding-left:20px;
 	padding-top:10px;
@@ -502,8 +503,8 @@ aside, nav, article, figure {
 
 .focuselement-date {
 	display:block;
-	border:1px solid #5f5f5f;	
-	background: #bec6e3;
+	border:0px solid #5f5f5f;	
+	background: white;
 	font-size:0.8em;
 	height:30px;
 	text-align:left;
@@ -535,8 +536,15 @@ aside, nav, article, figure {
 	margin: 8px;
 }
 
-.chart-flow {
+.chart-flow-placer {
 	float:left;
+	border:1px solid #5f5f5f;
+	background: white;
+	
+}
+
+.chart-flow {
+	display:block;
 	border:1px solid #5f5f5f;
 	background: white;
 	margin: 8px;
@@ -555,13 +563,27 @@ aside, nav, article, figure {
 	
 }
 
-.analysis-statistics-flow {
+.cummulative-anaylsis {
+	border:1px solid black;
+	font-size:1.2em;
+	
+}
+
+.analysis-statistics-flow-placer {
 	float:left;
+	display:block;
+	border:1px solid #5f5f5f;
+	background: white;
+	
+}
+
+
+.analysis-statistics-flow {
 	border:1px solid #5f5f5f;
 	background: white;
 	margin: 8px;
 	height: auto;
-	width:410px;
+	width:570px;
 	
 }
 
@@ -571,7 +593,13 @@ aside, nav, article, figure {
 	background: white;
 	margin: 2px;
 	height: auto;
-	width:400px;
+	width:560px;
+	
+}
+
+.splitsratio-anaylsis {
+	border:1px solid black;
+	font-size:1.2em;
 	
 }
 
@@ -579,9 +607,10 @@ aside, nav, article, figure {
 	float:left;
 	border:0px solid #5f5f5f;
 	background: white;
+	font-size:1em;
 	margin: 4px;
 	height: auto;
-	width:90px;
+	width:120px;
 	
 }
 
@@ -598,10 +627,11 @@ aside, nav, article, figure {
 .acctime {
 	float:left;
 	border:0px solid #5f5f5f;
-	background: #71c9bd;
+	background: white;
+	font-size:1em;
 	margin: 4px;
 	height: auto;
-	width:90px;
+	width:120px;
 	
 }
 
@@ -615,12 +645,23 @@ aside, nav, article, figure {
 	
 }
 
-.exit-anaylsis {
-	padding-top:20px;
-	min-height:50px;
+.effortratio {
+	float:left;
+	border:0px solid #5f5f5f;
 	background: white;
+	margin: 4px;
+	height: auto;
+	width:90px;
 	
 }
+
+.exit-anaylsis {
+	min-height:20px;
+	text-align:right;
+	font-size:1.2em;
+	
+}
+
 
  #pastflow {
 	float:left;

@@ -30,7 +30,7 @@ console.log(idclick);
 		// show title and other options to select
 		$("#attentionfix li.fixgroup ul.active-sub li a#Female").removeClass("selectedoff");
 	}
-	
+
 	switch(idclick){
 
 	case "identity": 
@@ -288,8 +288,8 @@ console.log(idclick);
 		break;
 
 		case "sync":
-				
-			var syncmessage = '<a  href=""><img  id="syncicon" alt="sync in progress" src="images/sync.png" ></a>';
+	
+			/*var syncmessage = '<a  href=""><img  id="syncicon" alt="sync in progress" src="images/sync.png" ></a>';
 			$("#synctime").html(syncmessage);
 		
 			PouchDB.replicate('http://www.mepath.co.uk:5984/testselfbackup/', 'selfengine', function(err, response) {
@@ -298,7 +298,7 @@ console.log('sync is complete');
 				$("#synctime").html('finished');	
 				location.reload(); 				
 			});
-
+*/
 		break;
 			
 		case "signin":
@@ -313,12 +313,12 @@ console.log('sync is complete');
 		break;
 			
 			case "twitterin":
-			window.open("http://localhost:8881/auth/twitter", "_self");
+			window.open(liveSettings['cloudIP'] + "/auth/twitter", "_self");
 				
 			break;
 
 			case "facebookin":
-			window.open("http://localhost:8881/auth/facebook", "_self");
+			window.open(liveSettings['cloudIP'] + "/auth/facebook", "_self");
 				
 			break;
 
@@ -330,7 +330,7 @@ console.log('sync is complete');
             // Make the PUT request.
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8881/logout",
+                url: liveSettings['cloudIP']  + "/logout",
                 contentType: "application/json",
                 dataType: "text",
 						
@@ -350,51 +350,6 @@ console.log('sync is complete');
 
 			makeLogoutRequest();
 			break;
-/*		
-		case "testswimmers":
-console.log('test train');	
-			// go get training data and add to stream
-					// now ask for list of swimmers and display them
-		var makeSwimDataRequest = function(){
-		var formdataurl = 'http://localhost:8881/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
-            // Make the PUT request.
-		$.ajax({
-			type: "GET",
-			url: formdataurl,
-			contentType: "application/json",
-			dataType: "text",
-						
-						success: function( swimmersback ){
-							// pass on markup and add data to live data model
-							 var serverdatain = JSON.parse(swimmersback);							
-							// prepare attention flow header
-							$("#attentionhistory").append(serverdatain['attentionflow']);
-							var swimattentionin = Object.keys(serverdatain);
-							swimattentionin.forEach(function(attel) {
-							
-								$("#previousattention").append(serverdatain[attel]['attentionmarkup']);
-								// add the split data to data class
-								dataModel.setDatain(attel, serverdatain[attel]['splitdata']);
-								
-								
-							});
-						},
-						error: function( error ){
-					// Log any error.
-//console.log( "ERROR:", error );
-						},
-						complete: function(){
-
-						}
-			});
-
-		};
-
-		makeSwimDataRequest();
-			
-		
-		break;
-*/
 
 	}		
 
@@ -422,10 +377,7 @@ selfLogic.prototype.setToken = function(setIDname, settokenin) {
 *
 */	
 selfLogic.prototype.firstDatacall = function() {
-			// go get training data and add to stream
-					// now ask for list of swimmers and display them
-		var makeSwimDataRequest = function(){
-		var formdataurl = 'http://localhost:8881/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+		var formdataurl = liveSettings['cloudIP'] + '/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
             // Make the PUT request.
 		$.ajax({
 			type: "GET",
@@ -450,6 +402,7 @@ selfLogic.prototype.firstDatacall = function() {
 								
 								
 							});
+							//liveLogic.secondDatacall();
 						},
 						error: function( error ){
 					// Log any error.
@@ -459,9 +412,43 @@ selfLogic.prototype.firstDatacall = function() {
 
 						}
 			});
-
-		};
-
-		makeSwimDataRequest();
 			
+};
+
+/**
+* Get second data from the cloud
+* @method secondDatacall		
+*
+*/	
+selfLogic.prototype.secondDatacall = function() {
+		var formdataurlb = liveSettings['cloudIP'] + '/racedata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+			// Make the PUT request.
+			$.ajax({
+				type: "GET",
+				url: formdataurlb,
+				contentType: "application/json",
+				dataType: "text",
+							
+				success: function(racesbackb){
+					// pass on markup and add data to live data model
+					var serverdatainb = JSON.parse(racesbackb);				
+					var compswimattentionin = Object.keys(serverdatainb);
+					compswimattentionin.forEach(function(attelc) {
+					
+						dataModel.setCompetitiondata(attelc, serverdatainb[attelc]['competitionData']);								
+						dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc]['compKnowledge']);
+					});
+						
+	
+				},
+							error: function( error ){
+							// Log any error.
+	//console.log( "ERROR:", error );
+							},
+							complete: function(){
+
+							}
+				});
+
+		
 };

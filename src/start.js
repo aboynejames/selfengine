@@ -4,7 +4,12 @@
 */	
 $(document).ready(function(){
 
+	liveSettings = {};
+	liveSettings['cloudIP'] = "http://localhost:8881";
+	liveSettings['localIP'] = "http://192.168.1.44:8881";	
 	liveLogic = new selfLogic();
+		
+
 	
 //console.log($(location).attr('search'));
 	var qs = $.param.querystring();
@@ -15,16 +20,16 @@ $(document).ready(function(){
 	
 	if(qsobject.token)
 	{
+		//liveLogic.secondDatacall();
 		// return leg of authorisation, keep 
 		liveLogic.setToken(qsobject.swimmer, qsobject.token);
-		
 		// now ask for list of swimmers and display them
 		var makeSwimmerRequest = function(){
 
             // Make the PUT request.
             $.ajax({
                 type: "GET",
-                url: "http://localhost:8881/swimmers/token/" + liveLogic.tokenid,
+                url: liveSettings['cloudIP']  + "/swimmers/token/" + liveLogic.tokenid,
                 contentType: "application/json",
                 dataType: "text",
 						
@@ -34,6 +39,9 @@ $(document).ready(function(){
 							//$("#testswimmers").html(swimmersback);
 							$("#welcome").remove();
 							liveLogic.firstDatacall();
+							liveLogic.secondDatacall();
+							
+
 						},
 						error: function( error ){
 					// Log any error.
@@ -47,6 +55,9 @@ $(document).ready(function(){
 		};
 
 		makeSwimmerRequest();
+
+
+
 		
 	}
 	else
@@ -78,15 +89,15 @@ $(document).ready(function(){
 				var passwordin = $("#signinform.signin_form ul li input#passwordin").val();
 				var cookieidhash = 123123123;
 				
-        // Wrap up the POST/get request execution.
-        var makePUTRequest = function(){
+				// Wrap up the POST/get request execution.
+				var makePUTRequest = function(){
 
-            // Make the PUT request.
-            $.ajax({
-                type: "GET",
-                url: "http://www.mepath.co.uk:8833/signinmepath/" + emailin + '/' + cookieidhash + '/' + passwordin,
-                contentType: "application/json",
-                dataType: "text",
+				    // Make the PUT request.
+				$.ajax({
+					type: "GET",
+					url: liveSettings['cloudIP'] + "/signinmepath/" + emailin + '/' + cookieidhash + '/' + passwordin,
+					contentType: "application/json",
+					dataType: "text",
 								success: function( resultback ){
 
 									var acceptdetails = JSON.parse(resultback);
@@ -113,14 +124,12 @@ $(document).ready(function(){
 								}
 						});
 
-		};
+				};
 
-		// Execute the PUT request.
-		makePUTRequest();
+				// Execute the PUT request.
+				makePUTRequest();
 				
 				break;
-				
-				
 			}
 		});		
 
@@ -337,7 +346,7 @@ $(document).ready(function(){
 		// pick up context and visualisation option act realtime
 		if(divclickedin == "historyfix" || divclickedin == "activity")
 		{
-			// add placer html markup
+			// add placer html markup			
 			viewTemplates.analysisPlacer(attentionidlive);
 
 			var container = "chart-vis-" + attentionidlive;
@@ -347,8 +356,9 @@ $(document).ready(function(){
 
 			// produce summary table starts
 			statisticsummarydata = dataModel.statisticsDataprep(attentionidlive);
+			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);		
 			var statisticsvisualisation = "#analysis-statistics-" + attentionidlive;
-			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata);		
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);		
 		
 		}
 		else if (classclickedin== "exit-anaylsis")
@@ -410,7 +420,7 @@ $(document).ready(function(){
 	viewTemplates = new viewtemplates();
 	
 		// connect to socket.io
-	var socketpi = io.connect('http://192.168.1.44:8881');
+	var socketpi = io.connect(liveSettings['localIP'] );
 	
 		
 	/*
@@ -455,88 +465,75 @@ $(document).ready(function(){
 	* listening of context Display Data
 	*/
 	socketpi.on('contextEventdisplay', function (contextdata) {
-//console.log(contextdata);
-
-console.log(socketpi);		
-console.log(socketpi.counterlive);		
+		
 		if(socketpi.counterlive > 0)
-		{
-console.log(socketpi.counterlive);		
+		{		
 			// display the live feed
-			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, "liveswim", contextdata.session);
-			//$("#activeself").append('<ol id="previousattention" data-start-id="' + '121' + '" data-end-id="' + '122' + '" ></ol>');
-
-			// keep counter
-			
+			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
 			// previous attention fix live analysis closed down
 			$("#anlaysisid-" + socketpi.previsousessionid).empty();
 			socketpi.previsousessionid = contextdata.session.sessionid;
-
 			
 			// add the split data to data class
 			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
 			dataModel.setKnowledgein(contextdata.session.sessionid, contextdata.session.swiminfo);
-			
-			
+						
 			$("#liveattention").prepend(livedisplayin);
-				d1chart = {};
-				contextin = {};
-				contextin.live = {};	
-				contextin.live.knowledgewords = {};	
-				contextin.live.knowledgewords[0] = 'training tesst title';	
-				var dataelements = 1;
-					
-				viewTemplates.analysisPlacer(contextdata.session.sessionid);
+			d1chart = {};
+			contextin = {};
+			contextin.live = {};	
+			contextin.live.knowledgewords = {};	
+			contextin.live.knowledgewords[0] = 'training tesst title';	
+			var dataelements = 1;
+				
+			viewTemplates.analysisPlacer(contextdata.session.sessionid);
 
-				var container = "chart-vis-" + contextdata.session.sessionid;
-				d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
-				d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
-				dataModel.onelementchart(d1chart, contextin, container, dataelements);
+			var container = "chart-vis-" + contextdata.session.sessionid;
+			d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
+			d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
+			dataModel.onelementchart(d1chart, contextin, container, dataelements);
 
-				// produce summary table starts
-				statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
-				var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
-				viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata);	
-			
-				socketpi.counterlive++;	
+			// produce summary table starts
+			statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
+			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);
+			var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);	
+		
+			socketpi.counterlive++;	
 		}
 		else
 		{
 			socketpi.counterlive = 1;
 			socketpi.previsousessionid = contextdata.session.sessionid;
-console.log(socketpi.counterlive + 'startedone');
 			$("#welcome").remove();
 	
-						// display the live feed
+			// display the live feed
 			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, "liveswim", contextdata.session);
 
 			// add the split data to data class
 			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
 			dataModel.setKnowledgein(contextdata.session.sessionid, contextdata.session.swiminfo);
 			
-			
 			$("#liveattention").prepend(livedisplayin);
-				d1chart = {};
-				contextin = {};
-				contextin.live = {};	
-				contextin.live.knowledgewords = {};	
-				contextin.live.knowledgewords[0] = 'training tesst title';	
-				var dataelements = 1;
-					
-				viewTemplates.analysisPlacer(contextdata.session.sessionid);
+			d1chart = {};
+			contextin = {};
+			contextin.live = {};	
+			contextin.live.knowledgewords = {};	
+			contextin.live.knowledgewords[0] = 'training tesst title';	
+			var dataelements = 1;
+				
+			viewTemplates.analysisPlacer(contextdata.session.sessionid);
 
-				var container = "chart-vis-" + contextdata.session.sessionid;
-				d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
-				d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
-				dataModel.onelementchart(d1chart, contextin, container, dataelements);
+			var container = "chart-vis-" + contextdata.session.sessionid;
+			d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
+			d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
+			dataModel.onelementchart(d1chart, contextin, container, dataelements);
 
-				// produce summary table starts
-				statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
-				var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
-				viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata);	
-			
-
-			
+			// produce summary table starts
+			statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
+			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);
+			var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);	
 			
 		}
 	});

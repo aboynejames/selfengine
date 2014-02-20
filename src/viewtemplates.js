@@ -30,7 +30,7 @@ viewtemplates.prototype.setView = function() {
 * @method summaryStatisticsbox	
 *
 */	
-viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain, statsdatain) {  
+viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain, statsdatain, colorcode) {  
 	// produce statistic html presentation code
 	var statsvisualisation = '';
 	
@@ -38,12 +38,12 @@ viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain
 	splitlength = fixdatain[1].length;
 	
 	// two types of splits and acctime averages
-	statsvisualisation += '	<div class="actualsp">Actual</div><div class="avgstat">Average</div><div class="acctime">Acc Time</div><div class="accavgstat">Acc Average</div>';
+	statsvisualisation += '	<div class="actualsp">Actual</div><div class="avgstat">Average</div><div class="acctime">Acc Time</div><div class="accavgstat">Acc Average</div><div class="effortratio">Effort%Race</div>';
 	
 	for(var i=0; i< splitlength; i++) 
 	{
 		
-		statsvisualisation += '	<div class="actualsp">' + this.formatTime(fixdatain[1][i][1]) + '</div><div class="avgstat">' + this.formatTime(statsdatain['individualsplits'][i]) + '</div><div class="acctime">' + this.formatTime(fixdatain[0][i][1]) + '</div><div class="accavgstat">' +this.formatTime(statsdatain['accumulatedsplits'][i]) + '</div>';
+		statsvisualisation += '	<div class="actualsp"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[1][i][1]) + '</font></div><div class="avgstat">' + this.formatTime(statsdatain['individualsplits'][i]) + '</div><div class="acctime"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[0][i][1]) + '</font></div><div class="accavgstat">' + this.formatTime(statsdatain['accumulatedsplits'][i]) + '</div><div class="effortratio">' + statsdatain['effortsplits'][i] + '</div>';
 	
 	}
 	statsvisualisation += '</div>';
@@ -63,14 +63,21 @@ viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain
 viewtemplates.prototype.analysisPlacer = function(attentionidlive) {  
 	
 	var swimdataelement = '';
-
-	swimdataelement += '<div class="chart-flow" id="chart-vis-' + attentionidlive + '"></div>';
-	//swimdataelement += '<div class="accum-chart-flow" id="accum-chart-vis-' + attentionidlive + '"></div>';
-	swimdataelement += '<div class="analysis-statistics-flow" id="analysis-statistics-' + attentionidlive + '"></div>';
-	swimdataelement += '<div class="cummulative-chart-anaylsis"><a  id="cummulative-analysis-' + attentionidlive + '" data-date-id="' + attentionidlive + '" data-identity-id="' + attentionidlive + '" class="cummulative-anaylsis">Accumulate Chart</a></div>';
+	swimdataelement += '<div class="chart-flow-placer">';
+	swimdataelement += '<div class="chart-flow" id="chart-vis-' + attentionidlive + '">';
+	swimdataelement += '</div>';
+	swimdataelement += '<div class="cummulative-chart-anaylsis"><a  id="cummulative-analysis-' + attentionidlive + '" data-date-id="' + attentionidlive + '" data-identity-id="' + attentionidlive + '" class="cummulative-anaylsis">Accumulate Chart</a></div>';	
+	swimdataelement += '</div>';
+	
+	swimdataelement += '<div class="analysis-statistics-flow-placer">';
+	swimdataelement += '<div class="analysis-statistics-flow" id="analysis-statistics-' + attentionidlive + '">';
+	swimdataelement += '</div>';
 	swimdataelement += '<div class="splits-ratio-anaylsis"><a  id="splitsratio-analysis-' + attentionidlive + '" data-date-id="' + attentionidlive + '" data-identity-id="' + attentionidlive + '" class="splitsratio-anaylsis">Stroke Splits Ratio Analysis</a></div>';
+	swimdataelement += '</div>';
+	
+	swimdataelement += '<div class="clear" ></div>';
 	swimdataelement += '<div class="exit-anaylsis"><a  id="exit-analysis-' + attentionidlive + '" data-date-id="' + attentionidlive + '" data-identity-id="' + attentionidlive + '" class="exit-anaylsis">exit</a></div>';
-	swimdataelement += '<div class="clear" ></div>';//'<div style="clear:both;"></div>'; 
+
 	$("#anlaysisid-" + attentionidlive).html(swimdataelement);
 	
 };
