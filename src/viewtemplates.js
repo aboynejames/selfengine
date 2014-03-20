@@ -22,7 +22,6 @@ var viewtemplates = function() {
 viewtemplates.prototype.setView = function() {  
 	
 	
-	
 };
 
 /**
