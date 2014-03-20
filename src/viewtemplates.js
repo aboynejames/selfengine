@@ -19,8 +19,7 @@ var viewtemplates = function() {
 * @method setView	
 *
 */	
-viewtemplates.prototype.setView = function() {  
-	
+viewtemplates.prototype.setView = function() {  	
 	
 };
 
