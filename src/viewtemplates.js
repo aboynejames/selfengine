@@ -19,7 +19,7 @@ var viewtemplates = function() {
 * @method setView	
 *
 */	
-viewtemplates.prototype.setView = function() {  	
+viewtemplates.prototype.setView = function() {
 	
 };
 
@@ -41,15 +41,13 @@ viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain
 	for(var i=0; i< splitlength; i++) 
 	{
 		
-		statsvisualisation += '	<div class="actualsp"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[1][i][1]) + '</font></div><div class="avgstat">' + this.formatTime(statsdatain['individualsplits'][i]) + '</div><div class="acctime"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[0][i][1]) + '</font></div><div class="accavgstat">' + this.formatTime(statsdatain['accumulatedsplits'][i]) + '</div><div class="effortratio">' + statsdatain['effortsplits'][i] + '</div>';
+		statsvisualisation += '	<div class="actualsp"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[1][i][1]) + '</font></div><div class="avgstat">' + this.formatTime(statsdatain.individualsplits[i]) + '</div><div class="acctime"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[0][i][1]) + '</font></div><div class="accavgstat">' + this.formatTime(statsdatain.accumulatedsplits[i]) + '</div><div class="effortratio">' + statsdatain.effortsplits[i] + '</div>';
 	
 	}
 	statsvisualisation += '</div>';
 	statsvisualisation += '<div class="clear"></div>';
 
-	
-	$(csslocationin).html(statsvisualisation);	
-	
+	$(csslocationin).html(statsvisualisation);		
 	
 };
 
@@ -131,7 +129,7 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 
 	//swimdataelement += '<a id="analysis"  href=""  data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '">Analysis</a>';
 	swimdataelement += '<div id="datetime" >';
-	swimdataelement += '<a id="' + swimdatain.sessionid + '"  href="" class="focuselement-date" data-knowledgeword="' + swimdatain.swiminfo['swimdate'] + '">' + swimdatain.swiminfo['swimdate'] + '</a>';
+	swimdataelement += '<a id="' + swimdatain.sessionid + '"  href="" class="focuselement-date" data-knowledgeword="' + swimdatain.swiminfo.swimdate + '">' + swimdatain.swiminfo.swimdate + '</a>';
 	swimdataelement += '</div>';
 	swimdataelement += '</div>';
 	swimdataelement += '<div class="timefocus-fix"><div id="endtime" class="timefocus" data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '">' + displaytime + '</div>';
@@ -153,4 +151,4 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 //console.log(swimdataelement);
 	return swimdataelement;
 
-}
+};

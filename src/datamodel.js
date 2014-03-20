@@ -282,8 +282,8 @@ datamodel.prototype.splitDataprep = function(sdataidin) {
 datamodel.prototype.accumulationDataprep = function(attidin) {  
 	
 	accumsplitchartdata = {};
-	accumsplitchartdata['charttime'] = [];
-	accumsplitchartdata['splittime'] = [];
+	accumsplitchartdata.charttime = [];
+	accumsplitchartdata.splittime = [];
 	// state, filter data will be passed in
 	
 	// accumulated time preparation
@@ -306,34 +306,34 @@ datamodel.prototype.accumulationDataprep = function(attidin) {
 	refinedgrouplist.forEach(function(attenteleid) {
 		// prepare time and accumulate splits
 		var finishtimeelement = dataModel.timeFinish(attenteleid);
-		accumsplitchartdata['charttime'].push([parseInt((attenteleid),10),finishtimeelement]);
+		accumsplitchartdata.charttime.push([parseInt((attenteleid),10),finishtimeelement]);
 		
 		var splitsperelement = dataModel.splitDataprep(attenteleid);	
-		accumsplitchartdata['splittime'].push(splitsperelement);
+		accumsplitchartdata.splittime.push(splitsperelement);
 		
 	});
 	
 	// split time preparation into one array
 	totalaccumuldated = [];
 	
-	var splitdatalength = accumsplitchartdata['splittime'].length;
+	var splitdatalength = accumsplitchartdata.splittime.length;
 	
 	var listofarraysstring = '';
 	for (var isp = 1; isp < splitdatalength; isp++) {
 
 		//listofarraysstring += 'accumsplitchartdata["splittime"][' + isp + ']');
 //console.log(listofarraysstring);	(accumsplitchartdata['splittime']));
-		if(totalaccumuldated.length == 0)
+		if(totalaccumuldated.length === 0)
 		{
-			totalaccumuldated = accumsplitchartdata['splittime'][0].concat(accumsplitchartdata['splittime'][1]);			
+			totalaccumuldated = accumsplitchartdata.splittime[0].concat(accumsplitchartdata.splittime[1]);			
 		}
 		else
 		{
-			totalaccumuldated = totalaccumuldated.concat(accumsplitchartdata['splittime'][isp]);
+			totalaccumuldated = totalaccumuldated.concat(accumsplitchartdata.splittime[isp]);
 		}
 		
 	}
-	accumsplitchartdata['totalaccumuldated'] = totalaccumuldated;
+	accumsplitchartdata.totalaccumuldated = totalaccumuldated;
 	
 	return accumsplitchartdata;
 	
@@ -420,20 +420,19 @@ console.log(fastestraceTime);
 			countall = countall + firstelement[j][ei]; 
 			countsplits = countsplits  + accfirstelement[j][ei];
 		}
-		 // for array to keep split averages
-		 accsplitaverage.push((countall/noelements).toFixed(0));
-		 splitaverage.push((countsplits/noelements).toFixed(0));		
+		// for array to keep split averages
+		accsplitaverage.push((countall/noelements).toFixed(0));
+		splitaverage.push((countsplits/noelements).toFixed(0));		
 		 
 	}	
 	
 	// calculate the effort ratio best race time to 
 	var effortperSplit = this.effortCalculation(livedatastats[statsisin], fastestraceTime);
 	
-
-	accandsplits['effortsplits'] = effortperSplit;
-	accandsplits['individualsplits'] = splitaverage;
-	accandsplits['accumulatedsplits'] = accsplitaverage;
-console.log(accandsplits);
+	accandsplits.effortsplits = effortperSplit;
+	accandsplits.individualsplits = splitaverage;
+	accandsplits.accumulatedsplits = accsplitaverage;
+//console.log(accandsplits);
 	return accandsplits;
 	
 };
@@ -497,7 +496,7 @@ datamodel.prototype.fastestTimes = function(complistin) {
 	// has any race times been set?
 	var racerecordlength = fastestraceEver.length;
 //console.log('race record length ==' + racerecordlength);	
-	if(racerecordlength != 0)
+	if(racerecordlength !== 0)
 	{
 		// match up to all the splits data from race
 		fasttime = liveracestats[fastestraceEver[0][1]]; 
@@ -524,12 +523,13 @@ datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {
 //console.log(racesplits);	
 	var effeortratios = [];
 	var noelementse = trainingsplits.length;
+	var ie = 0;
 //console.log(noelementse);	
 	if(racesplits[0] == 'notset')
 	{
-		for(var ei=0; ei< noelementse; ei++)
+		for(ei=0; ei< noelementse; ei++)
 		{
-			effeortratios.push('nil')
+			effeortratios.push('nil');
 		
 		}
 //console.log(effeortratios);	
@@ -537,12 +537,12 @@ datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {
 	}
 	else
 	{
-		for(var ei=0; ei< noelementse; ei++)
+		for(ei=0; ei< noelementse; ei++)
 		{
-			effeortratios.push(((racesplits[ei]/trainingsplits[ei])*100).toFixed(1))
+			effeortratios.push(((racesplits[ei]/trainingsplits[ei])*100).toFixed(1));
 		
 		}
-console.log(effeortratios);	
+//console.log(effeortratios);	
 		return effeortratios;
 	}
 	
@@ -625,22 +625,22 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 				{
 					data: d2chart[1],
 					bars: {
-					    show: true,
-					    barWidth: 10,
-					    lineWidth: 20,
-					    fillColor: {
-						colors: ['#CB4B4B', '#000'],
-						start: 'top',
-						end: 'bottom'
-					    },
-					    fillOpacity: 0.8
+							show: true,
+							barWidth: 10,
+							lineWidth: 20,
+							fillColor: {
+								colors: ['#CB4B4B', '#000'],
+								start: 'top',
+								end: 'bottom'
+							},
+						fillOpacity: 0.8
 					}
 				},
 				{
 					data: d2chart[1],
 					markers: {
-						show: true,
-						position: 'ct'
+							show: true,
+							position: 'ct'
 					}
 				},
 				
@@ -648,19 +648,19 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 					data: d2chart[0],
 					label: chartlabel,
 					lines: {
-						show: true
+							show: true
 				},
 				points: {
-					show: true
+						show: true
 				}
 				}
 
 				],
 				{
 					xaxis: {
-						autoscale:true,
-						//majorTickFreq: 100000000,
-						mode: 'time'
+							autoscale:true,
+							//majorTickFreq: 100000000,
+							mode: 'time'
 					},
 					grid: {
 							//minorVerticalLines: true
@@ -669,11 +669,11 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 
 					},
 					yaxis: {
-						mode: 'time',
-						timeUnit:'millisecond',
-						timeformat: "%S",
-						min: 0,
-						max: yaxismax
+							mode: 'time',
+							timeUnit:'millisecond',
+							timeformat: "%S",
+							min: 0,
+							max: yaxismax
 					},
 						//title: 'Times'
 				});
@@ -696,46 +696,46 @@ console.log('past char draw SINGLE 3');
 
 						// preprae the two data set and charting details.
 				{
-					data: d2chart['totalaccumuldated'],
+					data: d2chart.totalaccumuldated,
 					bars: {
-					    show: true,
-					    barWidth: 0.5,
-					    lineWidth: 2,
-					    fillColor: {
-						colors: ['#CB4B4B', '#000'],
-						start: 'top',
-						end: 'bottom'
-					    },
-					    fillOpacity: 0.8
+							show: true,
+							barWidth: 0.5,
+							lineWidth: 2,
+							fillColor: {
+										colors: ['#CB4B4B', '#000'],
+										start: 'top',
+										end: 'bottom'
+									},
+					fillOpacity: 0.8
 					}
 				},
 				{
-					data: d2chart['totalaccumuldated'],
+					data: d2chart.totalaccumuldated,
 					markers: {
-						show: true,
-						position: 'ct'
+								show: true,
+								position: 'ct'
 					}
 				},
 				
 				{
-					data: d2chart['charttime'],
+					data: d2chart.charttime,
 					label: chartlabel,
 					lines: {
-						show: true
+							show: true
 				},
 				points: {
-					show: true
+						show: true
 				}
 				}
 
 				],
 				{
 					xaxis: {
-						//majorTickFreq: 1
-						mode: 'time',
-						timeUnit:'millisecond',
-						timeformat: "%m",
-						labelsAngle: 90
+							//majorTickFreq: 1
+							mode: 'time',
+							timeUnit:'millisecond',
+							timeformat: "%m",
+							labelsAngle: 90
 
 					},
 					grid: {
@@ -745,11 +745,11 @@ console.log('past char draw SINGLE 3');
 
 					},
 					yaxis: {
-						mode: 'time',
-						timeUnit:'millisecond',
-						timeformat: "%S",
-						min: 0,
-						max: 90000
+							mode: 'time',
+							timeUnit:'millisecond',
+							timeformat: "%S",
+							min: 0,
+							max: 90000
 					},
 						//title: 'Times'
 				});
