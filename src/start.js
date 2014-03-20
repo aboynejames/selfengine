@@ -5,8 +5,8 @@
 $(document).ready(function(){
 
 	liveSettings = {};
-	liveSettings['cloudIP'] = "http://localhost:8881"; //"http://192.168.1.44:8881";
-	liveSettings['localIP'] = "http://localhost:8881";  //"http://192.168.1.44:8881";	
+	liveSettings.cloudIP = "http://localhost:8881"; //"http://192.168.1.44:8881";
+	liveSettings.localIP = "http://localhost:8881";  //"http://192.168.1.44:8881";	
 	liveLogic = new selfLogic();
 		
 
@@ -29,7 +29,7 @@ $(document).ready(function(){
             // Make the PUT request.
             $.ajax({
                 type: "GET",
-                url: liveSettings['cloudIP']  + "/swimmers/token/" + liveLogic.tokenid,
+                url: liveSettings.cloudIP  + "/swimmers/token/" + liveLogic.tokenid,
                 contentType: "application/json",
                 dataType: "text",
 						
@@ -92,10 +92,10 @@ $(document).ready(function(){
 				// Wrap up the POST/get request execution.
 				var makePUTRequest = function(){
 
-				    // Make the PUT request.
+				// Make the PUT request.
 				$.ajax({
 					type: "GET",
-					url: liveSettings['cloudIP'] + "/signinmepath/" + emailin + '/' + cookieidhash + '/' + passwordin,
+					url: liveSettings.cloudIP + "/signinmepath/" + emailin + '/' + cookieidhash + '/' + passwordin,
 					contentType: "application/json",
 					dataType: "text",
 								success: function( resultback ){
@@ -142,14 +142,16 @@ $(document).ready(function(){
 		var attentionclick = attentionfocusin.parent().attr('class');
 		
 		switch(attentionclick){
-
+			
 			case "twoattention":
+			
+			var secondfix = '';
 			// is the click for alsoactive or unactive
 			var secondactive = attentionfocusin.attr('id');
 			if(secondactive == "alsoactive")
 			{
 				// collect the comparison attention fix of elements
-				var secondfix = attentionfocusin.parent().attr('id');
+				secondfix = attentionfocusin.parent().attr('id');
 				attentionfixall.knowledgewords = [secondfix];
 								
 				$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").text("on");
@@ -160,7 +162,7 @@ $(document).ready(function(){
 			}
 			else if (secondactive == "unactive")
 			{			
-				var secondfix = attentionfocusin.parent().attr('id');						
+				secondfix = attentionfocusin.parent().attr('id');						
 				$("#previousattention li#" + secondfix + ".twoattention a#unactive").text("off");
 				$("#previousattention li#" + secondfix + ".twoattention a#unactive").attr('id', "alsoactive");
 				// need to remove the second data element
@@ -333,7 +335,7 @@ $(document).ready(function(){
 		var dataelements = 1;
 		var accumdataSet = {};
 		var statisticsummarydata = {};
-		
+		var container = '';
 		// set state in memory and URL string and set	
 			
 		// what filters  (take into account historical state for UI/client)
@@ -349,7 +351,7 @@ $(document).ready(function(){
 			// add placer html markup			
 			viewTemplates.analysisPlacer(attentionidlive);
 
-			var container = "chart-vis-" + attentionidlive;
+			container = "chart-vis-" + attentionidlive;
 			d1chart[0] = dataModel.timeDataprep(attentionidlive);
 			d1chart[1] =  dataModel.splitDataprep(attentionidlive);
 			dataModel.onelementchart(d1chart, contextin, container, dataelements);
@@ -378,7 +380,7 @@ $(document).ready(function(){
 			//$( "#accumulative-modal" ).html('<div id="' + container + '" class="accum-chart-flow" ></div>');
 			dataModel.onelementchart(accumdataSet, contextin, container, dataelements);
 			
-			 $( "#chart-modal" ).dialog({
+			$( "#chart-modal" ).dialog({
 				height: 700,
 				width:940,
 				modal: true,
@@ -402,7 +404,7 @@ $(document).ready(function(){
 			// add to modol code
 			$( "#splitsratio-modal" ).html('<div id="' + container + '" class="split-ratio-flow" ></div>');
 			
-			 $( "#splitsratio-modal" ).dialog({
+			$( "#splitsratio-modal" ).dialog({
 				height: 600,
 				width:800,
 				modal: true
@@ -420,7 +422,7 @@ $(document).ready(function(){
 	viewTemplates = new viewtemplates();
 	
 		// connect to socket.io
-	var socketpi = io.connect(liveSettings['localIP'] );
+	var socketpi = io.connect(liveSettings.localIP );
 	
 		
 	/*
@@ -466,10 +468,15 @@ $(document).ready(function(){
 	*/
 	socketpi.on('contextEventdisplay', function (contextdata) {
 		
+		var livedisplayin = '';
+		var dataelements = '';
+		var container = '';
+		var statisticsvisualisation = '';
+		
 		if(socketpi.counterlive > 0)
 		{		
 			// display the live feed
-			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
+			livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
 			// previous attention fix live analysis closed down
 			$("#anlaysisid-" + socketpi.previsousessionid).empty();
 			socketpi.previsousessionid = contextdata.session.sessionid;
@@ -484,11 +491,11 @@ $(document).ready(function(){
 			contextin.live = {};	
 			contextin.live.knowledgewords = {};	
 			contextin.live.knowledgewords[0] = 'training tesst title';	
-			var dataelements = 1;
+			dataelements = 1;
 				
 			viewTemplates.analysisPlacer(contextdata.session.sessionid);
 
-			var container = "chart-vis-" + contextdata.session.sessionid;
+			container = "chart-vis-" + contextdata.session.sessionid;
 			d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
 			d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
 			dataModel.onelementchart(d1chart, contextin, container, dataelements);
@@ -496,7 +503,7 @@ $(document).ready(function(){
 			// produce summary table starts
 			statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
 			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);
-			var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
+			statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
 			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);	
 		
 			socketpi.counterlive++;	
@@ -508,7 +515,7 @@ $(document).ready(function(){
 			$("#welcome").remove();
 	
 			// display the live feed
-			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
+			livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
 
 			// add the split data to data class
 			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
@@ -520,11 +527,11 @@ $(document).ready(function(){
 			contextin.live = {};	
 			contextin.live.knowledgewords = {};	
 			contextin.live.knowledgewords[0] = 'training tesst title';	
-			var dataelements = 1;
+			dataelements = 1;
 				
 			viewTemplates.analysisPlacer(contextdata.session.sessionid);
 
-			var container = "chart-vis-" + contextdata.session.sessionid;
+			container = "chart-vis-" + contextdata.session.sessionid;
 			d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
 			d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
 			dataModel.onelementchart(d1chart, contextin, container, dataelements);
@@ -532,7 +539,7 @@ $(document).ready(function(){
 			// produce summary table starts
 			statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
 			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);
-			var statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
+			statisticsvisualisation = "#analysis-statistics-" + contextdata.session.sessionid;
 			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);	
 			
 		}

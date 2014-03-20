@@ -289,15 +289,15 @@ console.log(idclick);
 
 		case "sync":
 	
-			/*var syncmessage = '<a  href=""><img  id="syncicon" alt="sync in progress" src="images/sync.png" ></a>';
-			$("#synctime").html(syncmessage);
-		
-			PouchDB.replicate('http://www.mepath.co.uk:5984/testselfbackup/', 'selfengine', function(err, response) {
+/*
+var syncmessage = '<a  href=""><img  id="syncicon" alt="sync in progress" src="images/sync.png" ></a>';
+$("#synctime").html(syncmessage);		
+PouchDB.replicate('http://www.mepath.co.uk:5984/testselfbackup/', 'selfengine', function(err, response) {
 //console.log(response);
 console.log('sync is complete');				
-				$("#synctime").html('finished');	
-				location.reload(); 				
-			});
+$("#synctime").html('finished');	
+location.reload(); 				
+});
 */
 		break;
 			
@@ -313,12 +313,12 @@ console.log('sync is complete');
 		break;
 			
 			case "twitterin":
-			window.open(liveSettings['cloudIP'] + "/auth/twitter", "_self");
+			window.open(liveSettings.cloudIP+ "/auth/twitter", "_self");
 				
 			break;
 
 			case "facebookin":
-			window.open(liveSettings['cloudIP'] + "/auth/facebook", "_self");
+			window.open(liveSettings.cloudIP + "/auth/facebook", "_self");
 				
 			break;
 
@@ -330,7 +330,7 @@ console.log('sync is complete');
             // Make the PUT request.
             $.ajax({
                 type: "GET",
-                url: liveSettings['cloudIP']  + "/logout",
+                url: liveSettings.cloudIP  + "/logout",
                 contentType: "application/json",
                 dataType: "text",
 						
@@ -377,7 +377,7 @@ selfLogic.prototype.setToken = function(setIDname, settokenin) {
 *
 */	
 selfLogic.prototype.firstDatacall = function() {
-		var formdataurl = liveSettings['cloudIP'] + '/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+		var formdataurl = liveSettings.cloudIP + '/swimdata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
             // Make the PUT request.
 		$.ajax({
 			type: "GET",
@@ -388,17 +388,17 @@ selfLogic.prototype.firstDatacall = function() {
 						success: function( swimmersback ){
 //console.log('success from data');							
 							// pass on markup and add data to live data model
-							 var serverdatain = JSON.parse(swimmersback);
+							var serverdatain = JSON.parse(swimmersback);
 //console.log(serverdatain);							
 							// prepare attention flow header
-							$("#activeself").append(serverdatain['attentionflow']);
+							$("#activeself").append(serverdatain.attentionflow);
 							var swimattentionin = Object.keys(serverdatain);
 							swimattentionin.forEach(function(attel) {
 							
-								$("#previousattention").append(serverdatain[attel]['attentionmarkup']);
+								$("#previousattention").append(serverdatain[attel].attentionmarkup);
 								// add the split data to data class
-								dataModel.setDatain(attel, serverdatain[attel]['splitdata']);								
-								dataModel.setKnowledgein(attel, serverdatain[attel]['knowledgechain']);
+								dataModel.setDatain(attel, serverdatain[attel].splitdata);								
+								dataModel.setKnowledgein(attel, serverdatain[attel].knowledgechain);
 								
 								
 							});
@@ -421,7 +421,7 @@ selfLogic.prototype.firstDatacall = function() {
 *
 */	
 selfLogic.prototype.secondDatacall = function() {
-		var formdataurlb = liveSettings['cloudIP'] + '/racedata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+		var formdataurlb = liveSettings.cloudIP + '/racedata/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
 			// Make the PUT request.
 			$.ajax({
 				type: "GET",
@@ -435,8 +435,8 @@ selfLogic.prototype.secondDatacall = function() {
 					var compswimattentionin = Object.keys(serverdatainb);
 					compswimattentionin.forEach(function(attelc) {
 					
-						dataModel.setCompetitiondata(attelc, serverdatainb[attelc]['competitionData']);								
-						dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc]['compKnowledge']);
+						dataModel.setCompetitiondata(attelc, serverdatainb[attelc].competitionData);								
+						dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc].compKnowledge);
 					});
 						
 	

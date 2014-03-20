@@ -270,6 +270,7 @@ livedata.prototype.livefilter = function(setlivecontext) {
 //console.log('livefilter');
 //console.log(setlivecontext);	
 	// build decision modle  one active attention or more, ie one data source on chart of more?
+	var focuscount = '';
 	
 	var dataholder = {};
 		
@@ -285,7 +286,7 @@ livedata.prototype.livefilter = function(setlivecontext) {
 				return size;
 			};
 			// Get the size of an object
-			var focuscount = Object.size(setlivecontext);
+			focuscount = Object.size(setlivecontext);
 			
 		}
 		else
@@ -483,7 +484,7 @@ console.log('start of chart production');
 	d2chart = {};
 	d2chart = chartdatain;
 	contexttitle = chartcontext.live;
-console.log(chartcontext['live']);
+console.log(chartcontext.live);
 	var chartlabel = 'World Records 100m Freestyle ' + contexttitle.knowledgewords[0];
 console.log(d2chart);
 	var locationcontainer = chartlocation;	
