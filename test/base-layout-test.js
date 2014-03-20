@@ -66,17 +66,6 @@ casper.then(function() {
 	
 });
 
-casper.then(function() {
-	this.test.comment('live data from past visualisation area');
-	casper.test.assertExists('#pastflow', 'the element exists');
-	
-});
-
-casper.then(function() {
-	this.test.comment('suggestion, future make/prediction/simullation area');
-	casper.test.assertExists('#futureflow', 'the element exists');
-	
-});
 
 casper.run(function() {
 // need for exporting xml xunit/junit style

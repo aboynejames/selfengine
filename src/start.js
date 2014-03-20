@@ -5,8 +5,8 @@
 $(document).ready(function(){
 
 	liveSettings = {};
-	liveSettings['cloudIP'] = "http://localhost:8881";
-	liveSettings['localIP'] = "http://192.168.1.44:8881";	
+	liveSettings['cloudIP'] = "http://localhost:8881"; //"http://192.168.1.44:8881";
+	liveSettings['localIP'] = "http://localhost:8881";  //"http://192.168.1.44:8881";	
 	liveLogic = new selfLogic();
 		
 
@@ -508,7 +508,7 @@ $(document).ready(function(){
 			$("#welcome").remove();
 	
 			// display the live feed
-			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, "liveswim", contextdata.session);
+			var livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
 
 			// add the split data to data class
 			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								

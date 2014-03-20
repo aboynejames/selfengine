@@ -165,14 +165,14 @@ console.log('knoweldge model filtering RACE');
 	var matchingknowledge = [];
 	var samematch = [];
 	var knowledgelist = this.knowledgewordsextraction(datamodellive);
-console.log(knowledgelist);
+//console.log(knowledgelist);
 	// take all knowledge chains and keep those that match
 	var listfixids = Object.keys(splitslivein);
-console.log(listfixids);	
+//console.log(listfixids);	
 		listfixids.forEach(function(matchid) {		
 			// extract all knowledge info into an array
 			var itemwords =dataModel.knowledgewordsextraction(knowledgewordsobject[matchid]);
-console.log(itemwords);			
+//console.log(itemwords);			
 			// now compare the knowledge works
 			knowledgelist.forEach(function(kidw) {
 				itemwords.forEach(function(kidm) {
@@ -184,7 +184,7 @@ console.log(itemwords);
 				});
 			});
 		
-console.log(matchingknowledge);
+//console.log(matchingknowledge);
 			// count the number of matches 
 			var countmatches = matchingknowledge.length;		
 			if(countmatches >= 3 )
@@ -194,7 +194,7 @@ console.log(matchingknowledge);
 			countmatches = 0;
 			matchingknowledge = [];
 		});
-console.log(samematch);
+//console.log(samematch);
 		this.groupattention[attidin] = samematch;
 		
 		return  samematch;
@@ -221,7 +221,7 @@ datamodel.prototype.timeFinish = function(dataidin) {
 *
 */	
 datamodel.prototype.racetimeFinal = function(racetimein) {  
-console.log(racetimein);	
+//console.log(racetimein);	
 	var finishtimeface = '';
 	finishtimeface = racetimein.slice(-1)[0];
 	
@@ -473,8 +473,8 @@ datamodel.prototype.splitColorCode = function(splitarray) {
 *
 */	
 datamodel.prototype.fastestTimes = function(complistin) {  
-console.log('fastest times prep');
-console.log(complistin);	
+//console.log('fastest times prep');
+//console.log(complistin);	
 	var fasttime = '';
 	var collecttimes = {};
 	var finishracetime = [];
@@ -483,22 +483,35 @@ console.log(complistin);
 		
 	// match up to time/split race data
 	complistin.forEach(function (racesid) {
-console.log(dataModel.racetimeFinal(liveracestats[racesid]));		
+//console.log(dataModel.racetimeFinal(liveracestats[racesid]));		
 		collecttimes[racesid] = liveracestats[racesid];
 		finishracetime.push([dataModel.racetimeFinal(liveracestats[racesid]),racesid]);
 		
 	});
-console.log('working on fastest times');	
-console.log(finishracetime);	
+//console.log('working on fastest times');	
+//console.log(finishracetime);	
 	// extract the end times and order fastest to slowest
 	var fastarrayordered = finishracetime.sort(function(a,b){return b-a});
 	var fastestraceEver = fastarrayordered.slice(0,1);
-console.log(fastestraceEver);
-	// match up to all the splits data from race
-	fasttime = liveracestats[fastestraceEver[0][1]]; 
-console.log(fasttime)	
-	return fasttime;
-	
+//console.log(fastestraceEver);
+	// has any race times been set?
+	var racerecordlength = fastestraceEver.length;
+//console.log('race record length ==' + racerecordlength);	
+	if(racerecordlength != 0)
+	{
+		// match up to all the splits data from race
+		fasttime = liveracestats[fastestraceEver[0][1]]; 
+//console.log(fasttime);	
+		return fasttime;
+	}
+	else
+	{
+		fasttime = 'notset';
+//console.log(fasttime);		
+		return fasttime;
+
+		
+	}
 };
 
 /**
@@ -507,20 +520,31 @@ console.log(fasttime)
 *
 */	
 datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {  
-console.log(trainingsplits);
-console.log(racesplits);	
+//console.log(trainingsplits);
+//console.log(racesplits);	
 	var effeortratios = [];
 	var noelementse = trainingsplits.length;
-//console.log(noelementse);		
-
-	for(var ei=0; ei< noelementse; ei++)
+//console.log(noelementse);	
+	if(racesplits[0] == 'notset')
 	{
-		effeortratios.push(((racesplits[ei]/trainingsplits[ei])*100).toFixed(1))
+		for(var ei=0; ei< noelementse; ei++)
+		{
+			effeortratios.push('nil')
 		
+		}
+//console.log(effeortratios);	
+		return effeortratios;
 	}
+	else
+	{
+		for(var ei=0; ei< noelementse; ei++)
+		{
+			effeortratios.push(((racesplits[ei]/trainingsplits[ei])*100).toFixed(1))
+		
+		}
 console.log(effeortratios);	
-	return effeortratios;
-	
+		return effeortratios;
+	}
 	
 };
 
@@ -666,7 +690,7 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 
 		// prapare the preentation code for the chart
 			(function basic(locationcontainer, d2chart) {
-//console.log('past char draw SINGLE 3');
+console.log('past char draw SINGLE 3');
 				// Draw Graph
 				graph = Flotr.draw(locationcontainer, [
 
@@ -730,7 +754,7 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 						//title: 'Times'
 				});
 				
-//console.log(graph);		
+console.log(graph);		
 
 			})(document.getElementById(locationcontainer), d2chart);		
 		
