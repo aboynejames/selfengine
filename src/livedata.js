@@ -85,8 +85,6 @@ livedata.prototype.setContext = function(attentionin) {
 	this.filternetwork(this.livecontext.live);
 			
 	}
-
-
 	
 };
 
@@ -95,7 +93,7 @@ livedata.prototype.setContext = function(attentionin) {
 * @method localDatacall		
 *
 */	
-livedata.prototype.localDatacall =	function(callback) {  
+livedata.prototype.localDatacall = function(callback) {  
 
 	this.livepouch.mapQueryLIVE(callback);
 
@@ -106,7 +104,7 @@ livedata.prototype.localDatacall =	function(callback) {
 * @method knowledgeDatacall		
 *
 */	
-livedata.prototype.knowledgeDatacall =	function(callback) {  
+livedata.prototype.knowledgeDatacall = function(callback) {  
 	
 	this.livepouch.mapQueryknowledge(callback);
 
@@ -117,7 +115,7 @@ livedata.prototype.knowledgeDatacall =	function(callback) {
 * @method networkidentityDatacall		
 *
 */	
-livedata.prototype.networkidentityDatacall =	function(callback) {  
+livedata.prototype.networkidentityDatacall = function(callback) {  
 	
 	this.livepouch.mapQueryname(callback);
 
@@ -624,7 +622,7 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 		
 	});
 
-	
+	/*
 			HTMLattentionfix += '<li  class="fixgroup">';
 			HTMLattentionfix += '<ul id="visualisation" class="active-sub">';
 			HTMLattentionfix += '<li id="Chart" class="focuselement" data-knowledgeword="knowledgeword" style="">';
@@ -635,6 +633,7 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 			HTMLattentionfix += '</ul>';
 			HTMLattentionfix += '</ul>';
 			HTMLattentionfix += '</li>';
+	*/
 	HTMLattentionfix += '</div>';	
 	HTMLattentionfix += '<section id="attentionhistory">Attention History</section>';	
 

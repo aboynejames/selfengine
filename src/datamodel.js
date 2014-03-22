@@ -16,7 +16,10 @@ var datamodel = function() {
 	this.preparedSplitsData = {};
 	this.knowledgelog = {};
 	this.comeptitiondata = {};
-	this.comeptitionknowledge = {};	
+	this.knowledgeWord = {};
+	this.knowledgeRelationship = {};
+	this.comeptitionknowledge = {};
+	this.knowledteTemplate = {};		
 	this.groupattention = {};
 };
 
@@ -71,6 +74,78 @@ console.log('comp data');
 		this.comeptitiondata[dataidin] = compdatain;
 	}
 };
+
+/**
+* Sets the knowledge words
+* @method setKnowledgeWord
+*/	
+datamodel.prototype.setKnowledgeWord = function(kWordin) {  
+console.log('knowledge words');
+//console.log(kWordin);	
+	if(kWordin)
+	{
+		
+		knowledgeWordbuild ={};
+		var kkeys = Object.keys(kWordin.knowledgeword);
+//console.log(kkeys);		
+		kkeys.forEach(function(kdata) {
+//console.log(kWordin.knowledgeword[kdata]);			
+			knowledgeWordbuild[kWordin.knowledgeword[kdata].key] = kWordin.knowledgeword[kdata].value;
+		});
+	}
+	this.knowledgeWord = knowledgeWordbuild;
+};
+
+/**
+* Sets the knowledge relationships
+* @method setKnowledgeRelationship
+*/	
+datamodel.prototype.setKnowledgeRelationship = function(kRel) {  
+console.log('knowledge relatinship');
+//console.log(kRel);	
+	if(kRel)
+	{
+		
+		knowledgeRbuild ={};
+		var kRkeys = Object.keys(kRel.knowledgerelationship);
+//console.log(kRkeys);		
+		kRkeys.forEach(function(krdata) {
+//console.log(kRel.knowledgerelationship[krdata]);			
+			knowledgeRbuild[kRel.knowledgerelationship[krdata].key] = kRel.knowledgerelationship[krdata].value;
+		});
+	}
+	this.knowledgeRelationship = knowledgeRbuild;
+};
+
+/**
+* Filter relationships to build knowledge template
+* @method buildknowledgeFilter		
+*
+*/	
+datamodel.prototype.buildknowledgeFilter = function(knowledgeTempIn) {
+//console.log('relationship filter');
+//console.log(reldatain);
+//console.log(relationshipin.relationshipliststart);
+	var livestartlistword = knowledgeTempIn;
+//console.log(livestartlistword);
+	var rellistout = [];
+	rellistout = this.knowledgeRelationship[livestartlistword];
+//console.log(rellistout);	
+	
+	var relmatrix = [];
+	// now see and built other relationships
+	rellistout.forEach(function(relelement) {
+//console.log( reldatain[relelement]);		
+		if(typeof dataModel.knowledgeRelationship[relelement] != 'undefined')
+		{
+			relmatrix.push([relelement, dataModel.knowledgeRelationship[relelement]]);
+		}
+	});
+//console.log(relmatrix);	
+	// produce HTML for UI
+	viewTemplates.knowledgeTimeIn(relmatrix);
+};
+
 
 /**
 * Return knowledge chain item

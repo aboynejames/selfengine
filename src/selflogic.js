@@ -98,82 +98,18 @@ console.log(idclick);
 //console.log(datesetstatus + 'status');	
 		if(recordtimestatus == "active")
 		{
-			// get recordtime HTML tool code
-			recordtimetemplate = '';
-			recordtimetemplatecontext = '';
-			knowledgeoptions = '';
-			// have three default input tabs me club world
-			recordtimetemplatecontext += '<a href="" id="recordtimeme" >me</a> <a href="" id="recordtimeclub" >club</a> <a href="" id="Worldrecord" >world</a>';
-			
-			$("#toolsactive").append('<section id="makerecordtime" >' + recordtimetemplatecontext + '</section>');
-
-			// given recordtime context produce a necessary forms (ready for use)
-			//me code
-			recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
-			
-			// place for identity drop
-			recordtimetemplate += '<ul id="buildrecordtimeidentity" class="connectedSortable ui-sortable"></ul>';
-			
-			recordtimetemplate += '<ul id="buildrecordtimetemplate" class="connectedSortable">';
-			
-			//LOOP through lists query Pouchdb
-			function localDatacallB(callback) {  
-				livepouch.mapQueryknowledgelist(callback);
-			}  
-
-			localDatacallB(function(rtmap) { 
-	console.log(rtmap);
-				rtmap.rows.forEach(function(rowkwid){
-			
-				iddstrnospace = rowkwid.key.replace(/\s+/g, '');
-				
-				recordtimetemplate += '<label><li class="ui-state-default" id="' + iddstrnospace + '" data-knowledgeword="' + rowkwid.key +'" ><a href="">' + rowkwid.key + '</a></li></label>';
-				knowledgecontext = rowkwid.key;	
-					// form drop down options foreach 
-					strnospace = rowkwid.key.replace(/\s+/g, '');
-				
-						recordtimetemplate +=  '<select id="' + strnospace + '" class="rightselect" >';
-
-						rowkwid.value.forEach(function(klist){
-
-							strnospace = klist.replace(/\s+/g, '');
-								recordtimetemplate +=  '<option value="' + strnospace + '">' + klist + '</option>';
-							
-						});
-			
-						recordtimetemplate += '</select>';
-
-			});	
-
-		recordtimetemplate += '</ul>';
-	
-		recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';
-		recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" ></div>';
-		recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
-	
-		$("#makerecordtime").append(recordtimetemplate);		
-			// datepicker 
-			$( "#datepicker" ).datepicker({
-			changeMonth: true,
-			changeYear: true
-			});			
-			
-			$( "#buildrecordtimeidentity" ).sortable({
-				connectWith: ".connectedSortable"
-			}).disableSelection();
-			
-		});
-
+			dataModel.buildknowledgeFilter("Worldrecord");
 			$("#recordtime").data("recordtimestatus", "inactive");
 
 		}
 		else
 		{
-			$("#makerecordtime").remove();
+			$("#makerecordtime").empty();
 			$("#recordtime").data("recordtimestatus", "active");
 
 		}	
-	
+			
+			
 	break;		
 		
 	case "addnetwork": 
@@ -304,7 +240,12 @@ location.reload();
 		case "signin":
 			$("form.signin_form").show();
 		break;
-		
+
+		case "signout":
+			$("#activeself").empty();
+			window.open(liveSettings.localURL, "_self");
+
+
 		case "signincloser":
 			$("#signinlink").show();
 			$("#datastatus").hide();
@@ -321,8 +262,26 @@ location.reload();
 			window.open(liveSettings.cloudIP + "/auth/facebook", "_self");
 				
 			break;
+			
+			case "opensportproject":
+			window.open("http://www.opensportproject.org", "_self");
+			
+			break;
 
+			case "maketraining":
+			window.open("http://www.opensportproject.com", "_blank");
+			
+			break;
 
+			case "recordstopwatch":
+			window.open("http://www.opensportproject.com", "_blank");
+			
+			break;
+
+			case "recordvideo":
+			window.open("http://www.opensportproject.org/real-time-video/", "_blank");
+			
+			break;
 			case "logout":
 
         var makeLogoutRequest = function(){
@@ -389,20 +348,27 @@ selfLogic.prototype.firstDatacall = function() {
 //console.log('success from data');							
 							// pass on markup and add data to live data model
 							var serverdatain = JSON.parse(swimmersback);
-//console.log(serverdatain);							
-							// prepare attention flow header
-							$("#activeself").append(serverdatain.attentionflow);
-							var swimattentionin = Object.keys(serverdatain);
-							swimattentionin.forEach(function(attel) {
-							
-								$("#previousattention").append(serverdatain[attel].attentionmarkup);
-								// add the split data to data class
-								dataModel.setDatain(attel, serverdatain[attel].splitdata);								
-								dataModel.setKnowledgein(attel, serverdatain[attel].knowledgechain);
+console.log(serverdatain);		
+
+							// does this individual have data?  If not provide links enter data or sportsBOX
+							if(serverdatain.swimdatalive ==  "empty")
+							{
+								$("#activeself").html("<div>Collect training data with the sportBox</div>");
+							}
+							else
+							{
+								// prepare attention flow header
+								$("#activeself").append(serverdatain.attentionflow);
+								var swimattentionin = Object.keys(serverdatain);
+								swimattentionin.forEach(function(attel) {
 								
-								
-							});
-							//liveLogic.secondDatacall();
+									$("#previousattention").append(serverdatain[attel].attentionmarkup);
+									// add the split data to data class
+									dataModel.setDatain(attel, serverdatain[attel].splitdata);								
+									dataModel.setKnowledgein(attel, serverdatain[attel].knowledgechain);
+
+								});
+							}
 						},
 						error: function( error ){
 					// Log any error.
@@ -431,14 +397,25 @@ selfLogic.prototype.secondDatacall = function() {
 							
 				success: function(racesbackb){
 					// pass on markup and add data to live data model
-					var serverdatainb = JSON.parse(racesbackb);				
-					var compswimattentionin = Object.keys(serverdatainb);
-					compswimattentionin.forEach(function(attelc) {
+					var serverdatainb = JSON.parse(racesbackb);	
+
+					// does this individual have data?  If not provide links enter data or sportsBOX
+					if(serverdatainb.swimracedatalive ==  "empty")
+					{
+						$("#activeself").append("<div>Enter race history times and compare to world records.</div>");
+					}
+					else
+					{
+
+
 					
-						dataModel.setCompetitiondata(attelc, serverdatainb[attelc].competitionData);								
-						dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc].compKnowledge);
-					});
-						
+						var compswimattentionin = Object.keys(serverdatainb);
+						compswimattentionin.forEach(function(attelc) {
+					
+							dataModel.setCompetitiondata(attelc, serverdatainb[attelc].competitionData);								
+							dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc].compKnowledge);
+						});
+					}	
 	
 				},
 							error: function( error ){
@@ -451,4 +428,50 @@ selfLogic.prototype.secondDatacall = function() {
 				});
 
 		
+};
+
+/**
+* Get first  knowledge data from the cloud
+* @method knowledgeDatacall		
+*
+*/	
+selfLogic.prototype.knowledgeDatacall = function() {
+		var formdataurl = liveSettings.cloudIP + '/knowledgetemplate/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+            // Make the PUT request.
+		$.ajax({
+			type: "GET",
+			url: formdataurl,
+			contentType: "application/json",
+			dataType: "text",
+						
+						success: function( knowledgeback ){
+//console.log('success from data');							
+							// pass on markup and add data to live data model
+							var serverdatain = JSON.parse(knowledgeback);
+console.log(serverdatain);		
+							// does this individual have data?  If not provide links enter data or sportsBOX
+							if(serverdatain.swimknowledgedatalive ==  "empty")
+							{
+								$("#activeself").append("<div>No knowledge is available for that sport.</div>");
+							}
+							else
+							{
+								// prepare knowledge for client datamodel
+								//var swimKattentionin = Object.keys(serverdatain);
+								//serverdatain.forEach(function(Kword) {
+									dataModel.setKnowledgeWord(serverdatain[0]);
+									dataModel.setKnowledgeRelationship(serverdatain[1]);
+
+								//});
+							}
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( "ERROR:", error );
+						},
+						complete: function(){
+
+						}
+			});
+			
 };

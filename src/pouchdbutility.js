@@ -194,7 +194,7 @@ pouchdbSettings.prototype.mapQueryLIVE = function(callbackin) {
 		
 			function map(selfengine) {
 				if(selfengine.tooltemplate ) {
-				emit(selfengine.lifedata, selfengine.lifedata.networkidentity);
+					emit(selfengine.lifedata, selfengine.lifedata.networkidentity);
 				}
 			}
 			this.livepouch.query({map: map}, {reduce: false}, function(err, response) {

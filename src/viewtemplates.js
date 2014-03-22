@@ -152,3 +152,98 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 	return swimdataelement;
 
 };
+
+/**
+* active attention HTML UI code
+* @method knowledgeHTML
+*
+*/
+viewtemplates.prototype.knowledgeHTML = function(knowledgeTemplate) {
+//console.log('build knowledge fix');
+	// get the knowledge data live from login
+	
+	HTMLattentionfix = '';
+	//HTMLattentionfix +='<ul id="dragselfnow" class="connectedSortable"></ul>';
+	HTMLattentionfix += '<div id="attentionfix">';
+		
+	
+	knowledgeTemplate.forEach(function(grouptitle){
+		//pass the lane data to get html ready
+//console.log(grouptitle);
+		HTMLattentionfix += '<li class="fixgroup" id="' + grouptitle[0] + '" data-attentionfixttitle="inactive" >';
+		HTMLattentionfix += '<a href="" id="' + grouptitle[0] + '" class="fixgrouptitle" data-knowledgeword="knowledgeword" style=""> ' + grouptitle[0] + '</a>';
+		HTMLattentionfix += '<ul class="active-sub" id="' + grouptitle[0] + '" >';
+		var countelements = 1;
+
+		grouptitle[1].forEach(function(listelement){
+			// make first element class selectedof empty
+			if(countelements == 1)
+			{
+				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selected" >' + listelement + '</a>';
+				HTMLattentionfix += '</li>';
+				countelements++
+			}
+			else
+			{
+				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selectedoff" >' + listelement + '</a>';
+				HTMLattentionfix += '</li>';
+			}
+		});
+	
+		HTMLattentionfix += '</ul>';
+		HTMLattentionfix += '</li>';
+	});
+	
+	HTMLattentionfix += '</div>';
+
+	//$("#knowledgefix").html(HTMLattentionfix);
+	return HTMLattentionfix;
+	
+}; 
+
+/**
+* active knowledge input form
+* @method knowledgeTimeIn
+*
+*/
+viewtemplates.prototype.knowledgeTimeIn = function(knowledgeIn) {
+
+	// get recordtime HTML tool code
+	recordtimetemplate = '';
+	recordtimetemplatecontext = '';
+	knowledgeoptions = '';
+	// have three default input tabs me club world
+	//recordtimetemplatecontext += '<a href="" id="recordtimeme" >me</a> <a href="" id="recordtimeclub" >club</a> <a href="" id="Worldrecord" >world</a>';
+	//recordtimetemplatecontext = 'me';
+	$("#makerecordtime").show();
+	//$("#toolsactive").append('<section id="makerecordtime" >' + recordtimetemplatecontext + '</section>');
+
+	// given recordtime context produce a necessary forms (ready for use)
+	//me code
+	recordtimetemplate += '<form id="newrecordtime" action="#" method="post">';
+	
+	// knowledge tool, build for enter swimming time individual
+	recordtimetemplate += viewTemplates.knowledgeHTML(knowledgeIn);
+	
+		
+	recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';
+	recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" >hh.mm.ss.dd</div>';
+	recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
+
+	$("#makerecordtime").append(recordtimetemplate);
+
+		// datepicker 
+		$( "#datepicker" ).datepicker({
+		changeMonth: true,
+		changeYear: true
+		});			
+		
+		$( "#buildrecordtimeidentity" ).sortable({
+			connectWith: ".connectedSortable"
+		}).disableSelection();
+	
+
+	
+};

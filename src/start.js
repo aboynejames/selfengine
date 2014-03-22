@@ -7,9 +7,8 @@ $(document).ready(function(){
 	liveSettings = {};
 	liveSettings.cloudIP = "http://localhost:8881"; //"http://192.168.1.44:8881";
 	liveSettings.localIP = "http://localhost:8881";  //"http://192.168.1.44:8881";	
+	liveSettings.localURL = "http://localhost/ll/selfengine/src/index.html";	
 	liveLogic = new selfLogic();
-		
-
 	
 //console.log($(location).attr('search'));
 	var qs = $.param.querystring();
@@ -38,8 +37,13 @@ $(document).ready(function(){
 //console.log(swimmersback);
 							//$("#testswimmers").html(swimmersback);
 							$("#welcome").remove();
+							$("#identity").css('display', 'inline-block');
+							$("#network").css('display', 'inline-block');
+							$("#tools").css('display', 'inline-block');
+							
 							liveLogic.firstDatacall();
 							liveLogic.secondDatacall();
+							liveLogic.knowledgeDatacall();
 							
 
 						},
@@ -145,177 +149,259 @@ $(document).ready(function(){
 			
 			case "twoattention":
 			
-			var secondfix = '';
-			// is the click for alsoactive or unactive
-			var secondactive = attentionfocusin.attr('id');
-			if(secondactive == "alsoactive")
-			{
-				// collect the comparison attention fix of elements
-				secondfix = attentionfocusin.parent().attr('id');
-				attentionfixall.knowledgewords = [secondfix];
-								
-				$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").text("on");
-				$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").attr('id', "unactive");
-				attentionfixall.status = "compare";	
-				attentionfixall.statusactive = "on";	
-				liveData.setContext(attentionfixall);
-			}
-			else if (secondactive == "unactive")
-			{			
-				secondfix = attentionfocusin.parent().attr('id');						
-				$("#previousattention li#" + secondfix + ".twoattention a#unactive").text("off");
-				$("#previousattention li#" + secondfix + ".twoattention a#unactive").attr('id', "alsoactive");
-				// need to remove the second data element
+				var secondfix = '';
+				// is the click for alsoactive or unactive
+				var secondactive = attentionfocusin.attr('id');
+				if(secondactive == "alsoactive")
+				{
+					// collect the comparison attention fix of elements
+					secondfix = attentionfocusin.parent().attr('id');
+					attentionfixall.knowledgewords = [secondfix];
+									
+					$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").text("on");
+					$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").attr('id', "unactive");
 					attentionfixall.status = "compare";	
-					attentionfixall.statusactive = "off";	
+					attentionfixall.statusactive = "on";	
 					liveData.setContext(attentionfixall);
-				
-			}
+				}
+				else if (secondactive == "unactive")
+				{			
+					secondfix = attentionfocusin.parent().attr('id');						
+					$("#previousattention li#" + secondfix + ".twoattention a#unactive").text("off");
+					$("#previousattention li#" + secondfix + ".twoattention a#unactive").attr('id', "alsoactive");
+					// need to remove the second data element
+						attentionfixall.status = "compare";	
+						attentionfixall.statusactive = "off";	
+						liveData.setContext(attentionfixall);
+					
+				}
 			break;
 			
 			case "focuselement":
 
-		var liveattentionclick = attentionfocusin.attr('id');
-		// given active element click, show title and other options extract  attentiongroup and sub elements
-		var changeattention = attentionfocusin.parent().attr('class');
-		var groupactive = attentionfocusin.parent().parent().attr('id');
-		var groupelementlist = attentionfocusin.parent().parent().children(); // easier just to look up form array relationhip data
+				var liveattentionclick = attentionfocusin.attr('id');
+				// given active element click, show title and other options extract  attentiongroup and sub elements
+				var changeattention = attentionfocusin.parent().attr('class');
+				var groupactive = attentionfocusin.parent().parent().attr('id');
+				var groupelementlist = attentionfocusin.parent().parent().children(); // easier just to look up form array relationhip data
 
-		var activetitle = $("#" + groupactive + ".fixgroup").data("attentionfixttitle");
-		// click to view other group element or to close open grouplist
-			if(activetitle == 'active')
-			{
-			$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'inactive');
-			$("#" + groupactive + ".fixgrouptitle").hide();
-			// now need to remove list but keep the one active element
-			$("#" + groupactive + ".active-sub li.focuselement").hide();
-			$(".focuselement a#" + liveattentionclick).removeClass("selectedoff");
-			$(".focuselement a#" + liveattentionclick).addClass("selected");
-			$("#" + groupactive + ".active-sub li#" + liveattentionclick + ".focuselement").show();
-			//next pass on new setting to datalive chartproduction
-			attentionfixall.status = "fix";	
-			attentionfixall.knowledgewords = [liveattentionclick];
+				var activetitle = $("#" + groupactive + ".fixgroup").data("attentionfixttitle");
+				// click to view other group element or to close open grouplist
+				if(activetitle == 'active')
+				{
+				$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'inactive');
+				$("#" + groupactive + ".fixgrouptitle").hide();
+				// now need to remove list but keep the one active element
+				$("#" + groupactive + ".active-sub li.focuselement").hide();
+				$(".focuselement a#" + liveattentionclick).removeClass("selectedoff");
+				$(".focuselement a#" + liveattentionclick).addClass("selected");
+				$("#" + groupactive + ".active-sub li#" + liveattentionclick + ".focuselement").show();
+				//next pass on new setting to datalive chartproduction
+				attentionfixall.status = "fix";	
+				attentionfixall.knowledgewords = [liveattentionclick];
+
+					// go start the filtering and production of the data / charts
+					liveData.setContext(attentionfixall);
+							
+				}
+				else if (changeattention == 'focuselement')
+				{
+					// is the element selected the same or changed
+						$("#" + groupactive + ".fixgrouptitle").show();
+						$("#" + groupactive + ".active-sub li.focuselement").show();
+						$("#" + groupactive + ".active-sub .selectedoff").show();
+						// set group as being active
+						$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'active');
+				}
+			break;
+			
+		}
+	});	
+
+	$("#makerecordtime").click(function(e) {
+		e.preventDefault(e);
+		var attentionfocusin = $(e.target);
+console.log(attentionfocusin);		
+		var attentionfixall = {};
+		// first time live attention set at start
+		// need to see what context attention action e.g. select new group element or switch on comparison
+		var attentionclick = attentionfocusin.parent().attr('class');
+		
+		switch(attentionclick){
+			
+			case "twoattention":
+			
+				var secondfix = '';
+				// is the click for alsoactive or unactive
+				var secondactive = attentionfocusin.attr('id');
+				if(secondactive == "alsoactive")
+				{
+					// collect the comparison attention fix of elements
+					secondfix = attentionfocusin.parent().attr('id');
+					attentionfixall.knowledgewords = [secondfix];
+									
+					$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").text("on");
+					$("#previousattention li#" + secondfix + ".twoattention a#alsoactive").attr('id', "unactive");
+					attentionfixall.status = "compare";	
+					attentionfixall.statusactive = "on";	
+					liveData.setContext(attentionfixall);
+				}
+				else if (secondactive == "unactive")
+				{			
+					secondfix = attentionfocusin.parent().attr('id');						
+					$("#previousattention li#" + secondfix + ".twoattention a#unactive").text("off");
+					$("#previousattention li#" + secondfix + ".twoattention a#unactive").attr('id', "alsoactive");
+					// need to remove the second data element
+					attentionfixall.status = "compare";	
+					attentionfixall.statusactive = "off";	
+					liveData.setContext(attentionfixall);
+					
+				}
+			break;
+			
+			case "focuselement":
+
+				var liveattentionclick = attentionfocusin.attr('id');
+				// given active element click, show title and other options extract  attentiongroup and sub elements
+				var changeattention = attentionfocusin.parent().attr('class');
+				var groupactive = attentionfocusin.parent().parent().attr('id');
+				var groupelementlist = attentionfocusin.parent().parent().children(); // easier just to look up form array relationhip data
+
+				var activetitle = $("#" + groupactive + ".fixgroup").data("attentionfixttitle");
+				// click to view other group element or to close open grouplist
+				if(activetitle == 'active')
+				{
+				$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'inactive');
+				$("#" + groupactive + ".fixgrouptitle").hide();
+				// now need to remove list but keep the one active element
+				$("#" + groupactive + ".active-sub li.focuselement").hide();
+				$(".focuselement a#" + liveattentionclick).removeClass("selectedoff");
+				$(".focuselement a#" + liveattentionclick).addClass("selected");
+				$("#" + groupactive + ".active-sub li#" + liveattentionclick + ".focuselement").show();
+				//next pass on new setting to datalive chartproduction
+				attentionfixall.status = "fix";	
+				attentionfixall.knowledgewords = [liveattentionclick];
 
 				// go start the filtering and production of the data / charts
 				liveData.setContext(attentionfixall);
-						
-			}
-			else if (changeattention == 'focuselement')
-			{
-				// is the element selected the same or changed
+							
+				}
+				else if (changeattention == 'focuselement')
+				{
+					// is the element selected the same or changed
 					$("#" + groupactive + ".fixgrouptitle").show();
 					$("#" + groupactive + ".active-sub li.focuselement").show();
 					$("#" + groupactive + ".active-sub .selectedoff").show();
 					// set group as being active
 					$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'active');
-			}
+				}
 			break;
 			
 		}
 	});	
-		
-		$("#networkflow").click(function(e) {
-			e.preventDefault(e);
-			var networkflowin = $(e.target);	
-			// present to UI and save to Pouchdb, sync to cloud
-			if(networkflowin.attr("id") == 'networkidentitysave')
-			{
-				var getnetworkidentity = $("#networkidentity").val();
-				var getidentitylink = $("#identitylink").val();
 
-				$('#activenetwork').append('<a href="' + getidentitylink + '" id="identitylive" >' + getnetworkidentity + '</a>');
-				savenetworkid = {};
-				savenetworkid.networkidentity = getnetworkidentity;
-				savenetworkid.networkidentitylink = getidentitylink;
+	
+	$("#networkflow").click(function(e) {
+		e.preventDefault(e);
+		var networkflowin = $(e.target);	
+		// present to UI and save to Pouchdb, sync to cloud
+		if(networkflowin.attr("id") == 'networkidentitysave')
+		{
+			var getnetworkidentity = $("#networkidentity").val();
+			var getidentitylink = $("#identitylink").val();
+
+			$('#activenetwork').append('<a href="' + getidentitylink + '" id="identitylive" >' + getnetworkidentity + '</a>');
+			savenetworkid = {};
+			savenetworkid.networkidentity = getnetworkidentity;
+			savenetworkid.networkidentitylink = getidentitylink;
 
 //livepouch.allDocs();
-				// empty the form fields	
-				$("#networkidentity").val("");
-				$("#identitylink").val("");
-					
-				livepouch.singleSave(savenetworkid);
-			}
-
-		});
-		
-		$("#toolsflow").click(function(e) {
-			e.preventDefault(e);
-			var toolsflowin = $(e.target);	
-			// present to UI and save to Pouchdb, sync to cloud
-			if(toolsflowin.attr("id") == 'knowledgesave')
-			{
-				var getknowledgeword = $("#knowledgeword").val();
-				var getknowledgelink = $("#knowledgelink").val();
-
-				$('#knowledgelive').append('<a href="' + getknowledgelink + '" id="knowledgewordlive" >' + getknowledgeword + '</a>');
-				savewordid = {};
-				savewordid.knowledgeword = getknowledgeword;
-				savewordid.knowledgelink = getknowledgelink;				
-				livepouch.singleSave(savewordid);
-
-				// empty the form fields	
-				$("#knowledgeword").val("");
-				$("#knowledgelink").val("");
-					
-			}
-			
-			else if (toolsflowin.attr("id") == 'recordtimesave')
-			{
-				// prepare object ready for pouchdb saving
-				var recordtimein = {};
-				recordtimein.knowledgewords = {};
-				knowlegeelementsin = [];	
-				// get data elements from primary relationship TODO AUTO MATE CAPUTURE
-				var gettherecordcontext = ["Sex","Sport","Swimming_stroke","Distance","Measurement","Swimmingpool"];
-
-				// now get values for each list box
-				gettherecordcontext.forEach(function(listdropname){
-
-					recordtimein.knowledgewords[listdropname] = $("#buildrecordtimetemplate.connectedSortable select#" + listdropname).val();
-				});
-			
-				recordtimein.networkidentity = $("#buildrecordtimeidentity.connectedSortable li").attr("id");
-				recordtimein.date = Date.parse($( "#newrecordtime input#datepicker" ).datepicker( "getDate" ));
-				recordtimein.time = parseInt($("form#newrecordtime input#time").val(),10);
-				// save in context of tool knowledge template name
-				var savedatatool = {};
-				savedatatool.tooltemplate = 'Worldrecord-template';
-				savedatatool.lifedata = recordtimein;		
-				// save to the pouchdb
-				// push to d1 data object and save to Pouchdb
-				d1record.push([recordtimein.date, recordtimein.time]);
-				//sort so the time ie first element of each array element is in time order
-				d1record.sort(function(a,b){return a+b;});
-				livepouch.singleSave(savedatatool);		
-				var container = "pastchart";
-				liveattentiondata = '';
-				liveData.chartproduction(d1record, liveattentiondata, container);				
-	
-				$( "#newrecordtime input#datepicker" ).val('');
-				$("form#newrecordtime input#time").val('');
-			}
-			
-			else if (toolsflowin.attr("id") == 'relationshipknowledgesave')
-			{
-				var relationshiplist = [];
-				var relationshipfirst = $("#dragmakerelationshipknowledge.connectedSortable li").attr("id");
-				var relationshiplistget = $("#listrelationshipknowledge.connectedSortable ").children();	
-				var relationshiplistlength = relationshiplistget.length;
-				for (var i=0;i<relationshiplistlength;i++)
-				{
-					relationshiplist[i] = relationshiplistget[i].id;
-				}
-			// save to Pouchdb - knowledge - bond - socialnetwork - 
-				relationshipin = {};
-				relationshipin.bond = 1;
-				relationshipin.knowledgestart = relationshipfirst;
-				relationshipin.knowledgelist = relationshiplist;	
-				livepouch.singleSave(relationshipin);		
+			// empty the form fields	
+			$("#networkidentity").val("");
+			$("#identitylink").val("");
 				
+			livepouch.singleSave(savenetworkid);
+		}
+
+	});
+		
+	$("#toolsflow").click(function(e) {
+		e.preventDefault(e);
+		var toolsflowin = $(e.target);	
+		// present to UI and save to Pouchdb, sync to cloud
+		if(toolsflowin.attr("id") == 'knowledgesave')
+		{
+			var getknowledgeword = $("#knowledgeword").val();
+			var getknowledgelink = $("#knowledgelink").val();
+
+			$('#knowledgelive').append('<a href="' + getknowledgelink + '" id="knowledgewordlive" >' + getknowledgeword + '</a>');
+			savewordid = {};
+			savewordid.knowledgeword = getknowledgeword;
+			savewordid.knowledgelink = getknowledgelink;				
+			livepouch.singleSave(savewordid);
+
+			// empty the form fields	
+			$("#knowledgeword").val("");
+			$("#knowledgelink").val("");
+				
+		}
+		
+		else if (toolsflowin.attr("id") == 'recordtimesave')
+		{
+			// prepare object ready for pouchdb saving
+			var recordtimein = {};
+			recordtimein.knowledgewords = {};
+			knowlegeelementsin = [];	
+			// get data elements from primary relationship TODO AUTO MATE CAPUTURE
+			var gettherecordcontext = ["Sex","Sport","Swimming_stroke","Distance","Measurement","Swimmingpool"];
+
+			// now get values for each list box
+			gettherecordcontext.forEach(function(listdropname){
+
+				recordtimein.knowledgewords[listdropname] = $("#buildrecordtimetemplate.connectedSortable select#" + listdropname).val();
+			});
+		
+			recordtimein.networkidentity = $("#buildrecordtimeidentity.connectedSortable li").attr("id");
+			recordtimein.date = Date.parse($( "#newrecordtime input#datepicker" ).datepicker( "getDate" ));
+			recordtimein.time = parseInt($("form#newrecordtime input#time").val(),10);
+			
+			// validation of time and time format
+			
+			
+			
+			// save in context of tool knowledge template name
+			var savedatatool = {};
+			savedatatool.tooltemplate = 'Worldrecord-template';
+			savedatatool.lifedata = recordtimein;		
+			// save to the pouchdb or couchdb if cloud is open
+			//livepouch.singleSave(savedatatool);	
+			
+
+			$( "#newrecordtime input#datepicker" ).val('');
+			$("form#newrecordtime input#time").val('');
+		}
+		
+		else if (toolsflowin.attr("id") == 'relationshipknowledgesave')
+		{
+			var relationshiplist = [];
+			var relationshipfirst = $("#dragmakerelationshipknowledge.connectedSortable li").attr("id");
+			var relationshiplistget = $("#listrelationshipknowledge.connectedSortable ").children();	
+			var relationshiplistlength = relationshiplistget.length;
+			for (var i=0;i<relationshiplistlength;i++)
+			{
+				relationshiplist[i] = relationshiplistget[i].id;
 			}
+		// save to Pouchdb - knowledge - bond - socialnetwork - 
+			relationshipin = {};
+			relationshipin.bond = 1;
+			relationshipin.knowledgestart = relationshipfirst;
+			relationshipin.knowledgelist = relationshiplist;	
+			livepouch.singleSave(relationshipin);		
+			
+		}
 
 
-		});
+	});
 		
 	$("#activeself").click(function(e) {
 		e.preventDefault(e);			

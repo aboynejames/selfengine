@@ -76,14 +76,15 @@ aside, nav, article, figure {
 
 #bottom {
 	display:block;
-	border:1px solid black;
+	border:0px solid black;
 	
 	
 	
 }
 
 #identity {
-	display:inline;
+	display:none;
+	/*display:inline;*/
 	margin-left:1em;
    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -96,7 +97,7 @@ aside, nav, article, figure {
     -webkit-border-radius:6px;
     border-radius:6px;
     border:1px solid #dcdcdc;
-    display:inline-block;
+    /*display:inline-block;*/
     color:#777777;
     font-family:arial;
     font-size:1.5em;
@@ -107,7 +108,8 @@ aside, nav, article, figure {
 }
 
 #network {
-	display:inline;
+	display:none;
+	/*display:inline;*/
 	margin-left:1em;
    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -120,7 +122,7 @@ aside, nav, article, figure {
     -webkit-border-radius:6px;
     border-radius:6px;
     border:1px solid #dcdcdc;
-    display:inline-block;
+    /*display:inline-block;*/
     color:#777777;
     font-family:arial;
     font-size:1.5em;
@@ -131,7 +133,8 @@ aside, nav, article, figure {
 }
 
 #tools {
-	display:inline;
+	display:none;	
+	/*display:inline;*/
 	margin-left:1em;
    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -144,7 +147,7 @@ aside, nav, article, figure {
     -webkit-border-radius:6px;
     border-radius:6px;
     border:1px solid #dcdcdc;
-    display:inline-block;
+    /*display:inline-block;*/
     color:#777777;
     font-family:arial;
     font-size:1.5em;
@@ -207,7 +210,7 @@ aside, nav, article, figure {
  #toolsflow {
 	display:block;
 	display:none;
-	border:1px solid blue;
+	border:1px solid #C0C0C0;
 	background: #eee;
 	margin: 8px;
 	text-align:center;
@@ -216,7 +219,7 @@ aside, nav, article, figure {
 
 #toolsicons  {
 	display:block;
-	border:1px solid green;
+	border:0px solid green;
 	background: #eee;
 	margin: 8px;
 	text-align:center;	
@@ -248,7 +251,7 @@ aside, nav, article, figure {
 
 #toolsactive  {
 	display:block;
-	border:1px solid purple;
+	border:1px solid #C0C0C0;
 	background: #eee;
 	margin: 8px;
 	text-align:center;
@@ -258,8 +261,8 @@ aside, nav, article, figure {
 
 #dragmakerelationshipknowledge,#buildrecordtimetemplate {
 	display:block;
-	border:1px solid purple;
-	background: pink;
+	border:1px solid #FEDAE0;
+	background: #FEEDEF;
 	margin: 8px;
 	text-align:center;
 	min-height:30px;
@@ -278,8 +281,8 @@ aside, nav, article, figure {
 
 #listrelationshipknowledge {
 	display:block;
-	border:1px solid white;
-	background: orange;
+	border:1px solid #FED280;
+	background: #FEE9BF;
 	margin: 8px;
 	text-align:center;
 	min-height:30px;
@@ -292,6 +295,11 @@ aside, nav, article, figure {
 	text-align:center;
 	height: auto;
 	margin: 4px;
+	
+}
+
+#makerecordtime {
+	display:none;
 	
 }
 
@@ -1018,7 +1026,7 @@ button.submit:active {
 #signinflow {
 	display:block;
 	text-align:center;
-	border:2px solid blue;
+	border:0px solid blue;
 }
 
 #signinlink {
@@ -1032,6 +1040,17 @@ button.submit:active {
 */
 #connectivity {
 	display:block;
+	margin-top:140px;
+	text-align:center;	
+}
+
+.onlinemode {
+	
+	
+}
+
+.onlinemode nav ul li {
+		list-style-type:none;
 	
 }
 
