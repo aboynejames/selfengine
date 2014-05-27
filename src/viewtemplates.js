@@ -37,11 +37,19 @@ viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain
 	
 	// two types of splits and acctime averages
 	statsvisualisation += '	<div class="actualsp">Actual</div><div class="avgstat">Average</div><div class="acctime">Acc Time</div><div class="accavgstat">Acc Average</div><div class="effortratio">Effort%Race</div>';
-	
+	var effortcheck = '';
 	for(var i=0; i< splitlength; i++) 
 	{
+		 if(!isNaN(statsdatain.effortsplits[i]) == true)
+		{
+			effortcheck = statsdatain.effortsplits[i];
+		}
+		else
+		{
+			var effortcheck = '--';
+		}
 		
-		statsvisualisation += '	<div class="actualsp"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[1][i][1]) + '</font></div><div class="avgstat">' + this.formatTime(statsdatain.individualsplits[i]) + '</div><div class="acctime"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[0][i][1]) + '</font></div><div class="accavgstat">' + this.formatTime(statsdatain.accumulatedsplits[i]) + '</div><div class="effortratio">' + statsdatain.effortsplits[i] + '</div>';
+		statsvisualisation += '<div class="actualsp"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[1][i][1]) + '</font></div><div class="avgstat">' + this.formatTime(statsdatain.individualsplits[i]) + '</div><div class="acctime"><font color="' + colorcode[i] + '">' + this.formatTime(fixdatain[0][i][1]) + '</font></div><div class="accavgstat">' + this.formatTime(statsdatain.accumulatedsplits[i]) + '</div><div class="effortratio">' + effortcheck + '</div>';
 	
 	}
 	statsvisualisation += '</div>';
@@ -96,7 +104,42 @@ viewtemplates.prototype.formatTime = function(ms) {
 	
 	return output;
 };	
-		
+
+/**
+* build digital time
+* @method digitalTime
+*/
+viewtemplates.prototype.digitalTime = function(hr, min, sec, hnrdths) {
+
+	var digitaltime = 0;
+
+	digitaltime = (hr * 3600000000) + (min * 60000) + (sec * 1000) + (hnrdths * 10);
+	
+	return digitaltime;
+};
+
+/**
+* validate is an integer
+* @method validateInteger
+*/
+viewtemplates.prototype.validateInteger = function(formdataIn) {
+
+	var numbervalid =  !isNaN(formdataIn) && parseInt(formdataIn) == formdataIn;
+	if(numbervalid == 1)
+	{
+//console.log(formdataIn);							
+		// check length is greater than 1 ie got to have one digital 0 to 9
+		if(formdataIn.length > 0)
+		{
+//console.log('legh greater one');								
+			var hourinpass = formdataIn;
+						
+		}		
+	}
+	
+	return hourinpass;
+};
+
 /**
 * main attention fix UI template
 * @method formatTime
@@ -108,7 +151,7 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 	var swimdataelement = '';
 	
 	swimdataelement += '<li class="attentionhistory" id="historyfix" data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '">';
-	swimdataelement += '<div id="activity" data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '" >';
+	swimdataelement += '<div id="activity" class="activity-id-' + swimdatain.sessionid + '" data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '" data-activity-status-id="on">';
 	swimdataelement += '<div class="socialdata"  id="' + swid + '" data-networkidentity="networkidentity" >' + swimmername + '</div>';
 
 	swimdataelement += '<div class="activitydetail" >';	
@@ -135,8 +178,8 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 	swimdataelement += '<div class="timefocus-fix"><div id="endtime" class="timefocus" data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '">' + displaytime + '</div>';
 	swimdataelement += '</div>';
 	
-	swimdataelement += '<div id="feedback-" class="feedback-fix" >Faster/slower</div>';
-	swimdataelement += '<div id="action-" class="action-fix" >Action:</div>';
+	swimdataelement += '<div id="feedback-" class="feedback-fix"  data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '">Effort = </div>';
+	swimdataelement += '<div id="action-" class="action-fix" data-date-id="' + swimdatain.sessionid + '" data-identity-id="' + swid + '" >Future:</div>';
 	//swimdataelement += '<div id="clear"></div>';
 	swimdataelement += '</div>';
 
@@ -144,11 +187,7 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 
 	swimdataelement += '</div>';
 	swimdataelement += '</li>';
-	
-	//markanddata['attentionmarkup'] = swimdataelement;
-	//markanddata['knowledgechain'] = swimdatain.swiminfo;
-	//markanddata['splitdata'] = swimdatain.splittimes;
-//console.log(swimdataelement);
+
 	return swimdataelement;
 
 };
@@ -159,48 +198,82 @@ viewtemplates.prototype.formswimmers = function(swid, swimmername, swimdatain) {
 *
 */
 viewtemplates.prototype.knowledgeHTML = function(knowledgeTemplate) {
-//console.log('build knowledge fix');
-	// get the knowledge data live from login
+
+	var insettingKnowledge = knowledgeTemplate;
 	
 	HTMLattentionfix = '';
 	//HTMLattentionfix +='<ul id="dragselfnow" class="connectedSortable"></ul>';
 	HTMLattentionfix += '<div id="attentionfix">';
 		
 	
-	knowledgeTemplate.forEach(function(grouptitle){
-		//pass the lane data to get html ready
-//console.log(grouptitle);
-		HTMLattentionfix += '<li class="fixgroup" id="' + grouptitle[0] + '" data-attentionfixttitle="inactive" >';
-		HTMLattentionfix += '<a href="" id="' + grouptitle[0] + '" class="fixgrouptitle" data-knowledgeword="knowledgeword" style=""> ' + grouptitle[0] + '</a>';
-		HTMLattentionfix += '<ul class="active-sub" id="' + grouptitle[0] + '" >';
-		var countelements = 1;
+	insettingKnowledge.forEach(function(grouptitle){
+		
+		
+		if(grouptitle[0] == 'Distance')
+		{
+			//pass the lane data to get html ready
+			HTMLattentionfix += '<li class="fixgroup" id="' + grouptitle[0] + '" data-attentionfixttitle="inactive" >';
+			HTMLattentionfix += '<a href="" id="' + grouptitle[0] + '" class="fixgrouptitle" data-knowledgeword="knowledgeword" style=""> ' + grouptitle[0] + '</a>';
+			HTMLattentionfix += '<ul class="active-sub" id="' + grouptitle[0] + '" >';
+			var countelements = 1;
 
-		grouptitle[1].forEach(function(listelement){
-			// make first element class selectedof empty
-			if(countelements == 1)
-			{
-				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
-				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selected" >' + listelement + '</a>';
-				HTMLattentionfix += '</li>';
-				countelements++
-			}
-			else
-			{
-				HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
-				HTMLattentionfix += '<a href="" id="' + listelement + '" class="selectedoff" >' + listelement + '</a>';
-				HTMLattentionfix += '</li>';
-			}
-		});
-	
-		HTMLattentionfix += '</ul>';
-		HTMLattentionfix += '</li>';
+			grouptitle[1].forEach(function(listelement){
+				// make first element class selectedof empty
+				if(countelements == 1)
+				{
+					HTMLattentionfix += '<li id="n' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+					HTMLattentionfix += '<a href="" id="n' + listelement + '" class="selected" >' + listelement + '</a>';
+					HTMLattentionfix += '</li>';
+					countelements++
+				}
+				else
+				{
+					HTMLattentionfix += '<li id="n' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+					HTMLattentionfix += '<a href="" id="n' + listelement + '" class="selectedoff" >' + listelement + '</a>';
+					HTMLattentionfix += '</li>';
+				}
+			});
+		
+			HTMLattentionfix += '</ul>';
+			HTMLattentionfix += '</li>';			
+			
+		}
+		else
+		{
+			//pass the lane data to get html ready
+			HTMLattentionfix += '<li class="fixgroup" id="' + grouptitle[0] + '" data-attentionfixttitle="inactive" >';
+			HTMLattentionfix += '<a href="" id="' + grouptitle[0] + '" class="fixgrouptitle" data-knowledgeword="knowledgeword" style=""> ' + grouptitle[0] + '</a>';
+			HTMLattentionfix += '<ul class="active-sub" id="' + grouptitle[0] + '" >';
+			var countelements = 1;
+
+			grouptitle[1].forEach(function(listelement){
+				// make first element class selectedof empty
+				if(countelements == 1)
+				{
+					HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+					HTMLattentionfix += '<a href="" id="' + listelement + '" class="selected" >' + listelement + '</a>';
+					HTMLattentionfix += '</li>';
+					countelements++
+				}
+				else
+				{
+					HTMLattentionfix += '<li id="' + listelement + '" class="focuselement" style="" data-knowledgeword="knowledgeword">';
+					HTMLattentionfix += '<a href="" id="' + listelement + '" class="selectedoff" >' + listelement + '</a>';
+					HTMLattentionfix += '</li>';
+				}
+			});
+		
+			HTMLattentionfix += '</ul>';
+			HTMLattentionfix += '</li>';
+			
+		}	
 	});
-	
-	HTMLattentionfix += '</div>';
+		
+		HTMLattentionfix += '</div>';
 
-	//$("#knowledgefix").html(HTMLattentionfix);
-	return HTMLattentionfix;
-	
+		//$("#knowledgefix").html(HTMLattentionfix);
+		return HTMLattentionfix;
+
 }; 
 
 /**
@@ -227,17 +300,43 @@ viewtemplates.prototype.knowledgeTimeIn = function(knowledgeIn) {
 	// knowledge tool, build for enter swimming time individual
 	recordtimetemplate += viewTemplates.knowledgeHTML(knowledgeIn);
 	
-		
-	recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" /></div>';
-	recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" >hh.mm.ss.dd</div>';
+	recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" readonly="readonly" /></div>';
+	//recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" >hh</div>';
+	
+	recordtimetemplate += '<ul>';
+        recordtimetemplate += '<li class="time-part-date" >';
+        recordtimetemplate += '<h2>Enter Time</h2>';
+        //recordtimetemplate += '<span class="required_notification">* Denotes Required Field</span>';
+        recordtimetemplate += '</li>';
+	recordtimetemplate += '</ul>';
+	recordtimetemplate += '<ul class="timeparts">';
+        recordtimetemplate += '<li class="time-part" >';
+        recordtimetemplate += '<input type="number" id="hourholder" value="0" min="00" max="59" required />';
+	recordtimetemplate += '<label for="name">Hours</label>';	
+        recordtimetemplate += '</li>';
+        recordtimetemplate += '<li class="time-part" >';
+        recordtimetemplate += '<input type="number" id="minuteholder"   placeholder="--" min="00" max="59" required />';
+	recordtimetemplate += '<label for="name">Minutes</label>';
+	recordtimetemplate += '</li>';	
+	recordtimetemplate += '<li class="time-part" >';
+        recordtimetemplate += '<input type="number" id="secondsholder"   placeholder="--" min="00" max="59" required />';
+	recordtimetemplate += '<label for="name">Seconds</label>';
+        recordtimetemplate += '</li>';
+        recordtimetemplate += '<li class="time-part" >';
+        recordtimetemplate += '<input type="number" id="hundredthsholder"   placeholder="--" min="00" max="99" required />';
+	recordtimetemplate += '<label for="name">Hundredths</label>';
+        recordtimetemplate += '</li>';
+	recordtimetemplate += '</ul>';	
 	recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
+	recordtimetemplate += '<div id="timeformfeedback"></div>';
 
 	$("#makerecordtime").append(recordtimetemplate);
 
 		// datepicker 
 		$( "#datepicker" ).datepicker({
 		changeMonth: true,
-		changeYear: true
+		changeYear: true,
+		yearRange: "-130:+0"
 		});			
 		
 		$( "#buildrecordtimeidentity" ).sortable({
@@ -245,5 +344,63 @@ viewtemplates.prototype.knowledgeTimeIn = function(knowledgeIn) {
 		}).disableSelection();
 	
 
+	
+};
+
+/**
+* table layout of personal records
+* @method recordtable
+*
+*/
+viewtemplates.prototype.recordtable = function() {
+
+	var recordtableHTML = ''
+	
+	recordtableHTML += '<div id="record-table"><div class="record-heading" >Stroke</div><div class="record-heading" >Distance</div><div class="record-heading" >Pool</div><div class="record-heading" >Time</div><div class="record-heading" >on Date</div></div>';
+	//recordtableHTML += '<div><div class="record-heading" >Backstroke</div><div class="record-heading" >100m</div><div class="record-heading" >Pool</div><div class="record-heading" >01.23.21</div><div class="record-heading" >21 Jan 2014</div></div>'
+		
+	$("#record-modal").html(recordtableHTML);
+	
+	$("#record-modal").dialog({
+		height: 700,
+		width:940,
+		modal: true,
+		close: function( event, ui ) {
+		// add back placer
+			$(".ui-dialog").remove();
+			$("#record-modal").empty();
+		}
+	});
+	
+};
+
+/**
+* add record content line at a time
+* @method recordtableFill
+*
+*/
+viewtemplates.prototype.recordtableFill = function(recFilldata, reid) {
+//console.log('update table recoreds html')
+	var recordtablefillHTML = '<div class="record-chain" id="recid-' + reid + '"><div class="record-heading" >' + recFilldata[1] + '</div><div class="record-heading" >' + recFilldata[2] + '</div><div class="record-heading" >' + recFilldata[4] + '</div><div class="record-heading" id="recid-time-' + reid + '">' + recFilldata[5] + '</div><div class="record-heading" id="recid-date-' + reid + '">' + recFilldata[6] + '</div></div>'
+
+	$("#record-table").append(recordtablefillHTML);
+
+};
+
+/**
+* upate table of records
+* @method recordtableUpdate
+*
+*/
+viewtemplates.prototype.recordtableUpdate = function(recUpdatein, reid) {
+
+	var extractrecdata = Object.keys(recUpdatein);		
+	var datainteger = parseInt((extractrecdata[0]),10);
+	var recordtimeextract = recUpdatein[extractrecdata[0]];
+	
+	var datarec = new Date(datainteger);
+	var datarecshort = datarec.toString();
+	$("#recid-time-" + reid).text(this.formatTime(recordtimeextract));
+	$("#recid-date-" + reid).text(datarecshort.substring(0,16));
 	
 };

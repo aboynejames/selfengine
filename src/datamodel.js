@@ -10,17 +10,21 @@
 * @version    $Id$
 */
 var datamodel = function() {
-//console.log('datamodel started');
+
 	this.splittimedatalog = {};
 	this.finishedTimes = {};
 	this.preparedSplitsData = {};
 	this.knowledgelog = {};
 	this.comeptitiondata = {};
+	this.comeptitionsplitdata = {};		
 	this.knowledgeWord = {};
 	this.knowledgeRelationship = {};
+	this.knowledgeRecord = {};
+	this.knowledgeRecordtime		
 	this.comeptitionknowledge = {};
 	this.knowledteTemplate = {};		
 	this.groupattention = {};
+	this.groupattentionrace = {};
 };
 
 /**
@@ -30,8 +34,13 @@ var datamodel = function() {
 */	
 datamodel.prototype.setDatain = function(dataidin, clouddata) {  
 
-	if(dataidin != 'attentionflow')
+	if(dataidin == "attentionflow" || dataidin == "idnumbers")
 	{
+
+	}
+	else
+	{
+		
 		this.splittimedatalog[dataidin] = clouddata;
 	}
 };
@@ -43,11 +52,29 @@ datamodel.prototype.setDatain = function(dataidin, clouddata) {
 */	
 datamodel.prototype.setKnowledgein = function(dataidin, cloudknowledge) {  
 
-	if(dataidin != 'knowledgechain')
+	if(dataidin == 'knowledgechain' || dataidin == 'attentionflow' || dataidin == 'idnumbers')
+	{
+
+	}
+	else
 	{
 		this.knowledgelog[dataidin] = cloudknowledge;
 	}
 };
+
+/**
+* Returns knowledge relationship words 
+* @method returnKnowledgerelationship		
+*
+*/	
+datamodel.prototype.returnKnowledgerelationship = function(krwordin) {  
+
+	var krelationshipout = this.knowledgeRelationship[krwordin];
+	
+	return krelationshipout;
+
+};
+
 
 /**
 * Sets the competition knowledge data
@@ -55,7 +82,7 @@ datamodel.prototype.setKnowledgein = function(dataidin, cloudknowledge) {
 *
 */	
 datamodel.prototype.setCompetitionKnowledge = function(dataidin, compknowledge) {  
-console.log('comp set');
+
 	if(dataidin != 'compKnowledge')
 	{
 		this.comeptitionknowledge[dataidin] = compknowledge;
@@ -63,12 +90,12 @@ console.log('comp set');
 };
 
 /**
-* Sets the competition data coming in
+* Sets the competition finish time data coming in
 * @method setCompetitiondata		
 *
 */	
 datamodel.prototype.setCompetitiondata = function(dataidin, compdatain) {  
-console.log('comp data');
+
 	if(dataidin != 'competitionData')
 	{
 		this.comeptitiondata[dataidin] = compdatain;
@@ -76,20 +103,32 @@ console.log('comp data');
 };
 
 /**
+* Sets the competition split data coming in
+* @method setsplitsCompetitiondata		
+*
+*/	
+datamodel.prototype.setsplitsCompetitiondata = function(dataidin, compsplits) {  
+
+	if(dataidin != 'competitionData')
+	{
+		this.comeptitionsplitdata[dataidin] = compsplits;
+	}
+};
+
+
+/**
 * Sets the knowledge words
 * @method setKnowledgeWord
 */	
 datamodel.prototype.setKnowledgeWord = function(kWordin) {  
-console.log('knowledge words');
-//console.log(kWordin);	
+	
 	if(kWordin)
 	{
 		
 		knowledgeWordbuild ={};
-		var kkeys = Object.keys(kWordin.knowledgeword);
-//console.log(kkeys);		
+		var kkeys = Object.keys(kWordin.knowledgeword);	
 		kkeys.forEach(function(kdata) {
-//console.log(kWordin.knowledgeword[kdata]);			
+		
 			knowledgeWordbuild[kWordin.knowledgeword[kdata].key] = kWordin.knowledgeword[kdata].value;
 		});
 	}
@@ -101,20 +140,44 @@ console.log('knowledge words');
 * @method setKnowledgeRelationship
 */	
 datamodel.prototype.setKnowledgeRelationship = function(kRel) {  
-console.log('knowledge relatinship');
-//console.log(kRel);	
+
 	if(kRel)
 	{
 		
 		knowledgeRbuild ={};
 		var kRkeys = Object.keys(kRel.knowledgerelationship);
-//console.log(kRkeys);		
+	
 		kRkeys.forEach(function(krdata) {
-//console.log(kRel.knowledgerelationship[krdata]);			
+		
 			knowledgeRbuild[kRel.knowledgerelationship[krdata].key] = kRel.knowledgerelationship[krdata].value;
 		});
 	}
 	this.knowledgeRelationship = knowledgeRbuild;
+};
+
+
+/**
+* Sets the knowledge relationships
+* @method setKnowledgeRecord
+*/	
+datamodel.prototype.setKnowledgeRecord = function(recordsin) {  
+	
+	if(recordsin)
+	{
+		
+		knowledgeRcbuild ={};
+		knowledgeRcbuildtime ={};	
+		var kRckeys = Object.keys(recordsin.recordtemplate);
+		
+		kRckeys.forEach(function(krcdata) {
+		
+			knowledgeRcbuild[krcdata] = recordsin.recordtemplate[krcdata].value;
+			knowledgeRcbuildtime[krcdata] = recordsin.recordtemplate[krcdata].value.time;
+		});
+	}
+	
+	this.knowledgeRecord = knowledgeRcbuild;
+	this.knowledgeRecordtime = knowledgeRcbuildtime;
 };
 
 /**
@@ -123,27 +186,22 @@ console.log('knowledge relatinship');
 *
 */	
 datamodel.prototype.buildknowledgeFilter = function(knowledgeTempIn) {
-//console.log('relationship filter');
-//console.log(reldatain);
-//console.log(relationshipin.relationshipliststart);
+
 	var livestartlistword = knowledgeTempIn;
-//console.log(livestartlistword);
 	var rellistout = [];
 	rellistout = this.knowledgeRelationship[livestartlistword];
-//console.log(rellistout);	
 	
 	var relmatrix = [];
 	// now see and built other relationships
-	rellistout.forEach(function(relelement) {
-//console.log( reldatain[relelement]);		
+	rellistout.forEach(function(relelement) {		
 		if(typeof dataModel.knowledgeRelationship[relelement] != 'undefined')
 		{
 			relmatrix.push([relelement, dataModel.knowledgeRelationship[relelement]]);
 		}
 	});
-//console.log(relmatrix);	
-	// produce HTML for UI
-	viewTemplates.knowledgeTimeIn(relmatrix);
+
+	return relmatrix;
+
 };
 
 
@@ -164,13 +222,13 @@ datamodel.prototype.knowledgechainback = function(dataidin) {
 *
 */	
 datamodel.prototype.knowledgewordsextraction = function(knowledgein) {  
-//console.log('knoweldge word extraction');
-//console.log(knowledgein);	
-	var singlewords = [];
+	
+	var singlewords = {};
 	
 	var knowledgewords = Object.keys(knowledgein);
 	knowledgewords.forEach(function(kwords) {
-		singlewords.push(knowledgein[kwords]);
+		
+		singlewords[kwords] = knowledgein[kwords];
 	});
 
 	return singlewords;
@@ -182,97 +240,166 @@ datamodel.prototype.knowledgewordsextraction = function(knowledgein) {
 *
 */	
 datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {  
-//console.log('knoweldge model filtering');
 				
 	var knowledgewordsobject = this.knowledgelog;
 	var splitslivein = this.splittimedatalog;
 
 	var matchingknowledge = [];
 	var samematch = [];
-	var knowledgelist = this.knowledgewordsextraction(datamodellive);
-//console.log(knowledgelist);
 	// take all knowledge chains and keep those that match
 	var listfixids = Object.keys(splitslivein);
-//console.log(listfixids);	
-		listfixids.forEach(function(matchid) {		
-			// extract all knowledge info into an array
-			var itemwords =dataModel.knowledgewordsextraction(knowledgewordsobject[matchid]);
-//console.log(itemwords);			
-			// now compare the knowledge works
-			knowledgelist.forEach(function(kidw) {
-				itemwords.forEach(function(kidm) {
-					
-					if(kidw == kidm)
-					{
-						matchingknowledge.push(matchid);
-					}
-				});
-			});
-		
-//console.log(matchingknowledge);
-			// count the number of matches 
-			var countmatches = matchingknowledge.length;		
-			if(countmatches >= 5 )
-			{
-				samematch.push(matchid);
-			}
-			countmatches = 0;
-			matchingknowledge = [];
+
+		listfixids.forEach(function(matchid) {	
+		// match on  swim stroke and distance
+		if(knowledgewordsobject[matchid].Distance == datamodellive.Distance && knowledgewordsobject[matchid].Swimming_stroke == datamodellive.Swimming_stroke)
+		{		
+			matchingknowledge.push(matchid);			
+		}
+		else
+		{
+//console.log('failed');			
+		}
+				
 		});
-//console.log(samematch);
-		this.groupattention[attidin] = samematch;
+
+	this.groupattention[attidin] = matchingknowledge;
 		
-		return  samematch;
+	return  matchingknowledge;
 
 };
 
 /**
-* Take training knowledge chain and match with race knowledge
+* Take training knowledge chain and match with race/competition knowledge
 * @method knowledgechainfilteringRace
 *
-*/	
+*/
 datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidin) {  
-console.log('knoweldge model filtering RACE');
 				
 	var knowledgewordsobject = this.comeptitionknowledge;
-	var splitslivein = this.comeptitiondata;
+	var compfinishtime = this.comeptitiondata;
+	var splitslivein = this.comeptitionsplitdata;
+	var matchingknowledge = [];
+	var samematch = [];
+	// take all knowledge chains and keep those that match
+	var listfixids = Object.keys(splitslivein);
+	
+		listfixids.forEach(function(matchid) {				
+			// match on  swim stroke and distance
+			if(knowledgewordsobject[matchid].Distance == datamodellive.Distance && knowledgewordsobject[matchid].Swimming_stroke == datamodellive.Swimming_stroke && knowledgewordsobject[matchid].Swimmingpool == datamodellive.Swimmingpool)
+			{
+				// passed matching
+				matchingknowledge.push(matchid);			
+				
+			}
+			else
+			{
+//console.log('failed');			
+			}
+		
+		});
+
+		// form time object
+		var mecordseries = {};
+		var meholderrecords = {};	
+		
+		if(matchingknowledge.length > 0)
+		{
+			// find current world record rank for fastest time ie lowest number
+			matchingknowledge.forEach(function(rid) {
+			
+				meholderrecords['time'] = compfinishtime[rid];
+				meholderrecords['splittimes'] = splitslivein[rid];
+				meholderrecords['identity'] = knowledgewordsobject[rid].networkidentity;
+				meholderrecords['date'] = knowledgewordsobject[rid].date;
+				mecordseries[rid] = meholderrecords;
+				meholderrecords = {};
+			});
+	
+			// order and extract the fastest time
+			var merecordtimes = [];
+			var merecarray = Object.keys(mecordseries);
+
+			merecarray.forEach(function(wrid) {			
+				merecordtimes.push([mecordseries[wrid].time, mecordseries[wrid].splittimes, wrid]);
+				
+			});	
+
+			// sort low to high
+			merecordtimes.sort(function(a,b) {return a[0] > b[0]?1:-1;});
+			// take the top elelment form object
+			var meonerecord = {};
+			var fastcomptime = merecordtimes.slice(-1)[0];
+			meonerecord['fasttime'] = [fastcomptime[2] ,fastcomptime[0]];
+			meonerecord['fastsplittimes'] = [fastcomptime[2],fastcomptime[1]];	
+				
+			return meonerecord;
+		}
+		else
+		{
+			//empty no records set
+			return meonerecord = 0;
+		}
+		
+};
+	
+/**
+* Take record knowledge chain and map to world record time(s)
+* @method buildRecordknowledgeFilter
+*
+*/	
+datamodel.prototype.buildRecordknowledgeFilter = function(recordknowledge) {  
+	
+	var knowledgewordsobject = this.knowledgeRecord;
+	
+	var splitslivein = this.knowledgeRecordtime;
 
 	var matchingknowledge = [];
 	var samematch = [];
-	var knowledgelist = this.knowledgewordsextraction(datamodellive);
-//console.log(knowledgelist);
+	var knowledgelist = this.knowledgewordsextraction(recordknowledge);
+
 	// take all knowledge chains and keep those that match
 	var listfixids = Object.keys(splitslivein);
-//console.log(listfixids);	
-		listfixids.forEach(function(matchid) {		
-			// extract all knowledge info into an array
-			var itemwords =dataModel.knowledgewordsextraction(knowledgewordsobject[matchid]);
-//console.log(itemwords);			
-			// now compare the knowledge works
-			knowledgelist.forEach(function(kidw) {
-				itemwords.forEach(function(kidm) {
-					
-					if(kidw == kidm)
-					{
-						matchingknowledge.push(matchid);
-					}
-				});
-			});
-		
-//console.log(matchingknowledge);
-			// count the number of matches 
-			var countmatches = matchingknowledge.length;		
-			if(countmatches >= 3 )
-			{
-				samematch.push(matchid);
+
+		listfixids.forEach(function(matchid) {
+		// match on  swim stroke and distance					
+			if(knowledgewordsobject[matchid].knowledgewords.Distance == recordknowledge.Distance && knowledgewordsobject[matchid].knowledgewords.Swimming_stroke == recordknowledge.Swimming_stroke && knowledgewordsobject[matchid].knowledgewords.Swimmingpool == recordknowledge.Swimmingpool && knowledgewordsobject[matchid].knowledgewords.Sex == recordknowledge.Sex)
+			{				
+				matchingknowledge.push(matchid);
 			}
-			countmatches = 0;
-			matchingknowledge = [];
+			else
+			{
+//console.log('failed');			
+			}
 		});
-//console.log(samematch);
-		this.groupattention[attidin] = samematch;
+	
+		// form time object
+		var worldrecordseries = {};
+		var holderrecords = {};	
+		// find current world record rank for fastest time ie lowest number
+		matchingknowledge.forEach(function(rid) {
+			holderrecords['time'] = splitslivein[rid];
+			holderrecords['identity'] = knowledgewordsobject[rid].networkidentity;
+			holderrecords['date'] = knowledgewordsobject[rid].date;
+			worldrecordseries[rid] = holderrecords;
+			holderrecords = {};
+		});
 		
-		return  samematch;
+		// order and extract the fastest time
+		var wordrecordtimes = [];
+		var worldrecarray = Object.keys(worldrecordseries);
+	
+		worldrecarray.forEach(function(wrid) {			
+			wordrecordtimes.push([worldrecordseries[wrid].time, wrid]);
+			
+		});	
+		// sort low to high
+		wordrecordtimes.sort(function(a,b) {return a[0] < b[0]?1:-1;});
+		// take the top elelment form object
+		var oneworldrecord = wordrecordtimes.slice(-1)[0];
+		
+		var theworldrecord = worldrecordseries[oneworldrecord[1]];
+	
+	return theworldrecord;
 
 };
 
@@ -296,7 +423,7 @@ datamodel.prototype.timeFinish = function(dataidin) {
 *
 */	
 datamodel.prototype.racetimeFinal = function(racetimein) {  
-//console.log(racetimein);	
+	
 	var finishtimeface = '';
 	finishtimeface = racetimein.slice(-1)[0];
 	
@@ -355,16 +482,16 @@ datamodel.prototype.splitDataprep = function(sdataidin) {
 *
 */
 datamodel.prototype.accumulationDataprep = function(attidin) {  
-	
+
 	accumsplitchartdata = {};
 	accumsplitchartdata.charttime = [];
 	accumsplitchartdata.splittime = [];
 	// state, filter data will be passed in
 	
 	// accumulated time preparation
-//	var selecteddatakeys = Object.keys(this.splittimedatalog);
+
 	// match to group
-	var attentiongrouplist = this.groupattention[attidin];
+	var attentiongrouplist = this.groupattention[attidin];	
 	var refinedgrouplist = [];	
 	// further filter grouplist for 2 hours back and forth
 	var twohourback = attidin - 7200000;
@@ -375,8 +502,7 @@ datamodel.prototype.accumulationDataprep = function(attidin) {
 			refinedgrouplist.push(groupatt);
 		}
 		
-	});
-//console.log(refinedgrouplist);		
+	});	
 		
 	refinedgrouplist.forEach(function(attenteleid) {
 		// prepare time and accumulate splits
@@ -396,8 +522,6 @@ datamodel.prototype.accumulationDataprep = function(attidin) {
 	var listofarraysstring = '';
 	for (var isp = 1; isp < splitdatalength; isp++) {
 
-		//listofarraysstring += 'accumsplitchartdata["splittime"][' + isp + ']');
-//console.log(listofarraysstring);	(accumsplitchartdata['splittime']));
 		if(totalaccumuldated.length === 0)
 		{
 			totalaccumuldated = accumsplitchartdata.splittime[0].concat(accumsplitchartdata.splittime[1]);			
@@ -420,33 +544,20 @@ datamodel.prototype.accumulationDataprep = function(attidin) {
 *
 */
 datamodel.prototype.statisticsDataprep = function(statsisin) {  
-//console.log(statsisin);
+
 	// check what has been prepared already
 	// check in history lastest from the cloud or local
 	var accandsplits = {};
 	// extract the knowlegechain and find all other data element that meet that criteria
-	var datamodellive = this.knowledgechainback(statsisin);
-	//var racedatamodellive = this.knowledgechainback('competition', statsisin);
-console.log(datamodellive);	
-	
-	// filter down data fixes that match the knowledgechian
-	var matchingknowledge = this.knowledgechainfiltering(datamodellive, statsisin);
-//console.log('matching knowedge training');
-//console.log(matchingknowledge);	
+	var datamodellive = this.knowledgechainback(statsisin);	
+	// filter down data fixes that match the knowledgechian ie. data of the same type	
+	var matchingtrainingknowledge = this.knowledgechainfiltering(datamodellive, statsisin);
 		
 	// filter down to get the fast race time for this knowledge chain
-	var matchingCompetition = this.knowledgechainfilteringRace(datamodellive, statsisin);
-//console.log('matchcomp');		
-//console.log(matchingCompetition);		
-	// find fast time and set as one to compare effort against
-	var fastestraceTime = this.fastestTimes(matchingCompetition);
-console.log('fastest race time end');
-console.log(fastestraceTime);
-	// order the array fastest to slow	
-		
+	var matchingCompetition = this.knowledgechainfilteringRace(datamodellive, statsisin);	
 	var livedatastats = this.splittimedatalog;
 	var livesplitsdatain = this.preparedSplitsData;
-//console.log(livedatastats);	
+
 	var listcurrentSessiondata = [];
 	var eachsplitordersum = {};
 	var eachsplitarray = {};
@@ -459,14 +570,12 @@ console.log(fastestraceTime);
 	accfirstelement = {};
 	neworderarray = [];
 	newsplitsarray = [];		
-				
-	var sumelength = matchingknowledge.length;	
 	
 	var orderarraylength = livedatastats[statsisin].length; 
 		
 	for(var oi=0; oi< orderarraylength; oi++) {
 			
-		matchingknowledge.forEach(function(matid) {
+		matchingtrainingknowledge.forEach(function(matid) {
 			dataModel.splitDataprep(matid);		
 			neworderarray.push(livedatastats[matid][oi]);
 
@@ -484,14 +593,12 @@ console.log(fastestraceTime);
 	accsplitaverage = [];
 	// sum the array values
 	for (var j in firstelement) {
-//console.log(j);	 
-		var noelements = firstelement[j].length;
-//console.log(noelements);		
+
+		var noelements = firstelement[j].length;		
 		var countall = 0;
 		var countsplits = 0;
 		for(var ei=0; ei< noelements; ei++)
-		{	
-//console.log(ei);			
+		{		
 			countall = countall + firstelement[j][ei]; 
 			countsplits = countsplits  + accfirstelement[j][ei];
 		}
@@ -501,13 +608,29 @@ console.log(fastestraceTime);
 		 
 	}	
 	
-	// calculate the effort ratio best race time to 
-	var effortperSplit = this.effortCalculation(livedatastats[statsisin], fastestraceTime);
+	// calculate the effort ratio best race time to
+	var effortperSplit = [];	
+	// does split exist
+
+	if(matchingCompetition != 0 && matchingCompetition.fastsplittimes.length > 0)
+	{
+		// split exist
+		effortperSplit = this.effortCalculation(livedatastats[statsisin], matchingCompetition.fastsplittimes);
+		
+		accandsplits.effortsplits = effortperSplit;
+		accandsplits.individualsplits = splitaverage;
+		accandsplits.accumulatedsplits = accsplitaverage;
+	}
+	else
+	{
+		// just end time,  
+		effortperSplit = this.effortCalculation(livedatastats[statsisin], matchingCompetition['none'] = "empty");
+		accandsplits.effortsplits = effortperSplit;
+		accandsplits.individualsplits = splitaverage;
+		accandsplits.accumulatedsplits = accsplitaverage;
+
+	}
 	
-	accandsplits.effortsplits = effortperSplit;
-	accandsplits.individualsplits = splitaverage;
-	accandsplits.accumulatedsplits = accsplitaverage;
-//console.log(accandsplits);
 	return accandsplits;
 	
 };
@@ -536,7 +659,6 @@ datamodel.prototype.splitColorCode = function(splitarray) {
 
 	});
 		
-//console.log(fasterslowercolor);
 	return fasterslowercolor;
 	
 };
@@ -547,43 +669,36 @@ datamodel.prototype.splitColorCode = function(splitarray) {
 *
 */	
 datamodel.prototype.fastestTimes = function(complistin) {  
-//console.log('fastest times prep');
-//console.log(complistin);	
+
 	var fasttime = '';
 	var collecttimes = {};
 	var finishracetime = [];
 	var liveracestats = this.comeptitiondata;
-
 		
 	// match up to time/split race data
-	complistin.forEach(function (racesid) {
-//console.log(dataModel.racetimeFinal(liveracestats[racesid]));		
-		collecttimes[racesid] = liveracestats[racesid];
+	complistin.forEach(function (racesid) {	
+		collecttimes[racesid] = liveracestats[racesid];		
 		finishracetime.push([dataModel.racetimeFinal(liveracestats[racesid]),racesid]);
 		
 	});
-//console.log('working on fastest times');	
-//console.log(finishracetime);	
+
 	// extract the end times and order fastest to slowest
 	var fastarrayordered = finishracetime.sort(function(a,b){return b-a});
 	var fastestraceEver = fastarrayordered.slice(0,1);
-//console.log(fastestraceEver);
 	// has any race times been set?
 	var racerecordlength = fastestraceEver.length;
-//console.log('race record length ==' + racerecordlength);	
+	
 	if(racerecordlength !== 0)
 	{
 		// match up to all the splits data from race
 		fasttime = liveracestats[fastestraceEver[0][1]]; 
-//console.log(fasttime);	
+
 		return fasttime;
 	}
 	else
 	{
-		fasttime = 'notset';
-//console.log(fasttime);		
+		fasttime = 'notset';	
 		return fasttime;
-
 		
 	}
 };
@@ -594,35 +709,123 @@ datamodel.prototype.fastestTimes = function(complistin) {
 *
 */	
 datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {  
-//console.log(trainingsplits);
-//console.log(racesplits);	
+	
 	var effeortratios = [];
 	var noelementse = trainingsplits.length;
-	var ie = 0;
-//console.log(noelementse);	
-	if(racesplits[0] == 'notset')
+	
+	if(racesplits['none'] == "empty")
 	{
-		for(ei=0; ei< noelementse; ei++)
-		{
-			effeortratios.push('nil');
-		
-		}
-//console.log(effeortratios);	
+		effeortratios.push(0);
+		// no race splits 
 		return effeortratios;
 	}
+	// fastest end time or individual splits given?
+/*	else if(trainingsplits.length == 1)
+	{
+		effeortratios.push(((racesplits[0]/trainingsplits[noelementse-1])*100).toFixed(1));
+		return effeortratios;
+		
+	}*/
 	else
 	{
-		for(ei=0; ei< noelementse; ei++)
+		var ie = 0;
+//console.log(noelementse);	
+/*		if(racesplits[0] == 'notset')
 		{
-			effeortratios.push(((racesplits[ei]/trainingsplits[ei])*100).toFixed(1));
-		
-		}
+			for(ei=0; ei< noelementse; ei++)
+			{
+				effeortratios.push('nil');
+			
+			}
 //console.log(effeortratios);	
-		return effeortratios;
+			return effeortratios;
+		}
+		else
+		{*/
+			for(ei=0; ei< noelementse; ei++)
+			{
+				effeortratios.push(((racesplits[1][ei]/trainingsplits[ei])*100).toFixed(1));
+			
+			}
+			return effeortratios;
+		//}
 	}
 	
 };
 
+/**
+* Produce chart of current personal recoreds
+* @method merecords		
+*
+*/	
+datamodel.prototype.merecords = function() {
+	
+	var bestrecords = [];
+	// sort to get fastest and other record stats
+	//build record knowledge categorisation
+	var recordmodellive = dataModel.buildknowledgeFilter("Worldrecord"); //dataModel.knowledgeRelationship.Swimming_stroke;	
+	// need to stich together the knowledge chain options and filter on each of those.
+	//first has the sex of the ID between established?
+	var livesex = 'Male';
+	
+	// now create the indivdiual knowledge chains
+	var iknowledgechains = {};
+	var recordholder = [];
+	var knowlegerecordholder = {};
+	var matrixcounter = 1;
+
+	viewTemplates.recordtable();	
+		
+	recordmodellive[4][1].forEach(function(istroke) {	
+		recordmodellive[2][1].forEach(function(rdistance) {
+			recordmodellive[5][1].forEach(function(rpool) {
+		
+				recordholder.push(livesex);
+				recordholder.push(istroke);
+				recordholder.push(rdistance);
+				recordholder.push('Metre');
+				recordholder.push(rpool);
+				recordholder.push('---');
+				recordholder.push('---');
+				
+				knowlegerecordholder['Sex'] = livesex;
+				knowlegerecordholder['Distance'] = rdistance;
+				knowlegerecordholder['Swimming_stroke'] = istroke;
+				knowlegerecordholder['Swimmingpool'] = rpool;
+				
+				viewTemplates.recordtableFill(recordholder, matrixcounter);
+				
+				dataModel.prepareRecordtimes(knowlegerecordholder, matrixcounter);
+				
+				//iknowledgechains[matrixcounter] = recordholder;
+				recordholder = [];
+				knowlegerecordholder = {};
+				matrixcounter++;
+			});	
+		});
+	});
+
+};
+
+/**
+* manages the  preparation of fast record swim times
+* @method prepareRecordtimes	
+*
+*/	
+datamodel.prototype.prepareRecordtimes = function(recordKnowledge, reid) {
+
+	var matchingCompetition = dataModel.knowledgechainfilteringRace(recordKnowledge, statsisin = '');
+
+	var recUpdate = {};
+		
+	if(matchingCompetition != undefined && Object.keys(matchingCompetition).length )
+	{		
+		viewTemplates.recordtableUpdate(matchingCompetition, reid);
+	}
+
+};	
+	
+	
 /**
 * chart production single attention element
 * @method onelementchart		
@@ -630,23 +833,17 @@ datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {
 */	
 datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlocation, dataelements) {
 // regression line co ordinates
-//console.log('start of chart production');	
 	d2chart = {};
 	d2chart = chartdatain;
 	contexttitle = chartcontext.live;
-//console.log(chartcontext['live']);
-	var chartlabel = 'TEST ' + contexttitle.knowledgewords[0];
-//console.log(d2chart);
+	var chartlabel = 'Chart ' + contexttitle.knowledgewords[0];
 	var locationcontainer = '';
 	locationcontainer = chartlocation;	
-//console.log(locationcontainer);	
 	// look at how many data elements and prepare for appropriate charting
-	nochartdatasources = Object.keys(chartdatain).length;
-//console.log(nochartdatasources);	
+	nochartdatasources = Object.keys(chartdatain).length;	
 	if(nochartdatasources == 1 )
 	{
 		(function basic(locationcontainer, d2chart) {
-//console.log('past char draw SINGLE');
 
 						// Draw Graph
 					graph = Flotr.draw(locationcontainer, [
@@ -681,8 +878,6 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 								},
 								//title: 'Times'
 						});
-						
-//console.log(graph);		
 		
 						})(document.getElementById(locationcontainer), d2chart);
 
@@ -690,7 +885,6 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 	else if(nochartdatasources == 2) {
 		// prapare the preentation code for the chart
 			(function basic(locationcontainer, d2chart) {
-//console.log('past char draw SINGLE 2');
 				// caculate hight of y-axis
 				var yaxismax = (d2chart[0].slice(-1)[0][1]) * 1.25;
 				// Draw Graph
@@ -752,20 +946,13 @@ datamodel.prototype.onelementchart = function(chartdatain, chartcontext, chartlo
 					},
 						//title: 'Times'
 				});
-				
-//console.log(graph);		
 
 			})(document.getElementById(locationcontainer), d2chart);
-			
-			
-
 	}
 	else if(nochartdatasources == 3)
 	{
-
 		// prapare the preentation code for the chart
 			(function basic(locationcontainer, d2chart) {
-console.log('past char draw SINGLE 3');
 				// Draw Graph
 				graph = Flotr.draw(locationcontainer, [
 
@@ -828,17 +1015,8 @@ console.log('past char draw SINGLE 3');
 					},
 						//title: 'Times'
 				});
-				
-console.log(graph);		
 
 			})(document.getElementById(locationcontainer), d2chart);		
-		
-		
-		
-		
-		
-		
-		
 	}
 
 };	

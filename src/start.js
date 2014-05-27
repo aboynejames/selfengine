@@ -6,62 +6,29 @@ $(document).ready(function(){
 
 	liveSettings = {};
 	liveSettings.cloudIP = "http://localhost:8881"; //"http://192.168.1.44:8881";
-	liveSettings.localIP = "http://localhost:8881";  //"http://192.168.1.44:8881";	
+	liveSettings.localIP = "http://192.168.1.44:8881";  //"http://192.168.1.44:8881";	
 	liveSettings.localURL = "http://localhost/ll/selfengine/src/index.html";	
 	liveLogic = new selfLogic();
 	
 //console.log($(location).attr('search'));
 	var qs = $.param.querystring();
 	var qsobject = $.deparam(qs, true);
-//console.log(qs);	
-//console.log(qsobject);
-//console.log(qsobject.token);
-	
+
 	if(qsobject.token)
 	{
 		//liveLogic.secondDatacall();
 		// return leg of authorisation, keep 
 		liveLogic.setToken(qsobject.swimmer, qsobject.token);
 		// now ask for list of swimmers and display them
-		var makeSwimmerRequest = function(){
 
-            // Make the PUT request.
-            $.ajax({
-                type: "GET",
-                url: liveSettings.cloudIP  + "/swimmers/token/" + liveLogic.tokenid,
-                contentType: "application/json",
-                dataType: "text",
-						
-						success: function( swimmersback ){
-//console.log('success back froms swimmers');
-//console.log(swimmersback);
-							//$("#testswimmers").html(swimmersback);
-							$("#welcome").remove();
-							$("#identity").css('display', 'inline-block');
-							$("#network").css('display', 'inline-block');
-							$("#tools").css('display', 'inline-block');
-							
-							liveLogic.firstDatacall();
-							liveLogic.secondDatacall();
-							liveLogic.knowledgeDatacall();
-							
-
-						},
-						error: function( error ){
-					// Log any error.
-//console.log( "ERROR:", error );
-						},
-						complete: function(){
-
-						}
-			});
-
-		};
-
-		makeSwimmerRequest();
-
-
-
+		$("#welcome").remove();
+		$("#identity").css('display', 'inline-block');
+		$("#network").css('display', 'inline-block');
+		$("#tools").css('display', 'inline-block');
+		
+		liveLogic.firstDatacall();
+		liveLogic.secondDatacall();
+		liveLogic.knowledgeDatacall();
 		
 	}
 	else
@@ -84,54 +51,28 @@ $(document).ready(function(){
 		
 		$("button").click(function(e) {
 			e.preventDefault(e);			
-			idform = $(this).attr("id");
+			idform = $(this).attr("id");		
 			switch(idform){
 				
 				case"signinbutton":
-				// collect signin email and password
-				var emailin = $("#signinform.signin_form ul li input#emailin").val();
-				var passwordin = $("#signinform.signin_form ul li input#passwordin").val();
-				var cookieidhash = 123123123;
+					// collect signin email and password
+					var emailin = $("#signinform.signin_form ul li input#emailin").val();
+					var passwordin = $("#signinform.signin_form ul li input#passwordin").val();
+					var cookieidhash = 123123123;
+					
+					liveLogic.emailsignincall(emailin, cookieidhash, passwordin);
 				
-				// Wrap up the POST/get request execution.
-				var makePUTRequest = function(){
+				break;
+				
+				case"wearablebtsave":
+					// bluetooth tag ID number
+					var databtigin = $("#wearable-form li input#bluetoothtag").val();		
+					// need TODO valide it is a string of numbers
+				
+					var buildsavebt = {};
+					buildsavebt.bluetoothid = databtigin;
+					liveLogic.swimdataCloud(buildsavebt);
 
-				// Make the PUT request.
-				$.ajax({
-					type: "GET",
-					url: liveSettings.cloudIP + "/signinmepath/" + emailin + '/' + cookieidhash + '/' + passwordin,
-					contentType: "application/json",
-					dataType: "text",
-								success: function( resultback ){
-
-									var acceptdetails = JSON.parse(resultback);
-						
-									if(acceptdetails.signin == 'passed') {		
-											//$.cookie("traintimer", cookieidhash,  { expires: 7 });
-										$("#signinlink").hide();
-										$("form.signin_form").hide();
-										$("#signincloser").show();
-										$("#datamessage").html("a data status update message");							
-									}
-									else
-									{
-										$("#datamessage").html('Signin Failed, please try again');
-									}
-
-								},
-								error: function( error ){
-								// Log any error.
-//console.log( "ERROR:", error );
-								},
-								complete: function(){
-
-								}
-						});
-
-				};
-
-				// Execute the PUT request.
-				makePUTRequest();
 				
 				break;
 			}
@@ -139,12 +80,15 @@ $(document).ready(function(){
 
 	$("#livedata").click(function(e) {
 		e.preventDefault(e);
-		var attentionfocusin = $(e.target);
+		
+		var attentionfocusin = $(e.target);	
 		var attentionfixall = {};
 		// first time live attention set at start
 		// need to see what context attention action e.g. select new group element or switch on comparison
 		var attentionclick = attentionfocusin.parent().attr('class');
-		
+		var attentionidlive = attentionfocusin.attr('id');	
+
+/*
 		switch(attentionclick){
 			
 			case "twoattention":
@@ -214,19 +158,44 @@ $(document).ready(function(){
 						$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'active');
 				}
 			break;
-			
 		}
+		
+*/			
+		if(attentionidlive == 'maketraining' )
+		{
+	
+			window.open("http://www.opensportproject.com", "_blank");
+		}
+		else if(attentionidlive == 'toolsstart' )
+		{	
+			// make live section
+			var toolsstatus = $("#tools").data("toolsstatus");
+			if(toolsstatus == "on")
+			{
+				$("#toolsflow").show();
+				$("#tools").css('background', '#009900');
+				$("#tools").data("toolsstatus", "off");
+			}
+			else
+			{
+				$("#toolsflow").hide();
+				$("#tools").css('background', '#ffffff');
+				$("#tools").data("toolsstatus", "on");
+			}
+		}
+
 	});	
 
 	$("#makerecordtime").click(function(e) {
+//console.log('make recrod time');		
 		e.preventDefault(e);
-		var attentionfocusin = $(e.target);
-console.log(attentionfocusin);		
+		var attentionfocusin = $(e.target);	
 		var attentionfixall = {};
 		// first time live attention set at start
 		// need to see what context attention action e.g. select new group element or switch on comparison
 		var attentionclick = attentionfocusin.parent().attr('class');
-		
+		var attentionclicktime = attentionfocusin.attr('id');
+			
 		switch(attentionclick){
 			
 			case "twoattention":
@@ -264,40 +233,228 @@ console.log(attentionfocusin);
 				var liveattentionclick = attentionfocusin.attr('id');
 				// given active element click, show title and other options extract  attentiongroup and sub elements
 				var changeattention = attentionfocusin.parent().attr('class');
-				var groupactive = attentionfocusin.parent().parent().attr('id');
+				var groupactive = attentionfocusin.parent().parent().attr('id');		
 				var groupelementlist = attentionfocusin.parent().parent().children(); // easier just to look up form array relationhip data
-
 				var activetitle = $("#" + groupactive + ".fixgroup").data("attentionfixttitle");
 				// click to view other group element or to close open grouplist
 				if(activetitle == 'active')
 				{
-				$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'inactive');
-				$("#" + groupactive + ".fixgrouptitle").hide();
-				// now need to remove list but keep the one active element
-				$("#" + groupactive + ".active-sub li.focuselement").hide();
-				$(".focuselement a#" + liveattentionclick).removeClass("selectedoff");
-				$(".focuselement a#" + liveattentionclick).addClass("selected");
-				$("#" + groupactive + ".active-sub li#" + liveattentionclick + ".focuselement").show();
-				//next pass on new setting to datalive chartproduction
-				attentionfixall.status = "fix";	
-				attentionfixall.knowledgewords = [liveattentionclick];
+					$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'inactive');
+					//$("#" + groupactive + ".fixgrouptitle").hide();
+					// now need to remove list but keep the one active element
+					$("#" + groupactive + ".active-sub li.focuselement").hide();
+					var ainttostring = liveattentionclick.toString();
+					
+					$(".focuselement a#" + ainttostring).removeClass("selectedoff");
+					$(".focuselement a#" + ainttostring).addClass("selected");
+					$("#" + groupactive + ".active-sub li#" + liveattentionclick + ".focuselement").show();
 
-				// go start the filtering and production of the data / charts
-				liveData.setContext(attentionfixall);
+					if(groupactive == "Distance")
+					{
+						// the current selected focus element needs set to selectedoff
+						var groupoptions = {};
+						groupoptions = Object.create(dataModel.returnKnowledgerelationship(groupactive));  
+						// remove the first n for number ids
+						var removefirstn = liveattentionclick.substring(1);
+				
+						// remove the active element and  make all other option de-selected
+						var groupindex = groupoptions.indexOf(removefirstn);
+						groupoptions.splice(groupindex, 1)
+						groupoptions.forEach(function(deselectw) {	
 							
+							$(".focuselement a#n" + deselectw).removeClass("selected");
+							$(".focuselement a#n" + deselectw).addClass("selectedoff");
+						});
+					}
+					else
+					{
+						
+						// the current selected focus element needs set to selectedoff
+						var groupoptions = {};
+						groupoptions = Object.create(dataModel.returnKnowledgerelationship(groupactive));  					
+						// remove the active element and  make all other option de-selected
+						var groupindex = groupoptions.indexOf(liveattentionclick);
+						groupoptions.splice(groupindex, 1)
+
+						groupoptions.forEach(function(deselectw) {	
+
+							$(".focuselement a#" + deselectw).removeClass("selected");
+							$(".focuselement a#" + deselectw).addClass("selectedoff");
+
+						});						
+					}
 				}
 				else if (changeattention == 'focuselement')
 				{
 					// is the element selected the same or changed
-					$("#" + groupactive + ".fixgrouptitle").show();
+					//$("#" + groupactive + ".fixgrouptitle").show();
 					$("#" + groupactive + ".active-sub li.focuselement").show();
 					$("#" + groupactive + ".active-sub .selectedoff").show();
 					// set group as being active
 					$("#" + groupactive + ".fixgroup").data("attentionfixttitle", 'active');
 				}
 			break;
+
+		}	
+		
+
+		if(attentionclicktime == "recordtimesave" )
+		{
+			//case "hourholder":
+			var timefeedback = '';
+			var recordtimein = {};
+			var recordholder = {};	
+			recordholder['lifedata'] = {};
+			recordholder['tooltemplate'] = "Individualrecord-template"; //"Worldrecord-template"; 
+			recordtimein['networkidentity'] = liveLogic.idname;				
+			recordtimein.knowledgewords = {};
+			var whatsselected = '';				
+			// knowledge context of swim
+			var gettherecordcontext = dataModel.knowledgeRelationship.individualrecord;
+
+			// now get values for each list box   #attentionfix li#Sex.fixgroup ul#Sex.active-sub
+			gettherecordcontext.forEach(function(listdropname){
+				// need to iterate over the options and find which one is selected.
+				var optiontofindselected = $("#attentionfix li#" + listdropname + ".fixgroup ul#" + listdropname + ".active-sub").children().children();
+				var numberkoptions = optiontofindselected.length;
+				
+				for(var i=0;i<numberkoptions;i++)
+				{					
+					if($(optiontofindselected[i]).attr('class') == "selected")
+					{					
+						// selected options
+						whatsselected = $(optiontofindselected[i]).attr('id');//$("#attentionfix li#" + listdropname + ".fixgroup ul#" + listdropname + 						
+						//recordtimein.knowledgewords[listdropname] = whatsselected;
+						if(listdropname == "Distance")
+						{
+							recordtimein.knowledgewords[listdropname] = whatsselected.substring(1);
+						}
+						else
+						{
+							recordtimein.knowledgewords[listdropname] = whatsselected;
+						}					
+					}
+				}
+				
+			});		
 			
+			// validate the caldendar date
+			var racedate = $("#datepicker").datepicker( "getDate" );
+			if(!racedate)
+			{
+				// no date selected prompt to select
+				timefeedback += 'Please select a date ';
+			}
+			else
+			{
+				var passdate = 1;	
+			}
+			var racedatemilliseconds = Date.parse(racedate);
+			recordtimein.date = racedatemilliseconds;	
+			// need to validte date has been selected
+			
+				/*
+				* Validation of time inputs   form#newrecordtime ul.timeparts li input#hourholder
+				*/
+						var hourin = $("form#newrecordtime ul.timeparts li input#hourholder").val();	
+						var minutein = $("form#newrecordtime ul.timeparts li input#minuteholder").val();
+						var secondsin = $("form#newrecordtime ul.timeparts li input#secondsholder").val();
+						var hundredthsin = $("form#newrecordtime ul.timeparts li input#hundredthsholder").val();
+						// check two digit and the entries are numbers
+						var hourinpass = viewTemplates.validateInteger(hourin);			
+						var minutein = viewTemplates.validateInteger(minutein);	
+						var secondsin = viewTemplates.validateInteger(secondsin);							
+						var hundredthsin = viewTemplates.validateInteger(hundredthsin);	
+						
+						// if length greater two or value not between 00 and 59
+						if(hourinpass >= 0 && hourinpass <100)
+						{
+							var passhour = 1;						
+						}
+						else
+						{
+							timefeedback += '<b>Hour</b> value 0 and 99 ';
+							
+						}
+						if(minutein >= 0 && minutein <60)
+						{
+							var passminute = 1;							
+						}
+						else
+						{
+							timefeedback += '<b>minute</b> value 0 and 59 ';							
+						}						
+						if(secondsin >= 0 && secondsin <60)
+						{
+							var passseconds = 1;
+						}
+						else
+						{
+							timefeedback += '<b>seconds</b> value 0 and 59 ';							
+						}
+						if(hundredthsin >= 0 && hundredthsin <100)
+						{
+							var passhundredths = 1;							
+						}
+						else
+						{
+							timefeedback += '<b>Hundredths</b> value 0 and 99 ';
+							
+						}
+						
+					$("#timeformfeedback").html(timefeedback);	
+					
+			if(passhour == 1 &&  passminute == 1 && passseconds == 1 && passhundredths  == 1 && passdate == 1)
+			{			
+				recordtimein.time = viewTemplates.digitalTime(hourin, minutein, secondsin, hundredthsin);
+				recordtimein.splittimes = []; // empty for now. promt or get from other video split tools
+				// make post call
+				recordholder['lifedata'] = recordtimein;			
+				liveLogic.swimdataCloud(recordholder);
+				passhour = passminute = passseconds = passhundredths = 0;
+				hourin = minutein = secondsin = hundredthsin = 0;
+				$("form#newrecordtime ul.timeparts li input#hourholder").val('');
+				$("form#newrecordtime ul.timeparts li input#minuteholder").val('');
+				$("form#newrecordtime ul.timeparts li input#secondsholder").val('');
+				$("form#newrecordtime ul.timeparts li input#hundredthsholder").val('');
+				
+				// set the competition time and knowledge in the DOM
+				dataModel.setCompetitiondata(recordholder['lifedata'].date, recordholder['lifedata'].time);								
+				dataModel.setCompetitionKnowledge(recordholder['lifedata'].date, recordholder['lifedata'].knowledgewords);
+			}	
+						
 		}
+		else if (attentionclicktime == "fullcomparison" )
+		{
+			// setup model comparison
+			$( "#comparison-modal" ).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(".ui-dialog").remove();
+					
+					}
+				 
+			});
+		}
+		else if(attentionclicktime == "merecords-start")
+		{
+			// prepare record data
+			dataModel.merecords();
+		
+			$( "#record-modal" ).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(".ui-dialog").remove();
+					}
+			});
+		}
+			
 	});	
 
 	
@@ -319,8 +476,12 @@ console.log(attentionfocusin);
 			// empty the form fields	
 			$("#networkidentity").val("");
 			$("#identitylink").val("");
-				
-			livepouch.singleSave(savenetworkid);
+			
+			// local pouchsave
+			//livepouch.singleSave(savenetworkid);
+			// cloud save couchdb
+			liveLogic.swimdataCloud(savenetworkid);
+			
 		}
 
 	});
@@ -367,8 +528,6 @@ console.log(attentionfocusin);
 			
 			// validation of time and time format
 			
-			
-			
 			// save in context of tool knowledge template name
 			var savedatatool = {};
 			savedatatool.tooltemplate = 'Worldrecord-template';
@@ -402,14 +561,11 @@ console.log(attentionfocusin);
 
 
 	});
+
 		
 	$("#activeself").click(function(e) {
 		e.preventDefault(e);			
-		var historyin = $(e.target);	
-//console.log(historyin);	
-//console.log(historyin.data('date-id'));
-//console.log(historyin.attr('class'));
-//console.log(historyin.attr('id'));			
+		var historyin = $(e.target);			
 		var attentionidlive = historyin.data('date-id');
 		var classclickedin = historyin.attr('class');
 		var divclickedin = historyin.attr('id');
@@ -417,7 +573,7 @@ console.log(attentionfocusin);
 		var d1chart = {};
 		contextin.live = {};	
 		contextin.live.knowledgewords = {};	
-		contextin.live.knowledgewords[0] = 'training tesst title';
+		contextin.live.knowledgewords[0] = 'training';
 		var dataelements = 1;
 		var accumdataSet = {};
 		var statisticsummarydata = {};
@@ -432,32 +588,57 @@ console.log(attentionfocusin);
 			
 		// what visualisation
 		// pick up context and visualisation option act realtime
-		if(divclickedin == "historyfix" || divclickedin == "activity")
+		if(divclickedin == "historyfix" || divclickedin == "activity" || classclickedin == "feedback-fix" || classclickedin == "timefocus" || classclickedin == "visualisation-flow" )
 		{
-			// add placer html markup			
-			viewTemplates.analysisPlacer(attentionidlive);
+			var activefixstatus = $(".activity-id-" + attentionidlive).data("activity-status-id")
+			if(activefixstatus ==  "on")
+			{
+				// add placer html markup			
+				viewTemplates.analysisPlacer(attentionidlive);
 
-			container = "chart-vis-" + attentionidlive;
-			d1chart[0] = dataModel.timeDataprep(attentionidlive);
-			d1chart[1] =  dataModel.splitDataprep(attentionidlive);
-			dataModel.onelementchart(d1chart, contextin, container, dataelements);
+				container = "chart-vis-" + attentionidlive;
+				d1chart[0] = dataModel.timeDataprep(attentionidlive);
+				d1chart[1] =  dataModel.splitDataprep(attentionidlive);
+				dataModel.onelementchart(d1chart, contextin, container, dataelements);			
+				$(".activity-id-" + attentionidlive).data('activity-status-id', "off");
 
-			// produce summary table starts
-			statisticsummarydata = dataModel.statisticsDataprep(attentionidlive);
-			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);		
-			var statisticsvisualisation = "#analysis-statistics-" + attentionidlive;
+				// produce summary table starts
+				statisticsummarydata = dataModel.statisticsDataprep(attentionidlive);
+				statisticscolorcode = dataModel.splitColorCode(d1chart[1]);		
+				var statisticsvisualisation = "#analysis-statistics-" + attentionidlive;
 			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);		
-		
+			}
+			else
+			{
+				// turn off the expanded view
+				$(".activity-id-" + attentionidlive).data('activity-status-id', "on");
+				$("#anlaysisid-" + attentionidlive).empty();
+				$("#chart-modal").empty();
+				
+			}
 		}
 		else if (classclickedin== "exit-anaylsis")
 		{
 //console.log('exit anaysys mode');			
 			$("#anlaysisid-" + attentionidlive).empty();
+			$("#chart-modal").empty();
+		}
+		else if (classclickedin == "action-fix")
+		{
+			// future prediction (LMS statistics and other self organisation and simulations (project goal)
+			$("#future-modal").dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(".ui-dialog").remove();
+					$("#future-modal").empty();
+				}			
+			});
 		}
 		else if (classclickedin== "cummulative-anaylsis")
 		{
-//console.log('cummulative chart modal');	
-			
 			//produce accumulated chart ( first check if other daily train element exist then prepare data and chart)
 			accumdataSet = dataModel.accumulationDataprep(attentionidlive);
 			//container = "accum-chart-vis-" +attentionidlive;
@@ -466,23 +647,21 @@ console.log(attentionfocusin);
 			//$( "#accumulative-modal" ).html('<div id="' + container + '" class="accum-chart-flow" ></div>');
 			dataModel.onelementchart(accumdataSet, contextin, container, dataelements);
 			
-			$( "#chart-modal" ).dialog({
+			$("#chart-modal").dialog({
 				height: 700,
 				width:940,
 				modal: true,
 				close: function( event, ui ) {
 					// add back placer
 					$(".ui-dialog").remove();
-					
-					}
+					$("#chart-modal").empty();
+				}
 				 
 			});			
 
 		}		
 		else if (classclickedin== "splitsratio-anaylsis")
 		{
-//console.log('splits ration modal');	
-			
 			//produce accumulated chart ( first check if other daily train element exist then prepare data and chart)
 			//accumdataSet = dataModel.accumulationDataprep();
 			container = "splits-ratio-vis-" +attentionidlive;
@@ -490,20 +669,24 @@ console.log(attentionfocusin);
 			// add to modol code
 			$( "#splitsratio-modal" ).html('<div id="' + container + '" class="split-ratio-flow" ></div>');
 			
-			$( "#splitsratio-modal" ).dialog({
+			$("#splitsratio-modal").dialog({
 				height: 600,
 				width:800,
-				modal: true
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(".ui-dialog").remove();
+					$("#splitsratio-modal").empty();
+				}
 			});			
 
 		}
 		
 	});	
 		
-				
 	livepouch = new pouchdbSettings();
 	liveprediction = new selfprediction();
-	//liveData = new livedata(livepouch, liveprediction);
+	liveData = new livedata();
 	dataModel = new datamodel();
 	viewTemplates = new viewtemplates();
 	
@@ -516,7 +699,7 @@ console.log(attentionfocusin);
 	*/
 	// when you get a serialdata event, do this:
 	socketpi.on('stopwatchEvent', function (data) {
-//console.log(data);	
+//console.log('stopwach listenr socket');		
 		serialin = JSON.parse(data.value);
 		inser = Object.keys(serialin);
 		inser.forEach(function(thein) {
@@ -529,7 +712,6 @@ console.log(attentionfocusin);
 		{
 			// call the split function
 		
-
 		}
 		else if(textaction == 'lap')
 		{
@@ -553,7 +735,7 @@ console.log(attentionfocusin);
 	* listening of context Display Data
 	*/
 	socketpi.on('contextEventdisplay', function (contextdata) {
-		
+//console.log('live event in');
 		var livedisplayin = '';
 		var dataelements = '';
 		var container = '';

@@ -13,8 +13,32 @@ var selfLogic = function() {
 	this.status = 'default';
 	this.tokenid = '';
 	this.idname = '';
+	this.knowledgetemplate = '';
+	this.knowledgecontext = [];
 };
 
+/**
+* sets filter knowledge template
+* @method knowledgeTemplate	
+*
+*/	
+selfLogic.prototype.knowledgeTemplate = function(ktemplateWord) {
+
+	this.knowledgetemplate = ktemplateWord;
+		
+};
+
+/**
+* sets filter knowledge context
+* @method knowledgeContext	
+*
+*/	
+selfLogic.prototype.knowledgeContext = function(kcontextIn) {
+
+	this.knowledgecontext = kcontextIn;
+		
+};
+	
 /**
 * Take in clicks/input intentions
 * @method frameworklogic		
@@ -22,8 +46,6 @@ var selfLogic = function() {
 */	
 selfLogic.prototype.frameworklogic = function(intentionin) {
 	idclick = $(intentionin).attr("id");
-console.log(intentionin);
-console.log(idclick);
 	attentionchange = $(intentionin).data("attentionfocus");
 	if(attentionchange == "focuschange")
 	{
@@ -39,12 +61,16 @@ console.log(idclick);
 		if(idstatus == "on")
 		{
 			$("#contextflow").show();
+			$("#wearables").show();
+			$("#merecords").show();
 			$("#identity").css('background', '#009900');
 			$("#identity").data("mestatus", "off");
 		}
 		else
 		{
 			$("#contextflow").hide();
+			$("#wearables").hide();
+			$("#merecords").hide();
 			$("#identity").css('background', '#ffffff');
 			$("#identity").data("mestatus", "on");
 		}	
@@ -54,7 +80,6 @@ console.log(idclick);
 	case "network": 
 	// make live section
 	var networkstatus = $("#network").data("networkstatus");
-//console.log(datesetstatus + 'status');	
 		if(networkstatus == "on")
 		{
 			$("#networkflow").show();
@@ -76,7 +101,6 @@ console.log(idclick);
 	case "tools": 
 	// make live section
 	var toolsstatus = $("#tools").data("toolsstatus");
-//console.log(datesetstatus + 'status');	
 		if(toolsstatus == "on")
 		{
 			$("#toolsflow").show();
@@ -95,18 +119,23 @@ console.log(idclick);
 	case "recordtime": 
 	// the recordtime tools has been select
 	var recordtimestatus = $("#recordtime").data("recordtimestatus");
-//console.log(datesetstatus + 'status');	
 		if(recordtimestatus == "active")
 		{
-			dataModel.buildknowledgeFilter("Worldrecord");
+			var liveKnowledgeContext = dataModel.buildknowledgeFilter("Worldrecord");
+			viewTemplates.knowledgeTimeIn(liveKnowledgeContext);
+			// set the liveContext
+			liveLogic.knowledgeContext(liveKnowledgeContext);
+			liveLogic.knowledgeTemplate("Worldrecord");
+			
 			$("#recordtime").data("recordtimestatus", "inactive");
+			$("#recordtime").css('background', '#009900');
 
 		}
 		else
 		{
 			$("#makerecordtime").empty();
 			$("#recordtime").data("recordtimestatus", "active");
-
+			$("#recordtime").css('background', '#ffffff');
 		}	
 			
 			
@@ -114,8 +143,7 @@ console.log(idclick);
 		
 	case "addnetwork": 
 	// add an identity to a social nework
-	var addnetworkstatus = $("#addnetwork").data("addnetworkstatus");
-//console.log(addnetworkstatus + 'status');	
+	var addnetworkstatus = $("#addnetwork").data("addnetworkstatus");	
 		if(addnetworkstatus == "active")
 		{
 			// get  HTML tool code
@@ -142,7 +170,6 @@ console.log(idclick);
 	// startup the knowledge tool
 	//$("#toolsactive").append('<section id="makeknowledge"></section>');	
 	var startknowledgestatus = $("#knowledge").data("knowledgestatus");
-//console.log(addnetworkstatus + 'status');	
 		if(startknowledgestatus == "active")
 		{
 			$("#makeknowledge").show();
@@ -195,7 +222,6 @@ console.log(idclick);
 	// links relationships between knowledge words
 		//$("#toolsactive").html('<section id="makerelationshipknowledge"></section>');
 		var startrelationshipstatus = $("#relationshipknowledge").data("relationshipknowledgestatus");
-		//console.log(startrelationshipstatus + 'status');	
 		if(startrelationshipstatus == "active")
 		{
 			$("#makerelationshipknowledge").show();
@@ -225,16 +251,6 @@ console.log(idclick);
 
 		case "sync":
 	
-/*
-var syncmessage = '<a  href=""><img  id="syncicon" alt="sync in progress" src="images/sync.png" ></a>';
-$("#synctime").html(syncmessage);		
-PouchDB.replicate('http://www.mepath.co.uk:5984/testselfbackup/', 'selfengine', function(err, response) {
-//console.log(response);
-console.log('sync is complete');				
-$("#synctime").html('finished');	
-location.reload(); 				
-});
-*/
 		break;
 			
 		case "signin":
@@ -282,6 +298,26 @@ location.reload();
 			window.open("http://www.opensportproject.org/real-time-video/", "_blank");
 			
 			break;
+			
+			case "merecords-start":
+			
+				// prepare record data
+				dataModel.merecords();
+			
+				$("#record-modal").dialog({
+					height: 700,
+					width:940,
+					modal: true,
+					close: function( event, ui ) {
+						// add back placer
+						$(".ui-dialog").remove();
+						$("#record-modal").empty();
+					}
+					 
+				});			
+			
+			break;
+			
 			case "logout":
 
         var makeLogoutRequest = function(){
@@ -325,7 +361,6 @@ selfLogic.prototype.setToken = function(setIDname, settokenin) {
 //console.log('set token function' + settokenin);
 	this.idname = setIDname;
 	this.tokenid = settokenin;
-//console.log(this.tokenid + 'from within function');	
 	
 };
 
@@ -344,16 +379,14 @@ selfLogic.prototype.firstDatacall = function() {
 			contentType: "application/json",
 			dataType: "text",
 						
-						success: function( swimmersback ){
-//console.log('success from data');							
+						success: function( swimmersback ){						
 							// pass on markup and add data to live data model
-							var serverdatain = JSON.parse(swimmersback);
-console.log(serverdatain);		
+							var serverdatain = JSON.parse(swimmersback);	
 
 							// does this individual have data?  If not provide links enter data or sportsBOX
 							if(serverdatain.swimdatalive ==  "empty")
 							{
-								$("#activeself").html("<div>Collect training data with the sportBox</div>");
+								$("#messages").append('<div id="startmessage" >No training data found. Collect training data with the <a href="" id="maketraining"  class="maketraining" >Training Builder & Stopwatch</a>.</div>');
 							}
 							else
 							{
@@ -368,6 +401,8 @@ console.log(serverdatain);
 									dataModel.setKnowledgein(attel, serverdatain[attel].knowledgechain);
 
 								});
+								// set the active identity number
+								$("#wearable-form li input#bluetoothtag").val(serverdatain.idnumbers);
 							}
 						},
 						error: function( error ){
@@ -398,21 +433,18 @@ selfLogic.prototype.secondDatacall = function() {
 				success: function(racesbackb){
 					// pass on markup and add data to live data model
 					var serverdatainb = JSON.parse(racesbackb);	
-
 					// does this individual have data?  If not provide links enter data or sportsBOX
 					if(serverdatainb.swimracedatalive ==  "empty")
 					{
-						$("#activeself").append("<div>Enter race history times and compare to world records.</div>");
+						$("#messages").append('<div id="startcompare" >Use the Record Time <a href="" id="toolsstart" >tool</a> to enter competition times.</div>');
 					}
 					else
 					{
-
-
-					
 						var compswimattentionin = Object.keys(serverdatainb);
 						compswimattentionin.forEach(function(attelc) {
 					
-							dataModel.setCompetitiondata(attelc, serverdatainb[attelc].competitionData);								
+							dataModel.setCompetitiondata(attelc, serverdatainb[attelc].time);
+							dataModel.setsplitsCompetitiondata(attelc, serverdatainb[attelc].splittimes);
 							dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc].compKnowledge);
 						});
 					}	
@@ -436,6 +468,7 @@ selfLogic.prototype.secondDatacall = function() {
 *
 */	
 selfLogic.prototype.knowledgeDatacall = function() {
+	
 		var formdataurl = liveSettings.cloudIP + '/knowledgetemplate/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
             // Make the PUT request.
 		$.ajax({
@@ -444,15 +477,13 @@ selfLogic.prototype.knowledgeDatacall = function() {
 			contentType: "application/json",
 			dataType: "text",
 						
-						success: function( knowledgeback ){
-//console.log('success from data');							
+						success: function( knowledgeback ){					
 							// pass on markup and add data to live data model
-							var serverdatain = JSON.parse(knowledgeback);
-console.log(serverdatain);		
+							var serverdatain = JSON.parse(knowledgeback);	
 							// does this individual have data?  If not provide links enter data or sportsBOX
 							if(serverdatain.swimknowledgedatalive ==  "empty")
 							{
-								$("#activeself").append("<div>No knowledge is available for that sport.</div>");
+								$("#messages").append('<div id="startknowledge" >No knowledge is available for that sport.</div>');
 							}
 							else
 							{
@@ -461,7 +492,7 @@ console.log(serverdatain);
 								//serverdatain.forEach(function(Kword) {
 									dataModel.setKnowledgeWord(serverdatain[0]);
 									dataModel.setKnowledgeRelationship(serverdatain[1]);
-
+									dataModel.setKnowledgeRecord(serverdatain[2]);
 								//});
 							}
 						},
@@ -474,4 +505,103 @@ console.log(serverdatain);
 						}
 			});
 			
+};
+
+
+/**
+* make email signin check call
+* @method emailsignin		
+*
+*/	
+selfLogic.prototype.emailsignincall = function(emailin, cookiehash, passwordin) {
+
+	// Make the PUT request.
+	$.ajax({
+		type: "GET",
+		url: liveSettings.cloudIP + "/signinmepath/" + emailin + '/' + cookieidhash + '/' + passwordin,
+		contentType: "application/json",
+		dataType: "text",
+		success: function( resultback ){
+
+			var acceptdetails = JSON.parse(resultback);
+
+			if(acceptdetails.signin == 'passed') {		
+					//$.cookie("traintimer", cookieidhash,  { expires: 7 });
+				$("#signinlink").hide();
+				$("form.signin_form").hide();
+				$("#signincloser").show();
+				$("#datamessage").html("a data status update message");							
+			}
+			else
+			{
+				$("#datamessage").html('Signin Failed, please try again');
+			}
+
+		},
+		error: function( error ){
+		// Log any error.
+//console.log( "ERROR:", error );
+		},
+		complete: function(){
+
+		}
+	});
+	
+};
+
+/**
+* save data back to cloud
+* @method swimdataCloud		
+*
+*/	
+selfLogic.prototype.swimdataCloud = function(cloudsave) {
+	
+		var cloudready = JSON.stringify(cloudsave);
+	
+		var formdataurl = liveSettings.cloudIP + '/swimdatasave/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+            // Make the PUT request.
+	$.ajax({
+		type: "POST",
+		url: formdataurl,
+		contentType: "application/json",
+		dataType: "text",
+		data: cloudready,
+					
+			success: function( saveback ){						
+				// pass on markup and add data to live data model
+				var serverdatain = JSON.parse(saveback);		
+				// does this individual have data?  If not provide links enter data or sportsBOX
+				if(serverdatain.save ==  "passedrecord")
+				{
+					$("#timeformfeedback").html("<div>Record saved.</div>");//.fadeOut(1000);
+					// empty the form
+					//check type of save and prepare analysisi
+					if(cloudsave.tooltemplate = "Individualrecord-template")
+					{
+						var quickanalysiscontext = '';
+						// provide analysis feedback message
+						// perform quick analysis
+						liveData.quickanalysisControl(cloudsave);
+						//var quickfeedbackanalysis = liveData.quickworldrecordAnalysis(quickanalysiscontext);
+				
+					}
+				}
+				else if(serverdatain.save ==  "passedbt")
+				{
+					//  need to make call for data again from cloud
+					setTimeout(function() {liveLogic.firstDatacall()}, 1000);
+					$("#startmessage").remove();
+					$("#startcompare").remove();
+					
+				}
+			},
+			error: function( error ){
+		// Log any error.
+//console.log( "ERROR:", error );
+			},
+			complete: function(){
+
+			}
+	});
+		
 };

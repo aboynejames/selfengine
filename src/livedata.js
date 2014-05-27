@@ -9,17 +9,15 @@
 * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 * @version    $Id$
 */
-var livedata = function(pouchdblive, liveprediction) {
+var livedata = function() {
 	//console.log('livedata started');	
-	this.livepouch = pouchdblive;
-	this.liveprediction = liveprediction;
 	this.d1 = [];
 	this.k1 = {};
 	this.r1 = {};
 	this.ni1 = {};
 	this.datasort = [];
 //livepouch.allDocs(this.liveprediction);
-
+/*
 	this.livecontext = {};
 	this.livecontext.live = {};
 	this.livecontext.previous = {};
@@ -38,9 +36,66 @@ var livedata = function(pouchdblive, liveprediction) {
 	this.liveknowledgein(this.k1, this.livecontext);
 	this.liverelationshipsin(this.r1, this.livecontext);
 	this.livennetworkidenityin(this.ni1, this.livecontext);	
-		
+*/		
 };
 
+
+/**
+* Controls the logic for quick analysis, individual in context of worldrecord
+* @method quickanalysisControl		
+*
+*/	
+livedata.prototype.quickanalysisControl = function(contextIn) {  
+console.log('set context quick analysisi control');
+	// extract knowledge chain
+	var knowledgequick = dataModel.buildRecordknowledgeFilter(contextIn.lifedata.knowledgewords);
+console.log(knowledgequick);
+	
+	
+	this.quickworldrecordAnalysis(knowledgequick, contextIn);
+	
+};
+
+
+/**
+* Performs quick analysis on world record times
+* @method quickworldrecordAnalysis		
+*
+*/	
+livedata.prototype.quickworldrecordAnalysis = function(wordrecordin, individualrecord) {  
+console.log('set context');
+console.log(wordrecordin);
+console.log(individualrecord);	
+	// take individual time and compare % to current world record
+	var wordrecordtime = wordrecordin.time;
+	var individualrecordtime = individualrecord.lifedata.time;
+	var percentagerecord = ((individualrecordtime/wordrecordtime)*100) - 100;
+//console.log('worldrecord percentage' + percentagerecord.toFixed(1));	
+	var datarec = new Date(parseInt(wordrecordin.date));
+	var datarecshort = datarec.toString();
+	
+	var quickstatement = '<div id="quickanalysis">Time is ' + percentagerecord.toFixed(1) + '%  Slower than the World Record holder <b>' + wordrecordin.identity + '</b> for that distance with a time of <b>' + viewTemplates.formatTime(wordrecordin.time) + '</b> Date: ' + datarecshort.substring(0,16) + '.';// <a href="" id="fullcomparison" >Full comparison</a>.</div>';
+	
+	quickstatement += '<section id="merecords" ><a href="" id="merecords-start" >View Records</a></section>';
+	//	return quickstatement;
+	$("#timeformfeedback").append(quickstatement);
+	$("#quickanalysis section#merecords").show();
+	
+	
+};
+
+/**
+* Performs analysis on world record times
+* @method worldrecordAnalysis		
+*
+*/	
+livedata.prototype.worldrecordAnalysis = function(pouchdblive, liveprediction) {  
+//console.log('set context');
+	this.livepouch = pouchdblive;
+	this.liveprediction = liveprediction;
+	
+};
+	
 /**
 * Sets the attention fix and co ordinates the filtering  and HTML display code paths
 * @method setContext		

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" > <!--manifest="self.appcache"--> 
+<html lang="en"  > <!--manifest="self.appcache"--> 
   <head>
 		<meta charset="utf-8">
-		<title>selfengine - making suggestions for tomorrow</title>
+		<title>selfengine - augmented sporting intelligence</title>
 		<meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;' name='viewport' />
 		<meta name="description" content="">
 		<meta name="author" content="">
@@ -44,7 +44,21 @@
 		</section>
 
 		<section id="attention">
-			<section id="contextflow" ><a id="signout" href="" >sign-out</a></section>
+			<section id="contextflow" >
+				<a id="signout" href="" >sign-out</a>
+			</section>
+			<section id="wearables" >
+				<form id="wearable-form" action="#" method="post">
+					<li>
+						<label for="name" >Bluetooth tagID</label>
+						<input type="text" id="bluetoothtag" />	
+						<button type="submit" class="submit" id="wearablebtsave" >Save</button>						
+					</li>
+				</form>
+			</section>
+			<section id="merecords" >
+				<a href="" id="merecords-start" >Records</a>
+			</section>
 			<section id="networkflow" >network <a href="" id="addnetwork" data-addnetworkstatus="active" >add</a>
 				<section id="makenetwork">
 				</section>
@@ -52,7 +66,7 @@
 				</section>
 			</section>
 			<section id="toolsflow" >
-				<section id="toolsicons" class="toolsnavigation" > <a href="" id="knowledge" data-knowledgestatus="active" >Knowledge</a>  <a href="" id="relationshipknowledge" data-relationshipknowledgestatus="active" >Relationship</a> <a href="" id="templateknowledge" data-templateknowledgestatus="active" >Templates</a> <a href="" id="recordtime" data-recordtimestatus="active" >Record Time</a> <a href="" id="maketraining" >Training Builder</a> <a href="" id="recordstopwatch" >Stopwatch</a> <a href="" id="recordvideo" >Video</a>
+				<section id="toolsicons" class="toolsnavigation" ><!-- <a href="" id="knowledge" data-knowledgestatus="active" >Knowledge</a>  <a href="" id="relationshipknowledge" data-relationshipknowledgestatus="active" >Relationship</a> <a href="" id="templateknowledge" data-templateknowledgestatus="active" >Templates</a>--> <a href="" id="recordtime" data-recordtimestatus="active" >Record Time</a> <a href="" id="maketraining" >Training Builder</a> <a href="" id="recordstopwatch" >Stopwatch</a> <a href="" id="recordvideo" >Video</a>
 				</section>
 				<section id="toolsactive" >
 					<section id="makeknowledge"></section>
@@ -63,6 +77,7 @@
 			</section>
 			<section id="livedata">
 				<section id="activeself">
+					<section id="messages" ></section>
 					<section id="liveattention" ></section>
 				
 					
@@ -127,7 +142,7 @@
 					<ul>
 						<li>
 							<!--<a id="sync" class="" title="sync" href="">Sync</a> Click to download Swimming World Record Data: 100m Freestyle-->
-							Powered by the <a  id="opensportproject" title="opensportproject" class="control-text"  href="http://www.opensportproject.org">www.opensportproject.org</a> v0.1.27
+							Powered by the <a  id="opensportproject" title="opensportproject" class="control-text"  href="http://www.opensportproject.org">www.opensportproject.org</a> v0.1.32
 						</li>
 					</ul>
 				</nav>
@@ -139,6 +154,15 @@
 		</div>
 		<div id="splitsratio-modal" title="Stroke - Splits - Ratio Analysis">
 			<p></p>
+		</div>
+		<div id="comparison-modal" title="Comparison Modal">
+			<p></p>
+		</div>
+		<div id="record-modal" title="Record Modal">
+			<p></p>
+		</div>
+		<div id="future-modal" title="Future Modal">
+			<p>Coming soon, predicted times and future simulations</p>
 		</div>
 		</footer>
 	</body>
