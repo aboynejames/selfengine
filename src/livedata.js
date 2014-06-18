@@ -46,10 +46,10 @@ var livedata = function() {
 *
 */	
 livedata.prototype.quickanalysisControl = function(contextIn) {  
-console.log('set context quick analysisi control');
+//console.log('set context quick analysisi control');
 	// extract knowledge chain
 	var knowledgequick = dataModel.buildRecordknowledgeFilter(contextIn.lifedata.knowledgewords);
-console.log(knowledgequick);
+//console.log(knowledgequick);
 	
 	
 	this.quickworldrecordAnalysis(knowledgequick, contextIn);
@@ -63,9 +63,9 @@ console.log(knowledgequick);
 *
 */	
 livedata.prototype.quickworldrecordAnalysis = function(wordrecordin, individualrecord) {  
-console.log('set context');
-console.log(wordrecordin);
-console.log(individualrecord);	
+//console.log('set context');
+//console.log(wordrecordin);
+//console.log(individualrecord);	
 	// take individual time and compare % to current world record
 	var wordrecordtime = wordrecordin.time;
 	var individualrecordtime = individualrecord.lifedata.time;

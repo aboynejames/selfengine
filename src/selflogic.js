@@ -63,6 +63,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#contextflow").show();
 			$("#wearables").show();
 			$("#merecords").show();
+			$("#worldrecords").show();
 			$("#identity").css('background', '#009900');
 			$("#identity").data("mestatus", "off");
 		}
@@ -71,6 +72,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 			$("#contextflow").hide();
 			$("#wearables").hide();
 			$("#merecords").hide();
+			$("#worldrecords").hide();
 			$("#identity").css('background', '#ffffff');
 			$("#identity").data("mestatus", "on");
 		}	
@@ -304,19 +306,14 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 				// prepare record data
 				dataModel.merecords();
 			
-				$("#record-modal").dialog({
-					height: 700,
-					width:940,
-					modal: true,
-					close: function( event, ui ) {
-						// add back placer
-						$(".ui-dialog").remove();
-						$("#record-modal").empty();
-					}
-					 
-				});			
-			
 			break;
+				
+			case "worldrecords-start":
+			
+				// prepare record data
+				dataModel.worldrecords();
+			
+			break;				
 			
 			case "logout":
 

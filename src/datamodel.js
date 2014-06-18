@@ -240,7 +240,7 @@ datamodel.prototype.knowledgewordsextraction = function(knowledgein) {
 *
 */	
 datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {  
-				
+			
 	var knowledgewordsobject = this.knowledgelog;
 	var splitslivein = this.splittimedatalog;
 
@@ -250,7 +250,7 @@ datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {
 	var listfixids = Object.keys(splitslivein);
 
 		listfixids.forEach(function(matchid) {	
-		// match on  swim stroke and distance
+		// match on  swim stroke and distance		
 		if(knowledgewordsobject[matchid].Distance == datamodellive.Distance && knowledgewordsobject[matchid].Swimming_stroke == datamodellive.Swimming_stroke)
 		{		
 			matchingknowledge.push(matchid);			
@@ -274,17 +274,17 @@ datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {
 *
 */
 datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidin) {  
-				
+			
 	var knowledgewordsobject = this.comeptitionknowledge;
 	var compfinishtime = this.comeptitiondata;
-	var splitslivein = this.comeptitionsplitdata;
+	var splitslivein = this.comeptitionsplitdata;	
 	var matchingknowledge = [];
 	var samematch = [];
 	// take all knowledge chains and keep those that match
-	var listfixids = Object.keys(splitslivein);
+	var listfixids = Object.keys(compfinishtime);
 	
 		listfixids.forEach(function(matchid) {				
-			// match on  swim stroke and distance
+			// match on  swim stroke and distance		
 			if(knowledgewordsobject[matchid].Distance == datamodellive.Distance && knowledgewordsobject[matchid].Swimming_stroke == datamodellive.Swimming_stroke && knowledgewordsobject[matchid].Swimmingpool == datamodellive.Swimmingpool)
 			{
 				// passed matching
@@ -301,6 +301,7 @@ datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidi
 		// form time object
 		var mecordseries = {};
 		var meholderrecords = {};	
+		var meonerecord = {};
 		
 		if(matchingknowledge.length > 0)
 		{
@@ -327,7 +328,6 @@ datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidi
 			// sort low to high
 			merecordtimes.sort(function(a,b) {return a[0] > b[0]?1:-1;});
 			// take the top elelment form object
-			var meonerecord = {};
 			var fastcomptime = merecordtimes.slice(-1)[0];
 			meonerecord['fasttime'] = [fastcomptime[2] ,fastcomptime[0]];
 			meonerecord['fastsplittimes'] = [fastcomptime[2],fastcomptime[1]];	
@@ -337,7 +337,8 @@ datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidi
 		else
 		{
 			//empty no records set
-			return meonerecord = 0;
+			meonerecord['empty'] = "empty";
+			return meonerecord
 		}
 		
 };
@@ -395,11 +396,20 @@ datamodel.prototype.buildRecordknowledgeFilter = function(recordknowledge) {
 		// sort low to high
 		wordrecordtimes.sort(function(a,b) {return a[0] < b[0]?1:-1;});
 		// take the top elelment form object
-		var oneworldrecord = wordrecordtimes.slice(-1)[0];
-		
-		var theworldrecord = worldrecordseries[oneworldrecord[1]];
+		var oneworldrecord = wordrecordtimes.slice(-1)[0];	
+		var theworldrecord = {};
+		// check there is a world record
+		if(oneworldrecord)
+		{
+			theworldrecord = worldrecordseries[oneworldrecord[1]];
 	
-	return theworldrecord;
+			return theworldrecord;
+		}
+		else
+		{
+			theworldrecord['empty'] = "empty";
+			return theworldrecord;
+		}
 
 };
 
@@ -763,7 +773,7 @@ datamodel.prototype.merecords = function() {
 	var bestrecords = [];
 	// sort to get fastest and other record stats
 	//build record knowledge categorisation
-	var recordmodellive = dataModel.buildknowledgeFilter("Worldrecord"); //dataModel.knowledgeRelationship.Swimming_stroke;	
+	var recordmodellive = dataModel.buildknowledgeFilter("individualrecord"); //dataModel.knowledgeRelationship.Swimming_stroke;	
 	// need to stich together the knowledge chain options and filter on each of those.
 	//first has the sex of the ID between established?
 	var livesex = 'Male';
@@ -815,17 +825,86 @@ datamodel.prototype.merecords = function() {
 datamodel.prototype.prepareRecordtimes = function(recordKnowledge, reid) {
 
 	var matchingCompetition = dataModel.knowledgechainfilteringRace(recordKnowledge, statsisin = '');
-
-	var recUpdate = {};
-		
-	if(matchingCompetition != undefined && Object.keys(matchingCompetition).length )
+	var recUpdate = {};		
+	if(matchingCompetition['empty'] != "empty" && Object.keys(matchingCompetition).length > 0)
 	{		
 		viewTemplates.recordtableUpdate(matchingCompetition, reid);
 	}
 
 };	
 	
+/**
+* Produce chart of current personal recoreds
+* @method worldrecords		
+*
+*/	
+datamodel.prototype.worldrecords = function() {
 	
+	var bestrecords = [];
+	// sort to get fastest and other record stats
+	//build record knowledge categorisation
+	var recordmodellive = dataModel.buildknowledgeFilter("Worldrecord"); //dataModel.knowledgeRelationship.Swimming_stroke;	
+	// need to stich together the knowledge chain options and filter on each of those.
+	//first has the sex of the ID between established?
+	var livesex = 'Male';
+	
+	// now create the indivdiual knowledge chains
+	var iknowledgechains = {};
+	var recordholder = [];
+	var knowlegerecordholder = {};
+	var matrixcounter = 1;
+
+	viewTemplates.worldrecordtable();	
+		
+	recordmodellive[4][1].forEach(function(istroke) {	
+		recordmodellive[2][1].forEach(function(rdistance) {
+			recordmodellive[5][1].forEach(function(rpool) {
+		
+				recordholder.push(livesex);
+				recordholder.push(istroke);
+				recordholder.push(rdistance);
+				recordholder.push('Metre');
+				recordholder.push(rpool);
+				recordholder.push('---');
+				recordholder.push('---');
+				
+				knowlegerecordholder['Sex'] = livesex;
+				knowlegerecordholder['Distance'] = rdistance;
+				knowlegerecordholder['Swimming_stroke'] = istroke;
+				knowlegerecordholder['Swimmingpool'] = rpool;
+				
+				viewTemplates.worldrecordtableFill(recordholder, matrixcounter);
+				
+				dataModel.prepareworldRecordtimes(knowlegerecordholder, matrixcounter);
+				
+				//iknowledgechains[matrixcounter] = recordholder;
+				recordholder = [];
+				knowlegerecordholder = {};
+				matrixcounter++;
+			});	
+		});
+	});
+
+};
+
+/**
+* manages the  preparation of current world record swim times
+* @method prepareworldRecordtimes	
+*
+*/	
+datamodel.prototype.prepareworldRecordtimes = function(recordKnowledge, reid) {
+
+	var matchingCompetition = dataModel.buildRecordknowledgeFilter(recordKnowledge);
+	var recWUpdate = {};
+		
+	if(matchingCompetition['empty'] != "empty" && Object.keys(matchingCompetition).length > 0)
+	{		
+		viewTemplates.worldrecordtableUpdate(matchingCompetition, reid);
+	}
+
+};	
+
+
 /**
 * chart production single attention element
 * @method onelementchart		

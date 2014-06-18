@@ -356,7 +356,34 @@ viewtemplates.prototype.recordtable = function() {
 
 	var recordtableHTML = ''
 	
-	recordtableHTML += '<div id="record-table"><div class="record-heading" >Stroke</div><div class="record-heading" >Distance</div><div class="record-heading" >Pool</div><div class="record-heading" >Time</div><div class="record-heading" >on Date</div></div>';
+	recordtableHTML += '<div id="record-table"><div class="record-heading" >Stroke</div><div class="record-heading-distance" >Distance</div><div class="record-heading" >Pool</div><div class="record-heading" >Time</div><div class="record-heading" >on Date</div></div>';
+	//recordtableHTML += '<div><div class="record-heading" >Backstroke</div><div class="record-heading" >100m</div><div class="record-heading" >Pool</div><div class="record-heading" >01.23.21</div><div class="record-heading" >21 Jan 2014</div></div>'
+		
+	$("#record-modal").html(recordtableHTML);
+	
+	$("#record-modal").dialog({
+		height: 700,
+		width:940,
+		modal: true,
+		close: function( event, ui ) {
+		// add back placer
+			$(".ui-dialog").remove();
+			$("#record-modal").empty();
+		}
+	});
+	
+};
+
+/**
+* table layout of world records
+* @method worldrecordtable
+*
+*/
+viewtemplates.prototype.worldrecordtable = function() {
+
+	var recordtableHTML = ''
+	
+	recordtableHTML += '<div id="record-table"><div class="record-heading" >Stroke</div><div class="record-heading-distance" >Distance</div><div class="record-heading" >Pool</div><div class="record-heading-identity" >Identity</div><div class="record-heading" >Time</div><div class="record-heading" >on Date</div></div>';
 	//recordtableHTML += '<div><div class="record-heading" >Backstroke</div><div class="record-heading" >100m</div><div class="record-heading" >Pool</div><div class="record-heading" >01.23.21</div><div class="record-heading" >21 Jan 2014</div></div>'
 		
 	$("#record-modal").html(recordtableHTML);
@@ -380,9 +407,44 @@ viewtemplates.prototype.recordtable = function() {
 *
 */
 viewtemplates.prototype.recordtableFill = function(recFilldata, reid) {
-//console.log('update table recoreds html')
-	var recordtablefillHTML = '<div class="record-chain" id="recid-' + reid + '"><div class="record-heading" >' + recFilldata[1] + '</div><div class="record-heading" >' + recFilldata[2] + '</div><div class="record-heading" >' + recFilldata[4] + '</div><div class="record-heading" id="recid-time-' + reid + '">' + recFilldata[5] + '</div><div class="record-heading" id="recid-date-' + reid + '">' + recFilldata[6] + '</div></div>'
+	
+	var recordtablefillHTML = '';
+	
+	function isOdd(num) { return num % 2;}
+	var oddnumbercheck = isOdd(reid);
+	if(oddnumbercheck == true) {	
+	
+	recordtablefillHTML = '<div class="record-chain-odd" id="recid-' + reid + '"><div class="record-heading" >' + recFilldata[1] + '</div><div class="record-heading-distance" >' + recFilldata[2] + '</div><div class="record-heading" >' + recFilldata[4] + '</div><div class="record-heading" id="recid-time-' + reid + '">' + recFilldata[5] + '</div><div class="record-heading" id="recid-date-' + reid + '">' + recFilldata[6] + '</div></div>';
+	}
+	else
+	{
+		recordtablefillHTML = '<div class="record-chain" id="recid-' + reid + '"><div class="record-heading" >' + recFilldata[1] + '</div><div class="record-heading-distance" >' + recFilldata[2] + '</div><div class="record-heading" >' + recFilldata[4] + '</div><div class="record-heading" id="recid-time-' + reid + '">' + recFilldata[5] + '</div><div class="record-heading" id="recid-date-' + reid + '">' + recFilldata[6] + '</div></div>';
+	}
 
+	$("#record-table").append(recordtablefillHTML);
+
+};
+
+/**
+* add world record content line at a time
+* @method worldrecordtableFill
+*
+*/
+viewtemplates.prototype.worldrecordtableFill = function(recFilldata, reid) {
+	
+	var recordtablefillHTML = '';
+	//  odd number
+	function isOdd(num) { return num % 2;}
+	var oddnumbercheck = isOdd(reid);
+	if(oddnumbercheck == true) {
+		recordtablefillHTML = '<div class="record-chain-odd" id="recid-' + reid + '"><div class="record-heading" >' + recFilldata[1] + '</div><div class="record-heading-distance" >' + recFilldata[2] + '</div><div class="record-heading" >' + recFilldata[4] + '</div><div class="record-heading-identity" id="recid-identity-' + reid + '"></div><div class="record-heading" id="recid-time-' + reid + '">' + recFilldata[5] + '</div><div class="record-heading" id="recid-date-' + reid + '">' + recFilldata[6] + '</div></div>'
+	}
+	else
+	{
+		recordtablefillHTML = '<div class="record-chain" id="recid-' + reid + '"><div class="record-heading" >' + recFilldata[1] + '</div><div class="record-heading-distance" >' + recFilldata[2] + '</div><div class="record-heading" >' + recFilldata[4] + '</div><div class="record-heading-identity" id="recid-identity-' + reid + '"></div><div class="record-heading" id="recid-time-' + reid + '">' + recFilldata[5] + '</div><div class="record-heading" id="recid-date-' + reid + '">' + recFilldata[6] + '</div></div>'
+		
+	}
+	
 	$("#record-table").append(recordtablefillHTML);
 
 };
@@ -393,14 +455,32 @@ viewtemplates.prototype.recordtableFill = function(recFilldata, reid) {
 *
 */
 viewtemplates.prototype.recordtableUpdate = function(recUpdatein, reid) {
-
-	var extractrecdata = Object.keys(recUpdatein);		
-	var datainteger = parseInt((extractrecdata[0]),10);
-	var recordtimeextract = recUpdatein[extractrecdata[0]];
+	
+	var datainteger = parseInt((recUpdatein.fasttime[0]),10);
+	var recordtimeextract = recUpdatein.fasttime[1];
 	
 	var datarec = new Date(datainteger);
 	var datarecshort = datarec.toString();
 	$("#recid-time-" + reid).text(this.formatTime(recordtimeextract));
 	$("#recid-date-" + reid).text(datarecshort.substring(0,16));
+	
+};
+
+/**
+* upate table of world records
+* @method worldrecordtableUpdate
+*
+*/
+viewtemplates.prototype.worldrecordtableUpdate = function(recUpdatein, reid) {
+	
+	var datainteger = recUpdatein.date;
+	var recordtimeextract = recUpdatein.time;
+	var wridentity = recUpdatein.identity;
+	
+	var datarec = new Date(datainteger);
+	var datarecshort = datarec.toString();
+	$("#recid-time-" + reid).text(this.formatTime(recordtimeextract));
+	$("#recid-date-" + reid).text(datarecshort.substring(0,16));
+	$("#recid-identity-" + reid).text(wridentity);
 	
 };
