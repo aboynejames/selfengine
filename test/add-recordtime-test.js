@@ -3,10 +3,10 @@
 */
 var baseUrl = casper.cli.get('baseUrl');
 
-casper.test.comment("Scenario: enter a world record time");
+casper.test.comment("Scenario: enter a personal record time");
 
 casper.start(baseUrl, function() {
-	this.test.comment('click on the network link');
+	this.test.comment('click on the tools link');
 	this.mouseEvent('click', '#tools');
 
 });
@@ -24,15 +24,15 @@ casper.then(function() {
 });
 
 casper.then(function() {
-	this.test.comment('ensure the tools active, and templates are are present');
-	casper.test.assertExists('#makerecordtime', 'the element exists');
-	casper.test.assertExists('#toolsactive', 'the element exists');
-	casper.test.assertExists('#Worldrecord', 'the element exists');
-	casper.test.assertExists('#recordtimeclub', 'the element exists');
-	casper.test.assertExists('#recordtimeme', 'the element exists');
-	
-});
+	this.test.comment('ensure the components record form parts are are present');
+	casper.test.assertExists('#attentionfix', 'the element exists');
+	casper.test.assertExists('#record-date', 'the element exists');
+	casper.test.assertExists('#record-time', 'the element exists');
+	casper.test.assertExists('#recordtimesave', 'the element exists');
+	casper.test.assertExists('#timeformfeedback', 'the element exists');
 
+});
+/*
 casper.then(function() {
 	this.test.comment('click on record world record template');
 	this.mouseEvent('click', '#Worldrecord');
@@ -86,7 +86,7 @@ casper.then(function() {
 	casper.test.assertEquals(this.recordtimestatus, "active", "tool status is correct");
 	
 });
-
+*/
 casper.run(function() {
 //this.echo(this.getHTML());
     this.test.done(); // I must be called once all the async stuff has been executed

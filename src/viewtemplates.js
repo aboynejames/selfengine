@@ -300,9 +300,9 @@ viewtemplates.prototype.knowledgeTimeIn = function(knowledgeIn) {
 	// knowledge tool, build for enter swimming time individual
 	recordtimetemplate += viewTemplates.knowledgeHTML(knowledgeIn);
 	
-	recordtimetemplate += '<div><label for="date">Date</label> <input type="text" id="datepicker" readonly="readonly" /></div>';
+	recordtimetemplate += '<div id="record-date"><label for="date">Date</label> <input type="text" id="datepicker" readonly="readonly" /></div>';
 	//recordtimetemplate += '<div><label for="time">Time</label><input type="text" size="20"  value="" class="text ui-widget-content ui-corner-all" id="time" name="time" >hh</div>';
-	
+	recordtimetemplate += '<div id="record-time">';	
 	recordtimetemplate += '<ul>';
         recordtimetemplate += '<li class="time-part-date" >';
         recordtimetemplate += '<h2>Enter Time</h2>';
@@ -329,6 +329,7 @@ viewtemplates.prototype.knowledgeTimeIn = function(knowledgeIn) {
 	recordtimetemplate += '</ul>';	
 	recordtimetemplate += '<button type="submit" class="submit" id="recordtimesave" >Save</button></form>';
 	recordtimetemplate += '<div id="timeformfeedback"></div>';
+	recordtimetemplate += '</div>';		
 
 	$("#makerecordtime").append(recordtimetemplate);
 

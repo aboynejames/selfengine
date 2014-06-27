@@ -8,7 +8,7 @@ casper.test.comment("Scenario: sign in to sync data back and forth between local
 casper.start(baseUrl, function() {
 
 });
-
+/*
 casper.then(function() {
 	this.test.comment('a sigin button exists');
 	casper.test.assertExists('#signin', 'the element exists');
@@ -117,7 +117,7 @@ casper.then(function() {
 	casper.test.assertNotVisible('#signincloser', 'the section is not visable');
 //this.echo(this.getHTML());
 });
-
+*/
 casper.run(function() {
 // need for exporting xml xunit/junit style
   this.test.done();

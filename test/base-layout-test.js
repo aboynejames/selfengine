@@ -16,13 +16,13 @@ casper.then(function() {
 	casper.test.assertExists('#identity', 'the element exists');
 	
 });
-
+/*
 casper.then(function() {
 	this.test.comment('view life, social, other network visualisations');
 	casper.test.assertExists('#network', 'the element exists');
 	
 });
-
+*/
 casper.then(function() {
 	this.test.comment('access range of tools internal or exteral to selfengine');
 	casper.test.assertExists('#tools', 'the element exists');

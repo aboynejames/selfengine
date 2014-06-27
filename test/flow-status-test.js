@@ -21,7 +21,7 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('the contextflow section is visable');
 	casper.test.assertVisible('#contextflow', 'the section is visable');
-	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
+//	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
 
@@ -34,10 +34,10 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('the contextflow section is visable');
 	casper.test.assertNotVisible('#contextflow', 'the section is not visable');
-	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
+//	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
-
+/*
 casper.then(function() {
 	this.test.comment('click on network link');
 	this.mouseEvent('click', '#network');
@@ -63,7 +63,7 @@ casper.then(function() {
 	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
-
+*/
 casper.then(function() {
 	this.test.comment('click on tools link');
 	this.mouseEvent('click', '#tools');
@@ -73,7 +73,7 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('the toolsflow section is visable');
 	casper.test.assertNotVisible('#contextflow', 'the section is not visable');
-	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
+//	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
 	casper.test.assertVisible('#toolsflow', 'the section is visable');	
 });
 
@@ -86,7 +86,7 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('the toolsflow section is not visable');
 	casper.test.assertNotVisible('#contextflow', 'the section is not visable');
-	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
+//	casper.test.assertNotVisible('#networkflow', 'the section is not visable');
 	casper.test.assertNotVisible('#toolsflow', 'the section is not visable');	
 });
 
