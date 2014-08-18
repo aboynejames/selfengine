@@ -5,11 +5,74 @@ var baseUrl = casper.cli.get('baseUrl');
 
 casper.test.comment("Scenario: enter a personal record time");
 
+
+
 casper.start(baseUrl, function() {
+
+		 var getk =  this.open('http://localhost:8881/knowledgetemplate/testselfengine/token/8881', {
+			method: 'get',
+			headers: {
+			'Accept': 'application/json'
+			}
+		});	
+		
+		this.wait(10000, function() {
+		this.echo("I've waited for a 10 second.");
+console.log(jss);	
+//require('utils').dump(jss); 
+	require('utils').dump(JSON.parse(getk.getPageContent()));	
+	});
+	// need to sign in to retieve starting record data
+	// mock the start URL get request ie bypass formal login
+	var jss = this.evaluate(function() {
+
+		
+var serverdatain = JSON.parse(getk);	
+							// does this individual have data?  If not provide links enter data or sportsBOX
+							if(serverdatain.swimknowledgedatalive ==  "empty")
+							{
+								$("#messages").append('<div id="startknowledge" >No knowledge is available for that sport.</div>');
+							}
+							else
+							{
+								// prepare knowledge for client datamodel
+								//var swimKattentionin = Object.keys(serverdatain);
+								//serverdatain.forEach(function(Kword) {
+									dataModel.setKnowledgeWord(serverdatain[0]);
+									dataModel.setKnowledgeRelationship(serverdatain[1]);
+									dataModel.setKnowledgeRecord(serverdatain[2]);
+								//});
+							}
+
+		//this.waitForResource('http://localhost/ll/selfengine/src/index.html?swimmer=testselfengine&token=8881&fbn=undefined');  
+
+/*	
+		liveSettings = {};
+		liveSettings.cloudIP = "http://localhost:8881"; 
+		liveSettings.localIP = "http://192.168.1.44:8881";  	
+		liveSettings.localURL = "http://localhost/ll/selfengine/src/index.html";	
+
+		liveLogic = new selfLogic();		
+		liveLogic.firstDatacall();
+		liveLogic.secondDatacall();
+		liveLogic.knowledgeDatacall();
+//require('utils').dump(liveLogic); 
+*/
+		return document;
+	});
+
+//	this.waitForResource('http://localhost/ll/selfengine/src/index.html?swimmer=testselfengine&token=8881&fbn=undefined');  
+	
+
+	
+});
+
+casper.then(function() {
 	this.test.comment('click on the tools link');
 	this.mouseEvent('click', '#tools');
-
+			
 });
+
 
 casper.then(function() {
 	this.test.comment('record time tool link exists');
@@ -20,10 +83,13 @@ casper.then(function() {
 casper.then(function() {
 	this.test.comment('click on the recordtime tool link');
 	this.mouseEvent('click', '#recordtime');
-	
+			
 });
 
 casper.then(function() {
+
+	this.echo(this.getHTML());
+	
 	this.test.comment('ensure the components record form parts are are present');
 	casper.test.assertExists('#attentionfix', 'the element exists');
 	casper.test.assertExists('#record-date', 'the element exists');
@@ -88,7 +154,8 @@ casper.then(function() {
 });
 */
 casper.run(function() {
-//this.echo(this.getHTML());
+this.echo(this.getHTML());
+	
     this.test.done(); // I must be called once all the async stuff has been executed
 
 });
