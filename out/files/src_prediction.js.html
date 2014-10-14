@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/prediction.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/datamodel.html">datamodel</a></li>
+            
+                <li><a href="../classes/livedata.html">livedata</a></li>
+            
+                <li><a href="../classes/pouchdbSettings.html">pouchdbSettings</a></li>
+            
+                <li><a href="../classes/selfLogic.html">selfLogic</a></li>
+            
+                <li><a href="../classes/selfprediction.html">selfprediction</a></li>
+            
+                <li><a href="../classes/viewtemplates.html">viewtemplates</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src/prediction.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+* SelfEngine
+*
+* prediction analystics
+* @class selfprediction
+*
+* @package    selfengine  open source project
+* @copyright  Copyright (c) 2012 James Littlejohn
+* @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+* @version    $Id$
+*/
+var selfprediction = function() {
+		this.predictiondataout = {};
+	
+};
+
+/**
+* Figureout the number of incoming data element to process
+* @method predictionlogic		
+*
+*/	
+selfprediction.prototype.predictionlogic = function(livecontextdata, numberdatain, liveattentionin) {
+
+	// how many data sources to calcuate check and then perform statistics
+	datasetlength = Object.keys(livecontextdata).length;
+	for (var i=1; i &lt;= datasetlength; i++) {
+	// based on number of array, perform independent predictions
+		this.predictionout(livecontextdata[i], i, datasetlength, liveattentionin);
+	}
+		
+};
+
+/**
+* Take in live data context and make prediction and charts
+* @method predictionout		
+*
+*/	
+selfprediction.prototype.predictionout = function(livepredictiondata, elementpart, totalelements, attentionfixin) {
+
+	var datainx = [];
+	var datainy = [];
+
+		// for now form x array and y array to feed sums below
+	livepredictiondata.forEach(function(xypairs) {
+
+		datainx.push(xypairs[0]);
+		datainy.push(xypairs[1]);
+	});
+
+	var totalsumx = datainx.reduce(function(previousValue, currentValue, index, array){
+	  return previousValue + currentValue;
+	});
+
+	var xlength = datainx.length;
+
+	//sum y and average
+	var totalsumy = datainy.reduce(function(previousValue, currentValue, index, array){
+	  return previousValue + currentValue;
+	});
+
+	var ylength = datainy.length;
+
+
+	// calcualate the means
+	var meanx = totalsumx/xlength;
+	var meany = totalsumy/ylength;
+
+	// calculate variance for x
+	//each x value minus the mean squared divided by number of datapionts
+
+	var variancex = &#x27;&#x27;;
+	var sdeviationx = [];
+	var sdeviationsquaredarr = [];
+	datainx.forEach(function(xnum) {
+		
+		var sdeviationsquared = Math.pow((xnum - meanx),2);
+		sdeviationsquaredarr.push(sdeviationsquared);
+		sdeviationx.push(xnum - meanx);
+
+	});
+
+	var totalsumxdev = sdeviationsquaredarr.reduce(function(previousValue, currentValue, index, array){
+		return previousValue + currentValue;
+	});
+
+	variancex = totalsumxdev/(xlength-1);
+	// standard devication is square root of variance
+	var sdx = Math.sqrt(variancex);
+
+	// calculate variance for y
+	var variancey = &#x27;&#x27;;
+	var sdeviationy = [];
+	var sdeviationsquaredarry = [];
+	datainy.forEach(function(ynum) {
+		
+		var sdeviationsquaredy = Math.pow((ynum - meany),2);
+		sdeviationsquaredarry.push(sdeviationsquaredy);
+			sdeviationy.push(ynum - meany);
+
+		});
+
+	var totalsumydev = sdeviationsquaredarry.reduce(function(previousValue, currentValue, index, array){
+		return previousValue + currentValue;
+	});
+
+	variancey = totalsumydev/(ylength-1);
+
+	// standard devication is square root of variance
+	var sdy = Math.sqrt(variancey);
+
+	// calculate persons R
+	var  personsr = &#x27;&#x27;;
+
+	// sum of the differences
+	var sumofdifferences = &#x27;&#x27;;
+	var devbetweenxv = [];
+
+	// loop two arrays and perform sum
+	var result = 0;
+	for (var i=0; i &lt; sdeviationx.length; i++) {
+	  result += (sdeviationx[i] * sdeviationy[i]);
+	}
+
+	var sumdiffsquarex =  Math.sqrt(totalsumxdev);
+	var sumdiffsquarey = Math.sqrt(totalsumydev);
+
+	personsr = result/(sumdiffsquarex*sumdiffsquarey);
+
+	// build forulate for straight line linear regress chart
+
+	// beta co efficient
+	var beta = &#x27;&#x27;;
+
+	beta = (personsr * sdy)/sdx;
+	// where does it cross the y axis ie x = 0;
+	var crossy = &#x27;&#x27;;
+
+	crossy = meany - (beta * meanx);
+	// produce the regression line x y pairs
+	var dregdata = [];
+
+	// take todays date and add 10 years
+	var startdateprediction = new Date().valueOf();
+	var tenyeartimeframe = [1,2,3,4,5,6,7,8,9,10];
+	var yearinmilliseconds = 31536000000;
+
+	var regx = [];
+
+	tenyeartimeframe.forEach(function(yearno) {
+
+		regx.push(startdateprediction + (yearno * yearinmilliseconds));
+		
+	});
+
+	var regy = &#x27;&#x27;;
+	var regxy = [];
+
+	regx.forEach(function(rx) {
+		
+		regy = ((beta*rx) + crossy);
+		regxy.push([rx, regy]);
+		
+	});
+
+	// regression line co ordinates
+	this.predictionchartdata(regxy, elementpart, totalelements, attentionfixin);
+	
+};
+
+/**
+* Holds prediction data ready for charting
+* @method predictionchartdata		
+*
+*/	
+selfprediction.prototype.predictionchartdata = function(readypredictiondata, epart, totalelements, attentionset) {
+
+	var fcontainer = &quot;futurechart&quot;;
+	liveattentiondata = {};
+		// always deliver data to chart as an array	
+	this.predictiondataout[epart] = readypredictiondata;	
+	completeset = Object.keys(this.predictiondataout).length;
+		
+	if(completeset == totalelements)	
+	{				
+		liveData.chartproduction(this.predictiondataout, attentionset, fcontainer,  totalelements);
+		this.predictiondataout = {};
+	}
+
+
+};	
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

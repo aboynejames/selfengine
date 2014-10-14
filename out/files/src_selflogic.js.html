@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/selflogic.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/datamodel.html">datamodel</a></li>
+            
+                <li><a href="../classes/livedata.html">livedata</a></li>
+            
+                <li><a href="../classes/pouchdbSettings.html">pouchdbSettings</a></li>
+            
+                <li><a href="../classes/selfLogic.html">selfLogic</a></li>
+            
+                <li><a href="../classes/selfprediction.html">selfprediction</a></li>
+            
+                <li><a href="../classes/viewtemplates.html">viewtemplates</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src/selflogic.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+* SelfEngine
+*
+* Framework Logic controls
+* @class selfLogic
+*
+* @package    LifestyleLinking part of open sport project
+* @copyright  Copyright (c) 2012 James Littlejohn
+* @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+* @version    $Id$
+*/
+var selfLogic = function() {
+	this.status = &#x27;default&#x27;;
+	this.tokenid = &#x27;&#x27;;
+	this.idname = &#x27;&#x27;;
+	this.knowledgetemplate = &#x27;&#x27;;
+	this.knowledgecontext = [];
+};
+
+/**
+* sets filter knowledge template
+* @method knowledgeTemplate	
+*
+*/	
+selfLogic.prototype.knowledgeTemplate = function(ktemplateWord) {
+
+	this.knowledgetemplate = ktemplateWord;
+		
+};
+
+/**
+* sets filter knowledge context
+* @method knowledgeContext	
+*
+*/	
+selfLogic.prototype.knowledgeContext = function(kcontextIn) {
+
+	this.knowledgecontext = kcontextIn;
+		
+};
+	
+/**
+* Take in clicks/input intentions
+* @method frameworklogic		
+*
+*/	
+selfLogic.prototype.frameworklogic = function(intentionin) {
+	idclick = $(intentionin).attr(&quot;id&quot;);
+	attentionchange = $(intentionin).data(&quot;attentionfocus&quot;);
+	if(attentionchange == &quot;focuschange&quot;)
+	{
+		// show title and other options to select
+		$(&quot;#attentionfix li.fixgroup ul.active-sub li a#Female&quot;).removeClass(&quot;selectedoff&quot;);
+	}
+
+	switch(idclick){
+
+	case &quot;identity&quot;: 
+	// make live section
+	var idstatus = $(&quot;#identity&quot;).data(&quot;mestatus&quot;);
+		if(idstatus == &quot;on&quot;)
+		{
+			$(&quot;#contextflow&quot;).show();
+			$(&quot;#wearables&quot;).show();
+			$(&quot;#merecords&quot;).show();
+			$(&quot;#worldrecords&quot;).show();
+			$(&quot;#identity&quot;).css(&#x27;background&#x27;, &#x27;#009900&#x27;);
+			$(&quot;#identity&quot;).data(&quot;mestatus&quot;, &quot;off&quot;);
+		}
+		else
+		{
+			$(&quot;#contextflow&quot;).hide();
+			$(&quot;#wearables&quot;).hide();
+			$(&quot;#merecords&quot;).hide();
+			$(&quot;#worldrecords&quot;).hide();
+			$(&quot;#identity&quot;).css(&#x27;background&#x27;, &#x27;#ffffff&#x27;);
+			$(&quot;#identity&quot;).data(&quot;mestatus&quot;, &quot;on&quot;);
+		}	
+	
+	break;
+
+	case &quot;network&quot;: 
+	// make live section
+	var networkstatus = $(&quot;#network&quot;).data(&quot;networkstatus&quot;);
+		if(networkstatus == &quot;on&quot;)
+		{
+			$(&quot;#networkflow&quot;).show();
+			$(&quot;#network&quot;).css(&#x27;background&#x27;, &#x27;#009900&#x27;);
+			$(&quot;#network&quot;).data(&quot;networkstatus&quot;, &quot;off&quot;);
+			//reveal the network based the active attention fix
+      
+			
+		}
+		else
+		{
+			$(&quot;#networkflow&quot;).hide();
+			$(&quot;#network&quot;).css(&#x27;background&#x27;, &#x27;#ffffff&#x27;);
+			$(&quot;#network&quot;).data(&quot;networkstatus&quot;, &quot;on&quot;);
+		}	
+	
+	break;
+		
+	case &quot;tools&quot;: 
+	// make live section
+	var toolsstatus = $(&quot;#tools&quot;).data(&quot;toolsstatus&quot;);
+		if(toolsstatus == &quot;on&quot;)
+		{
+			$(&quot;#toolsflow&quot;).show();
+			$(&quot;#tools&quot;).css(&#x27;background&#x27;, &#x27;#009900&#x27;);
+			$(&quot;#tools&quot;).data(&quot;toolsstatus&quot;, &quot;off&quot;);
+		}
+		else
+		{
+			$(&quot;#toolsflow&quot;).hide();
+			$(&quot;#tools&quot;).css(&#x27;background&#x27;, &#x27;#ffffff&#x27;);
+			$(&quot;#tools&quot;).data(&quot;toolsstatus&quot;, &quot;on&quot;);
+		}	
+	
+	break;
+		
+	case &quot;recordtime&quot;: 
+	// the recordtime tools has been select
+	var recordtimestatus = $(&quot;#recordtime&quot;).data(&quot;recordtimestatus&quot;);
+		if(recordtimestatus == &quot;active&quot;)
+		{
+			var liveKnowledgeContext = dataModel.buildknowledgeFilter(&quot;Worldrecord&quot;);
+			viewTemplates.knowledgeTimeIn(liveKnowledgeContext);
+			// set the liveContext
+			liveLogic.knowledgeContext(liveKnowledgeContext);
+			liveLogic.knowledgeTemplate(&quot;Worldrecord&quot;);
+			
+			$(&quot;#recordtime&quot;).data(&quot;recordtimestatus&quot;, &quot;inactive&quot;);
+			$(&quot;#recordtime&quot;).css(&#x27;background&#x27;, &#x27;#009900&#x27;);
+
+		}
+		else
+		{
+			$(&quot;#makerecordtime&quot;).empty();
+			$(&quot;#recordtime&quot;).data(&quot;recordtimestatus&quot;, &quot;active&quot;);
+			$(&quot;#recordtime&quot;).css(&#x27;background&#x27;, &#x27;#ffffff&#x27;);
+		}	
+			
+			
+	break;		
+		
+	case &quot;addnetwork&quot;: 
+	// add an identity to a social nework
+	var addnetworkstatus = $(&quot;#addnetwork&quot;).data(&quot;addnetworkstatus&quot;);	
+		if(addnetworkstatus == &quot;active&quot;)
+		{
+			// get  HTML tool code
+		temporynetworkcode = &#x27;&#x27;;	
+		temporynetworkcode = &#x27;&lt;form id=&quot;newnetworkadd&quot; action=&quot;#&quot; method=&quot;post&quot;&gt;&#x27;;
+		temporynetworkcode += &#x27;&lt;div&gt;&lt;label for=&quot;networkidentity&quot;&gt;Name&lt;/label&gt;&lt;input type=&quot;text&quot; size=&quot;16&quot; class=&quot;text ui-widget-content ui-corner-all&quot; id=&quot;networkidentity&quot; name=&quot;networkidentity&quot;&gt;&lt;/div&gt;&#x27;;
+		temporynetworkcode += &#x27;&lt;div&gt;&lt;label for=&quot;identitylink&quot;&gt;IDlink&lt;/label&gt;&lt;input type=&quot;text&quot; size=&quot;30&quot;  value=&quot;&quot; class=&quot;text ui-widget-content ui-corner-all&quot; id=&quot;identitylink&quot; name=&quot;identitylink&quot; &gt;&lt;/div&gt;&#x27;;
+		temporynetworkcode += &#x27;&lt;button type=&quot;submit&quot; class=&quot;submit&quot; id=&quot;networkidentitysave&quot; &gt;Save&lt;/button&gt;&lt;/form&gt;&#x27;;
+			
+			$(&quot;#makenetwork&quot;).append(&#x27;&lt;section id=&quot;addmakenetwork&quot; &gt;&#x27; +  temporynetworkcode + &#x27;&lt;/section&gt;&#x27;);
+			$(&quot;#addnetwork&quot;).data(&quot;addnetworkstatus&quot;, &quot;inactive&quot;);
+
+		}
+		else
+		{
+			$(&quot;#makenetwork&quot;).remove();
+			$(&quot;#addnetwork&quot;).data(&quot;addnetworkstatus&quot;, &quot;active&quot;);
+
+		}	
+	
+	break;
+
+	case &quot;knowledge&quot;: 
+	// startup the knowledge tool
+	//$(&quot;#toolsactive&quot;).append(&#x27;&lt;section id=&quot;makeknowledge&quot;&gt;&lt;/section&gt;&#x27;);	
+	var startknowledgestatus = $(&quot;#knowledge&quot;).data(&quot;knowledgestatus&quot;);
+		if(startknowledgestatus == &quot;active&quot;)
+		{
+			$(&quot;#makeknowledge&quot;).show();
+			// get  HTML tool code
+		temporynetknowledgecode = &#x27;&#x27;;	
+		temporynetknowledgecode = &#x27;&lt;form id=&quot;makeknowledgeform&quot; action=&quot;#&quot; method=&quot;post&quot;&gt;&#x27;;
+		temporynetknowledgecode += &#x27;&lt;div&gt;&lt;label for=&quot;knowledgeword&quot;&gt;Word&lt;/label&gt;&lt;input type=&quot;text&quot; size=&quot;16&quot; class=&quot;text ui-widget-content ui-corner-all&quot; id=&quot;knowledgeword&quot; name=&quot;knowledgeword&quot;&gt;&lt;/div&gt;&#x27;;
+		temporynetknowledgecode += &#x27;&lt;div&gt;&lt;label for=&quot;knowledgelink&quot;&gt;Knowledge Link&lt;/label&gt;&lt;input type=&quot;text&quot; size=&quot;30&quot;  value=&quot;&quot; class=&quot;text ui-widget-content ui-corner-all&quot; id=&quot;knowledgelink&quot; name=&quot;knowledgelink&quot; &gt;&lt;/div&gt;&#x27;;
+		temporynetknowledgecode += &#x27;&lt;button type=&quot;submit&quot; class=&quot;submit&quot; id=&quot;knowledgesave&quot; &gt;Save&lt;/button&gt;&lt;/form&gt;&#x27;;
+		temporynetknowledgecode += &#x27;&lt;section id=&quot;knowledgelive&quot;&gt;&lt;/section&gt;&#x27;;
+			
+			$(&quot;#makeknowledge&quot;).html(temporynetknowledgecode);
+			$(&quot;#knowledge&quot;).data(&quot;knowledgestatus&quot;, &quot;inactive&quot;);
+			
+			// make active existing knowledge dragable- query pouch display
+			function localDatacallC(callback) {  
+				livepouch.mapQueryknowledge(callback);
+			}  
+      
+			localDatacallC(function(rtmap) {  
+
+				dragHTMLknowledgeid = &#x27;&#x27;;
+				dragHTMLknowledgeid += &#x27;&lt;ul id=&quot;dragknowledgeword&quot; class=&quot;connectedSortable&quot;&gt;&#x27;;
+		
+				rtmap.rows.forEach(function(rowkwid){
+					//pass the lane data to get html ready
+					iddstrnospace = rowkwid.key.replace(/\s+/g, &#x27;&#x27;);
+					dragHTMLknowledgeid += &#x27;&lt;li class=&quot;ui-state-default&quot; data-knowledgeword=&quot;knowledgeword&quot; id=&quot;&#x27; + iddstrnospace + &#x27;&quot; &gt;&lt;a href=&quot;&#x27; + rowkwid.value + &#x27;&quot; &gt;&#x27; + rowkwid.key + &#x27;&lt;/a&gt;&lt;/li&gt;&#x27;;
+					
+				});
+				
+				dragHTMLknowledgeid += &#x27;&lt;/ul&gt;&#x27;;
+				$(&quot;#knowledgelive&quot;).html(dragHTMLknowledgeid);
+				
+					$( &quot;#dragknowledgeword&quot; ).sortable({
+					connectWith: &quot;.connectedSortable&quot;
+					}).disableSelection();
+			});			
+			
+		}
+		else
+		{
+			$(&quot;#makeknowledge&quot;).hide();
+			$(&quot;#knowledge&quot;).data(&quot;knowledgestatus&quot;, &quot;active&quot;);
+
+		}	
+		break;
+		
+		case &quot;relationshipknowledge&quot;: 
+	// links relationships between knowledge words
+		//$(&quot;#toolsactive&quot;).html(&#x27;&lt;section id=&quot;makerelationshipknowledge&quot;&gt;&lt;/section&gt;&#x27;);
+		var startrelationshipstatus = $(&quot;#relationshipknowledge&quot;).data(&quot;relationshipknowledgestatus&quot;);
+		if(startrelationshipstatus == &quot;active&quot;)
+		{
+			$(&quot;#makerelationshipknowledge&quot;).show();
+			// get  HTML tool code
+			temporyrelationshipcode = &#x27;&#x27;;	
+			temporyrelationshipcode = &#x27;&lt;form id=&quot;templateknowledgeform&quot; action=&quot;#&quot; method=&quot;post&quot;&gt;&#x27;;
+			temporyrelationshipcode += &#x27;&lt;ul id=&quot;dragmakerelationshipknowledge&quot; class=&quot;connectedSortable&quot;&gt;&lt;/ul&gt;&#x27;;
+			temporyrelationshipcode += &#x27;&lt;ul id=&quot;listrelationshipknowledge&quot; class=&quot;connectedSortable&quot;&gt;&lt;/ul&gt;&#x27;;
+			temporyrelationshipcode += &#x27;&lt;button type=&quot;submit&quot; class=&quot;submit&quot; id=&quot;relationshipknowledgesave&quot; &gt;Save&lt;/button&gt;&lt;/form&gt;&#x27;;
+			temporyrelationshipcode += &#x27;&lt;section id=&quot;liverelationshipknowledge&quot;&gt;&lt;/section&gt;&#x27;;
+			
+			$(&quot;#makerelationshipknowledge&quot;).html(temporyrelationshipcode);
+			$( &quot;#dragmakerelationshipknowledge, #listrelationshipknowledge&quot; ).sortable({
+				connectWith: &quot;.connectedSortable&quot;
+			}).disableSelection();
+			
+			$(&quot;#relationshipknowledge&quot;).data(&quot;relationshipknowledgestatus&quot;, &quot;inactive&quot;);
+			
+		}
+		else
+		{
+			$(&quot;#makerelationshipknowledge&quot;).hide();
+			$(&quot;#relationshipknowledge&quot;).data(&quot;relationshipknowledgestatus&quot;, &quot;active&quot;);
+						
+		}
+		break;
+
+		case &quot;sync&quot;:
+	
+		break;
+			
+		case &quot;signin&quot;:
+			$(&quot;form.signin_form&quot;).show();
+		break;
+
+		case &quot;signout&quot;:
+			$(&quot;#activeself&quot;).empty();
+			window.open(liveSettings.localURL, &quot;_self&quot;);
+
+
+		case &quot;signincloser&quot;:
+			$(&quot;#signinlink&quot;).show();
+			$(&quot;#datastatus&quot;).hide();
+			$(&quot;#datamessage&quot;).html(&quot;&quot;);
+			$(&quot;#signincloser&quot;).hide();
+		break;
+			
+			case &quot;twitterin&quot;:
+			window.open(liveSettings.cloudIP+ &quot;/auth/twitter&quot;, &quot;_self&quot;);
+				
+			break;
+
+			case &quot;facebookin&quot;:
+			window.open(liveSettings.cloudIP + &quot;/auth/facebook&quot;, &quot;_self&quot;);
+				
+			break;
+			
+			case &quot;opensportproject&quot;:
+			window.open(&quot;http://www.opensportproject.org&quot;, &quot;_self&quot;);
+			
+			break;
+
+			case &quot;maketraining&quot;:
+			window.open(&quot;http://www.opensportproject.com&quot;, &quot;_blank&quot;);
+			
+			break;
+
+			case &quot;recordstopwatch&quot;:
+			window.open(&quot;http://www.opensportproject.com&quot;, &quot;_blank&quot;);
+			
+			break;
+
+			case &quot;recordvideo&quot;:
+			window.open(&quot;http://www.opensportproject.org/real-time-video/&quot;, &quot;_blank&quot;);
+			
+			break;
+			
+			case &quot;merecords-start&quot;:
+			
+				// prepare record data
+				dataModel.merecords();
+			
+			break;
+				
+			case &quot;worldrecords-start&quot;:
+			
+				// prepare record data
+				dataModel.worldrecords();
+			
+			break;				
+			
+			case &quot;logout&quot;:
+
+        var makeLogoutRequest = function(){
+
+            // Make the PUT request.
+            $.ajax({
+                type: &quot;GET&quot;,
+                url: liveSettings.cloudIP  + &quot;/logout&quot;,
+                contentType: &quot;application/json&quot;,
+                dataType: &quot;text&quot;,
+						
+						success: function( resultback ){
+
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( &quot;ERROR:&quot;, error );
+						},
+						complete: function(){
+
+						}
+			});
+
+		};
+
+			makeLogoutRequest();
+			break;
+
+	}		
+
+
+		
+};
+
+/**
+* Set token user for REST calls
+* @method setToken		
+*
+*/	
+selfLogic.prototype.setToken = function(setIDname, settokenin) {
+//console.log(&#x27;set token function&#x27; + settokenin);
+	this.idname = setIDname;
+	this.tokenid = settokenin;
+	
+};
+
+
+/**
+* Get first data from the cloud
+* @method firstDatacall		
+*
+*/	
+selfLogic.prototype.firstDatacall = function() {
+		var formdataurl = liveSettings.cloudIP + &#x27;/swimdata/&#x27; + liveLogic.idname + &#x27;/token/&#x27; + liveLogic.tokenid;
+            // Make the PUT request.
+		$.ajax({
+			type: &quot;GET&quot;,
+			url: formdataurl,
+			contentType: &quot;application/json&quot;,
+			dataType: &quot;text&quot;,
+						
+						success: function( swimmersback ){						
+							// pass on markup and add data to live data model
+							var serverdatain = JSON.parse(swimmersback);	
+
+							// does this individual have data?  If not provide links enter data or sportsBOX
+							if(serverdatain.swimdatalive ==  &quot;empty&quot;)
+							{
+								$(&quot;#messages&quot;).append(&#x27;&lt;div id=&quot;startmessage&quot; &gt;No training data found. Collect training data with the &lt;a href=&quot;&quot; id=&quot;maketraining&quot;  class=&quot;maketraining&quot; &gt;Training Builder &amp; Stopwatch&lt;/a&gt;.&lt;/div&gt;&#x27;);
+							}
+							else
+							{
+								// prepare attention flow header
+								$(&quot;#activeself&quot;).append(serverdatain.attentionflow);
+								var swimattentionin = Object.keys(serverdatain);
+								swimattentionin.forEach(function(attel) {
+								
+									$(&quot;#previousattention&quot;).append(serverdatain[attel].attentionmarkup);
+									// add the split data to data class
+									dataModel.setDatain(attel, serverdatain[attel].splitdata);								
+									dataModel.setKnowledgein(attel, serverdatain[attel].knowledgechain);
+
+								});
+								// set the active identity number
+								$(&quot;#wearable-form li input#bluetoothtag&quot;).val(serverdatain.idnumbers);
+							}
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( &quot;ERROR:&quot;, error );
+						},
+						complete: function(){
+
+						}
+			});
+			
+};
+
+/**
+* Get second data from the cloud
+* @method secondDatacall		
+*
+*/	
+selfLogic.prototype.secondDatacall = function() {
+		var formdataurlb = liveSettings.cloudIP + &#x27;/racedata/&#x27; + liveLogic.idname + &#x27;/token/&#x27; + liveLogic.tokenid;
+			// Make the PUT request.
+			$.ajax({
+				type: &quot;GET&quot;,
+				url: formdataurlb,
+				contentType: &quot;application/json&quot;,
+				dataType: &quot;text&quot;,
+							
+				success: function(racesbackb){
+					// pass on markup and add data to live data model
+					var serverdatainb = JSON.parse(racesbackb);	
+					// does this individual have data?  If not provide links enter data or sportsBOX
+					if(serverdatainb.swimracedatalive ==  &quot;empty&quot;)
+					{
+						$(&quot;#messages&quot;).append(&#x27;&lt;div id=&quot;startcompare&quot; &gt;Use the Record Time &lt;a href=&quot;&quot; id=&quot;toolsstart&quot; &gt;tool&lt;/a&gt; to enter competition times.&lt;/div&gt;&#x27;);
+					}
+					else
+					{
+						var compswimattentionin = Object.keys(serverdatainb);
+						compswimattentionin.forEach(function(attelc) {
+					
+							dataModel.setCompetitiondata(attelc, serverdatainb[attelc].time);
+							dataModel.setsplitsCompetitiondata(attelc, serverdatainb[attelc].splittimes);
+							dataModel.setCompetitionKnowledge(attelc, serverdatainb[attelc].compKnowledge);
+						});
+					}	
+	
+				},
+							error: function( error ){
+							// Log any error.
+	//console.log( &quot;ERROR:&quot;, error );
+							},
+							complete: function(){
+
+							}
+				});
+
+		
+};
+
+/**
+* Get first  knowledge data from the cloud
+* @method knowledgeDatacall		
+*
+*/	
+selfLogic.prototype.knowledgeDatacall = function() {
+	
+		var formdataurl = liveSettings.cloudIP + &#x27;/knowledgetemplate/&#x27; + liveLogic.idname + &#x27;/token/&#x27; + liveLogic.tokenid;
+            // Make the PUT request.
+		$.ajax({
+			type: &quot;GET&quot;,
+			url: formdataurl,
+			contentType: &quot;application/json&quot;,
+			dataType: &quot;text&quot;,
+						
+						success: function( knowledgeback ){					
+							// pass on markup and add data to live data model
+							var serverdatain = JSON.parse(knowledgeback);	
+							// does this individual have data?  If not provide links enter data or sportsBOX
+							if(serverdatain.swimknowledgedatalive ==  &quot;empty&quot;)
+							{
+								$(&quot;#messages&quot;).append(&#x27;&lt;div id=&quot;startknowledge&quot; &gt;No knowledge is available for that sport.&lt;/div&gt;&#x27;);
+							}
+							else
+							{
+								// prepare knowledge for client datamodel
+								//var swimKattentionin = Object.keys(serverdatain);
+								//serverdatain.forEach(function(Kword) {
+									dataModel.setKnowledgeWord(serverdatain[0]);
+									dataModel.setKnowledgeRelationship(serverdatain[1]);
+									dataModel.setKnowledgeRecord(serverdatain[2]);
+								//});
+							}
+						},
+						error: function( error ){
+					// Log any error.
+//console.log( &quot;ERROR:&quot;, error );
+						},
+						complete: function(){
+
+						}
+			});
+			
+};
+
+
+/**
+* make email signin check call
+* @method emailsignin		
+*
+*/	
+selfLogic.prototype.emailsignincall = function(emailin, cookiehash, passwordin) {
+
+	// Make the PUT request.
+	$.ajax({
+		type: &quot;GET&quot;,
+		url: liveSettings.cloudIP + &quot;/signinmepath/&quot; + emailin + &#x27;/&#x27; + cookieidhash + &#x27;/&#x27; + passwordin,
+		contentType: &quot;application/json&quot;,
+		dataType: &quot;text&quot;,
+		success: function( resultback ){
+
+			var acceptdetails = JSON.parse(resultback);
+
+			if(acceptdetails.signin == &#x27;passed&#x27;) {		
+					//$.cookie(&quot;traintimer&quot;, cookieidhash,  { expires: 7 });
+				$(&quot;#signinlink&quot;).hide();
+				$(&quot;form.signin_form&quot;).hide();
+				$(&quot;#signincloser&quot;).show();
+				$(&quot;#datamessage&quot;).html(&quot;a data status update message&quot;);							
+			}
+			else
+			{
+				$(&quot;#datamessage&quot;).html(&#x27;Signin Failed, please try again&#x27;);
+			}
+
+		},
+		error: function( error ){
+		// Log any error.
+//console.log( &quot;ERROR:&quot;, error );
+		},
+		complete: function(){
+
+		}
+	});
+	
+};
+
+/**
+* save data back to cloud
+* @method swimdataCloud		
+*
+*/	
+selfLogic.prototype.swimdataCloud = function(cloudsave) {
+	
+		var cloudready = JSON.stringify(cloudsave);
+	
+		var formdataurl = liveSettings.cloudIP + &#x27;/swimdatasave/&#x27; + liveLogic.idname + &#x27;/token/&#x27; + liveLogic.tokenid;
+            // Make the PUT request.
+	$.ajax({
+		type: &quot;POST&quot;,
+		url: formdataurl,
+		contentType: &quot;application/json&quot;,
+		dataType: &quot;text&quot;,
+		data: cloudready,
+					
+			success: function( saveback ){						
+				// pass on markup and add data to live data model
+				var serverdatain = JSON.parse(saveback);		
+				// does this individual have data?  If not provide links enter data or sportsBOX
+				if(serverdatain.save ==  &quot;passedrecord&quot;)
+				{
+					$(&quot;#timeformfeedback&quot;).html(&quot;&lt;div&gt;Record saved.&lt;/div&gt;&quot;);//.fadeOut(1000);
+					// empty the form
+					//check type of save and prepare analysisi
+					if(cloudsave.tooltemplate = &quot;Individualrecord-template&quot;)
+					{
+						var quickanalysiscontext = &#x27;&#x27;;
+						// provide analysis feedback message
+						// perform quick analysis
+						liveData.quickanalysisControl(cloudsave);
+						//var quickfeedbackanalysis = liveData.quickworldrecordAnalysis(quickanalysiscontext);
+				
+					}
+				}
+				else if(serverdatain.save ==  &quot;passedbt&quot;)
+				{
+					//  need to make call for data again from cloud
+					setTimeout(function() {liveLogic.firstDatacall()}, 1000);
+					$(&quot;#startmessage&quot;).remove();
+					$(&quot;#startcompare&quot;).remove();
+					
+				}
+			},
+			error: function( error ){
+		// Log any error.
+//console.log( &quot;ERROR:&quot;, error );
+			},
+			complete: function(){
+
+			}
+	});
+		
+};
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

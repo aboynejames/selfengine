@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/livedata.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/datamodel.html">datamodel</a></li>
+            
+                <li><a href="../classes/livedata.html">livedata</a></li>
+            
+                <li><a href="../classes/pouchdbSettings.html">pouchdbSettings</a></li>
+            
+                <li><a href="../classes/selfLogic.html">selfLogic</a></li>
+            
+                <li><a href="../classes/selfprediction.html">selfprediction</a></li>
+            
+                <li><a href="../classes/viewtemplates.html">viewtemplates</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src/livedata.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+* SelfEngine
+*
+* live analytics
+* @class livedata
+*
+* @package    selfengine  open source project
+* @copyright  Copyright (c) 2012 James Littlejohn
+* @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+* @version    $Id$
+*/
+var livedata = function() {
+	//console.log(&#x27;livedata started&#x27;);	
+	this.d1 = [];
+	this.k1 = {};
+	this.r1 = {};
+	this.ni1 = {};
+	this.datasort = [];
+//livepouch.allDocs(this.liveprediction);
+/*
+	this.livecontext = {};
+	this.livecontext.live = {};
+	this.livecontext.previous = {};
+		// need to gathe last loaded active attention fix and say last 4 history(make history scrollable)
+	this.livecontext.live.knowledgewords = [&#x27;Female&#x27;]; 
+	this.livecontext.live.relationshipliststart = &#x27;Worldrecord&#x27;;
+	this.livecontext.previous.statusactive = &quot;off&quot;;
+
+	this.previousattention = {};
+	this.previousattention = this.livecontext;
+		
+	// need to build live data based on active attention
+	// first capture active attention
+	// need to display first sub item from each active focus attention,(should keep track of history of attention fixes)
+	this.livedatain(this.d1, this.livecontext);
+	this.liveknowledgein(this.k1, this.livecontext);
+	this.liverelationshipsin(this.r1, this.livecontext);
+	this.livennetworkidenityin(this.ni1, this.livecontext);	
+*/		
+};
+
+
+/**
+* Controls the logic for quick analysis, individual in context of worldrecord
+* @method quickanalysisControl		
+*
+*/	
+livedata.prototype.quickanalysisControl = function(contextIn) {  
+//console.log(&#x27;set context quick analysisi control&#x27;);
+	// extract knowledge chain
+	var knowledgequick = dataModel.buildRecordknowledgeFilter(contextIn.lifedata.knowledgewords);
+//console.log(knowledgequick);
+	
+	
+	this.quickworldrecordAnalysis(knowledgequick, contextIn);
+	
+};
+
+
+/**
+* Performs quick analysis on world record times
+* @method quickworldrecordAnalysis		
+*
+*/	
+livedata.prototype.quickworldrecordAnalysis = function(wordrecordin, individualrecord) {  
+//console.log(&#x27;set context&#x27;);
+//console.log(wordrecordin);
+//console.log(individualrecord);	
+	// take individual time and compare % to current world record
+	var wordrecordtime = wordrecordin.time;
+	var individualrecordtime = individualrecord.lifedata.time;
+	var percentagerecord = ((individualrecordtime/wordrecordtime)*100) - 100;
+//console.log(&#x27;worldrecord percentage&#x27; + percentagerecord.toFixed(1));	
+	var datarec = new Date(parseInt(wordrecordin.date));
+	var datarecshort = datarec.toString();
+	
+	var quickstatement = &#x27;&lt;div id=&quot;quickanalysis&quot;&gt;Time is &#x27; + percentagerecord.toFixed(1) + &#x27;%  Slower than the World Record holder &lt;b&gt;&#x27; + wordrecordin.identity + &#x27;&lt;/b&gt; for that distance with a time of &lt;b&gt;&#x27; + viewTemplates.formatTime(wordrecordin.time) + &#x27;&lt;/b&gt; Date: &#x27; + datarecshort.substring(0,16) + &#x27;.&#x27;;// &lt;a href=&quot;&quot; id=&quot;fullcomparison&quot; &gt;Full comparison&lt;/a&gt;.&lt;/div&gt;&#x27;;
+	
+	quickstatement += &#x27;&lt;section id=&quot;merecords&quot; &gt;&lt;a href=&quot;&quot; id=&quot;merecords-start&quot; &gt;View Records&lt;/a&gt;&lt;/section&gt;&#x27;;
+	//	return quickstatement;
+	$(&quot;#timeformfeedback&quot;).append(quickstatement);
+	$(&quot;#quickanalysis section#merecords&quot;).show();
+	
+	
+};
+
+/**
+* Performs analysis on world record times
+* @method worldrecordAnalysis		
+*
+*/	
+livedata.prototype.worldrecordAnalysis = function(pouchdblive, liveprediction) {  
+//console.log(&#x27;set context&#x27;);
+	this.livepouch = pouchdblive;
+	this.liveprediction = liveprediction;
+	
+};
+	
+/**
+* Sets the attention fix and co ordinates the filtering  and HTML display code paths
+* @method setContext		
+*
+*/	
+livedata.prototype.setContext = function(attentionin) {  
+//console.log(&#x27;set context&#x27;);
+//console.log(attentionin);
+	// first check if data is from a compairson switchon or change of main active attention fix
+	if(attentionin.status == &quot;compare&quot;)
+	{
+		if(attentionin.statusactive == &quot;on&quot;)
+		{
+//console.log(&#x27;compare clicked on&#x27;);		
+		this.livecontext.previous = attentionin;
+		this.livefilter(this.livecontext); 
+		this.filternetwork(this.livecontext.live);
+		}
+		else
+		{
+//console.log(&#x27;compare clicked off&#x27;);		
+		this.livecontext.previous =  attentionin;
+		this.livefilter(this.livecontext); 
+		this.filternetwork(this.livecontext.live);
+			
+		}
+			
+	}
+	
+	else if (attentionin.status == &quot;fix&quot;) 
+	{
+//console.log(&#x27;new fix set&#x27;);		
+		//first transper current settings to previous
+		this.previousattention = this.livecontext;
+		// append attention history  need to keep track of previous in class object
+		this.attentionhistoryHTML(this.previousattention.live);	
+		
+		this.livecontext.live = attentionin;
+				// now pass on context to filter data, filter socialnetwork
+//console.log(this.livecontext);
+	this.livefilter(this.livecontext); 
+	this.filternetwork(this.livecontext.live);
+			
+	}
+	
+};
+
+/**
+* One stage serial control flow helper function
+* @method localDatacall		
+*
+*/	
+livedata.prototype.localDatacall = function(callback) {  
+
+	this.livepouch.mapQueryLIVE(callback);
+
+};  
+
+/**
+* Get all the relationship data
+* @method knowledgeDatacall		
+*
+*/	
+livedata.prototype.knowledgeDatacall = function(callback) {  
+	
+	this.livepouch.mapQueryknowledge(callback);
+
+}; 
+
+/**
+* Get all the networkidentity data
+* @method networkidentityDatacall		
+*
+*/	
+livedata.prototype.networkidentityDatacall = function(callback) {  
+	
+	this.livepouch.mapQueryname(callback);
+
+}; 
+
+/**
+* Get all the relationship data
+* @method relationshipDatacall		
+*
+*/	
+livedata.prototype.relationshipDatacall =	function(callback) {  
+	
+	this.livepouch.mapQueryknowledgelist(callback);
+
+}; 
+
+/**
+* Sort low to high helper function
+* @method sortlowtohigh		
+*
+*/	
+livedata.prototype.sortlowtohigh =	function(datatsort) {  
+//console.log(&#x27;low to high sort&#x27;);
+		this.datasort = [];
+		this.datasort = datatsort;
+		this.datasort.sort(function(a,b) {return a[0] &gt; b[0]?1:-1;});
+	return this.datasort;
+};  
+
+/**
+* Take in live data and prepare, filter, datamine ready for presentation
+* @method livedatain		
+*
+*/	
+livedata.prototype.livedatain = function(d1in, setlivecontext) {
+
+	this.localDatacall(function(rtmap) {  
+
+				rtmap.rows.forEach(function(rowliveat){
+
+					d1in.push([rowliveat.key, rowliveat.value]);
+					
+				});
+//console.log(d1in);				
+			if(d1in.length &gt; 2)
+			{
+				liveData.livefilterknowlegeword(d1in, setlivecontext.live);						
+			}
+
+			});
+	return d1in;
+};
+
+/**
+* Form object of all the knowledge words
+* @method liveknowledgein		
+*
+*/	
+livedata.prototype.liveknowledgein = function(k1in) {
+
+	this.knowledgeDatacall(function(rtmap) {  
+			//this.k1 = {};
+		rtmap.rows.forEach(function(rowliveatk){
+
+			k1in[rowliveatk.key] = rowliveatk.value;
+			
+		});
+		return k1in;
+	});
+
+};
+
+/**
+* Form object of all the networkidentity words
+* @method livennetworkidenityin		
+*
+*/	
+livedata.prototype.livennetworkidenityin = function(ni1in) {
+      
+	this.networkidentityDatacall(function(rtmap) {  
+		//this.ni1 = {};
+		rtmap.rows.forEach(function(rowliveatni){
+
+			ni1in[rowliveatni.key] = rowliveatni.value;
+			
+		});
+		return ni1in;		
+	});
+
+};
+
+/**
+* Form object of all the relationship data
+* @method liverelationshipsin
+*
+*/	
+livedata.prototype.liverelationshipsin = function(r1in, livecontextin) {
+      
+	this.relationshipDatacall(function(rtmap) {  
+		//this.r1 = {};
+		rtmap.rows.forEach(function(rowliveatr){
+
+			r1in[rowliveatr.key] = rowliveatr.value;
+			
+		});
+//console.log(r1in);
+		if(r1in)
+		{
+		liveData.relationshipfilter(r1in, livecontextin.live);
+		}
+	
+		return r1in;
+	});
+
+
+};
+
+/**
+* Filter direct on the live data (in memory) post start use
+* @method livefilterknowlegeword		
+*
+*/	
+livedata.prototype.livefilterknowlegeword = function(datauniverse, setlivecontext) {
+	var dataliveholder = {};
+	var contextlivedata = [];
+//console.log(datauniverse);	
+// start now need to be extracted to context
+	datauniverse.forEach(function(dataobj) {
+//console.log(dataobj);
+		if(dataobj[0].knowledgewords.Sex == setlivecontext.knowledgewords)
+		{
+		contextlivedata.push([parseInt(dataobj[0].date, 10), parseInt(dataobj[0].time, 10)]);
+		}
+	});
+
+	sorteddata = this.sortlowtohigh(contextlivedata);
+	// data sorted pass on to chart visualisation 
+	dataliveholder[1] = sorteddata;
+	this.startchart(dataliveholder);	
+	
+};
+
+
+/**
+* Filter direct on the live data (in memory) post start use
+* @method livefilter		
+*
+*/	
+livedata.prototype.livefilter = function(setlivecontext) {
+//console.log(&#x27;livefilter&#x27;);
+//console.log(setlivecontext);	
+	// build decision modle  one active attention or more, ie one data source on chart of more?
+	var focuscount = &#x27;&#x27;;
+	
+	var dataholder = {};
+		
+		//check if second attention fix is on or off
+		if(setlivecontext.previous.statusactive == &quot;on&quot;)
+		{
+		// how many attention context to filter data on? 
+			Object.size = function(obj) {
+				var size = 0, key;
+				for (key in obj) {
+					if (obj.hasOwnProperty(key)) size++;
+				}
+				return size;
+			};
+			// Get the size of an object
+			focuscount = Object.size(setlivecontext);
+			
+		}
+		else
+		{
+			focuscount= 1;
+		}
+
+
+	
+//console.log(focuscount);
+	if(focuscount &gt;1)
+	{
+		// collect the data foreach active focus
+//console.log(&#x27;two sets of data filter processing going on&#x27;);		
+		datainkeys = Object.keys(setlivecontext);
+//console.log(datainkeys);		
+		iin = 1;
+		datainkeys.forEach(function(attobjecttype) {
+//console.log(attobjecttype);			
+					var contextlivedata = [];
+			
+					liveData.d1.forEach(function(dataobj) {
+//console.log(dataobj);
+						if(dataobj[0].knowledgewords.Sex == setlivecontext[attobjecttype].knowledgewords[0])
+						{
+							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
+						}
+					});
+		//console.log(contextlivedata);
+					sorteddata = liveData.sortlowtohigh(contextlivedata);
+					dataholder[iin] = sorteddata;
+					iin++;
+		//		});
+				
+			});
+		
+	}
+	else
+	{
+		var contextlivedata = [];
+		var iin = 1;
+			
+					liveData.d1.forEach(function(dataobj) {
+//console.log(dataobj);
+						if(dataobj[0].knowledgewords.Sex == setlivecontext.live.knowledgewords[0])
+						{
+							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
+						}
+					});
+		//console.log(contextlivedata);
+					sorteddata = liveData.sortlowtohigh(contextlivedata);
+					dataholder[iin] = sorteddata;
+					iin++;
+		
+	}
+	
+//console.log(dataholder);
+		// bundle data in arrays and send to chart		
+	liveData.realtimechart(dataholder, setlivecontext, focuscount);
+
+
+	
+};
+
+/**
+* Filter relationships
+* @method relationshipfilter		
+*
+*/	
+livedata.prototype.relationshipfilter = function(reldatain, relationshipin) {
+//console.log(&#x27;relationship filter&#x27;);
+//console.log(reldatain);
+//console.log(relationshipin.relationshipliststart);
+	var livestartlistword = relationshipin.relationshipliststart;
+//console.log(livestartlistword);
+	var rellistout = [];
+	rellistout = reldatain[livestartlistword];
+//console.log(rellistout);	
+	
+	var relmatrix = [];
+	// now see and built other relationships
+	rellistout.forEach(function(relelement) {
+//console.log( reldatain[relelement]);		
+		if(typeof reldatain[relelement] != &#x27;undefined&#x27;)
+		{
+			relmatrix.push([relelement, reldatain[relelement]]);
+		}
+	});
+//console.log(relmatrix);	
+	// produce HTML for UI
+	this.activeattentionHTML(relmatrix);
+};
+
+
+
+/**
+*  build social network context data
+* @method filternetwork		
+*
+*/	
+livedata.prototype.filternetwork = function(networkcontext) {
+//console.log(&#x27;network filter&#x27;);
+//console.log(networkcontext);
+	var networklivedata = [];
+//console.log(liveData.ni1);	
+//console.log(liveData.d1);	
+	
+	liveData.d1.forEach(function(dataobj) {
+	
+		if(dataobj[0].networkidentity)
+				{
+//console.log(&#x27;pass first filter&#x27;);					
+					if(dataobj[0].knowledgewords.Sex ==  networkcontext.knowledgewords[0] )
+					{		
+//console.log(&#x27;second filter&#x27;);						
+						networklivedata.push(dataobj[0].networkidentity);
+					}
+				}
+//console.log(networklivedata);		
+	});
+	
+	function eliminateDuplicates(arr) {
+  var i,
+      len=arr.length,
+      out=[],
+      obj={};
+
+  for (i=0;i&lt;len;i++) {
+    obj[arr[i]]=0;
+  }
+  for (i in obj) {
+    out.push(i);
+  }
+  return out;
+}
+
+var neworkfiltered = [];
+
+neworkfiltered =eliminateDuplicates(networklivedata);
+
+	// next hook up the names to URLs
+//	console.log(liveData.ni1);	
+	
+	// pass on to create htmlcode
+		this.socialNetworkHTML(neworkfiltered);
+};
+
+/**
+*  produce starting charts past and future
+* @method startchart		
+*
+*/	
+livedata.prototype.startchart = function(di1) {
+	// live attention data (Chart)
+//console.log(&#x27;start charts&#x27;);	
+//console.log(di1);
+	var container = &quot;pastchart&quot;;
+	d1chart = di1;	
+//console.log(this.livecontext);	
+	this.chartproduction(d1chart, this.livecontext, container);
+	// now show the future chart only first time
+	liveprediction.predictionlogic(d1chart,1, this.livecontext);
+
+};
+
+/**
+*  produce ongoing charts past and future
+* @method realtimechart		
+*
+*/	
+livedata.prototype.realtimechart = function(di1, contextin, itemcount) {
+	// live attention data (Chart)
+//console.log(&#x27;start realtime charts&#x27;);	
+//console.log(di1.length);
+	var container = &quot;pastchart&quot;;
+d1chart = di1;
+	// discover how many data arrray elements are in &#x27;live&#x27; comparison status?
+	dataelements = itemcount;
+	
+	liveData.chartproduction(d1chart, contextin, container, dataelements);
+
+	// now show the future chart only first time
+			liveprediction.predictionlogic(d1chart,dataelements, contextin);
+
+};
+
+/**
+* chart production
+* @method chartprojection		
+*
+*/	
+livedata.prototype.chartproduction = function(chartdatain, chartcontext, chartlocation, dataelements) {
+// regression line co ordinates
+console.log(&#x27;start of chart production&#x27;);	
+	d2chart = {};
+	d2chart = chartdatain;
+	contexttitle = chartcontext.live;
+console.log(chartcontext.live);
+	var chartlabel = &#x27;World Records 100m Freestyle &#x27; + contexttitle.knowledgewords[0];
+console.log(d2chart);
+	var locationcontainer = chartlocation;	
+	
+	// look at how many data elements and prepare for appropriate charting
+	nochartdatasources = Object.keys(chartdatain).length;
+console.log(nochartdatasources);	
+	if(nochartdatasources == 1 )
+	{
+		(function basic(locationcontainer, d2chart) {
+//console.log(&#x27;past char draw SINGLE&#x27;);
+
+						// Draw Graph
+							graph = Flotr.draw(locationcontainer, [
+
+					{
+						data: d2chart[1],
+						label: chartlabel,
+						lines: {
+            show: true
+						},
+						points: {
+							show: true
+						}
+					}],
+					{
+								xaxis: {
+										//majorTickFreq: 1
+									mode: &#x27;time&#x27;,
+									timeUnit:&#x27;millisecond&#x27;,
+									timeformat: &quot;%m/%d/%y&quot;,
+									labelsAngle: 45
+								},
+								grid: {
+										//minorVerticalLines: true
+								},
+								yaxis: {
+									//mode: &#x27;time&#x27;,
+									//timeUnit:&#x27;millisecond&#x27;,
+									//timeformat: &quot;%S&quot;,
+									min: 40000,
+									max: 90000
+								},
+								//title: &#x27;Times&#x27;
+						});
+						
+//console.log(graph);		
+		
+						})(document.getElementById(locationcontainer), d2chart);
+		
+	}
+	else if(nochartdatasources == 2)
+	{
+(function basic(locationcontainer, d2chart) {
+//console.log(&#x27;past chard draw DOUBLE&#x27;);
+//console.log(d2chart);
+						// Draw Graph
+							graph = Flotr.draw(locationcontainer, [d2chart[1], d2chart[2] ],
+					{
+								xaxis: {
+										//majorTickFreq: 1
+									mode: &#x27;time&#x27;,
+									timeUnit:&#x27;millisecond&#x27;,
+									timeformat: &quot;%m/%d/%y&quot;,
+									labelsAngle: 45
+								},
+								grid: {
+										//minorVerticalLines: true
+								},
+								yaxis: {
+									//mode: &#x27;time&#x27;,
+									//timeUnit:&#x27;millisecond&#x27;,
+									//timeformat: &quot;%S&quot;,
+									min: 40000,
+									max: 90000
+								},
+								//title: &#x27;Times&#x27;
+						});
+						
+//console.log(graph);		
+		
+						})(document.getElementById(locationcontainer), d2chart);
+	}
+	
+};
+
+
+/**
+* active attention HTML UI code
+* @method activeattentionHTML
+*
+*/	
+livedata.prototype.activeattentionHTML = function(attentionfixlive) {
+//console.log(&#x27;build active attention code&#x27;);
+//console.log(attentionfixlive);	
+	HTMLattentionfix = &#x27;&#x27;;
+	//HTMLattentionfix +=&#x27;&lt;ul id=&quot;dragselfnow&quot; class=&quot;connectedSortable&quot;&gt;&lt;/ul&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;div id=&quot;attentionfix&quot;&gt;&#x27;;
+	
+	HTMLattentionfix += &#x27;&lt;li id=&quot;Sport&quot; class=&quot;fixgroup&quot; data-attentionfixttitle=&quot;inactive&quot;&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;ul id=&quot;socialnetwork&quot; class=&quot;active-sub&quot;&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;li id=&quot;WorldRecord&quot; class=&quot;focuselement&quot; data-knowledgeword=&quot;knowledgeword&quot; style=&quot;&quot;&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;a id=&quot;WorldRecord&quot; class=&quot;selected&quot; href=&quot;&quot;&gt;WorldRecord&lt;/a&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;/ul&gt;&#x27;;
+	HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;
+
+	attentionfixlive.forEach(function(grouptitle){
+		//pass the lane data to get html ready
+//console.log(grouptitle[1]);		
+		HTMLattentionfix += &#x27;&lt;li class=&quot;fixgroup&quot; id=&quot;&#x27; + grouptitle[0] + &#x27;&quot; data-attentionfixttitle=&quot;inactive&quot; &gt;&#x27;;
+		
+		HTMLattentionfix += &#x27;&lt;a href=&quot;&quot; id=&quot;&#x27; + grouptitle[0] + &#x27;&quot;  class=&quot;fixgrouptitle&quot; data-knowledgeword=&quot;knowledgeword&quot; style=&quot;&quot;&gt; &#x27; + grouptitle[0] + &#x27;&lt;/a&gt;&#x27;;
+
+		HTMLattentionfix += &#x27;&lt;ul class=&quot;active-sub&quot; id=&quot;&#x27; + grouptitle[0] + &#x27;&quot; &gt;&#x27;;
+		var countelements = 1;
+		grouptitle[1].forEach(function(listelement){
+			// make first element class selectedof empty
+			if(countelements == 1)
+			{			
+				HTMLattentionfix += &#x27;&lt;li id=&quot;&#x27; + listelement + &#x27;&quot; class=&quot;focuselement&quot; style=&quot;&quot; data-knowledgeword=&quot;knowledgeword&quot;&gt;&#x27;;
+				HTMLattentionfix += &#x27;&lt;a href=&quot;&quot; id=&quot;&#x27; + listelement + &#x27;&quot; class=&quot;selected&quot; &gt;&#x27; + listelement + &#x27;&lt;/a&gt;&#x27;;
+				HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;		
+				countelements++;
+			}
+			else
+			{
+				HTMLattentionfix += &#x27;&lt;li id=&quot;&#x27; + listelement + &#x27;&quot; class=&quot;focuselement&quot; style=&quot;&quot; data-knowledgeword=&quot;knowledgeword&quot;&gt;&#x27;;
+				HTMLattentionfix += &#x27;&lt;a href=&quot;&quot; id=&quot;&#x27; + listelement + &#x27;&quot; class=&quot;selectedoff&quot; &gt;&#x27; + listelement + &#x27;&lt;/a&gt;&#x27;;
+				HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;		
+			}
+		});
+
+	HTMLattentionfix += &#x27;&lt;/ul&gt;&#x27;;	
+	HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;	
+
+		
+	});
+
+	/*
+			HTMLattentionfix += &#x27;&lt;li  class=&quot;fixgroup&quot;&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;ul id=&quot;visualisation&quot; class=&quot;active-sub&quot;&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;li id=&quot;Chart&quot; class=&quot;focuselement&quot; data-knowledgeword=&quot;knowledgeword&quot; style=&quot;&quot;&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;a id=&quot;Chart&quot; class=&quot;selected&quot; href=&quot;&quot;&gt;Chart&lt;/a&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;li id=&quot;Table&quot; class=&quot;focuselement&quot; data-knowledgeword=&quot;knowledgeword&quot; style=&quot;&quot;&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;li id=&quot;Splits Matrix&quot; class=&quot;focuselement&quot; data-knowledgeword=&quot;knowledgeword&quot; style=&quot;&quot;&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;/ul&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;/ul&gt;&#x27;;
+			HTMLattentionfix += &#x27;&lt;/li&gt;&#x27;;
+	*/
+	HTMLattentionfix += &#x27;&lt;/div&gt;&#x27;;	
+	HTMLattentionfix += &#x27;&lt;section id=&quot;attentionhistory&quot;&gt;Attention History&lt;/section&gt;&#x27;;	
+
+	$(&quot;#activeself&quot;).html(HTMLattentionfix);
+	
+};
+	
+/**
+* attention history HTML UI code
+* @method attentionhistoryHTML
+*
+*/	
+livedata.prototype.attentionhistoryHTML = function(attentionprevious) {
+//console.log(&#x27;attention history code HTML&#x27;);
+//console.log(attentionprevious);	
+	var HTMLatthistory = &#x27;&#x27;;
+	
+//	HTMLatthistory += &#x27;&lt;ul&gt;&#x27;;
+	HTMLatthistory += &#x27;&lt;li id=&quot;&#x27; + attentionprevious.knowledgewords[0] + &#x27;&quot; class=&quot;twoattention&quot;&gt;&lt;a href=&quot;&quot; id=&quot;alsoactive&quot; class=&quot;&quot;&gt;off&lt;/a&gt;&#x27; + attentionprevious.knowledgewords[0] + &#x27;&lt;/li&gt;&#x27;;
+//	HTMLatthistory += &#x27;&lt;/ul&gt;&#x27;;	
+	
+		$(&quot;#attentionhistory ul&quot;).html(HTMLatthistory);
+	
+};
+
+/**
+* social network HTML UI code
+* @method socialNetworkHTML
+*
+*/	
+livedata.prototype.socialNetworkHTML = function(socialdatain) {
+//console.log(&#x27;produce the in context social network&#x27;);
+
+	dragHTMLnetworkid = &#x27;&#x27;;
+	dragHTMLnetworkid += &#x27;&lt;ul id=&quot;dragnetworkidentity&quot; class=&quot;connectedSortable&quot;&gt;&#x27;;
+
+		socialdatain.forEach(function(indivpeeps){
+		//pass the lane data to get html ready
+			idstrnospace = indivpeeps;//.replace(/\s+/g, &#x27;&#x27;);
+			dragHTMLnetworkid += &#x27;&lt;li class=&quot;ui-state-default&quot; data-networkidentity=&quot;networkidentity&quot; id=&quot;&#x27; + indivpeeps + &#x27;&quot; &gt;&lt;a href=&quot;&#x27; +indivpeeps + &#x27;&quot; &gt;&#x27; + indivpeeps + &#x27;&lt;/a&gt;&lt;/li&gt;&#x27;;
+
+			});
+
+		dragHTMLnetworkid += &#x27;&lt;/ul&gt;&#x27;;
+		
+		$(&quot;#activenetwork&quot;).html(dragHTMLnetworkid);
+		$( &quot;#dragnetworkidentity&quot; ).sortable({
+		connectWith: &quot;.connectedSortable&quot;
+		}).disableSelection();
+
+};
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

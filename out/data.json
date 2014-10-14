@@ -1,0 +1,3832 @@
+{
+    "project": {},
+    "files": {
+        "src/js/flotr2.min.js": {
+            "name": "src/js/flotr2.min.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/datamodel.js": {
+            "name": "src/datamodel.js",
+            "modules": {},
+            "classes": {
+                "datamodel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/livedata.js": {
+            "name": "src/livedata.js",
+            "modules": {},
+            "classes": {
+                "livedata": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/pouchdbutility.js": {
+            "name": "src/pouchdbutility.js",
+            "modules": {},
+            "classes": {
+                "pouchdbSettings": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/prediction.js": {
+            "name": "src/prediction.js",
+            "modules": {},
+            "classes": {
+                "selfprediction": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/selflogic.js": {
+            "name": "src/selflogic.js",
+            "modules": {},
+            "classes": {
+                "selfLogic": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/socket.io.js": {
+            "name": "src/socket.io.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/start.js": {
+            "name": "src/start.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/viewtemplates.js": {
+            "name": "src/viewtemplates.js",
+            "modules": {},
+            "classes": {
+                "viewtemplates": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "datamodel": {
+            "name": "datamodel",
+            "shortname": "datamodel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/datamodel.js",
+            "line": 1,
+            "description": "SelfEngine\n\ndata held in memory ready for visualisation and analysis",
+            "package": "selfengine  open source project",
+            "copyright": "Copyright (c) 2012 James Littlejohn",
+            "license": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+            "version": "$Id$"
+        },
+        "livedata": {
+            "name": "livedata",
+            "shortname": "livedata",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/livedata.js",
+            "line": 1,
+            "description": "SelfEngine\n\nlive analytics",
+            "package": "selfengine  open source project",
+            "copyright": "Copyright (c) 2012 James Littlejohn",
+            "license": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+            "version": "$Id$"
+        },
+        "pouchdbSettings": {
+            "name": "pouchdbSettings",
+            "shortname": "pouchdbSettings",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/pouchdbutility.js",
+            "line": 13,
+            "description": "pouchdb utility class"
+        },
+        "selfprediction": {
+            "name": "selfprediction",
+            "shortname": "selfprediction",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/prediction.js",
+            "line": 1,
+            "description": "SelfEngine\n\nprediction analystics",
+            "package": "selfengine  open source project",
+            "copyright": "Copyright (c) 2012 James Littlejohn",
+            "license": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+            "version": "$Id$"
+        },
+        "selfLogic": {
+            "name": "selfLogic",
+            "shortname": "selfLogic",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/selflogic.js",
+            "line": 1,
+            "description": "SelfEngine\n\nFramework Logic controls",
+            "package": "LifestyleLinking part of open sport project",
+            "copyright": "Copyright (c) 2012 James Littlejohn",
+            "license": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+            "version": "$Id$"
+        },
+        "viewtemplates": {
+            "name": "viewtemplates",
+            "shortname": "viewtemplates",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "namespace": "",
+            "file": "src/viewtemplates.js",
+            "line": 1,
+            "description": "SelfEngine\n\nproduced html display code for UI",
+            "package": "selfengine  open source project",
+            "copyright": "Copyright (c) 2012 James Littlejohn",
+            "license": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+            "version": "$Id$"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/js/flotr2.min.js",
+            "line": 20,
+            "description": "Flotr2 (c) 2012 Carl Sutherland\nMIT License\nSpecial thanks to:\nFlotr: http://code.google.com/p/flotr/ (fork)\nFlot: https://github.com/flot/flot (original fork)",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 30,
+            "description": "Sets the data coming in from the cloud",
+            "itemtype": "method",
+            "name": "setDatain",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 48,
+            "description": "Sets knowledge chain coming in",
+            "itemtype": "method",
+            "name": "setKnowledgein",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 65,
+            "description": "Returns knowledge relationship words",
+            "itemtype": "method",
+            "name": "returnKnowledgerelationship",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 79,
+            "description": "Sets the competition knowledge data",
+            "itemtype": "method",
+            "name": "setCompetitionKnowledge",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 92,
+            "description": "Sets the competition finish time data coming in",
+            "itemtype": "method",
+            "name": "setCompetitiondata",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 105,
+            "description": "Sets the competition split data coming in",
+            "itemtype": "method",
+            "name": "setsplitsCompetitiondata",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 119,
+            "description": "Sets the knowledge words",
+            "itemtype": "method",
+            "name": "setKnowledgeWord",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 138,
+            "description": "Sets the knowledge relationships",
+            "itemtype": "method",
+            "name": "setKnowledgeRelationship",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 159,
+            "description": "Sets the knowledge relationships",
+            "itemtype": "method",
+            "name": "setKnowledgeRecord",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 183,
+            "description": "Filter relationships to build knowledge template",
+            "itemtype": "method",
+            "name": "buildknowledgeFilter",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 208,
+            "description": "Return knowledge chain item",
+            "itemtype": "method",
+            "name": "knowledgechainback",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 219,
+            "description": "Extract individual knowldge words",
+            "itemtype": "method",
+            "name": "knowledgewordsextraction",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 237,
+            "description": "Take a input knowledge chain and return other sessionids that match",
+            "itemtype": "method",
+            "name": "knowledgechainfiltering",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 271,
+            "description": "Take training knowledge chain and match with race/competition knowledge",
+            "itemtype": "method",
+            "name": "knowledgechainfilteringRace",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 346,
+            "description": "Take record knowledge chain and map to world record time(s)",
+            "itemtype": "method",
+            "name": "buildRecordknowledgeFilter",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 416,
+            "description": "Extract the final time",
+            "itemtype": "method",
+            "name": "timeFinal",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 430,
+            "description": "Extract the final RACE time",
+            "itemtype": "method",
+            "name": "racetimeFinal",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 445,
+            "description": "Takes accumulated time data and prepares for charting",
+            "itemtype": "method",
+            "name": "timeDataprep",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 466,
+            "description": "Takes accumulated time and produced splits",
+            "itemtype": "method",
+            "name": "splitDataprep",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 489,
+            "description": "Add together multiple attention element and prepares for charting",
+            "itemtype": "method",
+            "name": "accumulationDataprep",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 551,
+            "description": "produce summary statistics",
+            "itemtype": "method",
+            "name": "statisticsDataprep",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 648,
+            "description": "Takes splits and color codes for faster  slower the previous",
+            "itemtype": "method",
+            "name": "splitColorCode",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 676,
+            "description": "Find the fastest times history of competitions",
+            "itemtype": "method",
+            "name": "fastestTimes",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 716,
+            "description": "Calculate the percentage ratio of training time to race time",
+            "itemtype": "method",
+            "name": "effortCalculation",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 766,
+            "description": "Produce chart of current personal recoreds",
+            "itemtype": "method",
+            "name": "merecords",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 820,
+            "description": "manages the  preparation of fast record swim times",
+            "itemtype": "method",
+            "name": "prepareRecordtimes",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 836,
+            "description": "Produce chart of current personal recoreds",
+            "itemtype": "method",
+            "name": "worldrecords",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 890,
+            "description": "manages the  preparation of current world record swim times",
+            "itemtype": "method",
+            "name": "prepareworldRecordtimes",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/datamodel.js",
+            "line": 908,
+            "description": "chart production single attention element",
+            "itemtype": "method",
+            "name": "onelementchart",
+            "class": "datamodel"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 43,
+            "description": "Controls the logic for quick analysis, individual in context of worldrecord",
+            "itemtype": "method",
+            "name": "quickanalysisControl",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 60,
+            "description": "Performs quick analysis on world record times",
+            "itemtype": "method",
+            "name": "quickworldrecordAnalysis",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 87,
+            "description": "Performs analysis on world record times",
+            "itemtype": "method",
+            "name": "worldrecordAnalysis",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 99,
+            "description": "Sets the attention fix and co ordinates the filtering  and HTML display code paths",
+            "itemtype": "method",
+            "name": "setContext",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 146,
+            "description": "One stage serial control flow helper function",
+            "itemtype": "method",
+            "name": "localDatacall",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 157,
+            "description": "Get all the relationship data",
+            "itemtype": "method",
+            "name": "knowledgeDatacall",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 168,
+            "description": "Get all the networkidentity data",
+            "itemtype": "method",
+            "name": "networkidentityDatacall",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 179,
+            "description": "Get all the relationship data",
+            "itemtype": "method",
+            "name": "relationshipDatacall",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 190,
+            "description": "Sort low to high helper function",
+            "itemtype": "method",
+            "name": "sortlowtohigh",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 203,
+            "description": "Take in live data and prepare, filter, datamine ready for presentation",
+            "itemtype": "method",
+            "name": "livedatain",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 227,
+            "description": "Form object of all the knowledge words",
+            "itemtype": "method",
+            "name": "liveknowledgein",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 246,
+            "description": "Form object of all the networkidentity words",
+            "itemtype": "method",
+            "name": "livennetworkidenityin",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 265,
+            "description": "Form object of all the relationship data",
+            "itemtype": "method",
+            "name": "liverelationshipsin",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 291,
+            "description": "Filter direct on the live data (in memory) post start use",
+            "itemtype": "method",
+            "name": "livefilterknowlegeword",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 317,
+            "description": "Filter direct on the live data (in memory) post start use",
+            "itemtype": "method",
+            "name": "livefilter",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 407,
+            "description": "Filter relationships",
+            "itemtype": "method",
+            "name": "relationshipfilter",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 438,
+            "description": "build social network context data",
+            "itemtype": "method",
+            "name": "filternetwork",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 490,
+            "description": "produce starting charts past and future",
+            "itemtype": "method",
+            "name": "startchart",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 508,
+            "description": "produce ongoing charts past and future",
+            "itemtype": "method",
+            "name": "realtimechart",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 529,
+            "description": "chart production",
+            "itemtype": "method",
+            "name": "chartprojection",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 628,
+            "description": "active attention HTML UI code",
+            "itemtype": "method",
+            "name": "activeattentionHTML",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 699,
+            "description": "attention history HTML UI code",
+            "itemtype": "method",
+            "name": "attentionhistoryHTML",
+            "class": "livedata"
+        },
+        {
+            "file": "src/livedata.js",
+            "line": 717,
+            "description": "social network HTML UI code",
+            "itemtype": "method",
+            "name": "socialNetworkHTML",
+            "class": "livedata"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 1,
+            "description": "SelfEngine\n\nSelefEngine Pouchdb utility class",
+            "package": "Train Timer part of open sport project",
+            "copyright": "Copyright (c) 2012 James Littlejohn",
+            "license": "http://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+            "version": "$Id$",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 24,
+            "description": "create or make live pouchdb database",
+            "itemtype": "method",
+            "name": "createPouchdb",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 36,
+            "description": "save more than one documents to pouchdb",
+            "itemtype": "method",
+            "name": "bulkSave",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 49,
+            "description": "save data to a single document",
+            "itemtype": "method",
+            "name": "singleSave",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 67,
+            "description": "get list of all pouchdb documents",
+            "itemtype": "method",
+            "name": "allDocs",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 82,
+            "description": "get data on one pouchdb document",
+            "itemtype": "method",
+            "name": "getDoc",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 96,
+            "description": "Update specific document if ID provided",
+            "itemtype": "method",
+            "name": "putDoc",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 116,
+            "description": "delete one pouchdb document",
+            "itemtype": "method",
+            "name": "deleteDoc",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 129,
+            "description": "a mapquery on pouchdb documents by NAME",
+            "itemtype": "method",
+            "name": "mapQueryname",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 148,
+            "description": "a mapquery on pouchdb documents by KNOWLEDGE word",
+            "itemtype": "method",
+            "name": "mapQueryknowledge",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 167,
+            "description": "a mapquery on pouchdb documents by KNOWLEDGE LIST words",
+            "itemtype": "method",
+            "name": "mapQueryknowledgelist",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 188,
+            "description": "a mapquery on pouchdb documents by LIVE attention context",
+            "itemtype": "method",
+            "name": "mapQueryLIVE",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 209,
+            "description": "list changes on pouchdb log",
+            "itemtype": "method",
+            "name": "changeLog",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 225,
+            "description": "filter applied to pouchdb logs data",
+            "itemtype": "method",
+            "name": "filterchangeLog",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 236,
+            "description": "copy pouchdb locally or to couchdb?",
+            "itemtype": "method",
+            "name": "replicate",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/pouchdbutility.js",
+            "line": 251,
+            "description": "Delete a whole database",
+            "itemtype": "method",
+            "name": "deletePouch",
+            "class": "pouchdbSettings"
+        },
+        {
+            "file": "src/prediction.js",
+            "line": 17,
+            "description": "Figureout the number of incoming data element to process",
+            "itemtype": "method",
+            "name": "predictionlogic",
+            "class": "selfprediction"
+        },
+        {
+            "file": "src/prediction.js",
+            "line": 33,
+            "description": "Take in live data context and make prediction and charts",
+            "itemtype": "method",
+            "name": "predictionout",
+            "class": "selfprediction"
+        },
+        {
+            "file": "src/prediction.js",
+            "line": 170,
+            "description": "Holds prediction data ready for charting",
+            "itemtype": "method",
+            "name": "predictionchartdata",
+            "class": "selfprediction"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 20,
+            "description": "sets filter knowledge template",
+            "itemtype": "method",
+            "name": "knowledgeTemplate",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 31,
+            "description": "sets filter knowledge context",
+            "itemtype": "method",
+            "name": "knowledgeContext",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 42,
+            "description": "Take in clicks/input intentions",
+            "itemtype": "method",
+            "name": "frameworklogic",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 352,
+            "description": "Set token user for REST calls",
+            "itemtype": "method",
+            "name": "setToken",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 365,
+            "description": "Get first data from the cloud",
+            "itemtype": "method",
+            "name": "firstDatacall",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 416,
+            "description": "Get second data from the cloud",
+            "itemtype": "method",
+            "name": "secondDatacall",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 462,
+            "description": "Get first  knowledge data from the cloud",
+            "itemtype": "method",
+            "name": "knowledgeDatacall",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 508,
+            "description": "make email signin check call",
+            "itemtype": "method",
+            "name": "emailsignin",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/selflogic.js",
+            "line": 549,
+            "description": "save data back to cloud",
+            "itemtype": "method",
+            "name": "swimdataCloud",
+            "class": "selfLogic"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 6,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 14,
+            "description": "IO namespace.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 22,
+            "description": "Socket.IO version",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 30,
+            "description": "Protocol implemented.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 38,
+            "description": "Available transports, these will be populated with the available transports",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 46,
+            "description": "Keep track of jsonp callbacks.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 54,
+            "description": "Keep track of our io.Sockets",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 62,
+            "description": "Manages connections to hosts.",
+            "params": [
+                {
+                    "name": "uri",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "force",
+                    "description": "creation of new socket (defaults to false)",
+                    "type": "Boolean"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 108,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 116,
+            "description": "Utilities namespace.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 124,
+            "description": "Parses an URI",
+            "author": "Steven Levithan <stevenlevithan.com> (MIT license)",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 149,
+            "description": "Produces a unique url that identifies a Socket.IO connection.",
+            "params": [
+                {
+                    "name": "uri",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 176,
+            "description": "Mergest 2 query strings in to once unique query string",
+            "params": [
+                {
+                    "name": "base",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "addition",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 198,
+            "description": "Transforms a querystring in to an object",
+            "params": [
+                {
+                    "name": "qs",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 222,
+            "description": "Executes the given function when the page is loaded.\n\n    io.util.load(function () { console.log('page loaded'); });",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 241,
+            "description": "Adds an event.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 255,
+            "description": "Generates the correct `XMLHttpRequest` for regular and cross domain requests.",
+            "params": [
+                {
+                    "name": "xdomain",
+                    "description": "Create a request that can be used cross domain.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "If we can create a XMLHttpRequest.",
+                "type": "XMLHttpRequest|false"
+            },
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 282,
+            "description": "XHR based transport constructor.",
+            "is_constructor": 1,
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 289,
+            "description": "Change the internal pageLoaded value.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 299,
+            "description": "Defers a function to ensure a spinner is not displayed by the browser",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 316,
+            "description": "Merges two objects.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 341,
+            "description": "Merges prototypes from objects",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 351,
+            "description": "Shortcut for prototypical and static inheritance.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 363,
+            "description": "Checks if the given object is an Array.\n\n    io.util.isArray([]); // true\n    io.util.isArray({}); // false",
+            "params": [
+                {
+                    "name": "Object",
+                    "description": "obj"
+                }
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 377,
+            "description": "Intersects values of two arrays into a third",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 396,
+            "description": "Array indexOf compatibility.",
+            "see": [
+                "bit.ly/a5Dxa2"
+            ],
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 411,
+            "description": "Converts enumerables to array.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 426,
+            "description": "UA / engines detection namespace.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 434,
+            "description": "Whether the UA supports CORS for XHR.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 450,
+            "description": "Detect webkit.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 459,
+            "description": "Detect iPad/iPhone/iPod.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 469,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 477,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 483,
+            "description": "Event emitter constructor.",
+            "api": "public.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 491,
+            "description": "Adds a listener",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 515,
+            "description": "Adds a volatile listener.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 535,
+            "description": "Removes a listener.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 572,
+            "description": "Removes all listeners for an event.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 591,
+            "description": "Gets all listeners for a certain event.",
+            "api": "publci",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 613,
+            "description": "Emits an event.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 652,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 658,
+            "description": "Based on JSON2 (http://www.JSON.org/js.html).",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 974,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 982,
+            "description": "Parser namespace.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 990,
+            "description": "Packet types.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1006,
+            "description": "Errors reasons.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1016,
+            "description": "Errors advice.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1024,
+            "description": "Shortcuts.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1031,
+            "description": "Encodes a packet.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1099,
+            "description": "Encodes multiple messages (payload).",
+            "params": [
+                {
+                    "name": "messages",
+                    "description": "",
+                    "type": "Array"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1120,
+            "description": "Decodes a packet",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1203,
+            "description": "Decodes data payload. Detects multiple messages",
+            "return": {
+                "description": "messages",
+                "type": "Array"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1235,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1243,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1249,
+            "description": "This is the transport template for all supported transport methods.",
+            "is_constructor": 1,
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1261,
+            "description": "Apply EventEmitter mixin.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1268,
+            "description": "Indicates whether heartbeats is enabled for this transport",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1278,
+            "description": "Handles the response from the server. When a new response is received\nit will automatically update the timeout, decode the message and\nforwards the response to the onMessage function for further processing.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "Response from the server.",
+                    "type": "String"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1311,
+            "description": "Handles packets.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1337,
+            "description": "Sets close timeout",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1353,
+            "description": "Called when transport disconnects.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1366,
+            "description": "Called when transport connects",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1377,
+            "description": "Clears close timeout",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1390,
+            "description": "Clear timeouts",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1404,
+            "description": "Sends a packet",
+            "params": [
+                {
+                    "name": "packet",
+                    "description": "object.",
+                    "type": "Object"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1415,
+            "description": "Send the received heartbeat message back to server. So the server\nknows we are still connected.",
+            "params": [
+                {
+                    "name": "heartbeat",
+                    "description": "Heartbeat response from the server.",
+                    "type": "String"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1427,
+            "description": "Called when the transport opens.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1439,
+            "description": "Notifies the base when the connection with the Socket.IO server\nhas been disconnected.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1459,
+            "description": "Generates a connection url based on the Socket.IO URL Protocol.\nSee <https://github.com/learnboost/socket.io-node/> for more details.",
+            "return": {
+                "description": "Connection url",
+                "type": "String"
+            },
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1476,
+            "description": "Checks if the transport is ready to start a connection.",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "The socket instance that needs a transport",
+                    "type": "Socket"
+                },
+                {
+                    "name": "fn",
+                    "description": "The callback",
+                    "type": "Function"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1491,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1499,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1505,
+            "description": "Create a new `Socket.IO client` which can establish a persistent\nconnection with a Socket.IO enabled server.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1555,
+            "description": "Apply EventEmitter mixin.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1561,
+            "description": "Returns a namespace listener/emitter for this socket",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1579,
+            "description": "Emits the given event to the Socket and all namespaces",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1598,
+            "description": "Performs the handshake",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1663,
+            "description": "Find an available transport based on the options supplied in the constructor.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1683,
+            "description": "Connects to the server.",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "Callback.",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "io.Socket"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1758,
+            "description": "Clears and sets a new heartbeat timeout using the value given by the\nserver during the handshake.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1775,
+            "description": "Sends a message.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "packet.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "io.Socket"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1793,
+            "description": "Sets buffer state",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1809,
+            "description": "Flushes the buffer data over the wire.\nTo be invoked manually when 'manualFlush' is set to true.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1822,
+            "description": "Disconnect the established connect.",
+            "return": {
+                "description": "",
+                "type": "io.Socket"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1842,
+            "description": "Disconnects the socket with a sync XHR.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1867,
+            "description": "Check if we need to use cross domain enabled transports. Cross domain would\nbe a different port or different domain name.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1884,
+            "description": "Called upon handshake.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1902,
+            "description": "Called when the transport opens",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1912,
+            "description": "Called when the transport closes.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1923,
+            "description": "Called when the transport first opens a connection",
+            "params": [
+                {
+                    "name": "text",
+                    "description": ""
+                }
+            ],
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1933,
+            "description": "Handles an error.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1952,
+            "description": "Called when the transport disconnects.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 1979,
+            "description": "Called upon reconnection.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2067,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2075,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2081,
+            "description": "Socket namespace constructor.",
+            "is_constructor": 1,
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2097,
+            "description": "Apply EventEmitter mixin.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2103,
+            "description": "Copies emit since we override it",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2111,
+            "description": "Creates a new namespace, by proxying the request to the socket. This\nallows us to use the synax as we do on the server.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2122,
+            "description": "Sends a packet.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2135,
+            "description": "Sends a message",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2156,
+            "description": "Emits an event",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2182,
+            "description": "Disconnects the namespace",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2199,
+            "description": "Handles a packet",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2272,
+            "description": "Flag interface.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2283,
+            "description": "Send a message",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2294,
+            "description": "Emit an event",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2310,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2318,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2324,
+            "description": "The WebSocket transport uses the HTML5 WebSocket API to establish an\npersistent connection with the Socket.IO server. This transport will also\nbe inherited by the FlashSocket fallback as it provides a API compatible\npolyfill for the WebSockets.",
+            "is_constructor": 1,
+            "extends": "{io.Transport}",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2339,
+            "description": "Inherits from Transport.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2345,
+            "description": "Transport name",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2353,
+            "description": "Initializes a new `WebSocket` connection with the Socket.IO server. We attach\nall the appropriate listeners to handle the responses from the server.",
+            "return": {
+                "description": "",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2391,
+            "description": "Send a message to the Socket.IO server. The message will automatically be\nencoded in the correct message format.",
+            "return": {
+                "description": "",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2417,
+            "description": "Payload",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2430,
+            "description": "Disconnect the established `WebSocket` connection.",
+            "return": {
+                "description": "",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2442,
+            "description": "Handle the errors that `WebSocket` might be giving when we\nare attempting to connect or send messages.",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "The error.",
+                    "type": "Error"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2454,
+            "description": "Returns the appropriate scheme for the URI generation.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2463,
+            "description": "Checks if the browser has support for native `WebSockets` and that\nit's not the polyfill created for the FlashSocket transport.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2476,
+            "description": "Check if the `WebSocket` transport support cross domain communications.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2487,
+            "description": "Add the transport to your public io.transports array.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2501,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2509,
+            "description": "Expose constructor.",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2517,
+            "description": "XHR constructor",
+            "costructor": "",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2531,
+            "description": "Inherits from Transport.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2537,
+            "description": "Establish a connection",
+            "return": {
+                "description": "",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2556,
+            "description": "Check if we need to send data to the Socket.IO server, if we have data in our\nbuffer we encode it and forward it to the `post` method.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2573,
+            "description": "Send data to the Socket.IO server.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The message"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2586,
+            "description": "Posts a encoded message to the Socket.IO server.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "A encoded message.",
+                    "type": "String"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2628,
+            "description": "Disconnects the established `XHR` connection.",
+            "return": {
+                "description": "",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2640,
+            "description": "Generates a configured XHR request",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url that needs to be requested.",
+                    "type": "String"
+                },
+                {
+                    "name": "method",
+                    "description": "The method the request should use.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "XMLHttpRequest"
+            },
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2669,
+            "description": "Returns the scheme to use for the transport URLs.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2679,
+            "description": "Check if the XHR transports are supported",
+            "params": [
+                {
+                    "name": "xdomain",
+                    "description": "Check if we support cross domain requests.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2701,
+            "description": "Check if the XHR transport supports cross domain requests.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2717,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2725,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2731,
+            "description": "The HTMLFile transport creates a `forever iframe` based transport\nfor Internet Explorer. Regular forever iframe implementations will \ncontinuously trigger the browsers buzy indicators. If the forever iframe\nis created inside a `htmlfile` these indicators will not be trigged.",
+            "is_constructor": 1,
+            "extends": "{io.Transport.XHR}",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2746,
+            "description": "Inherits from XHR transport.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2752,
+            "description": "Transport name",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2760,
+            "description": "Creates a new Ac...eX `htmlfile` with a forever loading iframe\nthat can be used to listen to messages. Inside the generated\n`htmlfile` a reference will be made to the HTMLFile transport.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2793,
+            "description": "The Socket.IO server will write script tags inside the forever\niframe, this function will be used as callback for the incoming\ninformation.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The message",
+                    "type": "String"
+                },
+                {
+                    "name": "doc",
+                    "description": "Reference to the context",
+                    "type": "Document"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2811,
+            "description": "Destroy the established connection, iframe and `htmlfile`.\nAnd calls the `CollectGarbage` function of Internet Explorer\nto release the memory.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2833,
+            "description": "Disconnects the established connection.",
+            "return": {
+                "description": "Chaining.",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2845,
+            "description": "Checks if the browser supports this transport. The browser\nmust have an `Ac...eXObject` implementation.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2863,
+            "description": "Check if cross domain requests are supported.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2876,
+            "description": "Add the transport to your public io.transports array.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2889,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2897,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2903,
+            "description": "The XHR-polling transport uses long polling XHR requests to create a\n\"persistent\" connection with the server.",
+            "is_constructor": 1,
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2915,
+            "description": "Inherits from XHR transport.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2921,
+            "description": "Merge the properties from XHR transport",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2927,
+            "description": "Transport name",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2935,
+            "description": "Indicates whether heartbeats is enabled for this transport",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2945,
+            "description": "Establish a connection, for iPhone and Android this will be done once the page\nis loaded.",
+            "return": {
+                "description": "Chaining.",
+                "type": "Transport"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 2960,
+            "description": "Starts a XHR request to wait for incoming messages.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3009,
+            "description": "Handle the unclean close behavior.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3027,
+            "description": "Webkit based browsers show a infinit spinner when you start a XHR request\nbefore the browsers onload event is called so we need to defer opening of\nthe transport until the onload event is called. Wrapping the cb in our\ndefer method solve this.",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "The socket instance that needs a transport",
+                    "type": "Socket"
+                },
+                {
+                    "name": "fn",
+                    "description": "The callback",
+                    "type": "Function"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3046,
+            "description": "Add the transport to your public io.transports array.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3060,
+            "description": "socket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3067,
+            "description": "There is a way to hide the loading indicator in Firefox. If you create and\nremove a iframe it will stop showing the current loading indicator.\nUnfortunately we can't feature detect that and UA sniffing is evil.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3078,
+            "description": "Expose constructor.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3084,
+            "description": "The JSONP transport creates an persistent connection by dynamically\ninserting a script tag in the page. This script tag will receive the\ninformation of the Socket.IO server. When new information is received\nit creates a new script tag for the new data stream.",
+            "is_constructor": 1,
+            "extends": "{io.Transport.xhr-polling}",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3107,
+            "description": "Inherits from XHR polling transport.",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3113,
+            "description": "Transport name",
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3121,
+            "description": "Posts a encoded message to the Socket.IO server using an iframe.\nThe iframe is used because script tags can create POST based requests.\nThe iframe is positioned outside of the view so the user does not\nnotice it's existence.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "A encoded message.",
+                    "type": "String"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3209,
+            "description": "Creates a new JSONP poll that can be used to listen\nfor messages from the Socket.IO server.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3248,
+            "description": "Callback function for the incoming message stream from the Socket.IO server.",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The message",
+                    "type": "String"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3263,
+            "description": "The indicator hack only works after onload",
+            "params": [
+                {
+                    "name": "socket",
+                    "description": "The socket instance that needs a transport",
+                    "type": "Socket"
+                },
+                {
+                    "name": "fn",
+                    "description": "The callback",
+                    "type": "Function"
+                }
+            ],
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3280,
+            "description": "Checks if browser supports this transport.",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3291,
+            "description": "Check if cross domain requests are supported",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "api": "public",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/socket.io.js",
+            "line": 3302,
+            "description": "Add the transport to your public io.transports array.",
+            "api": "private",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/start.js",
+            "line": 1,
+            "description": "jQuery listen for clicks and interaction",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 17,
+            "itemtype": "method",
+            "name": "setView",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 26,
+            "description": "Produce summary statistics per attention fix",
+            "itemtype": "method",
+            "name": "summaryStatisticsbox",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 62,
+            "description": "Placer analysis markup",
+            "itemtype": "method",
+            "name": "analysisPlacer",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 90,
+            "description": "format a digital number string to time format presentation",
+            "itemtype": "method",
+            "name": "formatTime",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 108,
+            "description": "build digital time",
+            "itemtype": "method",
+            "name": "digitalTime",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 121,
+            "description": "validate is an integer",
+            "itemtype": "method",
+            "name": "validateInteger",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 143,
+            "description": "main attention fix UI template",
+            "itemtype": "method",
+            "name": "formatTime",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 195,
+            "description": "active attention HTML UI code",
+            "itemtype": "method",
+            "name": "knowledgeHTML",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 279,
+            "description": "active knowledge input form",
+            "itemtype": "method",
+            "name": "knowledgeTimeIn",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 351,
+            "description": "table layout of personal records",
+            "itemtype": "method",
+            "name": "recordtable",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 378,
+            "description": "table layout of world records",
+            "itemtype": "method",
+            "name": "worldrecordtable",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 405,
+            "description": "add record content line at a time",
+            "itemtype": "method",
+            "name": "recordtableFill",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 429,
+            "description": "add world record content line at a time",
+            "itemtype": "method",
+            "name": "worldrecordtableFill",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 453,
+            "description": "upate table of records",
+            "itemtype": "method",
+            "name": "recordtableUpdate",
+            "class": "viewtemplates"
+        },
+        {
+            "file": "src/viewtemplates.js",
+            "line": 470,
+            "description": "upate table of world records",
+            "itemtype": "method",
+            "name": "worldrecordtableUpdate",
+            "class": "viewtemplates"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: package",
+            "line": " src/datamodel.js:1"
+        },
+        {
+            "message": "unknown tag: copyright",
+            "line": " src/datamodel.js:1"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " src/datamodel.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src/datamodel.js:1"
+        },
+        {
+            "message": "unknown tag: package",
+            "line": " src/livedata.js:1"
+        },
+        {
+            "message": "unknown tag: copyright",
+            "line": " src/livedata.js:1"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " src/livedata.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src/livedata.js:1"
+        },
+        {
+            "message": "unknown tag: package",
+            "line": " src/pouchdbutility.js:1"
+        },
+        {
+            "message": "unknown tag: copyright",
+            "line": " src/pouchdbutility.js:1"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " src/pouchdbutility.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src/pouchdbutility.js:1"
+        },
+        {
+            "message": "unknown tag: package",
+            "line": " src/prediction.js:1"
+        },
+        {
+            "message": "unknown tag: copyright",
+            "line": " src/prediction.js:1"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " src/prediction.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src/prediction.js:1"
+        },
+        {
+            "message": "unknown tag: package",
+            "line": " src/selflogic.js:1"
+        },
+        {
+            "message": "unknown tag: copyright",
+            "line": " src/selflogic.js:1"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " src/selflogic.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src/selflogic.js:1"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:22"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:30"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:38"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:46"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:54"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:62"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:124"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:149"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:176"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:198"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:222"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:241"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:255"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:255"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:282"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:299"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:316"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:341"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:351"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:363"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:377"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:396"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:411"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:434"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:450"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:459"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:483"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:491"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:515"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:535"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:572"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:591"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:613"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1031"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1099"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1120"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1203"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1249"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1268"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1278"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1311"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1337"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1353"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1366"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1377"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1390"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1404"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1415"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1427"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1439"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:1459"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1459"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1476"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1505"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1561"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1579"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1598"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1663"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:1683"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1683"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1758"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:1775"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1775"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1793"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1809"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:1822"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1822"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1842"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:1867"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1867"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1884"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1902"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1912"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1933"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1952"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:1979"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2081"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2103"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2111"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2122"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2135"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2156"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2182"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2199"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2272"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2283"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2294"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2324"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2345"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2353"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2353"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2391"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2391"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2417"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2430"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2430"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2442"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2454"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2463"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2476"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2476"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2487"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2509"
+        },
+        {
+            "message": "unknown tag: costructor",
+            "line": " src/socket.io.js:2517"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2517"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2537"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2537"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2556"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2573"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2573"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2586"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2628"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2628"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2640"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2640"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2669"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2679"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2679"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2701"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2701"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2731"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2752"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2760"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2793"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2811"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2833"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2833"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2845"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2863"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2863"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2876"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2903"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2927"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2935"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:2945"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2945"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:2960"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3009"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3027"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3046"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3067"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3084"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3113"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3121"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3209"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3248"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3263"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3280"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src/socket.io.js:3291"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3291"
+        },
+        {
+            "message": "unknown tag: api",
+            "line": " src/socket.io.js:3302"
+        },
+        {
+            "message": "unknown tag: package",
+            "line": " src/viewtemplates.js:1"
+        },
+        {
+            "message": "unknown tag: copyright",
+            "line": " src/viewtemplates.js:1"
+        },
+        {
+            "message": "unknown tag: license",
+            "line": " src/viewtemplates.js:1"
+        },
+        {
+            "message": "unknown tag: version",
+            "line": " src/viewtemplates.js:1"
+        },
+        {
+            "message": "Missing item type\nFlotr2 (c) 2012 Carl Sutherland\nMIT License\nSpecial thanks to:\nFlotr: http://code.google.com/p/flotr/ (fork)\nFlot: https://github.com/flot/flot (original fork)",
+            "line": " src/js/flotr2.min.js:20"
+        },
+        {
+            "message": "Missing item type\nSelfEngine\n\nSelefEngine Pouchdb utility class",
+            "line": " src/pouchdbutility.js:1"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:6"
+        },
+        {
+            "message": "Missing item type\nIO namespace.",
+            "line": " src/socket.io.js:14"
+        },
+        {
+            "message": "Missing item type\nSocket.IO version",
+            "line": " src/socket.io.js:22"
+        },
+        {
+            "message": "Missing item type\nProtocol implemented.",
+            "line": " src/socket.io.js:30"
+        },
+        {
+            "message": "Missing item type\nAvailable transports, these will be populated with the available transports",
+            "line": " src/socket.io.js:38"
+        },
+        {
+            "message": "Missing item type\nKeep track of jsonp callbacks.",
+            "line": " src/socket.io.js:46"
+        },
+        {
+            "message": "Missing item type\nKeep track of our io.Sockets",
+            "line": " src/socket.io.js:54"
+        },
+        {
+            "message": "Missing item type\nManages connections to hosts.",
+            "line": " src/socket.io.js:62"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:108"
+        },
+        {
+            "message": "Missing item type\nUtilities namespace.",
+            "line": " src/socket.io.js:116"
+        },
+        {
+            "message": "Missing item type\nParses an URI",
+            "line": " src/socket.io.js:124"
+        },
+        {
+            "message": "Missing item type\nProduces a unique url that identifies a Socket.IO connection.",
+            "line": " src/socket.io.js:149"
+        },
+        {
+            "message": "Missing item type\nMergest 2 query strings in to once unique query string",
+            "line": " src/socket.io.js:176"
+        },
+        {
+            "message": "Missing item type\nTransforms a querystring in to an object",
+            "line": " src/socket.io.js:198"
+        },
+        {
+            "message": "Missing item type\nExecutes the given function when the page is loaded.\n\n    io.util.load(function () { console.log('page loaded'); });",
+            "line": " src/socket.io.js:222"
+        },
+        {
+            "message": "Missing item type\nAdds an event.",
+            "line": " src/socket.io.js:241"
+        },
+        {
+            "message": "Missing item type\nGenerates the correct `XMLHttpRequest` for regular and cross domain requests.",
+            "line": " src/socket.io.js:255"
+        },
+        {
+            "message": "Missing item type\nXHR based transport constructor.",
+            "line": " src/socket.io.js:282"
+        },
+        {
+            "message": "Missing item type\nChange the internal pageLoaded value.",
+            "line": " src/socket.io.js:289"
+        },
+        {
+            "message": "Missing item type\nDefers a function to ensure a spinner is not displayed by the browser",
+            "line": " src/socket.io.js:299"
+        },
+        {
+            "message": "Missing item type\nMerges two objects.",
+            "line": " src/socket.io.js:316"
+        },
+        {
+            "message": "Missing item type\nMerges prototypes from objects",
+            "line": " src/socket.io.js:341"
+        },
+        {
+            "message": "Missing item type\nShortcut for prototypical and static inheritance.",
+            "line": " src/socket.io.js:351"
+        },
+        {
+            "message": "Missing item type\nChecks if the given object is an Array.\n\n    io.util.isArray([]); // true\n    io.util.isArray({}); // false",
+            "line": " src/socket.io.js:363"
+        },
+        {
+            "message": "Missing item type\nIntersects values of two arrays into a third",
+            "line": " src/socket.io.js:377"
+        },
+        {
+            "message": "Missing item type\nArray indexOf compatibility.",
+            "line": " src/socket.io.js:396"
+        },
+        {
+            "message": "Missing item type\nConverts enumerables to array.",
+            "line": " src/socket.io.js:411"
+        },
+        {
+            "message": "Missing item type\nUA / engines detection namespace.",
+            "line": " src/socket.io.js:426"
+        },
+        {
+            "message": "Missing item type\nWhether the UA supports CORS for XHR.",
+            "line": " src/socket.io.js:434"
+        },
+        {
+            "message": "Missing item type\nDetect webkit.",
+            "line": " src/socket.io.js:450"
+        },
+        {
+            "message": "Missing item type\nDetect iPad/iPhone/iPod.",
+            "line": " src/socket.io.js:459"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:469"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:477"
+        },
+        {
+            "message": "Missing item type\nEvent emitter constructor.",
+            "line": " src/socket.io.js:483"
+        },
+        {
+            "message": "Missing item type\nAdds a listener",
+            "line": " src/socket.io.js:491"
+        },
+        {
+            "message": "Missing item type\nAdds a volatile listener.",
+            "line": " src/socket.io.js:515"
+        },
+        {
+            "message": "Missing item type\nRemoves a listener.",
+            "line": " src/socket.io.js:535"
+        },
+        {
+            "message": "Missing item type\nRemoves all listeners for an event.",
+            "line": " src/socket.io.js:572"
+        },
+        {
+            "message": "Missing item type\nGets all listeners for a certain event.",
+            "line": " src/socket.io.js:591"
+        },
+        {
+            "message": "Missing item type\nEmits an event.",
+            "line": " src/socket.io.js:613"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:652"
+        },
+        {
+            "message": "Missing item type\nBased on JSON2 (http://www.JSON.org/js.html).",
+            "line": " src/socket.io.js:658"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:974"
+        },
+        {
+            "message": "Missing item type\nParser namespace.",
+            "line": " src/socket.io.js:982"
+        },
+        {
+            "message": "Missing item type\nPacket types.",
+            "line": " src/socket.io.js:990"
+        },
+        {
+            "message": "Missing item type\nErrors reasons.",
+            "line": " src/socket.io.js:1006"
+        },
+        {
+            "message": "Missing item type\nErrors advice.",
+            "line": " src/socket.io.js:1016"
+        },
+        {
+            "message": "Missing item type\nShortcuts.",
+            "line": " src/socket.io.js:1024"
+        },
+        {
+            "message": "Missing item type\nEncodes a packet.",
+            "line": " src/socket.io.js:1031"
+        },
+        {
+            "message": "Missing item type\nEncodes multiple messages (payload).",
+            "line": " src/socket.io.js:1099"
+        },
+        {
+            "message": "Missing item type\nDecodes a packet",
+            "line": " src/socket.io.js:1120"
+        },
+        {
+            "message": "Missing item type\nDecodes data payload. Detects multiple messages",
+            "line": " src/socket.io.js:1203"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:1235"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:1243"
+        },
+        {
+            "message": "Missing item type\nThis is the transport template for all supported transport methods.",
+            "line": " src/socket.io.js:1249"
+        },
+        {
+            "message": "Missing item type\nApply EventEmitter mixin.",
+            "line": " src/socket.io.js:1261"
+        },
+        {
+            "message": "Missing item type\nIndicates whether heartbeats is enabled for this transport",
+            "line": " src/socket.io.js:1268"
+        },
+        {
+            "message": "Missing item type\nHandles the response from the server. When a new response is received\nit will automatically update the timeout, decode the message and\nforwards the response to the onMessage function for further processing.",
+            "line": " src/socket.io.js:1278"
+        },
+        {
+            "message": "Missing item type\nHandles packets.",
+            "line": " src/socket.io.js:1311"
+        },
+        {
+            "message": "Missing item type\nSets close timeout",
+            "line": " src/socket.io.js:1337"
+        },
+        {
+            "message": "Missing item type\nCalled when transport disconnects.",
+            "line": " src/socket.io.js:1353"
+        },
+        {
+            "message": "Missing item type\nCalled when transport connects",
+            "line": " src/socket.io.js:1366"
+        },
+        {
+            "message": "Missing item type\nClears close timeout",
+            "line": " src/socket.io.js:1377"
+        },
+        {
+            "message": "Missing item type\nClear timeouts",
+            "line": " src/socket.io.js:1390"
+        },
+        {
+            "message": "Missing item type\nSends a packet",
+            "line": " src/socket.io.js:1404"
+        },
+        {
+            "message": "Missing item type\nSend the received heartbeat message back to server. So the server\nknows we are still connected.",
+            "line": " src/socket.io.js:1415"
+        },
+        {
+            "message": "Missing item type\nCalled when the transport opens.",
+            "line": " src/socket.io.js:1427"
+        },
+        {
+            "message": "Missing item type\nNotifies the base when the connection with the Socket.IO server\nhas been disconnected.",
+            "line": " src/socket.io.js:1439"
+        },
+        {
+            "message": "Missing item type\nGenerates a connection url based on the Socket.IO URL Protocol.\nSee <https://github.com/learnboost/socket.io-node/> for more details.",
+            "line": " src/socket.io.js:1459"
+        },
+        {
+            "message": "Missing item type\nChecks if the transport is ready to start a connection.",
+            "line": " src/socket.io.js:1476"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:1491"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:1499"
+        },
+        {
+            "message": "Missing item type\nCreate a new `Socket.IO client` which can establish a persistent\nconnection with a Socket.IO enabled server.",
+            "line": " src/socket.io.js:1505"
+        },
+        {
+            "message": "Missing item type\nApply EventEmitter mixin.",
+            "line": " src/socket.io.js:1555"
+        },
+        {
+            "message": "Missing item type\nReturns a namespace listener/emitter for this socket",
+            "line": " src/socket.io.js:1561"
+        },
+        {
+            "message": "Missing item type\nEmits the given event to the Socket and all namespaces",
+            "line": " src/socket.io.js:1579"
+        },
+        {
+            "message": "Missing item type\nPerforms the handshake",
+            "line": " src/socket.io.js:1598"
+        },
+        {
+            "message": "Missing item type\nFind an available transport based on the options supplied in the constructor.",
+            "line": " src/socket.io.js:1663"
+        },
+        {
+            "message": "Missing item type\nConnects to the server.",
+            "line": " src/socket.io.js:1683"
+        },
+        {
+            "message": "Missing item type\nClears and sets a new heartbeat timeout using the value given by the\nserver during the handshake.",
+            "line": " src/socket.io.js:1758"
+        },
+        {
+            "message": "Missing item type\nSends a message.",
+            "line": " src/socket.io.js:1775"
+        },
+        {
+            "message": "Missing item type\nSets buffer state",
+            "line": " src/socket.io.js:1793"
+        },
+        {
+            "message": "Missing item type\nFlushes the buffer data over the wire.\nTo be invoked manually when 'manualFlush' is set to true.",
+            "line": " src/socket.io.js:1809"
+        },
+        {
+            "message": "Missing item type\nDisconnect the established connect.",
+            "line": " src/socket.io.js:1822"
+        },
+        {
+            "message": "Missing item type\nDisconnects the socket with a sync XHR.",
+            "line": " src/socket.io.js:1842"
+        },
+        {
+            "message": "Missing item type\nCheck if we need to use cross domain enabled transports. Cross domain would\nbe a different port or different domain name.",
+            "line": " src/socket.io.js:1867"
+        },
+        {
+            "message": "Missing item type\nCalled upon handshake.",
+            "line": " src/socket.io.js:1884"
+        },
+        {
+            "message": "Missing item type\nCalled when the transport opens",
+            "line": " src/socket.io.js:1902"
+        },
+        {
+            "message": "Missing item type\nCalled when the transport closes.",
+            "line": " src/socket.io.js:1912"
+        },
+        {
+            "message": "Missing item type\nCalled when the transport first opens a connection",
+            "line": " src/socket.io.js:1923"
+        },
+        {
+            "message": "Missing item type\nHandles an error.",
+            "line": " src/socket.io.js:1933"
+        },
+        {
+            "message": "Missing item type\nCalled when the transport disconnects.",
+            "line": " src/socket.io.js:1952"
+        },
+        {
+            "message": "Missing item type\nCalled upon reconnection.",
+            "line": " src/socket.io.js:1979"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:2067"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:2075"
+        },
+        {
+            "message": "Missing item type\nSocket namespace constructor.",
+            "line": " src/socket.io.js:2081"
+        },
+        {
+            "message": "Missing item type\nApply EventEmitter mixin.",
+            "line": " src/socket.io.js:2097"
+        },
+        {
+            "message": "Missing item type\nCopies emit since we override it",
+            "line": " src/socket.io.js:2103"
+        },
+        {
+            "message": "Missing item type\nCreates a new namespace, by proxying the request to the socket. This\nallows us to use the synax as we do on the server.",
+            "line": " src/socket.io.js:2111"
+        },
+        {
+            "message": "Missing item type\nSends a packet.",
+            "line": " src/socket.io.js:2122"
+        },
+        {
+            "message": "Missing item type\nSends a message",
+            "line": " src/socket.io.js:2135"
+        },
+        {
+            "message": "Missing item type\nEmits an event",
+            "line": " src/socket.io.js:2156"
+        },
+        {
+            "message": "Missing item type\nDisconnects the namespace",
+            "line": " src/socket.io.js:2182"
+        },
+        {
+            "message": "Missing item type\nHandles a packet",
+            "line": " src/socket.io.js:2199"
+        },
+        {
+            "message": "Missing item type\nFlag interface.",
+            "line": " src/socket.io.js:2272"
+        },
+        {
+            "message": "Missing item type\nSend a message",
+            "line": " src/socket.io.js:2283"
+        },
+        {
+            "message": "Missing item type\nEmit an event",
+            "line": " src/socket.io.js:2294"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:2310"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:2318"
+        },
+        {
+            "message": "Missing item type\nThe WebSocket transport uses the HTML5 WebSocket API to establish an\npersistent connection with the Socket.IO server. This transport will also\nbe inherited by the FlashSocket fallback as it provides a API compatible\npolyfill for the WebSockets.",
+            "line": " src/socket.io.js:2324"
+        },
+        {
+            "message": "Missing item type\nInherits from Transport.",
+            "line": " src/socket.io.js:2339"
+        },
+        {
+            "message": "Missing item type\nTransport name",
+            "line": " src/socket.io.js:2345"
+        },
+        {
+            "message": "Missing item type\nInitializes a new `WebSocket` connection with the Socket.IO server. We attach\nall the appropriate listeners to handle the responses from the server.",
+            "line": " src/socket.io.js:2353"
+        },
+        {
+            "message": "Missing item type\nSend a message to the Socket.IO server. The message will automatically be\nencoded in the correct message format.",
+            "line": " src/socket.io.js:2391"
+        },
+        {
+            "message": "Missing item type\nPayload",
+            "line": " src/socket.io.js:2417"
+        },
+        {
+            "message": "Missing item type\nDisconnect the established `WebSocket` connection.",
+            "line": " src/socket.io.js:2430"
+        },
+        {
+            "message": "Missing item type\nHandle the errors that `WebSocket` might be giving when we\nare attempting to connect or send messages.",
+            "line": " src/socket.io.js:2442"
+        },
+        {
+            "message": "Missing item type\nReturns the appropriate scheme for the URI generation.",
+            "line": " src/socket.io.js:2454"
+        },
+        {
+            "message": "Missing item type\nChecks if the browser has support for native `WebSockets` and that\nit's not the polyfill created for the FlashSocket transport.",
+            "line": " src/socket.io.js:2463"
+        },
+        {
+            "message": "Missing item type\nCheck if the `WebSocket` transport support cross domain communications.",
+            "line": " src/socket.io.js:2476"
+        },
+        {
+            "message": "Missing item type\nAdd the transport to your public io.transports array.",
+            "line": " src/socket.io.js:2487"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:2501"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:2509"
+        },
+        {
+            "message": "Missing item type\nXHR constructor",
+            "line": " src/socket.io.js:2517"
+        },
+        {
+            "message": "Missing item type\nInherits from Transport.",
+            "line": " src/socket.io.js:2531"
+        },
+        {
+            "message": "Missing item type\nEstablish a connection",
+            "line": " src/socket.io.js:2537"
+        },
+        {
+            "message": "Missing item type\nCheck if we need to send data to the Socket.IO server, if we have data in our\nbuffer we encode it and forward it to the `post` method.",
+            "line": " src/socket.io.js:2556"
+        },
+        {
+            "message": "Missing item type\nSend data to the Socket.IO server.",
+            "line": " src/socket.io.js:2573"
+        },
+        {
+            "message": "Missing item type\nPosts a encoded message to the Socket.IO server.",
+            "line": " src/socket.io.js:2586"
+        },
+        {
+            "message": "Missing item type\nDisconnects the established `XHR` connection.",
+            "line": " src/socket.io.js:2628"
+        },
+        {
+            "message": "Missing item type\nGenerates a configured XHR request",
+            "line": " src/socket.io.js:2640"
+        },
+        {
+            "message": "Missing item type\nReturns the scheme to use for the transport URLs.",
+            "line": " src/socket.io.js:2669"
+        },
+        {
+            "message": "Missing item type\nCheck if the XHR transports are supported",
+            "line": " src/socket.io.js:2679"
+        },
+        {
+            "message": "Missing item type\nCheck if the XHR transport supports cross domain requests.",
+            "line": " src/socket.io.js:2701"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:2717"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:2725"
+        },
+        {
+            "message": "Missing item type\nThe HTMLFile transport creates a `forever iframe` based transport\nfor Internet Explorer. Regular forever iframe implementations will \ncontinuously trigger the browsers buzy indicators. If the forever iframe\nis created inside a `htmlfile` these indicators will not be trigged.",
+            "line": " src/socket.io.js:2731"
+        },
+        {
+            "message": "Missing item type\nInherits from XHR transport.",
+            "line": " src/socket.io.js:2746"
+        },
+        {
+            "message": "Missing item type\nTransport name",
+            "line": " src/socket.io.js:2752"
+        },
+        {
+            "message": "Missing item type\nCreates a new Ac...eX `htmlfile` with a forever loading iframe\nthat can be used to listen to messages. Inside the generated\n`htmlfile` a reference will be made to the HTMLFile transport.",
+            "line": " src/socket.io.js:2760"
+        },
+        {
+            "message": "Missing item type\nThe Socket.IO server will write script tags inside the forever\niframe, this function will be used as callback for the incoming\ninformation.",
+            "line": " src/socket.io.js:2793"
+        },
+        {
+            "message": "Missing item type\nDestroy the established connection, iframe and `htmlfile`.\nAnd calls the `CollectGarbage` function of Internet Explorer\nto release the memory.",
+            "line": " src/socket.io.js:2811"
+        },
+        {
+            "message": "Missing item type\nDisconnects the established connection.",
+            "line": " src/socket.io.js:2833"
+        },
+        {
+            "message": "Missing item type\nChecks if the browser supports this transport. The browser\nmust have an `Ac...eXObject` implementation.",
+            "line": " src/socket.io.js:2845"
+        },
+        {
+            "message": "Missing item type\nCheck if cross domain requests are supported.",
+            "line": " src/socket.io.js:2863"
+        },
+        {
+            "message": "Missing item type\nAdd the transport to your public io.transports array.",
+            "line": " src/socket.io.js:2876"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:2889"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:2897"
+        },
+        {
+            "message": "Missing item type\nThe XHR-polling transport uses long polling XHR requests to create a\n\"persistent\" connection with the server.",
+            "line": " src/socket.io.js:2903"
+        },
+        {
+            "message": "Missing item type\nInherits from XHR transport.",
+            "line": " src/socket.io.js:2915"
+        },
+        {
+            "message": "Missing item type\nMerge the properties from XHR transport",
+            "line": " src/socket.io.js:2921"
+        },
+        {
+            "message": "Missing item type\nTransport name",
+            "line": " src/socket.io.js:2927"
+        },
+        {
+            "message": "Missing item type\nIndicates whether heartbeats is enabled for this transport",
+            "line": " src/socket.io.js:2935"
+        },
+        {
+            "message": "Missing item type\nEstablish a connection, for iPhone and Android this will be done once the page\nis loaded.",
+            "line": " src/socket.io.js:2945"
+        },
+        {
+            "message": "Missing item type\nStarts a XHR request to wait for incoming messages.",
+            "line": " src/socket.io.js:2960"
+        },
+        {
+            "message": "Missing item type\nHandle the unclean close behavior.",
+            "line": " src/socket.io.js:3009"
+        },
+        {
+            "message": "Missing item type\nWebkit based browsers show a infinit spinner when you start a XHR request\nbefore the browsers onload event is called so we need to defer opening of\nthe transport until the onload event is called. Wrapping the cb in our\ndefer method solve this.",
+            "line": " src/socket.io.js:3027"
+        },
+        {
+            "message": "Missing item type\nAdd the transport to your public io.transports array.",
+            "line": " src/socket.io.js:3046"
+        },
+        {
+            "message": "Missing item type\nsocket.io\nCopyright(c) 2011 LearnBoost <dev@learnboost.com>\nMIT Licensed",
+            "line": " src/socket.io.js:3060"
+        },
+        {
+            "message": "Missing item type\nThere is a way to hide the loading indicator in Firefox. If you create and\nremove a iframe it will stop showing the current loading indicator.\nUnfortunately we can't feature detect that and UA sniffing is evil.",
+            "line": " src/socket.io.js:3067"
+        },
+        {
+            "message": "Missing item type\nExpose constructor.",
+            "line": " src/socket.io.js:3078"
+        },
+        {
+            "message": "Missing item type\nThe JSONP transport creates an persistent connection by dynamically\ninserting a script tag in the page. This script tag will receive the\ninformation of the Socket.IO server. When new information is received\nit creates a new script tag for the new data stream.",
+            "line": " src/socket.io.js:3084"
+        },
+        {
+            "message": "Missing item type\nInherits from XHR polling transport.",
+            "line": " src/socket.io.js:3107"
+        },
+        {
+            "message": "Missing item type\nTransport name",
+            "line": " src/socket.io.js:3113"
+        },
+        {
+            "message": "Missing item type\nPosts a encoded message to the Socket.IO server using an iframe.\nThe iframe is used because script tags can create POST based requests.\nThe iframe is positioned outside of the view so the user does not\nnotice it's existence.",
+            "line": " src/socket.io.js:3121"
+        },
+        {
+            "message": "Missing item type\nCreates a new JSONP poll that can be used to listen\nfor messages from the Socket.IO server.",
+            "line": " src/socket.io.js:3209"
+        },
+        {
+            "message": "Missing item type\nCallback function for the incoming message stream from the Socket.IO server.",
+            "line": " src/socket.io.js:3248"
+        },
+        {
+            "message": "Missing item type\nThe indicator hack only works after onload",
+            "line": " src/socket.io.js:3263"
+        },
+        {
+            "message": "Missing item type\nChecks if browser supports this transport.",
+            "line": " src/socket.io.js:3280"
+        },
+        {
+            "message": "Missing item type\nCheck if cross domain requests are supported",
+            "line": " src/socket.io.js:3291"
+        },
+        {
+            "message": "Missing item type\nAdd the transport to your public io.transports array.",
+            "line": " src/socket.io.js:3302"
+        },
+        {
+            "message": "Missing item type\njQuery listen for clicks and interaction",
+            "line": " src/start.js:1"
+        }
+    ]
+}

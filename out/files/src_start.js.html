@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>src/start.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/datamodel.html">datamodel</a></li>
+            
+                <li><a href="../classes/livedata.html">livedata</a></li>
+            
+                <li><a href="../classes/pouchdbSettings.html">pouchdbSettings</a></li>
+            
+                <li><a href="../classes/selfLogic.html">selfLogic</a></li>
+            
+                <li><a href="../classes/selfprediction.html">selfprediction</a></li>
+            
+                <li><a href="../classes/viewtemplates.html">viewtemplates</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: src/start.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  jQuery listen for clicks and interaction	
+* 
+*/	
+$(document).ready(function(){
+
+	liveSettings = {};
+	liveSettings.cloudIP = &quot;http://localhost:8881&quot;; //&quot;http://192.168.1.44:8881&quot;;
+	liveSettings.localIP = &quot;http://192.168.1.44:8881&quot;;  //&quot;http://192.168.1.44:8881&quot;;	
+	liveSettings.localURL = &quot;http://localhost/ll/selfengine/src/index.html&quot;;	
+	liveLogic = new selfLogic();
+	
+//console.log($(location).attr(&#x27;search&#x27;));
+	var qs = $.param.querystring();
+	var qsobject = $.deparam(qs, true);
+
+	if(qsobject.token)
+	{
+		//liveLogic.secondDatacall();
+		// return leg of authorisation, keep 
+		liveLogic.setToken(qsobject.swimmer, qsobject.token);
+		// now ask for list of swimmers and display them
+
+		$(&quot;#welcome&quot;).remove();
+		$(&quot;#identity&quot;).css(&#x27;display&#x27;, &#x27;inline-block&#x27;);
+		$(&quot;#network&quot;).css(&#x27;display&#x27;, &#x27;inline-block&#x27;);
+		$(&quot;#tools&quot;).css(&#x27;display&#x27;, &#x27;inline-block&#x27;);
+		
+		liveLogic.firstDatacall();
+		liveLogic.secondDatacall();
+		liveLogic.knowledgeDatacall();
+		
+	}
+	else
+	{
+		// only allow public data.
+	}
+
+	$(&quot;form.signin_form&quot;).hide();
+	$(&quot;#signincloser&quot;).hide();
+
+	// make dragable UI part sortable
+	$( &quot;#dragselfnow&quot; ).sortable({
+	connectWith: &quot;.connectedSortable&quot;
+	}).disableSelection();
+
+		$(&quot;a,#testswimmers&quot;).click(function(e) {
+			e.preventDefault(e);			
+			liveLogic.frameworklogic(this);
+		});
+		
+		$(&quot;button&quot;).click(function(e) {
+			e.preventDefault(e);			
+			idform = $(this).attr(&quot;id&quot;);		
+			switch(idform){
+				
+				case&quot;signinbutton&quot;:
+					// collect signin email and password
+					var emailin = $(&quot;#signinform.signin_form ul li input#emailin&quot;).val();
+					var passwordin = $(&quot;#signinform.signin_form ul li input#passwordin&quot;).val();
+					var cookieidhash = 123123123;
+					
+					liveLogic.emailsignincall(emailin, cookieidhash, passwordin);
+				
+				break;
+				
+				case&quot;wearablebtsave&quot;:
+					// bluetooth tag ID number
+					var databtigin = $(&quot;#wearable-form li input#bluetoothtag&quot;).val();		
+					// need TODO valide it is a string of numbers
+				
+					var buildsavebt = {};
+					buildsavebt.bluetoothid = databtigin;
+					liveLogic.swimdataCloud(buildsavebt);
+
+				
+				break;
+			}
+		});		
+
+	$(&quot;#livedata&quot;).click(function(e) {
+		e.preventDefault(e);
+		
+		var attentionfocusin = $(e.target);	
+		var attentionfixall = {};
+		// first time live attention set at start
+		// need to see what context attention action e.g. select new group element or switch on comparison
+		var attentionclick = attentionfocusin.parent().attr(&#x27;class&#x27;);
+		var attentionidlive = attentionfocusin.attr(&#x27;id&#x27;);	
+
+/*
+		switch(attentionclick){
+			
+			case &quot;twoattention&quot;:
+			
+				var secondfix = &#x27;&#x27;;
+				// is the click for alsoactive or unactive
+				var secondactive = attentionfocusin.attr(&#x27;id&#x27;);
+				if(secondactive == &quot;alsoactive&quot;)
+				{
+					// collect the comparison attention fix of elements
+					secondfix = attentionfocusin.parent().attr(&#x27;id&#x27;);
+					attentionfixall.knowledgewords = [secondfix];
+									
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#alsoactive&quot;).text(&quot;on&quot;);
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#alsoactive&quot;).attr(&#x27;id&#x27;, &quot;unactive&quot;);
+					attentionfixall.status = &quot;compare&quot;;	
+					attentionfixall.statusactive = &quot;on&quot;;	
+					liveData.setContext(attentionfixall);
+				}
+				else if (secondactive == &quot;unactive&quot;)
+				{			
+					secondfix = attentionfocusin.parent().attr(&#x27;id&#x27;);						
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#unactive&quot;).text(&quot;off&quot;);
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#unactive&quot;).attr(&#x27;id&#x27;, &quot;alsoactive&quot;);
+					// need to remove the second data element
+						attentionfixall.status = &quot;compare&quot;;	
+						attentionfixall.statusactive = &quot;off&quot;;	
+						liveData.setContext(attentionfixall);
+					
+				}
+			break;
+			
+			case &quot;focuselement&quot;:
+
+				var liveattentionclick = attentionfocusin.attr(&#x27;id&#x27;);
+				// given active element click, show title and other options extract  attentiongroup and sub elements
+				var changeattention = attentionfocusin.parent().attr(&#x27;class&#x27;);
+				var groupactive = attentionfocusin.parent().parent().attr(&#x27;id&#x27;);
+				var groupelementlist = attentionfocusin.parent().parent().children(); // easier just to look up form array relationhip data
+
+				var activetitle = $(&quot;#&quot; + groupactive + &quot;.fixgroup&quot;).data(&quot;attentionfixttitle&quot;);
+				// click to view other group element or to close open grouplist
+				if(activetitle == &#x27;active&#x27;)
+				{
+				$(&quot;#&quot; + groupactive + &quot;.fixgroup&quot;).data(&quot;attentionfixttitle&quot;, &#x27;inactive&#x27;);
+				$(&quot;#&quot; + groupactive + &quot;.fixgrouptitle&quot;).hide();
+				// now need to remove list but keep the one active element
+				$(&quot;#&quot; + groupactive + &quot;.active-sub li.focuselement&quot;).hide();
+				$(&quot;.focuselement a#&quot; + liveattentionclick).removeClass(&quot;selectedoff&quot;);
+				$(&quot;.focuselement a#&quot; + liveattentionclick).addClass(&quot;selected&quot;);
+				$(&quot;#&quot; + groupactive + &quot;.active-sub li#&quot; + liveattentionclick + &quot;.focuselement&quot;).show();
+				//next pass on new setting to datalive chartproduction
+				attentionfixall.status = &quot;fix&quot;;	
+				attentionfixall.knowledgewords = [liveattentionclick];
+
+					// go start the filtering and production of the data / charts
+					liveData.setContext(attentionfixall);
+							
+				}
+				else if (changeattention == &#x27;focuselement&#x27;)
+				{
+					// is the element selected the same or changed
+						$(&quot;#&quot; + groupactive + &quot;.fixgrouptitle&quot;).show();
+						$(&quot;#&quot; + groupactive + &quot;.active-sub li.focuselement&quot;).show();
+						$(&quot;#&quot; + groupactive + &quot;.active-sub .selectedoff&quot;).show();
+						// set group as being active
+						$(&quot;#&quot; + groupactive + &quot;.fixgroup&quot;).data(&quot;attentionfixttitle&quot;, &#x27;active&#x27;);
+				}
+			break;
+		}
+		
+*/			
+		if(attentionidlive == &#x27;maketraining&#x27; )
+		{
+	
+			window.open(&quot;http://www.opensportproject.com&quot;, &quot;_blank&quot;);
+		}
+		else if(attentionidlive == &#x27;toolsstart&#x27; )
+		{	
+			// make live section
+			var toolsstatus = $(&quot;#tools&quot;).data(&quot;toolsstatus&quot;);
+			if(toolsstatus == &quot;on&quot;)
+			{
+				$(&quot;#toolsflow&quot;).show();
+				$(&quot;#tools&quot;).css(&#x27;background&#x27;, &#x27;#009900&#x27;);
+				$(&quot;#tools&quot;).data(&quot;toolsstatus&quot;, &quot;off&quot;);
+			}
+			else
+			{
+				$(&quot;#toolsflow&quot;).hide();
+				$(&quot;#tools&quot;).css(&#x27;background&#x27;, &#x27;#ffffff&#x27;);
+				$(&quot;#tools&quot;).data(&quot;toolsstatus&quot;, &quot;on&quot;);
+			}
+		}
+
+	});	
+
+	$(&quot;#makerecordtime&quot;).click(function(e) {
+//console.log(&#x27;make recrod time&#x27;);		
+		e.preventDefault(e);
+		var attentionfocusin = $(e.target);	
+		var attentionfixall = {};
+		// first time live attention set at start
+		// need to see what context attention action e.g. select new group element or switch on comparison
+		var attentionclick = attentionfocusin.parent().attr(&#x27;class&#x27;);
+		var attentionclicktime = attentionfocusin.attr(&#x27;id&#x27;);
+			
+		switch(attentionclick){
+			
+			case &quot;twoattention&quot;:
+			
+				var secondfix = &#x27;&#x27;;
+				// is the click for alsoactive or unactive
+				var secondactive = attentionfocusin.attr(&#x27;id&#x27;);
+				if(secondactive == &quot;alsoactive&quot;)
+				{
+					// collect the comparison attention fix of elements
+					secondfix = attentionfocusin.parent().attr(&#x27;id&#x27;);
+					attentionfixall.knowledgewords = [secondfix];
+									
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#alsoactive&quot;).text(&quot;on&quot;);
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#alsoactive&quot;).attr(&#x27;id&#x27;, &quot;unactive&quot;);
+					attentionfixall.status = &quot;compare&quot;;	
+					attentionfixall.statusactive = &quot;on&quot;;	
+					liveData.setContext(attentionfixall);
+				}
+				else if (secondactive == &quot;unactive&quot;)
+				{			
+					secondfix = attentionfocusin.parent().attr(&#x27;id&#x27;);						
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#unactive&quot;).text(&quot;off&quot;);
+					$(&quot;#previousattention li#&quot; + secondfix + &quot;.twoattention a#unactive&quot;).attr(&#x27;id&#x27;, &quot;alsoactive&quot;);
+					// need to remove the second data element
+					attentionfixall.status = &quot;compare&quot;;	
+					attentionfixall.statusactive = &quot;off&quot;;	
+					liveData.setContext(attentionfixall);
+					
+				}
+			break;
+			
+			case &quot;focuselement&quot;:
+
+				var liveattentionclick = attentionfocusin.attr(&#x27;id&#x27;);
+				// given active element click, show title and other options extract  attentiongroup and sub elements
+				var changeattention = attentionfocusin.parent().attr(&#x27;class&#x27;);
+				var groupactive = attentionfocusin.parent().parent().attr(&#x27;id&#x27;);		
+				var groupelementlist = attentionfocusin.parent().parent().children(); // easier just to look up form array relationhip data
+				var activetitle = $(&quot;#&quot; + groupactive + &quot;.fixgroup&quot;).data(&quot;attentionfixttitle&quot;);
+				// click to view other group element or to close open grouplist
+				if(activetitle == &#x27;active&#x27;)
+				{
+					$(&quot;#&quot; + groupactive + &quot;.fixgroup&quot;).data(&quot;attentionfixttitle&quot;, &#x27;inactive&#x27;);
+					//$(&quot;#&quot; + groupactive + &quot;.fixgrouptitle&quot;).hide();
+					// now need to remove list but keep the one active element
+					$(&quot;#&quot; + groupactive + &quot;.active-sub li.focuselement&quot;).hide();
+					var ainttostring = liveattentionclick.toString();
+					
+					$(&quot;.focuselement a#&quot; + ainttostring).removeClass(&quot;selectedoff&quot;);
+					$(&quot;.focuselement a#&quot; + ainttostring).addClass(&quot;selected&quot;);
+					$(&quot;#&quot; + groupactive + &quot;.active-sub li#&quot; + liveattentionclick + &quot;.focuselement&quot;).show();
+
+					if(groupactive == &quot;Distance&quot;)
+					{
+						// the current selected focus element needs set to selectedoff
+						var groupoptions = {};
+						groupoptions = Object.create(dataModel.returnKnowledgerelationship(groupactive));  
+						// remove the first n for number ids
+						var removefirstn = liveattentionclick.substring(1);
+				
+						// remove the active element and  make all other option de-selected
+						var groupindex = groupoptions.indexOf(removefirstn);
+						groupoptions.splice(groupindex, 1)
+						groupoptions.forEach(function(deselectw) {	
+							
+							$(&quot;.focuselement a#n&quot; + deselectw).removeClass(&quot;selected&quot;);
+							$(&quot;.focuselement a#n&quot; + deselectw).addClass(&quot;selectedoff&quot;);
+						});
+					}
+					else
+					{
+						
+						// the current selected focus element needs set to selectedoff
+						var groupoptions = {};
+						groupoptions = Object.create(dataModel.returnKnowledgerelationship(groupactive));  					
+						// remove the active element and  make all other option de-selected
+						var groupindex = groupoptions.indexOf(liveattentionclick);
+						groupoptions.splice(groupindex, 1)
+
+						groupoptions.forEach(function(deselectw) {	
+
+							$(&quot;.focuselement a#&quot; + deselectw).removeClass(&quot;selected&quot;);
+							$(&quot;.focuselement a#&quot; + deselectw).addClass(&quot;selectedoff&quot;);
+
+						});						
+					}
+				}
+				else if (changeattention == &#x27;focuselement&#x27;)
+				{
+					// is the element selected the same or changed
+					//$(&quot;#&quot; + groupactive + &quot;.fixgrouptitle&quot;).show();
+					$(&quot;#&quot; + groupactive + &quot;.active-sub li.focuselement&quot;).show();
+					$(&quot;#&quot; + groupactive + &quot;.active-sub .selectedoff&quot;).show();
+					// set group as being active
+					$(&quot;#&quot; + groupactive + &quot;.fixgroup&quot;).data(&quot;attentionfixttitle&quot;, &#x27;active&#x27;);
+				}
+			break;
+
+		}	
+		
+
+		if(attentionclicktime == &quot;recordtimesave&quot; )
+		{
+			//case &quot;hourholder&quot;:
+			var timefeedback = &#x27;&#x27;;
+			var recordtimein = {};
+			var recordholder = {};	
+			recordholder[&#x27;lifedata&#x27;] = {};
+			recordholder[&#x27;tooltemplate&#x27;] = &quot;Individualrecord-template&quot;; //&quot;Worldrecord-template&quot;; 
+			recordtimein[&#x27;networkidentity&#x27;] = liveLogic.idname;				
+			recordtimein.knowledgewords = {};
+			var whatsselected = &#x27;&#x27;;				
+			// knowledge context of swim
+			var gettherecordcontext = dataModel.knowledgeRelationship.individualrecord;
+
+			// now get values for each list box   #attentionfix li#Sex.fixgroup ul#Sex.active-sub
+			gettherecordcontext.forEach(function(listdropname){
+				// need to iterate over the options and find which one is selected.
+				var optiontofindselected = $(&quot;#attentionfix li#&quot; + listdropname + &quot;.fixgroup ul#&quot; + listdropname + &quot;.active-sub&quot;).children().children();
+				var numberkoptions = optiontofindselected.length;
+				
+				for(var i=0;i&lt;numberkoptions;i++)
+				{					
+					if($(optiontofindselected[i]).attr(&#x27;class&#x27;) == &quot;selected&quot;)
+					{					
+						// selected options
+						whatsselected = $(optiontofindselected[i]).attr(&#x27;id&#x27;);//$(&quot;#attentionfix li#&quot; + listdropname + &quot;.fixgroup ul#&quot; + listdropname + 						
+						//recordtimein.knowledgewords[listdropname] = whatsselected;
+						if(listdropname == &quot;Distance&quot;)
+						{
+							recordtimein.knowledgewords[listdropname] = whatsselected.substring(1);
+						}
+						else
+						{
+							recordtimein.knowledgewords[listdropname] = whatsselected;
+						}					
+					}
+				}
+				
+			});		
+			
+			// validate the caldendar date
+			var racedate = $(&quot;#datepicker&quot;).datepicker( &quot;getDate&quot; );
+			if(!racedate)
+			{
+				// no date selected prompt to select
+				timefeedback += &#x27;Please select a date &#x27;;
+			}
+			else
+			{
+				var passdate = 1;	
+			}
+			var racedatemilliseconds = Date.parse(racedate);
+			recordtimein.date = racedatemilliseconds;	
+			// need to validte date has been selected
+			
+				/*
+				* Validation of time inputs   form#newrecordtime ul.timeparts li input#hourholder
+				*/
+						var hourin = $(&quot;form#newrecordtime ul.timeparts li input#hourholder&quot;).val();	
+						var minutein = $(&quot;form#newrecordtime ul.timeparts li input#minuteholder&quot;).val();
+						var secondsin = $(&quot;form#newrecordtime ul.timeparts li input#secondsholder&quot;).val();
+						var hundredthsin = $(&quot;form#newrecordtime ul.timeparts li input#hundredthsholder&quot;).val();
+						// check two digit and the entries are numbers
+						var hourinpass = viewTemplates.validateInteger(hourin);			
+						var minutein = viewTemplates.validateInteger(minutein);	
+						var secondsin = viewTemplates.validateInteger(secondsin);							
+						var hundredthsin = viewTemplates.validateInteger(hundredthsin);	
+						
+						// if length greater two or value not between 00 and 59
+						if(hourinpass &gt;= 0 &amp;&amp; hourinpass &lt;100)
+						{
+							var passhour = 1;						
+						}
+						else
+						{
+							timefeedback += &#x27;&lt;b&gt;Hour&lt;/b&gt; value 0 and 99 &#x27;;
+							
+						}
+						if(minutein &gt;= 0 &amp;&amp; minutein &lt;60)
+						{
+							var passminute = 1;							
+						}
+						else
+						{
+							timefeedback += &#x27;&lt;b&gt;minute&lt;/b&gt; value 0 and 59 &#x27;;							
+						}						
+						if(secondsin &gt;= 0 &amp;&amp; secondsin &lt;60)
+						{
+							var passseconds = 1;
+						}
+						else
+						{
+							timefeedback += &#x27;&lt;b&gt;seconds&lt;/b&gt; value 0 and 59 &#x27;;							
+						}
+						if(hundredthsin &gt;= 0 &amp;&amp; hundredthsin &lt;100)
+						{
+							var passhundredths = 1;							
+						}
+						else
+						{
+							timefeedback += &#x27;&lt;b&gt;Hundredths&lt;/b&gt; value 0 and 99 &#x27;;
+							
+						}
+						
+					$(&quot;#timeformfeedback&quot;).html(timefeedback);	
+					
+			if(passhour == 1 &amp;&amp;  passminute == 1 &amp;&amp; passseconds == 1 &amp;&amp; passhundredths  == 1 &amp;&amp; passdate == 1)
+			{			
+				recordtimein.time = viewTemplates.digitalTime(hourin, minutein, secondsin, hundredthsin);
+				recordtimein.splittimes = []; // empty for now. promt or get from other video split tools
+				// make post call
+				recordholder[&#x27;lifedata&#x27;] = recordtimein;			
+				liveLogic.swimdataCloud(recordholder);
+				passhour = passminute = passseconds = passhundredths = 0;
+				hourin = minutein = secondsin = hundredthsin = 0;
+				$(&quot;form#newrecordtime ul.timeparts li input#hourholder&quot;).val(&#x27;&#x27;);
+				$(&quot;form#newrecordtime ul.timeparts li input#minuteholder&quot;).val(&#x27;&#x27;);
+				$(&quot;form#newrecordtime ul.timeparts li input#secondsholder&quot;).val(&#x27;&#x27;);
+				$(&quot;form#newrecordtime ul.timeparts li input#hundredthsholder&quot;).val(&#x27;&#x27;);
+				
+				// set the competition time and knowledge in the DOM
+				dataModel.setCompetitiondata(recordholder[&#x27;lifedata&#x27;].date, recordholder[&#x27;lifedata&#x27;].time);								
+				dataModel.setCompetitionKnowledge(recordholder[&#x27;lifedata&#x27;].date, recordholder[&#x27;lifedata&#x27;].knowledgewords);
+			}	
+						
+		}
+		else if (attentionclicktime == &quot;fullcomparison&quot; )
+		{
+			// setup model comparison
+			$( &quot;#comparison-modal&quot; ).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(&quot;.ui-dialog&quot;).remove();
+					
+					}
+				 
+			});
+		}
+		else if(attentionclicktime == &quot;merecords-start&quot;)
+		{
+			// prepare record data
+			dataModel.merecords();
+		
+			$( &quot;#record-modal&quot; ).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(&quot;.ui-dialog&quot;).remove();
+					}
+			});
+		}
+			
+	});	
+
+	
+	$(&quot;#networkflow&quot;).click(function(e) {
+		e.preventDefault(e);
+		var networkflowin = $(e.target);	
+		// present to UI and save to Pouchdb, sync to cloud
+		if(networkflowin.attr(&quot;id&quot;) == &#x27;networkidentitysave&#x27;)
+		{
+			var getnetworkidentity = $(&quot;#networkidentity&quot;).val();
+			var getidentitylink = $(&quot;#identitylink&quot;).val();
+
+			$(&#x27;#activenetwork&#x27;).append(&#x27;&lt;a href=&quot;&#x27; + getidentitylink + &#x27;&quot; id=&quot;identitylive&quot; &gt;&#x27; + getnetworkidentity + &#x27;&lt;/a&gt;&#x27;);
+			savenetworkid = {};
+			savenetworkid.networkidentity = getnetworkidentity;
+			savenetworkid.networkidentitylink = getidentitylink;
+
+//livepouch.allDocs();
+			// empty the form fields	
+			$(&quot;#networkidentity&quot;).val(&quot;&quot;);
+			$(&quot;#identitylink&quot;).val(&quot;&quot;);
+			
+			// local pouchsave
+			//livepouch.singleSave(savenetworkid);
+			// cloud save couchdb
+			liveLogic.swimdataCloud(savenetworkid);
+			
+		}
+
+	});
+		
+	$(&quot;#toolsflow&quot;).click(function(e) {
+		e.preventDefault(e);
+		var toolsflowin = $(e.target);	
+		// present to UI and save to Pouchdb, sync to cloud
+		if(toolsflowin.attr(&quot;id&quot;) == &#x27;knowledgesave&#x27;)
+		{
+			var getknowledgeword = $(&quot;#knowledgeword&quot;).val();
+			var getknowledgelink = $(&quot;#knowledgelink&quot;).val();
+
+			$(&#x27;#knowledgelive&#x27;).append(&#x27;&lt;a href=&quot;&#x27; + getknowledgelink + &#x27;&quot; id=&quot;knowledgewordlive&quot; &gt;&#x27; + getknowledgeword + &#x27;&lt;/a&gt;&#x27;);
+			savewordid = {};
+			savewordid.knowledgeword = getknowledgeword;
+			savewordid.knowledgelink = getknowledgelink;				
+			livepouch.singleSave(savewordid);
+
+			// empty the form fields	
+			$(&quot;#knowledgeword&quot;).val(&quot;&quot;);
+			$(&quot;#knowledgelink&quot;).val(&quot;&quot;);
+				
+		}
+		
+		else if (toolsflowin.attr(&quot;id&quot;) == &#x27;recordtimesave&#x27;)
+		{
+			// prepare object ready for pouchdb saving
+			var recordtimein = {};
+			recordtimein.knowledgewords = {};
+			knowlegeelementsin = [];	
+			// get data elements from primary relationship TODO AUTO MATE CAPUTURE
+			var gettherecordcontext = [&quot;Sex&quot;,&quot;Sport&quot;,&quot;Swimming_stroke&quot;,&quot;Distance&quot;,&quot;Measurement&quot;,&quot;Swimmingpool&quot;];
+
+			// now get values for each list box
+			gettherecordcontext.forEach(function(listdropname){
+
+				recordtimein.knowledgewords[listdropname] = $(&quot;#buildrecordtimetemplate.connectedSortable select#&quot; + listdropname).val();
+			});
+		
+			recordtimein.networkidentity = $(&quot;#buildrecordtimeidentity.connectedSortable li&quot;).attr(&quot;id&quot;);
+			recordtimein.date = Date.parse($( &quot;#newrecordtime input#datepicker&quot; ).datepicker( &quot;getDate&quot; ));
+			recordtimein.time = parseInt($(&quot;form#newrecordtime input#time&quot;).val(),10);
+			
+			// validation of time and time format
+			
+			// save in context of tool knowledge template name
+			var savedatatool = {};
+			savedatatool.tooltemplate = &#x27;Worldrecord-template&#x27;;
+			savedatatool.lifedata = recordtimein;		
+			// save to the pouchdb or couchdb if cloud is open
+			//livepouch.singleSave(savedatatool);	
+			
+
+			$( &quot;#newrecordtime input#datepicker&quot; ).val(&#x27;&#x27;);
+			$(&quot;form#newrecordtime input#time&quot;).val(&#x27;&#x27;);
+		}
+		
+		else if (toolsflowin.attr(&quot;id&quot;) == &#x27;relationshipknowledgesave&#x27;)
+		{
+			var relationshiplist = [];
+			var relationshipfirst = $(&quot;#dragmakerelationshipknowledge.connectedSortable li&quot;).attr(&quot;id&quot;);
+			var relationshiplistget = $(&quot;#listrelationshipknowledge.connectedSortable &quot;).children();	
+			var relationshiplistlength = relationshiplistget.length;
+			for (var i=0;i&lt;relationshiplistlength;i++)
+			{
+				relationshiplist[i] = relationshiplistget[i].id;
+			}
+		// save to Pouchdb - knowledge - bond - socialnetwork - 
+			relationshipin = {};
+			relationshipin.bond = 1;
+			relationshipin.knowledgestart = relationshipfirst;
+			relationshipin.knowledgelist = relationshiplist;	
+			livepouch.singleSave(relationshipin);		
+			
+		}
+
+
+	});
+
+		
+	$(&quot;#activeself&quot;).click(function(e) {
+		e.preventDefault(e);			
+		var historyin = $(e.target);			
+		var attentionidlive = historyin.data(&#x27;date-id&#x27;);
+		var classclickedin = historyin.attr(&#x27;class&#x27;);
+		var divclickedin = historyin.attr(&#x27;id&#x27;);
+		var contextin = {};
+		var d1chart = {};
+		contextin.live = {};	
+		contextin.live.knowledgewords = {};	
+		contextin.live.knowledgewords[0] = &#x27;training&#x27;;
+		var dataelements = 1;
+		var accumdataSet = {};
+		var statisticsummarydata = {};
+		var container = &#x27;&#x27;;
+		// set state in memory and URL string and set	
+			
+		// what filters  (take into account historical state for UI/client)
+		// data source, memory, local or cloud
+		// identity
+		// time
+		// knowledge
+			
+		// what visualisation
+		// pick up context and visualisation option act realtime
+		if(divclickedin == &quot;historyfix&quot; || divclickedin == &quot;activity&quot; || classclickedin == &quot;feedback-fix&quot; || classclickedin == &quot;timefocus&quot; || classclickedin == &quot;visualisation-flow&quot; )
+		{
+			var activefixstatus = $(&quot;.activity-id-&quot; + attentionidlive).data(&quot;activity-status-id&quot;)
+			if(activefixstatus ==  &quot;on&quot;)
+			{
+				// add placer html markup			
+				viewTemplates.analysisPlacer(attentionidlive);
+
+				container = &quot;chart-vis-&quot; + attentionidlive;
+				d1chart[0] = dataModel.timeDataprep(attentionidlive);
+				d1chart[1] =  dataModel.splitDataprep(attentionidlive);
+				dataModel.onelementchart(d1chart, contextin, container, dataelements);			
+				$(&quot;.activity-id-&quot; + attentionidlive).data(&#x27;activity-status-id&#x27;, &quot;off&quot;);
+
+				// produce summary table starts
+				statisticsummarydata = dataModel.statisticsDataprep(attentionidlive);
+				statisticscolorcode = dataModel.splitColorCode(d1chart[1]);		
+				var statisticsvisualisation = &quot;#analysis-statistics-&quot; + attentionidlive;
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);		
+			}
+			else
+			{
+				// turn off the expanded view
+				$(&quot;.activity-id-&quot; + attentionidlive).data(&#x27;activity-status-id&#x27;, &quot;on&quot;);
+				$(&quot;#anlaysisid-&quot; + attentionidlive).empty();
+				$(&quot;#chart-modal&quot;).empty();
+				
+			}
+		}
+		else if (classclickedin== &quot;exit-anaylsis&quot;)
+		{
+//console.log(&#x27;exit anaysys mode&#x27;);			
+			$(&quot;#anlaysisid-&quot; + attentionidlive).empty();
+			$(&quot;#chart-modal&quot;).empty();
+		}
+		else if (classclickedin == &quot;action-fix&quot;)
+		{
+			// future prediction (LMS statistics and other self organisation and simulations (project goal)
+			$(&quot;#future-modal&quot;).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(&quot;.ui-dialog&quot;).remove();
+					$(&quot;#future-modal&quot;).empty();
+				}			
+			});
+		}
+		else if (classclickedin== &quot;cummulative-anaylsis&quot;)
+		{
+			//produce accumulated chart ( first check if other daily train element exist then prepare data and chart)
+			accumdataSet = dataModel.accumulationDataprep(attentionidlive);
+			//container = &quot;accum-chart-vis-&quot; +attentionidlive;
+			container = &quot;chart-modal&quot;;		
+			// add to modol code
+			//$( &quot;#accumulative-modal&quot; ).html(&#x27;&lt;div id=&quot;&#x27; + container + &#x27;&quot; class=&quot;accum-chart-flow&quot; &gt;&lt;/div&gt;&#x27;);
+			dataModel.onelementchart(accumdataSet, contextin, container, dataelements);
+			
+			$(&quot;#chart-modal&quot;).dialog({
+				height: 700,
+				width:940,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(&quot;.ui-dialog&quot;).remove();
+					$(&quot;#chart-modal&quot;).empty();
+				}
+				 
+			});			
+
+		}		
+		else if (classclickedin== &quot;splitsratio-anaylsis&quot;)
+		{
+			//produce accumulated chart ( first check if other daily train element exist then prepare data and chart)
+			//accumdataSet = dataModel.accumulationDataprep();
+			container = &quot;splits-ratio-vis-&quot; +attentionidlive;
+			//container = &quot;splitsratio-modal&quot;;
+			// add to modol code
+			$( &quot;#splitsratio-modal&quot; ).html(&#x27;&lt;div id=&quot;&#x27; + container + &#x27;&quot; class=&quot;split-ratio-flow&quot; &gt;&lt;/div&gt;&#x27;);
+			
+			$(&quot;#splitsratio-modal&quot;).dialog({
+				height: 600,
+				width:800,
+				modal: true,
+				close: function( event, ui ) {
+					// add back placer
+					$(&quot;.ui-dialog&quot;).remove();
+					$(&quot;#splitsratio-modal&quot;).empty();
+				}
+			});			
+
+		}
+		
+	});	
+		
+	livepouch = new pouchdbSettings();
+	liveprediction = new selfprediction();
+	liveData = new livedata();
+	dataModel = new datamodel();
+	viewTemplates = new viewtemplates();
+	
+		// connect to socket.io
+	var socketpi = io.connect(liveSettings.localIP );
+	
+	/*
+	* stopwatchwatch listening socket
+	*/
+	// when you get a serialdata event, do this:
+	socketpi.on(&#x27;stopwatchEvent&#x27;, function (data) {
+//console.log(&#x27;stopwach listenr socket&#x27;);		
+		serialin = JSON.parse(data.value);
+		inser = Object.keys(serialin);
+		inser.forEach(function(thein) {
+		textaction = thein;
+		timein = serialin[thein];
+
+	});
+
+		if(data.value == 1)
+		{
+			// call the split function
+		
+		}
+		else if(textaction == &#x27;lap&#x27;)
+		{
+			
+		}
+
+		else if(textaction == &quot;Start&quot;)
+		{
+			
+		}
+		else if (textaction == &#x27;Reset&#x27;)
+		{
+			
+		}
+
+	});
+	
+	socketpi.counterlive = 0;
+	socketpi.previsousessionid = &#x27;&#x27;;
+	/*
+	* listening of context Display Data
+	*/
+	socketpi.on(&#x27;contextEventdisplay&#x27;, function (contextdata) {
+//console.log(&#x27;live event in&#x27;);
+		var livedisplayin = &#x27;&#x27;;
+		var dataelements = &#x27;&#x27;;
+		var container = &#x27;&#x27;;
+		var statisticsvisualisation = &#x27;&#x27;;
+		
+		if(socketpi.counterlive &gt; 0)
+		{		
+			// display the live feed
+			livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
+			// previous attention fix live analysis closed down
+			$(&quot;#anlaysisid-&quot; + socketpi.previsousessionid).empty();
+			socketpi.previsousessionid = contextdata.session.sessionid;
+			
+			// add the split data to data class
+			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
+			dataModel.setKnowledgein(contextdata.session.sessionid, contextdata.session.swiminfo);
+						
+			$(&quot;#liveattention&quot;).prepend(livedisplayin);
+			d1chart = {};
+			contextin = {};
+			contextin.live = {};	
+			contextin.live.knowledgewords = {};	
+			contextin.live.knowledgewords[0] = &#x27;training tesst title&#x27;;	
+			dataelements = 1;
+				
+			viewTemplates.analysisPlacer(contextdata.session.sessionid);
+
+			container = &quot;chart-vis-&quot; + contextdata.session.sessionid;
+			d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
+			d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
+			dataModel.onelementchart(d1chart, contextin, container, dataelements);
+
+			// produce summary table starts
+			statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
+			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);
+			statisticsvisualisation = &quot;#analysis-statistics-&quot; + contextdata.session.sessionid;
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);	
+		
+			socketpi.counterlive++;	
+		}
+		else
+		{
+			socketpi.counterlive = 1;
+			socketpi.previsousessionid = contextdata.session.sessionid;
+			$(&quot;#welcome&quot;).remove();
+	
+			// display the live feed
+			livedisplayin = viewTemplates.formswimmers(contextdata.swimmerid, contextdata.swimmername, contextdata.session);
+
+			// add the split data to data class
+			dataModel.setDatain(contextdata.session.sessionid, contextdata.session.splittimes);								
+			dataModel.setKnowledgein(contextdata.session.sessionid, contextdata.session.swiminfo);
+			
+			$(&quot;#liveattention&quot;).prepend(livedisplayin);
+			d1chart = {};
+			contextin = {};
+			contextin.live = {};	
+			contextin.live.knowledgewords = {};	
+			contextin.live.knowledgewords[0] = &#x27;training tesst title&#x27;;	
+			dataelements = 1;
+				
+			viewTemplates.analysisPlacer(contextdata.session.sessionid);
+
+			container = &quot;chart-vis-&quot; + contextdata.session.sessionid;
+			d1chart[0] = dataModel.timeDataprep(contextdata.session.sessionid);
+			d1chart[1] =  dataModel.splitDataprep(contextdata.session.sessionid);
+			dataModel.onelementchart(d1chart, contextin, container, dataelements);
+
+			// produce summary table starts
+			statisticsummarydata = dataModel.statisticsDataprep(contextdata.session.sessionid);
+			statisticscolorcode = dataModel.splitColorCode(d1chart[1]);
+			statisticsvisualisation = &quot;#analysis-statistics-&quot; + contextdata.session.sessionid;
+			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);	
+			
+		}
+	});
+
+	
+	
+});
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
