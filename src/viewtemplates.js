@@ -10,8 +10,8 @@
 * @version    $Id$
 */
 var viewtemplates = function() {
-//console.log('viewtemplates started');
-		
+
+	
 };
 
 /**

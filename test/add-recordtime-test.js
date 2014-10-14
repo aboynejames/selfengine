@@ -5,8 +5,6 @@ var baseUrl = casper.cli.get('baseUrl');
 
 casper.test.comment("Scenario: enter a personal record time");
 
-
-
 casper.start(baseUrl, function() {
 
 		 var getk =  this.open('http://localhost:8881/knowledgetemplate/testselfengine/token/8881', {
@@ -154,7 +152,7 @@ casper.then(function() {
 });
 */
 casper.run(function() {
-this.echo(this.getHTML());
+//this.echo(this.getHTML());
 	
     this.test.done(); // I must be called once all the async stuff has been executed
 

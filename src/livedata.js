@@ -1,7 +1,7 @@
 /**
 * SelfEngine
 *
-* prediction analystics
+* live analytics
 * @class livedata
 *
 * @package    selfengine  open source project

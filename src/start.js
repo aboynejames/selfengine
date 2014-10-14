@@ -693,7 +693,6 @@ $(document).ready(function(){
 		// connect to socket.io
 	var socketpi = io.connect(liveSettings.localIP );
 	
-		
 	/*
 	* stopwatchwatch listening socket
 	*/
