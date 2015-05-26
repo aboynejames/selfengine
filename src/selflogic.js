@@ -384,6 +384,7 @@ selfLogic.prototype.firstDatacall = function() {
 							if(serverdatain.swimdatalive ==  "empty")
 							{
 								$("#messages").append('<div id="startmessage" >No training data found. Collect training data with the <a href="" id="maketraining"  class="maketraining" >Training Builder & Stopwatch</a>.</div>');
+								$("#messages").fadeOut(20000,  function() {});
 							}
 							else
 							{
@@ -399,7 +400,7 @@ selfLogic.prototype.firstDatacall = function() {
 
 								});
 								// set the active identity number
-								$("#wearable-form li input#bluetoothtag").val(serverdatain.idnumbers);
+								$("#stopwatch-form input#stopwatch-id").val(serverdatain.idnumbers);
 							}
 						},
 						error: function( error ){
@@ -434,6 +435,7 @@ selfLogic.prototype.secondDatacall = function() {
 					if(serverdatainb.swimracedatalive ==  "empty")
 					{
 						$("#messages").append('<div id="startcompare" >Use the Record Time <a href="" id="toolsstart" >tool</a> to enter competition times.</div>');
+						$("#messages").fadeOut(20000,  function() {});
 					}
 					else
 					{
@@ -553,10 +555,10 @@ selfLogic.prototype.emailsignincall = function(emailin, cookiehash, passwordin) 
 */	
 selfLogic.prototype.swimdataCloud = function(cloudsave) {
 	
-		var cloudready = JSON.stringify(cloudsave);
-	
-		var formdataurl = liveSettings.cloudIP + '/swimdatasave/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
-            // Make the PUT request.
+	var cloudready = JSON.stringify(cloudsave);
+
+	var formdataurl = liveSettings.cloudIP + '/swimdatasave/' + liveLogic.idname + '/token/' + liveLogic.tokenid;
+    // Make the PUT request.
 	$.ajax({
 		type: "POST",
 		url: formdataurl,

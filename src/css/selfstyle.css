@@ -208,12 +208,18 @@ aside, nav, article, figure {
 	
 }
 
+ #wearables ul li {
+	height: 50px;
+	
+}
+
+
  #merecords {
 	display:block;
 	display:none;
 	border:1px solid #eee;
 	background: #eee;
-	margin: 8px;
+	margin-top:40px;
 	text-align:center;
 	height: 80px;
 	
@@ -1066,7 +1072,7 @@ button.submit {
 	-o-box-shadow: 0 1px 0 0 #9fd574 inset;
 	color: white;
 	font-weight: bold;
-	padding: 6px 20px;
+	padding: 3px 1px;
 	text-align: center;
 	text-shadow: 0 -1px 0 #396715;
 }

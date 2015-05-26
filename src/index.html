@@ -47,13 +47,22 @@
 				<a id="signout" href="" >sign-out</a>
 			</section>
 			<section id="wearables" >
-				<form id="wearable-form" action="#" method="post">
+				<ul>
 					<li>
-						<label for="name" >Bluetooth tagID</label>
-						<input type="text" id="bluetoothtag" />	
-						<button type="submit" class="submit" id="wearablebtsave" >Save</button>						
+						<form id="stopwatch-form" action="#" method="post">
+							<label for="name" >Stopwatch ID</label>
+							<input type="text" id="stopwatch-id" />	
+							<button type="submit" class="submit" id="stopwatch-id-save" >Save</button>						
+						</form>
 					</li>
-				</form>
+					<li>
+						<form id="wearable-form" action="#" method="post">
+							<label for="name" >Bluetooth tagID</label>
+							<input type="text" id="bluetoothtag" />	
+							<button type="submit" class="submit" id="wearablebtsave" >Save</button>						
+						</form>
+					</li>
+				</ul>					
 			</section>
 			<section id="merecords" >
 				<a href="" id="merecords-start" >Records</a>
@@ -169,4 +178,4 @@
 		</footer>
 	</body>
 	
-	</html>
+</html>

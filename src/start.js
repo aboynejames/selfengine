@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 	liveSettings = {};
 	liveSettings.cloudIP = "http://localhost:8881"; //"http://192.168.1.44:8881";
-	liveSettings.localIP = "http://192.168.1.44:8881";  //"http://192.168.1.44:8881";	
+	liveSettings.localIP = "http://localhost:8881";  //"http://192.168.1.44:8881";	
 	liveSettings.localURL = "http://localhost/ll/selfengine/src/index.html";	
 	liveLogic = new selfLogic();
 	
@@ -64,13 +64,24 @@ $(document).ready(function(){
 				
 				break;
 				
+				case"stopwatch-id-save":
+					// stopwatch id save
+					var stopwatchidin = $("#stopwatch-form input#stopwatch-id").val();		
+					// need TODO valide it is a string of number		 		
+					var buildsavestopw = {};
+					buildsavestopw.sensorid = stopwatchidin;	
+					buildsavestopw.sensortype = 'smart-stopwatch';			
+					liveLogic.swimdataCloud(buildsavestopw);
+
+				break;	
+						
 				case"wearablebtsave":
-					// bluetooth tag ID number
-					var databtigin = $("#wearable-form li input#bluetoothtag").val();		
+					// bluetooth tag ID number  
+					var databtigin = $("#wearable-form input#bluetoothtag").val();		
 					// need TODO valide it is a string of numbers
-				
 					var buildsavebt = {};
-					buildsavebt.bluetoothid = databtigin;
+					buildsavebt.sensorid = databtigin;
+					buildsavebt.sensortype = 'bluetooth-tag';						
 					liveLogic.swimdataCloud(buildsavebt);
 
 				
