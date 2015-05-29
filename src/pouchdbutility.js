@@ -73,7 +73,7 @@ pouchdbSettings.prototype.allDocs = function() {
 
 		this.livepouch.allDocs({include_docs: true}, function(err, response) { 
 	
-console.log(response);	
+//console.log(response);	
 	});
 		
 

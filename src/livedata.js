@@ -10,13 +10,13 @@
 * @version    $Id$
 */
 var livedata = function() {
-	//console.log('livedata started');	
+	
 	this.d1 = [];
 	this.k1 = {};
 	this.r1 = {};
 	this.ni1 = {};
 	this.datasort = [];
-//livepouch.allDocs(this.liveprediction);
+
 /*
 	this.livecontext = {};
 	this.livecontext.live = {};
@@ -46,11 +46,8 @@ var livedata = function() {
 *
 */	
 livedata.prototype.quickanalysisControl = function(contextIn) {  
-//console.log('set context quick analysisi control');
 	// extract knowledge chain
 	var knowledgequick = dataModel.buildRecordknowledgeFilter(contextIn.lifedata.knowledgewords);
-//console.log(knowledgequick);
-	
 	
 	this.quickworldrecordAnalysis(knowledgequick, contextIn);
 	
@@ -63,14 +60,12 @@ livedata.prototype.quickanalysisControl = function(contextIn) {
 *
 */	
 livedata.prototype.quickworldrecordAnalysis = function(wordrecordin, individualrecord) {  
-//console.log('set context');
-//console.log(wordrecordin);
-//console.log(individualrecord);	
+	
 	// take individual time and compare % to current world record
 	var wordrecordtime = wordrecordin.time;
 	var individualrecordtime = individualrecord.lifedata.time;
 	var percentagerecord = ((individualrecordtime/wordrecordtime)*100) - 100;
-//console.log('worldrecord percentage' + percentagerecord.toFixed(1));	
+
 	var datarec = new Date(parseInt(wordrecordin.date));
 	var datarecshort = datarec.toString();
 	
@@ -90,7 +85,7 @@ livedata.prototype.quickworldrecordAnalysis = function(wordrecordin, individualr
 *
 */	
 livedata.prototype.worldrecordAnalysis = function(pouchdblive, liveprediction) {  
-//console.log('set context');
+
 	this.livepouch = pouchdblive;
 	this.liveprediction = liveprediction;
 	
@@ -102,24 +97,22 @@ livedata.prototype.worldrecordAnalysis = function(pouchdblive, liveprediction) {
 *
 */	
 livedata.prototype.setContext = function(attentionin) {  
-//console.log('set context');
-//console.log(attentionin);
+
 	// first check if data is from a compairson switchon or change of main active attention fix
 	if(attentionin.status == "compare")
 	{
 		if(attentionin.statusactive == "on")
 		{
-//console.log('compare clicked on');		
-		this.livecontext.previous = attentionin;
-		this.livefilter(this.livecontext); 
-		this.filternetwork(this.livecontext.live);
+			this.livecontext.previous = attentionin;
+			this.livefilter(this.livecontext); 
+			this.filternetwork(this.livecontext.live);
 		}
 		else
 		{
-//console.log('compare clicked off');		
-		this.livecontext.previous =  attentionin;
-		this.livefilter(this.livecontext); 
-		this.filternetwork(this.livecontext.live);
+		
+			this.livecontext.previous =  attentionin;
+			this.livefilter(this.livecontext); 
+			this.filternetwork(this.livecontext.live);
 			
 		}
 			
@@ -127,7 +120,7 @@ livedata.prototype.setContext = function(attentionin) {
 	
 	else if (attentionin.status == "fix") 
 	{
-//console.log('new fix set');		
+
 		//first transper current settings to previous
 		this.previousattention = this.livecontext;
 		// append attention history  need to keep track of previous in class object
@@ -135,9 +128,9 @@ livedata.prototype.setContext = function(attentionin) {
 		
 		this.livecontext.live = attentionin;
 				// now pass on context to filter data, filter socialnetwork
-//console.log(this.livecontext);
-	this.livefilter(this.livecontext); 
-	this.filternetwork(this.livecontext.live);
+
+		this.livefilter(this.livecontext); 
+		this.filternetwork(this.livecontext.live);
 			
 	}
 	
@@ -193,10 +186,10 @@ livedata.prototype.relationshipDatacall =	function(callback) {
 *
 */	
 livedata.prototype.sortlowtohigh =	function(datatsort) {  
-//console.log('low to high sort');
-		this.datasort = [];
-		this.datasort = datatsort;
-		this.datasort.sort(function(a,b) {return a[0] > b[0]?1:-1;});
+
+	this.datasort = [];
+	this.datasort = datatsort;
+	this.datasort.sort(function(a,b) {return a[0] > b[0]?1:-1;});
 	return this.datasort;
 };  
 
@@ -214,7 +207,7 @@ livedata.prototype.livedatain = function(d1in, setlivecontext) {
 					d1in.push([rowliveat.key, rowliveat.value]);
 					
 				});
-//console.log(d1in);				
+				
 			if(d1in.length > 2)
 			{
 				liveData.livefilterknowlegeword(d1in, setlivecontext.live);						
@@ -276,7 +269,7 @@ livedata.prototype.liverelationshipsin = function(r1in, livecontextin) {
 			r1in[rowliveatr.key] = rowliveatr.value;
 			
 		});
-//console.log(r1in);
+
 		if(r1in)
 		{
 		liveData.relationshipfilter(r1in, livecontextin.live);
@@ -296,10 +289,10 @@ livedata.prototype.liverelationshipsin = function(r1in, livecontextin) {
 livedata.prototype.livefilterknowlegeword = function(datauniverse, setlivecontext) {
 	var dataliveholder = {};
 	var contextlivedata = [];
-//console.log(datauniverse);	
-// start now need to be extracted to context
+	
+	// start now need to be extracted to context
 	datauniverse.forEach(function(dataobj) {
-//console.log(dataobj);
+
 		if(dataobj[0].knowledgewords.Sex == setlivecontext.knowledgewords)
 		{
 		contextlivedata.push([parseInt(dataobj[0].date, 10), parseInt(dataobj[0].time, 10)]);
@@ -320,8 +313,6 @@ livedata.prototype.livefilterknowlegeword = function(datauniverse, setlivecontex
 *
 */	
 livedata.prototype.livefilter = function(setlivecontext) {
-//console.log('livefilter');
-//console.log(setlivecontext);	
 	// build decision modle  one active attention or more, ie one data source on chart of more?
 	var focuscount = '';
 	
@@ -347,61 +338,52 @@ livedata.prototype.livefilter = function(setlivecontext) {
 			focuscount= 1;
 		}
 
-
-	
-//console.log(focuscount);
 	if(focuscount >1)
 	{
 		// collect the data foreach active focus
-//console.log('two sets of data filter processing going on');		
 		datainkeys = Object.keys(setlivecontext);
-//console.log(datainkeys);		
 		iin = 1;
 		datainkeys.forEach(function(attobjecttype) {
-//console.log(attobjecttype);			
-					var contextlivedata = [];
-			
-					liveData.d1.forEach(function(dataobj) {
-//console.log(dataobj);
-						if(dataobj[0].knowledgewords.Sex == setlivecontext[attobjecttype].knowledgewords[0])
-						{
-							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
-						}
-					});
-		//console.log(contextlivedata);
-					sorteddata = liveData.sortlowtohigh(contextlivedata);
-					dataholder[iin] = sorteddata;
-					iin++;
-		//		});
-				
+		
+			var contextlivedata = [];
+	
+			liveData.d1.forEach(function(dataobj) {
+
+				if(dataobj[0].knowledgewords.Sex == setlivecontext[attobjecttype].knowledgewords[0])
+				{
+					contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
+				}
 			});
+
+			sorteddata = liveData.sortlowtohigh(contextlivedata);
+			dataholder[iin] = sorteddata;
+			iin++;
+			
+		});
 		
 	}
 	else
 	{
 		var contextlivedata = [];
 		var iin = 1;
-			
-					liveData.d1.forEach(function(dataobj) {
-//console.log(dataobj);
-						if(dataobj[0].knowledgewords.Sex == setlivecontext.live.knowledgewords[0])
-						{
-							contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
-						}
-					});
-		//console.log(contextlivedata);
-					sorteddata = liveData.sortlowtohigh(contextlivedata);
-					dataholder[iin] = sorteddata;
-					iin++;
+
+		liveData.d1.forEach(function(dataobj) {
+
+			if(dataobj[0].knowledgewords.Sex == setlivecontext.live.knowledgewords[0])
+			{
+				contextlivedata.push([parseInt(dataobj[0].date,10), parseInt(dataobj[0].time,10)]);
+			}
+		});
+
+		sorteddata = liveData.sortlowtohigh(contextlivedata);
+		dataholder[iin] = sorteddata;
+		iin++;
 		
 	}
 	
-//console.log(dataholder);
-		// bundle data in arrays and send to chart		
+	// bundle data in arrays and send to chart		
 	liveData.realtimechart(dataholder, setlivecontext, focuscount);
 
-
-	
 };
 
 /**
@@ -410,25 +392,22 @@ livedata.prototype.livefilter = function(setlivecontext) {
 *
 */	
 livedata.prototype.relationshipfilter = function(reldatain, relationshipin) {
-//console.log('relationship filter');
-//console.log(reldatain);
-//console.log(relationshipin.relationshipliststart);
+
 	var livestartlistword = relationshipin.relationshipliststart;
-//console.log(livestartlistword);
+
 	var rellistout = [];
 	rellistout = reldatain[livestartlistword];
-//console.log(rellistout);	
 	
 	var relmatrix = [];
 	// now see and built other relationships
 	rellistout.forEach(function(relelement) {
-//console.log( reldatain[relelement]);		
+
 		if(typeof reldatain[relelement] != 'undefined')
 		{
 			relmatrix.push([relelement, reldatain[relelement]]);
 		}
 	});
-//console.log(relmatrix);	
+	
 	// produce HTML for UI
 	this.activeattentionHTML(relmatrix);
 };
@@ -441,24 +420,20 @@ livedata.prototype.relationshipfilter = function(reldatain, relationshipin) {
 *
 */	
 livedata.prototype.filternetwork = function(networkcontext) {
-//console.log('network filter');
-//console.log(networkcontext);
+
 	var networklivedata = [];
-//console.log(liveData.ni1);	
-//console.log(liveData.d1);	
 	
 	liveData.d1.forEach(function(dataobj) {
 	
 		if(dataobj[0].networkidentity)
-				{
-//console.log('pass first filter');					
+				{				
 					if(dataobj[0].knowledgewords.Sex ==  networkcontext.knowledgewords[0] )
 					{		
-//console.log('second filter');						
+					
 						networklivedata.push(dataobj[0].networkidentity);
 					}
 				}
-//console.log(networklivedata);		
+	
 	});
 	
 	function eliminateDuplicates(arr) {
@@ -479,12 +454,9 @@ livedata.prototype.filternetwork = function(networkcontext) {
 var neworkfiltered = [];
 
 neworkfiltered =eliminateDuplicates(networklivedata);
-
-	// next hook up the names to URLs
-//	console.log(liveData.ni1);	
 	
 	// pass on to create htmlcode
-		this.socialNetworkHTML(neworkfiltered);
+	this.socialNetworkHTML(neworkfiltered);
 };
 
 /**
@@ -494,11 +466,8 @@ neworkfiltered =eliminateDuplicates(networklivedata);
 */	
 livedata.prototype.startchart = function(di1) {
 	// live attention data (Chart)
-//console.log('start charts');	
-//console.log(di1);
 	var container = "pastchart";
-	d1chart = di1;	
-//console.log(this.livecontext);	
+	d1chart = di1;		
 	this.chartproduction(d1chart, this.livecontext, container);
 	// now show the future chart only first time
 	liveprediction.predictionlogic(d1chart,1, this.livecontext);
@@ -512,10 +481,9 @@ livedata.prototype.startchart = function(di1) {
 */	
 livedata.prototype.realtimechart = function(di1, contextin, itemcount) {
 	// live attention data (Chart)
-//console.log('start realtime charts');	
-//console.log(di1.length);
+
 	var container = "pastchart";
-d1chart = di1;
+	d1chart = di1;
 	// discover how many data arrray elements are in 'live' comparison status?
 	dataelements = itemcount;
 	
@@ -532,94 +500,82 @@ d1chart = di1;
 *
 */	
 livedata.prototype.chartproduction = function(chartdatain, chartcontext, chartlocation, dataelements) {
-// regression line co ordinates
-console.log('start of chart production');	
+	// regression line co ordinates	
 	d2chart = {};
 	d2chart = chartdatain;
 	contexttitle = chartcontext.live;
-console.log(chartcontext.live);
 	var chartlabel = 'World Records 100m Freestyle ' + contexttitle.knowledgewords[0];
-console.log(d2chart);
 	var locationcontainer = chartlocation;	
 	
 	// look at how many data elements and prepare for appropriate charting
 	nochartdatasources = Object.keys(chartdatain).length;
-console.log(nochartdatasources);	
 	if(nochartdatasources == 1 )
 	{
 		(function basic(locationcontainer, d2chart) {
-//console.log('past char draw SINGLE');
+			// Draw Graph
+			graph = Flotr.draw(locationcontainer, [
 
-						// Draw Graph
-							graph = Flotr.draw(locationcontainer, [
-
-					{
-						data: d2chart[1],
-						label: chartlabel,
-						lines: {
-            show: true
+			{
+				data: d2chart[1],
+				label: chartlabel,
+				lines: {
+	show: true
+				},
+				points: {
+					show: true
+				}
+			}],
+			{
+						xaxis: {
+								//majorTickFreq: 1
+							mode: 'time',
+							timeUnit:'millisecond',
+							timeformat: "%m/%d/%y",
+							labelsAngle: 45
 						},
-						points: {
-							show: true
-						}
-					}],
-					{
-								xaxis: {
-										//majorTickFreq: 1
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%m/%d/%y",
-									labelsAngle: 45
-								},
-								grid: {
-										//minorVerticalLines: true
-								},
-								yaxis: {
-									//mode: 'time',
-									//timeUnit:'millisecond',
-									//timeformat: "%S",
-									min: 40000,
-									max: 90000
-								},
-								//title: 'Times'
-						});
-						
-//console.log(graph);		
-		
-						})(document.getElementById(locationcontainer), d2chart);
+						grid: {
+								//minorVerticalLines: true
+						},
+						yaxis: {
+							//mode: 'time',
+							//timeUnit:'millisecond',
+							//timeformat: "%S",
+							min: 40000,
+							max: 90000
+						},
+						//title: 'Times'
+			});
+				
+		})(document.getElementById(locationcontainer), d2chart);
 		
 	}
 	else if(nochartdatasources == 2)
 	{
-(function basic(locationcontainer, d2chart) {
-//console.log('past chard draw DOUBLE');
-//console.log(d2chart);
+		(function basic(locationcontainer, d2chart) {
 						// Draw Graph
-							graph = Flotr.draw(locationcontainer, [d2chart[1], d2chart[2] ],
-					{
-								xaxis: {
-										//majorTickFreq: 1
-									mode: 'time',
-									timeUnit:'millisecond',
-									timeformat: "%m/%d/%y",
-									labelsAngle: 45
-								},
-								grid: {
-										//minorVerticalLines: true
-								},
-								yaxis: {
-									//mode: 'time',
-									//timeUnit:'millisecond',
-									//timeformat: "%S",
-									min: 40000,
-									max: 90000
-								},
-								//title: 'Times'
-						});
-						
-//console.log(graph);		
-		
-						})(document.getElementById(locationcontainer), d2chart);
+			graph = Flotr.draw(locationcontainer, [d2chart[1], d2chart[2] ],
+			{
+				xaxis: {
+						//majorTickFreq: 1
+					mode: 'time',
+					timeUnit:'millisecond',
+					timeformat: "%m/%d/%y",
+					labelsAngle: 45
+				},
+				grid: {
+						//minorVerticalLines: true
+				},
+				yaxis: {
+					//mode: 'time',
+					//timeUnit:'millisecond',
+					//timeformat: "%S",
+					min: 40000,
+					max: 90000
+				},
+				//title: 'Times'
+			});
+
+		})(document.getElementById(locationcontainer), d2chart);
 	}
 	
 };
@@ -631,8 +587,7 @@ console.log(nochartdatasources);
 *
 */	
 livedata.prototype.activeattentionHTML = function(attentionfixlive) {
-//console.log('build active attention code');
-//console.log(attentionfixlive);	
+
 	HTMLattentionfix = '';
 	//HTMLattentionfix +='<ul id="dragselfnow" class="connectedSortable"></ul>';
 	HTMLattentionfix += '<div id="attentionfix">';
@@ -647,7 +602,7 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 
 	attentionfixlive.forEach(function(grouptitle){
 		//pass the lane data to get html ready
-//console.log(grouptitle[1]);		
+		
 		HTMLattentionfix += '<li class="fixgroup" id="' + grouptitle[0] + '" data-attentionfixttitle="inactive" >';
 		
 		HTMLattentionfix += '<a href="" id="' + grouptitle[0] + '"  class="fixgrouptitle" data-knowledgeword="knowledgeword" style=""> ' + grouptitle[0] + '</a>';
@@ -702,8 +657,7 @@ livedata.prototype.activeattentionHTML = function(attentionfixlive) {
 *
 */	
 livedata.prototype.attentionhistoryHTML = function(attentionprevious) {
-//console.log('attention history code HTML');
-//console.log(attentionprevious);	
+	
 	var HTMLatthistory = '';
 	
 //	HTMLatthistory += '<ul>';
@@ -720,7 +674,6 @@ livedata.prototype.attentionhistoryHTML = function(attentionprevious) {
 *
 */	
 livedata.prototype.socialNetworkHTML = function(socialdatain) {
-//console.log('produce the in context social network');
 
 	dragHTMLnetworkid = '';
 	dragHTMLnetworkid += '<ul id="dragnetworkidentity" class="connectedSortable">';

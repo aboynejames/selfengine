@@ -257,7 +257,7 @@ datamodel.prototype.knowledgechainfiltering = function(datamodellive, attidin) {
 		}
 		else
 		{
-//console.log('failed');			
+		
 		}
 				
 		});
@@ -293,7 +293,7 @@ datamodel.prototype.knowledgechainfilteringRace = function(datamodellive, attidi
 			}
 			else
 			{
-//console.log('failed');			
+		
 			}
 		
 		});
@@ -369,7 +369,7 @@ datamodel.prototype.buildRecordknowledgeFilter = function(recordknowledge) {
 			}
 			else
 			{
-//console.log('failed');			
+			
 			}
 		});
 	
@@ -739,7 +739,7 @@ datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {
 	else
 	{
 		var ie = 0;
-//console.log(noelementse);	
+	
 /*		if(racesplits[0] == 'notset')
 		{
 			for(ei=0; ei< noelementse; ei++)
@@ -747,7 +747,7 @@ datamodel.prototype.effortCalculation = function(trainingsplits, racesplits) {
 				effeortratios.push('nil');
 			
 			}
-//console.log(effeortratios);	
+	
 			return effeortratios;
 		}
 		else

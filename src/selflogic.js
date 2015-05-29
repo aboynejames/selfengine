@@ -355,7 +355,7 @@ selfLogic.prototype.frameworklogic = function(intentionin) {
 *
 */	
 selfLogic.prototype.setToken = function(setIDname, settokenin) {
-//console.log('set token function' + settokenin);
+
 	this.idname = setIDname;
 	this.tokenid = settokenin;
 	

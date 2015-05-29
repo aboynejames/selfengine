@@ -5,12 +5,11 @@
 $(document).ready(function(){
 
 	liveSettings = {};
-	liveSettings.cloudIP = "http://localhost:8881"; //"http://192.168.1.44:8881";
-	liveSettings.localIP = "http://localhost:8881";  //"http://192.168.1.44:8881";	
-	liveSettings.localURL = "http://localhost/ll/selfengine/src/index.html";	
+	liveSettings.cloudIP = "http://localhost:8881"; //"http://192.168.1.44:8881";  // change to Server address node server
+	liveSettings.localIP = "http://localhost:8881";  //"http://192.168.1.44:8881";	// change to local IP e.g. a raspberry pi
+	liveSettings.localURL = "http://localhost/ll/selfengine/src/index.html";	// change to hosted URL
 	liveLogic = new selfLogic();
 	
-//console.log($(location).attr('search'));
 	var qs = $.param.querystring();
 	var qsobject = $.deparam(qs, true);
 
@@ -198,7 +197,7 @@ $(document).ready(function(){
 	});	
 
 	$("#makerecordtime").click(function(e) {
-//console.log('make recrod time');		
+		
 		e.preventDefault(e);
 		var attentionfocusin = $(e.target);	
 		var attentionfixall = {};
@@ -630,7 +629,7 @@ $(document).ready(function(){
 		}
 		else if (classclickedin== "exit-anaylsis")
 		{
-//console.log('exit anaysys mode');			
+			
 			$("#anlaysisid-" + attentionidlive).empty();
 			$("#chart-modal").empty();
 		}
@@ -709,7 +708,7 @@ $(document).ready(function(){
 	*/
 	// when you get a serialdata event, do this:
 	socketpi.on('stopwatchEvent', function (data) {
-//console.log('stopwach listenr socket');		
+		
 		serialin = JSON.parse(data.value);
 		inser = Object.keys(serialin);
 		inser.forEach(function(thein) {
@@ -745,7 +744,7 @@ $(document).ready(function(){
 	* listening of context Display Data
 	*/
 	socketpi.on('contextEventdisplay', function (contextdata) {
-//console.log('live event in');
+
 		var livedisplayin = '';
 		var dataelements = '';
 		var container = '';

@@ -80,7 +80,7 @@ viewtemplates.prototype.analysisPlacer = function(attentionidlive) {
 	swimdataelement += '</div>';
 	
 	swimdataelement += '<div class="clear" ></div>';
-	swimdataelement += '<div class="exit-anaylsis"><a  id="exit-analysis-' + attentionidlive + '" data-date-id="' + attentionidlive + '" data-identity-id="' + attentionidlive + '" class="exit-anaylsis">exit</a></div>';
+	swimdataelement += '<div class="exit-anaylsis"><a  id="exit-analysis-' + attentionidlive + '" data-date-id="' + attentionidlive + '" data-identity-id="' + attentionidlive + '" class="exit-anaylsis">close</a></div>';
 
 	$("#anlaysisid-" + attentionidlive).html(swimdataelement);
 	
@@ -126,12 +126,11 @@ viewtemplates.prototype.validateInteger = function(formdataIn) {
 
 	var numbervalid =  !isNaN(formdataIn) && parseInt(formdataIn) == formdataIn;
 	if(numbervalid == 1)
-	{
-//console.log(formdataIn);							
+	{				
 		// check length is greater than 1 ie got to have one digital 0 to 9
 		if(formdataIn.length > 0)
 		{
-//console.log('legh greater one');								
+								
 			var hourinpass = formdataIn;
 						
 		}		
