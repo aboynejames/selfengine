@@ -54,7 +54,6 @@ viewtemplates.prototype.summaryStatisticsbox = function(csslocationin, fixdatain
 	}
 	statsvisualisation += '</div>';
 	statsvisualisation += '<div class="clear"></div>';
-
 	$(csslocationin).html(statsvisualisation);		
 	
 };

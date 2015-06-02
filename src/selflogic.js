@@ -506,7 +506,6 @@ selfLogic.prototype.knowledgeDatacall = function() {
 			
 };
 
-
 /**
 * make email signin check call
 * @method emailsignin		

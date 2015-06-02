@@ -43,50 +43,50 @@ $(document).ready(function(){
 	connectWith: ".connectedSortable"
 	}).disableSelection();
 
-		$("a,#testswimmers").click(function(e) {
-			e.preventDefault(e);			
-			liveLogic.frameworklogic(this);
-		});
-		
-		$("button").click(function(e) {
-			e.preventDefault(e);			
-			idform = $(this).attr("id");		
-			switch(idform){
+	$("a,#testswimmers").click(function(e) {
+		e.preventDefault(e);			
+		liveLogic.frameworklogic(this);
+	});
+	
+	$("button").click(function(e) {
+		e.preventDefault(e);			
+		idform = $(this).attr("id");		
+		switch(idform){
+			
+			case"signinbutton":
+				// collect signin email and password
+				var emailin = $("#signinform.signin_form ul li input#emailin").val();
+				var passwordin = $("#signinform.signin_form ul li input#passwordin").val();
+				var cookieidhash = 123123123;
 				
-				case"signinbutton":
-					// collect signin email and password
-					var emailin = $("#signinform.signin_form ul li input#emailin").val();
-					var passwordin = $("#signinform.signin_form ul li input#passwordin").val();
-					var cookieidhash = 123123123;
+				liveLogic.emailsignincall(emailin, cookieidhash, passwordin);
+			
+			break;
+			
+			case"stopwatch-id-save":
+				// stopwatch id save
+				var stopwatchidin = $("#stopwatch-form input#stopwatch-id").val();		
+				// need TODO valide it is a string of number		 		
+				var buildsavestopw = {};
+				buildsavestopw.sensorid = stopwatchidin;	
+				buildsavestopw.sensortype = 'smart-stopwatch';			
+				liveLogic.swimdataCloud(buildsavestopw);
+
+			break;	
 					
-					liveLogic.emailsignincall(emailin, cookieidhash, passwordin);
-				
-				break;
-				
-				case"stopwatch-id-save":
-					// stopwatch id save
-					var stopwatchidin = $("#stopwatch-form input#stopwatch-id").val();		
-					// need TODO valide it is a string of number		 		
-					var buildsavestopw = {};
-					buildsavestopw.sensorid = stopwatchidin;	
-					buildsavestopw.sensortype = 'smart-stopwatch';			
-					liveLogic.swimdataCloud(buildsavestopw);
+			case"wearablebtsave":
+				// bluetooth tag ID number  
+				var databtigin = $("#wearable-form input#bluetoothtag").val();		
+				// need TODO valide it is a string of numbers
+				var buildsavebt = {};
+				buildsavebt.sensorid = databtigin;
+				buildsavebt.sensortype = 'bluetooth-tag';						
+				liveLogic.swimdataCloud(buildsavebt);
 
-				break;	
-						
-				case"wearablebtsave":
-					// bluetooth tag ID number  
-					var databtigin = $("#wearable-form input#bluetoothtag").val();		
-					// need TODO valide it is a string of numbers
-					var buildsavebt = {};
-					buildsavebt.sensorid = databtigin;
-					buildsavebt.sensortype = 'bluetooth-tag';						
-					liveLogic.swimdataCloud(buildsavebt);
-
-				
-				break;
-			}
-		});		
+			
+			break;
+		}
+	});		
 
 	$("#livedata").click(function(e) {
 		e.preventDefault(e);
@@ -97,7 +97,6 @@ $(document).ready(function(){
 		// need to see what context attention action e.g. select new group element or switch on comparison
 		var attentionclick = attentionfocusin.parent().attr('class');
 		var attentionidlive = attentionfocusin.attr('id');	
-
 /*
 		switch(attentionclick){
 			
@@ -366,53 +365,53 @@ $(document).ready(function(){
 				/*
 				* Validation of time inputs   form#newrecordtime ul.timeparts li input#hourholder
 				*/
-						var hourin = $("form#newrecordtime ul.timeparts li input#hourholder").val();	
-						var minutein = $("form#newrecordtime ul.timeparts li input#minuteholder").val();
-						var secondsin = $("form#newrecordtime ul.timeparts li input#secondsholder").val();
-						var hundredthsin = $("form#newrecordtime ul.timeparts li input#hundredthsholder").val();
-						// check two digit and the entries are numbers
-						var hourinpass = viewTemplates.validateInteger(hourin);			
-						var minutein = viewTemplates.validateInteger(minutein);	
-						var secondsin = viewTemplates.validateInteger(secondsin);							
-						var hundredthsin = viewTemplates.validateInteger(hundredthsin);	
-						
-						// if length greater two or value not between 00 and 59
-						if(hourinpass >= 0 && hourinpass <100)
-						{
-							var passhour = 1;						
-						}
-						else
-						{
-							timefeedback += '<b>Hour</b> value 0 and 99 ';
-							
-						}
-						if(minutein >= 0 && minutein <60)
-						{
-							var passminute = 1;							
-						}
-						else
-						{
-							timefeedback += '<b>minute</b> value 0 and 59 ';							
-						}						
-						if(secondsin >= 0 && secondsin <60)
-						{
-							var passseconds = 1;
-						}
-						else
-						{
-							timefeedback += '<b>seconds</b> value 0 and 59 ';							
-						}
-						if(hundredthsin >= 0 && hundredthsin <100)
-						{
-							var passhundredths = 1;							
-						}
-						else
-						{
-							timefeedback += '<b>Hundredths</b> value 0 and 99 ';
-							
-						}
-						
-					$("#timeformfeedback").html(timefeedback);	
+				var hourin = $("form#newrecordtime ul.timeparts li input#hourholder").val();	
+				var minutein = $("form#newrecordtime ul.timeparts li input#minuteholder").val();
+				var secondsin = $("form#newrecordtime ul.timeparts li input#secondsholder").val();
+				var hundredthsin = $("form#newrecordtime ul.timeparts li input#hundredthsholder").val();
+				// check two digit and the entries are numbers
+				var hourinpass = viewTemplates.validateInteger(hourin);			
+				var minutein = viewTemplates.validateInteger(minutein);	
+				var secondsin = viewTemplates.validateInteger(secondsin);							
+				var hundredthsin = viewTemplates.validateInteger(hundredthsin);	
+				
+				// if length greater two or value not between 00 and 59
+				if(hourinpass >= 0 && hourinpass <100)
+				{
+					var passhour = 1;						
+				}
+				else
+				{
+					timefeedback += '<b>Hour</b> value 0 and 99 ';
+					
+				}
+				if(minutein >= 0 && minutein <60)
+				{
+					var passminute = 1;							
+				}
+				else
+				{
+					timefeedback += '<b>minute</b> value 0 and 59 ';							
+				}						
+				if(secondsin >= 0 && secondsin <60)
+				{
+					var passseconds = 1;
+				}
+				else
+				{
+					timefeedback += '<b>seconds</b> value 0 and 59 ';							
+				}
+				if(hundredthsin >= 0 && hundredthsin <100)
+				{
+					var passhundredths = 1;							
+				}
+				else
+				{
+					timefeedback += '<b>Hundredths</b> value 0 and 99 ';
+					
+				}
+				
+			$("#timeformfeedback").html(timefeedback);	
 					
 			if(passhour == 1 &&  passminute == 1 && passseconds == 1 && passhundredths  == 1 && passdate == 1)
 			{			
@@ -588,7 +587,7 @@ $(document).ready(function(){
 		var accumdataSet = {};
 		var statisticsummarydata = {};
 		var container = '';
-		// set state in memory and URL string and set	
+		// set state in memory and URL string and set	TODO
 			
 		// what filters  (take into account historical state for UI/client)
 		// data source, memory, local or cloud
@@ -598,6 +597,7 @@ $(document).ready(function(){
 			
 		// what visualisation
 		// pick up context and visualisation option act realtime
+console.log(divclickedin);			
 		if(divclickedin == "historyfix" || divclickedin == "activity" || classclickedin == "feedback-fix" || classclickedin == "timefocus" || classclickedin == "visualisation-flow" )
 		{
 			var activefixstatus = $(".activity-id-" + attentionidlive).data("activity-status-id")
@@ -616,7 +616,7 @@ $(document).ready(function(){
 				statisticsummarydata = dataModel.statisticsDataprep(attentionidlive);
 				statisticscolorcode = dataModel.splitColorCode(d1chart[1]);		
 				var statisticsvisualisation = "#analysis-statistics-" + attentionidlive;
-			viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);		
+				viewTemplates.summaryStatisticsbox(statisticsvisualisation, d1chart, statisticsummarydata, statisticscolorcode);		
 			}
 			else
 			{

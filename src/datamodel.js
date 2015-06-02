@@ -204,7 +204,6 @@ datamodel.prototype.buildknowledgeFilter = function(knowledgeTempIn) {
 
 };
 
-
 /**
 * Return knowledge chain item
 * @method knowledgechainback
@@ -621,8 +620,8 @@ datamodel.prototype.statisticsDataprep = function(statsisin) {
 	// calculate the effort ratio best race time to
 	var effortperSplit = [];	
 	// does split exist
-
-	if(matchingCompetition != 0 && matchingCompetition.fastsplittimes.length > 0)
+console.log(matchingCompetition);
+	if(matchingCompetition.empty != "empty" && matchingCompetition.fastsplittimes.length > 0)
 	{
 		// split exist
 		effortperSplit = this.effortCalculation(livedatastats[statsisin], matchingCompetition.fastsplittimes);
