@@ -597,7 +597,6 @@ $(document).ready(function(){
 			
 		// what visualisation
 		// pick up context and visualisation option act realtime
-console.log(divclickedin);			
 		if(divclickedin == "historyfix" || divclickedin == "activity" || classclickedin == "feedback-fix" || classclickedin == "timefocus" || classclickedin == "visualisation-flow" )
 		{
 			var activefixstatus = $(".activity-id-" + attentionidlive).data("activity-status-id")
